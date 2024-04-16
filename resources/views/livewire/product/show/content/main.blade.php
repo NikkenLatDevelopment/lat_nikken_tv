@@ -73,6 +73,8 @@
                         </div>
                     @endif
                 </div>
+
+                <div>{!! $product['short_description'] !!}</div>
             </div>
         </div>
     </section>
