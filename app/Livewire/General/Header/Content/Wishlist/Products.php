@@ -41,40 +41,13 @@ class Products extends Component
         ->where('catalog_country_id', $country['id'])
         ->get()
         ->map(function($wishlist) use ($country) {
-            //Inicializar información
-            $available = 1;
-
-            //Obtener componentes
-            $components = ProductComponent::with('product')
-            ->where('parent_product_id', $wishlist->product->id)
-            ->get()
-            ->toArray();
-
-            if (count($components) > 0) {
-                //Recorrer componentes
-                foreach ($components as $component) {
-                    //Verificar inventario de los componentes
-                    if ($component['product']['stock'] <= 0 && $component['product']['stock_applies'] == 1) {
-                        //Marcar producto padre como no disponible
-                        $available = 0;
-                        break;
-                    }
-                }
-            } else {
-                //Verificar inventario del producto padre
-                if ($wishlist->product['stock'] <= 0 && $wishlist->product['stock_applies'] == 1) {
-                    //Marcar producto padre como no disponible
-                    $available = 0;
-                }
-            }
-
             return [
                 'slug' => $wishlist->product->slug,
                 'sku' => $wishlist->product->sku,
                 'name' => $wishlist->product->name,
                 'image' => env('STORAGE_PRODUCT_IMAGE_MAIN_PATH') . $wishlist->product->image,
                 'price' => formatPriceWithCurrency($wishlist->product->suggested_price, $country),
-                'available' => $available,
+                'available' => array_values($wishlist->product->getComponents())[0],
                 'rating' => $wishlist->product->rating_total,
             ];
         })

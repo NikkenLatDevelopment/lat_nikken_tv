@@ -114,4 +114,55 @@ class Product extends Model
         //Filtrar por estatus
         return $query->where('status', 1);
     }
+
+    public function getComponents() {
+        //Inicializar información
+        $componentsAvailable = [];
+        $componentsNotAvailable = [];
+        $available = 1;
+
+        //Obtener componentes
+        $components = ProductComponent::with('product')
+        ->where('parent_product_id', $this->id)
+        ->get()
+        ->toArray();
+
+        if (count($components) > 0) {
+            //Recorrer componentes
+            foreach ($components as $component) {
+                //Verificar inventario de los componentes
+                if ($component['product']['stock'] <= 0 && $component['product']['stock_applies'] == 1) {
+                    //Marcar producto padre como no disponible
+                    $available = 0;
+
+                    //Guardar componentes no disponibles
+                    $componentsNotAvailable[] = [
+                        'sku' => $component['product']['sku'],
+                        'name' => $component['product']['name'],
+                        'date' => $component['product']['available_until'] == null
+                            ? 'Sin fecha estimada de disponibilidad'
+                            : formatDateInSpanishLocale($component['product']['available_until']),
+                    ];
+                } else {
+                    //Guardar componentes disponibles
+                    $componentsAvailable[] = [
+                        'sku' => $component['product']['sku'],
+                        'name' => $component['product']['name'],
+                    ];
+                }
+            }
+        } else {
+            //Verificar inventario del producto padre
+            if ($this->stock <= 0 && $this->stock_applies == 1) {
+                //Marcar producto padre como no disponible
+                $available = 0;
+            }
+        }
+
+        return [
+            'available' => $available,
+            'componentsAvailable' => $componentsAvailable,
+            'componentsNotAvailable' => $componentsNotAvailable
+        ];
+    }
 }
