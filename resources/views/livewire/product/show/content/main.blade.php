@@ -22,10 +22,64 @@
     <section class="container mt-4">
         <div class="row">
             <div class="col-12 col-lg-6">
+                <div class="position-relative carousel" wire:ignore>
+                    <span class="position-absolute top-0 end-0 p-3"><i class="fi-rs-search h5 opacity-50"></i></span>
+
+                    <div class="border border-secondary rounded-4 mb-3 carousel-slider"> @foreach ($images as $image) <figure><img src="{{ $image }}" class="img-fluid" alt="{{ $product['name'] }}" data-fancybox="galeria" /></figure> @endforeach </div>
+                    <div class="carousel-thumbnail"> @if (count($images) > 1) @foreach ($images as $image) <figure><img src="{{ $image }}" class="img-fluid" alt="{{ $product['name'] }}" /></figure> @endforeach @endif </div>
+                </div>
             </div>
 
             <div class="col-12 col-lg-6">
             </div>
         </div>
     </section>
+
+    @script
+        <script type="module">
+            $('.product .carousel-slider').slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false,
+                fade: false,
+                asNavFor: '.product .carousel-thumbnail',
+            });
+
+            $('.product .carousel-thumbnail').slick({
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                asNavFor: '.product .carousel-slider',
+                dots: false,
+                focusOnSelect: true,
+                prevArrow: '<button type="button" class="slick-prev"><i class="fi-rs-arrow-small-left"></i></button>',
+                nextArrow: '<button type="button" class="slick-next"><i class="fi-rs-arrow-small-right"></i></button>',
+                responsive: [
+                    {
+                        breakpoint: 1200,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 1
+                        },
+                    },
+                    {
+                        breakpoint: 992,
+                        settings: {
+                            slidesToShow: 4,
+                            slidesToScroll: 1
+                        },
+                    },
+                    {
+                        breakpoint: 576,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            });
+
+            Fancybox.bind('.product [data-fancybox="galeria"]', { Thumbs: false });
+            Fancybox.bind('.product [data-fancybox="videos"]', { Thumbs: false });
+        </script>
+    @endscript
 </div>

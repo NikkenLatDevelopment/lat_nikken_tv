@@ -3,6 +3,7 @@
 namespace App\Livewire\Product\Show\Content;
 
 use Livewire\Component;
+use App\Models\ProductImage;
 use Livewire\Attributes\Locked;
 use App\Models\SessionController;
 
@@ -13,6 +14,9 @@ class Main extends Component
 
     #[Locked]
     public array $product = [];
+
+    #[Locked]
+    public array $images = [];
 
     #[Locked]
     public string $currentUrl;
@@ -41,5 +45,24 @@ class Main extends Component
         //Inicializar información
         $this->product = $product;
         $this->product_id = $product['id'];
+
+        //Obtener imágenes
+        $this->getImages();
+    }
+
+    public function getImages() {
+        //Obtener imágenes
+        $this->images = ProductImage::select('image')
+        ->where('product_id', $this->product_id)
+        ->get()
+        ->map(function ($image) {
+            $image->image = env('STORAGE_PRODUCT_IMAGE_THUMBNAIL_PATH') . $image->image;
+            return $image;
+        })
+        ->pluck('image')
+        ->toArray();
+
+        //Agregar imagen principal
+        array_unshift($this->images, env('STORAGE_PRODUCT_IMAGE_MAIN_PATH') . $this->product['image']);
     }
 }

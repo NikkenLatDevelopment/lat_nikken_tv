@@ -84,6 +84,7 @@ class Menu extends Component
                         : $campaign->redirect_url
                     )
                 ),
+
                 'name' => $campaign->name
             ];
         })->toArray();
