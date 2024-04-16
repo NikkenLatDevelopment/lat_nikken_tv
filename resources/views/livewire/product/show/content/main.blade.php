@@ -36,6 +36,22 @@
                 @else
                     <div class="mb-2"><span class="badge text-warning border border-2 border-warning py-2">Entrega Postergada</span></div>
                 @endif
+
+                <div class="row">
+                    <div class="col"><h1 class="text-dark fw-bold mt-1 mb-0">{{ $product['name'] }}</h1></div>
+
+                    <div class="col-auto" x-data="{ isFavorite: @entangle('isFavorite') }">
+                        @if (auth()->check())
+                            <button class="btn btn-link text-decoration-none" :class="{ 'text-dark': !isFavorite, 'text-success': isFavorite }" x-on:click="isFavorite = !isFavorite" wire:click="favorite" wire:loading.attr="disabled" wire:target="favorite">
+                                <i class="h1 fi" :class="{ 'fi-rr-heart': !isFavorite, 'fi-sr-heart': isFavorite }"></i>
+                            </button>
+                        @else
+                            <a href="{{ Route('login') }}" class="btn btn-link text-dark text-decoration-none">
+                                <i class="h1 fi fi-rr-heart"></i>
+                            </a>
+                        @endif
+                    </div>
+                </div>
             </div>
         </div>
     </section>

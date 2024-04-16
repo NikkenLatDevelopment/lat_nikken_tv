@@ -25,5 +25,7 @@
 
         @vite([ 'resources/js/app.js' ])
         @stack('scripts')
+
+        <x-general.tools.toast />
     </body>
 </html>

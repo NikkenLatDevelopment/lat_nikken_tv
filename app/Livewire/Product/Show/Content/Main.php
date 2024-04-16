@@ -7,6 +7,7 @@ use App\Models\ProductImage;
 use Livewire\Attributes\Locked;
 use App\Models\ProductComponent;
 use App\Models\SessionController;
+use Illuminate\Support\Facades\Auth;
 
 class Main extends Component
 {
@@ -37,6 +38,8 @@ class Main extends Component
     #[Locked]
     public int $available = 1;
 
+    public bool $isFavorite = false;
+
     public function render()
     {
         //Mostrar vista
@@ -64,6 +67,9 @@ class Main extends Component
 
         //Obtener componentes
         $this->getComponents();
+
+        //Obtener favorito
+        $this->getFavorite();
     }
 
     public function getImages() {
@@ -119,6 +125,54 @@ class Main extends Component
                 //Marcar producto padre como no disponible
                 $this->available = 0;
             }
+        }
+    }
+
+    public function getFavorite() {
+        //Obtener información del usuario
+        $user = Auth::user();
+        if (!$user) { return; }
+
+        //Consultar si se encuentra en los productos favoritos
+        $wishlist = $user->wishlists()
+        ->where('catalog_country_id', $this->country['id'])
+        ->where('product_id', $this->product_id)
+        ->first();
+
+        //Verificar si se encuentra en los favoritos
+        $this->isFavorite = $wishlist ? true : false;
+    }
+
+    public function favorite() {
+        //Obtener información del usuario
+        $user = Auth::user();
+        if (!$user) { return; }
+
+        //Consultar si se encuentra en los productos favoritos
+        $wishlist = $user->wishlists()
+        ->where('catalog_country_id', $this->country['id'])
+        ->where('product_id', $this->product_id)
+        ->first();
+
+        if ($this->isFavorite) {
+            if (!$wishlist) {
+                //Guardar producto en los favoritos
+                $user->wishlists()->create([
+                    'catalog_country_id' => $this->country['id'],
+                    'product_id' => $this->product_id
+                ]);
+            }
+
+            //Mostrar mensaje
+            $this->dispatch('showToast', message: 'Producto <span class="fw-bold"><u>agregado</u></span> a tu lista de deseos.', color: 'success');
+        } else {
+            if ($wishlist) {
+                //Eliminar producto
+                $wishlist->delete();
+            }
+
+            //Mostrar mensaje
+            $this->dispatch('showToast', message: 'Producto <span class="fw-bold"><u>eliminado</u></span> de tu lista de deseos.', color: 'dark');
         }
     }
 }
