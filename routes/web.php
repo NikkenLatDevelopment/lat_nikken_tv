@@ -72,6 +72,10 @@ Route::middleware([ DetermineUserLocation::class ])->group(function () {
     Route::get('/productos/{brandSlug}/{productSlug}', [ ProductController::class, 'show' ])->name('product.show');
     //Producto
 
+    //Productos //TODO: !!!! Pendiente
+    Route::get('/productos', function () { echo 'Hello World - product.index'; })->name('product.index');
+    //Productos //TODO: !!!! Pendiente
+
     //Eliminar // ! TODO: !!!! Eliminar
     Route::get('/temporal', [ TemporalController::class, 'index' ]);
     Route::get('/temporal/logout', [ TemporalController::class, 'logout' ]);

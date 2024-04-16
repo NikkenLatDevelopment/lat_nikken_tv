@@ -167,10 +167,14 @@ button, a {
     }
 }
 
-.wishlist{
-    .products{
-        img{
+.wishlist {
+    .products {
+        img {
             max-width: 90px;
+        }
+
+        .empty {
+            height: calc(100vh - 140px);
         }
     }
 }
