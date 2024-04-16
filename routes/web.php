@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\DetermineUserLocation;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware([ DetermineUserLocation::class ])->group(function () {
+    //Inicio //TODO: !!!! Pendiente
+    Route::get('/', function () { echo 'Hello World - home'; })->name('home');
+    //Inicio //TODO: !!!! Pendiente
 });
