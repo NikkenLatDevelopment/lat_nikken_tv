@@ -10,7 +10,7 @@ use Livewire\Attributes\Locked;
 class ClosingMessage extends Component
 {
     #[Locked]
-    public string $message;
+    public string $closedMessage;
 
     public function render()
     {
@@ -27,7 +27,7 @@ class ClosingMessage extends Component
 
         if ($catalogCountry) {
             //Guardar mensaje
-            $this->message = $catalogCountry->closed_message;
+            $this->closedMessage = $catalogCountry->closed_message;
 
             //Mostrar modal
             $this->dispatch('countryIndexModalClosingMessage');

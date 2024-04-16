@@ -4,7 +4,7 @@
             <div class="modal-content border border-4 border-secondary rounded-4 overflow-hidden">
                 <div class="modal-body p-4">
                     <div class="position-absolute top-0 end-0 p-2"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button></div>
-                    {!! $message !!}
+                    {!! $closedMessage !!}
                 </div>
             </div>
         </div>
