@@ -41,6 +41,7 @@ class Products extends Component
         ->where('catalog_country_id', $country['id'])
         ->get()
         ->map(function($wishlist) use ($country) {
+            //Inicializar información
             $available = 1;
 
             //Obtener componentes

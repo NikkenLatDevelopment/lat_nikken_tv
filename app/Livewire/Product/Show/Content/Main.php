@@ -23,9 +23,6 @@ class Main extends Component
     public array $images = [];
 
     #[Locked]
-    public array $components = [];
-
-    #[Locked]
     public array $componentsAvailable = [];
 
     #[Locked]
@@ -110,14 +107,14 @@ class Main extends Component
 
     public function getComponents() {
         //Obtener componentes
-        $this->components = ProductComponent::with([ 'product' => fn ($query) => $query->select('id', 'sku', 'name', 'stock', 'stock_applies', 'available_until') ])
+        $components = ProductComponent::with('product')
         ->where('parent_product_id', $this->product_id)
         ->get()
         ->toArray();
 
-        if (count($this->components) > 0) {
+        if (count($components) > 0) {
             //Recorrer componentes
-            foreach ($this->components as $component) {
+            foreach ($components as $component) {
                 //Verificar inventario de los componentes
                 if ($component['product']['stock'] <= 0 && $component['product']['stock_applies'] == 1) {
                     //Marcar producto padre como no disponible

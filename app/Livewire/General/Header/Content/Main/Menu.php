@@ -37,7 +37,7 @@ class Menu extends Component
     public function getCatalogProductBrands(int $catalog_country_id) {
         //Obtener catálogo de marcas de los productos
         $this->catalogProductBrands = CatalogProductBrand::select('slug', 'name', 'alias')
-        ->whereHas('products', function ($query) use($catalog_country_id) { $query->active($catalog_country_id); })
+        ->whereHas('products', fn ($query) => $query->active($catalog_country_id))
         ->status()
         ->get()
         ->toArray();
@@ -45,26 +45,22 @@ class Menu extends Component
 
     public function getCampaigns(int $catalog_country_id) {
         //Obtener las campañas con redirección
-        $campaigns = Campaign::select('id', 'slug', 'name', 'redirect_url', 'public_access')
-        ->whereHas('campaignUserTypes.catalogUserType', function ($query) {
-            $query->when(auth()->check(), function ($query) {
-                $query->where('id', auth()->user()->catalog_user_type_id);
-            }, function ($query) {
-                $query->where('id', 1);
-            })->status();
+        $campaigns = Campaign::whereHas('campaignUserTypes.catalogUserType', function ($query) {
+            $query->when(auth()->check(),
+                fn ($query) => $query->where('id', auth()->user()->catalog_user_type_id),
+                fn ($query) => $query->where('id', 1)
+            )->status();
         })
         ->active($catalog_country_id)
         ->whereNotNull('redirect_url');
 
-        //Obtener las campañas sin redirección
-        $campaigns = Campaign::select('id', 'slug', 'name', 'redirect_url', 'public_access')
-        ->whereHas('campaignProducts.product', function ($query) use($catalog_country_id) { $query->active($catalog_country_id); })
+        //Obtener las campañas sin redirección y consolidar
+        $this->campaigns = Campaign::whereHas('campaignProducts.product', fn ($query) => $query->active($catalog_country_id))
         ->whereHas('campaignUserTypes.catalogUserType', function ($query) {
-            $query->when(auth()->check(), function ($query) {
-                $query->where('id', auth()->user()->catalog_user_type_id);
-            }, function ($query) {
-                $query->where('id', 1);
-            })->status();
+            $query->when(auth()->check(),
+                fn ($query) => $query->where('id', auth()->user()->catalog_user_type_id),
+                fn ($query) => $query->where('id', 1)
+            )->status();
         })
         ->active($catalog_country_id)
         ->whereNull('redirect_url')
@@ -88,8 +84,5 @@ class Menu extends Component
                 'name' => $campaign->name
             ];
         })->toArray();
-
-        //Inicializar campañas
-        $this->campaigns = $campaigns;
     }
 }
