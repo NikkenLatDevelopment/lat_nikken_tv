@@ -1,0 +1,169 @@
+//Variables
+@import 'variables.scss';
+
+//Fuentes
+@import url('https://fonts.bunny.net/css?family=lato:400,700,900|quicksand:400,500,600,700');
+
+//Bootstrap
+@import 'bootstrap/scss/bootstrap';
+$font-size-sm: calc($font-size-base - 1px);
+
+//Iconos
+@import '@flaticon/flaticon-uicons/css/all/all';
+@import "@fortawesome/fontawesome-free/css/all.css";
+
+//Animaciones
+@import 'animate.css';
+@import 'animations.scss';
+
+::selection {
+    background-color: $success;
+    color: white;
+}
+
+.link-dark:hover, .link-dark:focus {
+    color: $success !important;
+    text-decoration-color: $success !important;
+}
+
+h1, h2, h3, h4, h5, h6, .badge {
+    font-family: $font-family-secondary;
+}
+
+.text-muted {
+    color: #666666 !important;
+}
+
+button, a {
+    transition: all .18s ease 0s, text-decoration .18s ease 0s;
+}
+
+.form-floating > label {
+    padding: 0.80rem 0.75rem;
+}
+
+.form-floating > .form-control:focus ~ label, .form-floating > .form-control:not(:placeholder-shown) ~ label, .form-floating > .form-control-plaintext ~ label, .form-floating > .form-select ~ label {
+    transform: scale(0.85) translateY(-0.3rem) translateX(0.15rem);
+}
+
+.dropdown-toggle::after {
+    content: "\f13c";
+    font-family: uicons-regular-rounded !important;
+    font-size: $font-size-base;
+    border: none !important;
+    position: relative;
+    top: 1px;
+}
+
+.header {
+    .search {
+        i {
+            &.fi {
+                top: 3px;
+            }
+        }
+    }
+
+    .profile {
+        right: -4px;
+
+        .name {
+            max-width: 160px;
+        }
+    }
+
+    .menu {
+        nav > ul > li {
+            position: relative;
+            display: inline-block;
+
+            a {
+                i {
+                    top: 1px;
+
+                    &.fi-rr-angle-small-down {
+                        top: 4px;
+                    }
+                }
+            }
+
+            &:hover ul.sub-menu {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            ul.sub-menu {
+                width: max-content;
+                top: 100%;
+                transition: all 0.25s ease 0s;
+                box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
+                opacity: 0;
+                visibility: hidden;
+                z-index: 1;
+                padding: 15px 0;
+
+                li {
+                    padding: 8px 28px 8px 23px;
+                    border-left: 2px solid white;
+                    transition: all 0.25s ease 0s;
+
+                    a {
+                        font-size: $font-size-sm;
+
+                        .subtitle {
+                            padding-top: 3px;
+                        }
+                    }
+
+                    &:hover {
+                        border-left: 2px solid $success;
+                        cursor: pointer;
+
+                        a {
+                            color: $success !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .menu-responsive {
+        .accordion {
+            .accordion-item {
+                &.not-sub-menu {
+                    .accordion-button::after {
+                        background-image: none;
+                    }
+                }
+
+                .accordion-collapse {
+                    .accordion-body {
+                        ul.sub-menu {
+                            li {
+                                a {
+                                    font-size: $font-size-sm;
+
+                                    .subtitle {
+                                        padding-top: 3px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.custom {
+    &.bell-1 {
+        -webkit-animation: bellRing 4s .7s ease-in-out infinite;
+        -webkit-transform-origin: 50% 4px;
+        -moz-animation: bellRing 4s .7s ease-in-out infinite;
+        -moz-transform-origin: 50% 4px;
+        animation: bellRing 4s .7s ease-in-out infinite;
+        transform-origin: 50% 4px;
+    }
+}

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CountryController;
 use App\Http\Middleware\DetermineUserLocation;
 
 /*
@@ -13,6 +14,11 @@ use App\Http\Middleware\DetermineUserLocation;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+//Seleccionar país
+Route::get('/pais/{countryId}', [ CountryController::class, 'update' ])->name('country.update');
+Route::get('/pais', [ CountryController::class, 'index' ])->name('country.index');
+//Seleccionar país
 
 Route::middleware([ DetermineUserLocation::class ])->group(function () {
     //Inicio //TODO: !!!! Pendiente

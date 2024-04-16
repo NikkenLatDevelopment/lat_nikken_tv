@@ -1,0 +1,85 @@
+//Estilos generales
+@import 'app.scss';
+
+//Carousel
+@import 'slick-carousel/slick/slick.scss';
+
+//Visor de imágenes
+@import "@fancyapps/ui/dist/fancybox/fancybox.css";
+
+.product{
+    .badge{
+        font-size: $font-size-sm;
+    }
+
+    .carousel{
+        .carousel-slider{
+            cursor: zoom-in;
+        }
+
+        .carousel-thumbnail{
+            cursor: pointer;
+
+            .slick-slide{
+                margin: 0 3px;
+            }
+
+            .slick-slide{
+                img {
+                    border-radius: 15px;
+                    background-color: $light;
+                    border: 2px solid $light;
+                }
+
+                &.slick-current{
+                    img {
+                        border: 2px solid $success;
+                    }
+                }
+            }
+
+            button{
+                &.slick-arrow{
+                    margin: 0;
+                    border: 0;
+                    background: $gray-200;
+                    border-radius: 40px;
+                    width: 40px;
+                    height: 40px;
+                    line-height: 44px;
+                    font-size: 1.6rem;
+                    z-index: 9;
+                    color: $body-color;
+                    transition: all .18s ease 0s;
+
+                    &:hover {
+                        color: white;
+                        background-color: $success;
+                    }
+                }
+
+                &.slick-arrow.slick-prev{
+                    left: 10px;
+                }
+
+                &.slick-arrow.slick-next{
+                    right: 10px;
+                }
+            }
+
+            .slick-prev, .slick-next{
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+    }
+}
+
+@media (max-width: 767.98px) {
+    .product{
+        .badge{
+            font-size: $badge-font-size;
+        }
+    }
+}

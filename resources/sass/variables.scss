@@ -1,0 +1,24 @@
+//General
+$font-family-secondary: "Quicksand", sans-serif;
+
+//Bootstrap
+$form-floating-height: 3.3rem;
+$font-family-base: "Lato", sans-serif;
+$line-height-base: 1.47;
+$body-color: #7E7E7E;
+$primary: $body-color;
+$warning: #FFB200;
+$success: #2AA56C;
+$dark: #253D4E;
+$light: #F6F8FA;
+$secondary: #ececec;
+$btn-close-focus-shadow: 0 0 0 0.25rem rgba($success, 0.25);
+$tooltip-bg: $success;
+$tooltip-border-radius: 20px;
+$pagination-border-radius-sm: 8px;
+$dropdown-border-radius: 15px;
+$dropdown-border-color: $secondary;
+$dropdown-link-hover-color: $success;
+$dropdown-link-hover-bg:  rgba($success, 0.08);
+$input-focus-border-color: rgba($success, 0.20);
+$input-focus-box-shadow: 0 0 0 0.15rem rgba($success, 0.11);
