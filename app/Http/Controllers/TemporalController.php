@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\Auth;
 class TemporalController extends Controller
 {
     public function index() {
-        //Iniciar sesión
+        //Iniciar sesión //! Eliminar
         Auth::loginUsingId(1);
-        //Iniciar sesión
+        //Iniciar sesión //! Eliminar
     }
 
     public function logout() {
-        //Cerrar sesión
+        //Cerrar sesión //! Eliminar
         Auth::logout();
-        //Cerrar sesión
+        //Cerrar sesión //! Eliminar
     }
 }
