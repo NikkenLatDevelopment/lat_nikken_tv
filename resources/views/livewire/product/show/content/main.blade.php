@@ -32,9 +32,9 @@
 
             <div class="col-12 col-lg-6">
                 @if ($available == 1)
-                    <div><span class="badge text-success border border-2 border-success py-2">Disponible</span></div>
+                    <div class="badge text-success border border-2 border-success py-2">Disponible</div>
                 @else
-                    <div><span class="badge text-warning border border-2 border-warning py-2">Entrega Postergada</span></div>
+                    <div class="badge text-warning border border-2 border-warning py-2">Entrega Postergada</div>
                 @endif
 
                 <div class="row d-flex align-items-center">

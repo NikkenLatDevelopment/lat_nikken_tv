@@ -167,6 +167,14 @@ button, a {
     }
 }
 
+.wishlist{
+    .products{
+        img{
+            max-width: 90px;
+        }
+    }
+}
+
 .custom {
     &.bell-1 {
         -webkit-animation: bellRing 4s .7s ease-in-out infinite;

@@ -62,7 +62,7 @@ class Products extends Component
                 }
             } else {
                 //Verificar inventario del producto padre
-                if ($this->product['stock'] <= 0 && $this->product['stock_applies'] == 1) {
+                if ($wishlist->product['stock'] <= 0 && $wishlist->product['stock_applies'] == 1) {
                     //Marcar producto padre como no disponible
                     $available = 0;
                 }
@@ -73,8 +73,9 @@ class Products extends Component
                 'sku' => $wishlist->product->sku,
                 'name' => $wishlist->product->name,
                 'image' => env('STORAGE_PRODUCT_IMAGE_MAIN_PATH') . $wishlist->product->image,
-                'textSuggestedPrice' => formatPriceWithCurrency($wishlist->product->suggested_price, $country),
-                'available' => $available
+                'price' => formatPriceWithCurrency($wishlist->product->suggested_price, $country),
+                'available' => $available,
+                'rating' => $wishlist->product->rating_total,
             ];
         })
         ->toArray();
