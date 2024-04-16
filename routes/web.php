@@ -36,7 +36,7 @@ Route::middleware([ DetermineUserLocation::class ])->group(function () {
     //Registro //TODO: !!!! Pendiente
 
     //Contacto //TODO: !!!! Pendiente
-    Route::get('/contacto', function () { echo 'Hello World - contact.index'; })->name('contact.index');
+    Route::get('/contacto', function () { echo 'Hello World - contact.show'; })->name('contact.show');
     //Contacto //TODO: !!!! Pendiente
 
     //Buscar producto //TODO: !!!! Pendiente
