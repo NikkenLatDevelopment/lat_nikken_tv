@@ -110,7 +110,7 @@ class Main extends Component
 
     public function getComponents() {
         //Obtener componentes
-        $this->components = ProductComponent::with([ 'product' => function ($query) { $query->select('id', 'sku', 'name', 'stock', 'stock_applies', 'available_until'); } ])
+        $this->components = ProductComponent::with([ 'product' => fn ($query) => $query->select('id', 'sku', 'name', 'stock', 'stock_applies', 'available_until') ])
         ->where('parent_product_id', $this->product_id)
         ->get()
         ->toArray();

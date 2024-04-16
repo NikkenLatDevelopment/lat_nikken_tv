@@ -1,5 +1,5 @@
 <div>
     @foreach ($products as $product)
-        {{ $product['id'] }}
+        {{ $product['name'] }}
     @endforeach
 </div>
