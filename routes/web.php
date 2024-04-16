@@ -33,7 +33,7 @@ Route::middleware([ DetermineUserLocation::class ])->group(function () {
     //Iniciar Sesión //TODO: !!!! Pendiente
 
     //Registro //TODO: !!!! Pendiente
-    Route::get('/registro', function () { echo 'Hello World - auth.create'; })->name('auth.create');
+    Route::get('/registrarme', function () { echo 'Hello World - auth.create'; })->name('auth.create');
     //Registro //TODO: !!!! Pendiente
 
     //Cerrar sesión
@@ -45,7 +45,7 @@ Route::middleware([ DetermineUserLocation::class ])->group(function () {
     //Contacto //TODO: !!!! Pendiente
 
     //Buscar producto //TODO: !!!! Pendiente
-    Route::get('/busqueda/{search}', function () { echo 'Hello World - search.show'; })->name('search.show');
+    Route::get('/buscar/{search}', function () { echo 'Hello World - search.show'; })->name('search.show');
     //Buscar producto //TODO: !!!! Pendiente
 
     //Campaña //TODO: !!!! Pendiente
