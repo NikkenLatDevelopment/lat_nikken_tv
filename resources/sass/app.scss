@@ -30,8 +30,16 @@ h1, h2, h3, h4, h5, h6, .badge {
     font-family: $font-family-secondary;
 }
 
+small, .small {
+    font-size: 0.9em;
+}
+
 .text-muted {
     color: #666666 !important;
+}
+
+.badge{
+    font-size: calc($font-size-sm - 2px);
 }
 
 button, a {
@@ -56,6 +64,12 @@ button, a {
 }
 
 .header {
+    .country {
+        .name {
+            top: 1px;
+        }
+    }
+
     .search {
         i {
             &.fi {
@@ -108,8 +122,6 @@ button, a {
                     transition: all 0.25s ease 0s;
 
                     a {
-                        font-size: $font-size-sm;
-
                         .subtitle {
                             padding-top: 3px;
                         }
@@ -142,8 +154,6 @@ button, a {
                         ul.sub-menu {
                             li {
                                 a {
-                                    font-size: $font-size-sm;
-
                                     .subtitle {
                                         padding-top: 3px;
                                     }

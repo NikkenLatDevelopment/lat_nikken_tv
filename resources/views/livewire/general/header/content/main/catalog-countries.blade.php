@@ -1,7 +1,7 @@
 <div>
-    <div class="dropdown">
+    <div class="dropdown country">
         <button class="btn btn-sm btn-link dropdown-toggle link-success text-decoration-none lh-1 d-flex align-items-center p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="{{ asset('assets/img/countries/' . $country['code'] . '.png') }}" srcset="{{ asset('assets/img/countries/' . $country['code'] . '-2x.png') }} 2x" class="img-fluid me-2" alt="Bandera de {{ $country['name'] }}"> {{ $country['name'] }}
+            <img src="{{ asset('assets/img/countries/' . $country['code'] . '.png') }}" srcset="{{ asset('assets/img/countries/' . $country['code'] . '-2x.png') }} 2x" class="img-fluid me-2" alt="Bandera de {{ $country['name'] }}"> <span class="position-relative name">{{ $country['name'] }}</span>
         </button>
 
         <ul class="dropdown-menu overflow-hidden animate__animated animate__fadeIn animate__faster">
