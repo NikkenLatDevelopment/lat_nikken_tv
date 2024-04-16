@@ -62,6 +62,17 @@
                     <span class="small text-black-50 opacity-75 me-1">Código:</span>
                     <span class="h6 text-dark fw-bold mb-0">{{ $product['sku'] }}</span>
                 </div>
+
+                <div class="row gx-3 align-items-center mb-2">
+                    <div class="col-auto"><span class="h1 text-success fw-bold mb-0">{{ $textSuggestedPrice }}</span></div>
+
+                    @if (count($this->parentProduct) > 0)
+                        <div class="col">
+                            <div class="h6 small text-success fw-semibold lh-1 mb-0">{{ $this->parentProduct['percentage_difference'] }}% off</div>
+                            <div class="h6 text-black-50 fw-bold opacity-50 text-decoration-line-through mb-0">{{ $this->parentProduct['text_suggested_price'] }}</div>
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
     </section>

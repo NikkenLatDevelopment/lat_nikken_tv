@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Product\Show\Content;
 
+use App\Models\Product;
 use Livewire\Component;
 use App\Models\ProductImage;
 use App\Models\ProductReview;
@@ -31,6 +32,9 @@ class Main extends Component
     public array $componentsNotAvailable = [];
 
     #[Locked]
+    public array $parentProduct = [];
+
+    #[Locked]
     public string $currentUrl;
 
     #[Locked]
@@ -41,6 +45,9 @@ class Main extends Component
 
     #[Locked]
     public int $reviewsTotal = 0;
+
+    #[Locked]
+    public string $textSuggestedPrice;
 
     public bool $isFavorite = false;
 
@@ -66,6 +73,9 @@ class Main extends Component
         $this->product = $product;
         $this->product_id = $product['id'];
 
+        //Formatear precio sugerido
+        $this->textSuggestedPrice = formatPriceWithCurrency($product['suggested_price'], $this->country);
+
         //Obtener imágenes
         $this->getImages();
 
@@ -74,6 +84,9 @@ class Main extends Component
 
         //Obtener favorito
         $this->getFavorite();
+
+        //Obtener información del producto padre
+        if ($product['parent_product_id'] != null) { $this->getParentProduct(); }
 
         //Obtener total de reviews
         $this->getTotalReviews();
@@ -194,5 +207,19 @@ class Main extends Component
         $this->reviewsTotal = ProductReview::where('product_id', $this->product['parent_product_id'] != null ? $this->parentProduct['id'] : $this->product_id)
         ->status()
         ->count();
+    }
+
+    public function getParentProduct() {
+        //Obtener información del producto padre
+        $parentProduct = Product::select('id', 'suggested_price')
+        ->find($this->product['parent_product_id']);
+
+        if ($parentProduct) {
+            //Complementar información
+            $this->parentProduct = array_merge($parentProduct->toArray(), [
+                'text_suggested_price' => formatPriceWithCurrency($parentProduct['suggested_price'], $this->country),
+                'percentage_difference' => number_format(100 - (($this->product['suggested_price'] * 100) / $parentProduct['suggested_price']), 0),
+            ]);
+        }
     }
 }
