@@ -5,6 +5,7 @@ namespace App\Livewire\Product\Show\Content;
 use Livewire\Component;
 use App\Models\ProductImage;
 use Livewire\Attributes\Locked;
+use App\Models\ProductComponent;
 use App\Models\SessionController;
 
 class Main extends Component
@@ -19,10 +20,22 @@ class Main extends Component
     public array $images = [];
 
     #[Locked]
+    public array $components = [];
+
+    #[Locked]
+    public array $componentsAvailable = [];
+
+    #[Locked]
+    public array $componentsNotAvailable = [];
+
+    #[Locked]
     public string $currentUrl;
 
     #[Locked]
     public int $product_id;
+
+    #[Locked]
+    public int $available = 1;
 
     public function render()
     {
@@ -48,6 +61,9 @@ class Main extends Component
 
         //Obtener imágenes
         $this->getImages();
+
+        //Obtener componentes
+        $this->getComponents();
     }
 
     public function getImages() {
@@ -64,5 +80,45 @@ class Main extends Component
 
         //Agregar imagen principal
         array_unshift($this->images, env('STORAGE_PRODUCT_IMAGE_MAIN_PATH') . $this->product['image']);
+    }
+
+    public function getComponents() {
+        //Obtener componentes
+        $this->components = ProductComponent::with([ 'product' => function ($query) { $query->select('id', 'sku', 'name', 'stock', 'stock_applies', 'available_until'); } ])
+        ->where('parent_product_id', $this->product_id)
+        ->get()
+        ->toArray();
+
+        if (count($this->components) > 0) {
+            //Recorrer componentes
+            foreach ($this->components as $component) {
+                //Verificar inventario de los componentes
+                if ($component['product']['stock'] <= 0 && $component['product']['stock_applies'] == 1) {
+                    //Marcar producto padre como no disponible
+                    $this->available = 0;
+
+                    //Guardar componentes no disponibles
+                    $this->componentsNotAvailable[] = [
+                        'sku' => $component['product']['sku'],
+                        'name' => $component['product']['name'],
+                        'date' => $component['product']['available_until'] == null
+                            ? 'Sin fecha estimada de disponibilidad'
+                            : formatDateInSpanishLocale($component['product']['available_until']),
+                    ];
+                } else {
+                    //Guardar componentes disponibles
+                    $this->componentsAvailable[] = [
+                        'sku' => $component['product']['sku'],
+                        'name' => $component['product']['name'],
+                    ];
+                }
+            }
+        } else {
+            //Verificar inventario del producto padre
+            if ($this->product['stock'] <= 0 && $this->product['stock_applies'] == 1) {
+                //Marcar producto padre como no disponible
+                $this->available = 0;
+            }
+        }
     }
 }

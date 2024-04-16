@@ -31,6 +31,11 @@
             </div>
 
             <div class="col-12 col-lg-6">
+                @if ($available == 1)
+                    <div class="mb-2"><span class="badge text-success border border-2 border-success py-2">Disponible</span></div>
+                @else
+                    <div class="mb-2"><span class="badge text-warning border border-2 border-warning py-2">Entrega Postergada</span></div>
+                @endif
             </div>
         </div>
     </section>
