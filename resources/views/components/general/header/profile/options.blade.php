@@ -3,6 +3,6 @@
     <li><a href="#" class="dropdown-item d-flex align-items-center"><i class="fi fi-rr-angle-small-right me-1"></i> Mi Cuenta</a></li>
     <li><a href="#" class="dropdown-item d-flex align-items-center"><i class="fi fi-rr-angle-small-right me-1"></i> Seguimiento de Pedido</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a href="#" class="dropdown-item d-flex align-items-center" wire:click.prevent="logout"><i class="fi fi-rr-angle-small-right me-1"></i> Cerrar Sesión</a></li>
+    <li><a href="{{ route('auth.destroy') }}" class="dropdown-item d-flex align-items-center"><i class="fi fi-rr-angle-small-right me-1"></i> Cerrar Sesión</a></li>
 </ul>
 

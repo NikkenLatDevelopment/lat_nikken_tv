@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\ProductController;
@@ -34,6 +35,10 @@ Route::middleware([ DetermineUserLocation::class ])->group(function () {
     //Registro //TODO: !!!! Pendiente
     Route::get('/registro', function () { echo 'Hello World - auth.create'; })->name('auth.create');
     //Registro //TODO: !!!! Pendiente
+
+    //Cerrar sesión
+    Route::get('/cerrar-sesion', [ AuthController::class, 'destroy' ])->name('auth.destroy');
+    //Cerrar sesión
 
     //Contacto //TODO: !!!! Pendiente
     Route::get('/contacto', function () { echo 'Hello World - contact.show'; })->name('contact.show');
