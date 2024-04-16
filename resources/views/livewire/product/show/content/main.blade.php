@@ -32,13 +32,13 @@
 
             <div class="col-12 col-lg-6">
                 @if ($available == 1)
-                    <div class="mb-2"><span class="badge text-success border border-2 border-success py-2">Disponible</span></div>
+                    <div><span class="badge text-success border border-2 border-success py-2">Disponible</span></div>
                 @else
-                    <div class="mb-2"><span class="badge text-warning border border-2 border-warning py-2">Entrega Postergada</span></div>
+                    <div><span class="badge text-warning border border-2 border-warning py-2">Entrega Postergada</span></div>
                 @endif
 
-                <div class="row">
-                    <div class="col"><h1 class="text-dark fw-bold mt-1 mb-0">{{ $product['name'] }}</h1></div>
+                <div class="row d-flex align-items-center">
+                    <div class="col"><h1 class="text-dark fw-bold lh-1 my-2">{{ $product['name'] }}</h1></div>
 
                     <div class="col-auto" x-data="{ isFavorite: @entangle('isFavorite') }">
                         @if (auth()->check())
@@ -51,6 +51,16 @@
                             </a>
                         @endif
                     </div>
+                </div>
+
+                <div class="d-flex align-items-center mb-2">
+                    <x-product.rating-star :ratingTotal="$product['rating_total']" />
+                    <span class="small text-black-50 opacity-75 ms-2">({{ $reviewsTotal }} @choice('Experiencia|Experiencias', $reviewsTotal))</span>
+
+                    <div class="vr mx-2"></div>
+
+                    <span class="small text-black-50 opacity-75 me-1">Código:</span>
+                    <span class="h6 text-dark fw-bold mb-0">{{ $product['sku'] }}</span>
                 </div>
             </div>
         </div>

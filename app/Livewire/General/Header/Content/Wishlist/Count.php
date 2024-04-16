@@ -9,7 +9,7 @@ use Livewire\Attributes\Locked;
 class Count extends Component
 {
     #[Locked]
-    public int $count = 0;
+    public int $productsTotal = 0;
 
     public function render()
     {
@@ -17,9 +17,9 @@ class Count extends Component
         return view('livewire.general.header.content.wishlist.count');
     }
 
-    #[On('general.header.content.wishlist.count.getCount')]
-    public function getCount(int $count) {
+    #[On('general.header.content.wishlist.count.getTotalProducts')]
+    public function getTotalProducts(int $productsTotal) {
         //Actualizar contador
-        $this->count = $count;
+        $this->productsTotal = $productsTotal;
     }
 }

@@ -4,6 +4,7 @@ namespace App\Livewire\Product\Show\Content;
 
 use Livewire\Component;
 use App\Models\ProductImage;
+use App\Models\ProductReview;
 use Livewire\Attributes\Locked;
 use App\Models\ProductComponent;
 use App\Models\SessionController;
@@ -38,6 +39,9 @@ class Main extends Component
     #[Locked]
     public int $available = 1;
 
+    #[Locked]
+    public int $reviewsTotal = 0;
+
     public bool $isFavorite = false;
 
     public function render()
@@ -70,6 +74,9 @@ class Main extends Component
 
         //Obtener favorito
         $this->getFavorite();
+
+        //Obtener total de reviews
+        $this->getTotalReviews();
     }
 
     public function getImages() {
@@ -180,5 +187,12 @@ class Main extends Component
 
         //Emitir evento para actualizar productos favoritos
         $this->dispatch('general.header.content.wishlist.products.getProducts');
+    }
+
+    public function getTotalReviews() {
+        //Obtener el total de reviews
+        $this->reviewsTotal = ProductReview::where('product_id', $this->product['parent_product_id'] != null ? $this->parentProduct['id'] : $this->product_id)
+        ->status()
+        ->count();
     }
 }

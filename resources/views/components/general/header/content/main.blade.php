@@ -100,7 +100,7 @@
                                     </div>
                                 @else
                                     <div class="small">¡Bienvenido(a)!</div>
-                                    <a href="{{ route('login') }}" class="h6 fw-bold text-dark mb-0">Iniciar Sesión</a>
+                                    <a href="{{ route('login') }}" class="h6 text-dark fw-bold mb-0">Iniciar Sesión</a>
                                 @endif
                             </div>
                         </div>

@@ -40,6 +40,6 @@ class Products extends Component
         ->toArray();
 
         //Emitir evento para actualizar el contador de los productos favoritos
-        $this->dispatch('general.header.content.wishlist.count.getCount', count($this->products));
+        $this->dispatch('general.header.content.wishlist.count.getTotalProducts', count($this->products));
     }
 }
