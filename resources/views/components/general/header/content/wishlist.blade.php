@@ -8,3 +8,13 @@
         @livewire('general.header.content.wishlist.products')
     </div>
 </div>
+
+@push('scripts')
+    <script type="module">
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('showWishlist', () => {
+                showOffsetCanvas('#offcanvasWishlist');
+            });
+        });
+    </script>
+@endpush

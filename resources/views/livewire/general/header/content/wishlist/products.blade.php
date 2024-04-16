@@ -1,3 +1,5 @@
 <div>
-    {{-- The Master doesn't talk, he acts. --}}
+    @foreach ($products as $product)
+        {{ $product['id'] }}
+    @endforeach
 </div>

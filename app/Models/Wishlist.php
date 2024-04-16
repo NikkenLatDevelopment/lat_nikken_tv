@@ -13,4 +13,9 @@ class Wishlist extends Model
         'catalog_country_id',
         'product_id'
     ];
+
+    public function product() {
+        //Relación con el producto
+        return $this->belongsTo(Product::class);
+    }
 }

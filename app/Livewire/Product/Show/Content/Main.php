@@ -165,6 +165,9 @@ class Main extends Component
 
             //Mostrar mensaje
             $this->dispatch('showToast', message: 'Producto <span class="fw-bold"><u>agregado</u></span> a tu lista de deseos.', color: 'success');
+
+            //Mostrar productos favoritos
+            $this->dispatch('showWishlist');
         } else {
             if ($wishlist) {
                 //Eliminar producto
@@ -174,5 +177,8 @@ class Main extends Component
             //Mostrar mensaje
             $this->dispatch('showToast', message: 'Producto <span class="fw-bold"><u>eliminado</u></span> de tu lista de deseos.', color: 'dark');
         }
+
+        //Emitir evento para actualizar productos favoritos
+        $this->dispatch('general.header.content.wishlist.products.getProducts');
     }
 }
