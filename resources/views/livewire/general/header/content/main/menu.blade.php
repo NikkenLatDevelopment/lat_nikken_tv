@@ -91,7 +91,7 @@
                         @if (count($campaigns) > 1)
                             <div class="accordion-item">
                                 <div class="h6 accordion-header" id="flush-headingTwo">
-                                    <a href="#accordionMenuResponsive-collapseCampaign" class="accordion-button collapsed link-success fw-bold text-decoration-none bg-white shadow-none"  data-bs-toggle="collapse" aria-expanded="false" aria-controls="accordionMenuResponsive-collapseCampaign"><i class="fa-solid fa-bell me-2 custom bell-1"></i> Campañas</a>
+                                    <a href="#accordionMenuResponsive-collapseCampaign" class="accordion-button collapsed link-success fw-bold text-decoration-none lh-1 bg-white shadow-none"  data-bs-toggle="collapse" aria-expanded="false" aria-controls="accordionMenuResponsive-collapseCampaign"><i class="fa-solid fa-bell me-2 custom bell-1"></i> Campañas</a>
                                 </div>
 
                                 <div id="accordionMenuResponsive-collapseCampaign" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionMenuResponsive">
@@ -108,7 +108,7 @@
                             @foreach ($campaigns as $campaign)
                                 <div class="accordion-item not-sub-menu">
                                     <div class="h6 accordion-header">
-                                        <a href="{{ $campaign['url'] }}" class="accordion-button collapsed link-dark fw-bold text-decoration-none shadow-none">{{ $campaign['name'] }}</a>
+                                        <a href="{{ $campaign['url'] }}" class="accordion-button collapsed link-success fw-bold text-decoration-none lh-1 shadow-none"><i class="fa-solid fa-bell me-2 custom bell-1"></i> {{ $campaign['name'] }}</a>
                                     </div>
                                 </div>
                             @endforeach
