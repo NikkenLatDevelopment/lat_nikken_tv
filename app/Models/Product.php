@@ -21,7 +21,7 @@ class Product extends Model
 
     public function scopeActive($query, int $catalog_country_id, ?string $brandSlug = null) {
         //Filtrar por marca, país, campaña, vigencia, si se puede comprar, si está descontinuado, visibilidad y estatus
-        return $query->when($brandSlug != null, function ($query) use ($brandSlug) { $query->brand($brandSlug); })
+        return $query->brand($brandSlug)
                      ->country($catalog_country_id)
                      ->campaign($catalog_country_id)
                      ->valid()
@@ -31,16 +31,19 @@ class Product extends Model
                      ->status();
     }
 
-    public function scopeBrand($query, string $slug) {
+    public function scopeBrand($query, ?string $slug = null) {
         //Relación con el catálogo de marcas
         return $query->where(function ($query) use ($slug) {
             //Relación con el catálogo de marcas
             return $query->whereHas('catalogProductBrand', function ($query) use ($slug) {
                 //Filtrar por marca y estatus
-                $query->where('slug', $slug)
-                      ->status();
+                $query->when($slug != null, function ($query) use ($slug) {
+                    //Filtrar por marca
+                    $query->where('slug', $slug);
+                    //Filtrar por estatus
+                })->status();
             });
-        })->with([ 'catalogProductBrand' ]);
+        });
     }
 
     public function scopeCountry($query, int $catalog_country_id) {

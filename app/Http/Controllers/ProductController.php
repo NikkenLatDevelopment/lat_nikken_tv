@@ -20,7 +20,8 @@ class ProductController extends Controller
         $country = $this->sessionController->getCountry()->toArray();
 
         //Obtener información del producto
-        $product = Product::where('slug', $productSlug)
+        $product = Product::with([ 'catalogProductBrand' ])
+        ->where('slug', $productSlug)
         ->active($country['id'], $brandSlug)
         ->first();
 
