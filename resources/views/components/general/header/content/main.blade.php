@@ -76,14 +76,14 @@
                         <button type="button" class="btn btn-sm btn-link p-0" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWishlist" aria-controls="offcanvasWishlist">
                             <span class="position-relative">
                                 <img src="{{ asset('assets/img/general/icon-wishlist.png') }}" srcset="{{ asset('assets/img/general/icon-wishlist-2x.png') }} 2x" class="img-fluid" alt="Lista de Deseos">
-                                <span class="position-absolute top-100 start-100 translate-middle"><span class="badge bg-success rounded-pill me-3">0<span class="visually-hidden">productos</span></span></span>
+                                @livewire('general.header.content.wishlist.count')
                             </span>
                         </button>
 
                         <button type="button" class="btn btn-sm btn-link p-0" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
                             <span class="position-relative">
                                 <img src="{{ asset('assets/img/general/icon-cart.png') }}" srcset="{{ asset('assets/img/general/icon-cart-2x.png') }} 2x" class="img-fluid" alt="Carrito de Compras">
-                                <span class="position-absolute top-100 start-100 translate-middle"><span class="badge bg-success rounded-pill me-3">0<span class="visually-hidden">productos</span></span></span>
+                                @livewire('general.header.content.cart.count')
                             </span>
                         </button>
 
