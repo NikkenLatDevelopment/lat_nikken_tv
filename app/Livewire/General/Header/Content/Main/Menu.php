@@ -7,11 +7,12 @@ use App\Models\Campaign;
 use Livewire\Attributes\Locked;
 use App\Models\SessionController;
 use App\Models\CatalogProductBrand;
+use Illuminate\Support\Facades\Crypt;
 
 class Menu extends Component
 {
     #[Locked]
-    public array $brands = [];
+    public array $catalogProductBrands = [];
 
     #[Locked]
     public array $campaigns = [];
@@ -26,16 +27,16 @@ class Menu extends Component
         //Obtener información del país
         $country = $sessionController->getCountry()->toArray();
 
-        //Obtener marcas
-        $this->getBrands($country['id']);
+        //Obtener catálogo de marcas de los productos
+        $this->getCatalogProductBrands($country['id']);
 
         //Obtener campañas
         $this->getCampaigns($country['id']);
     }
 
-    public function getBrands(int $catalog_country_id) {
+    public function getCatalogProductBrands(int $catalog_country_id) {
         //Obtener las marcas
-        $this->brands = CatalogProductBrand::select('slug', 'name', 'alias')
+        $this->catalogProductBrands = CatalogProductBrand::select('slug', 'name', 'alias')
         ->whereHas('products', function ($query) use($catalog_country_id) { $query->active($catalog_country_id); })
         ->status()
         ->get()
@@ -79,7 +80,7 @@ class Menu extends Component
                     ? route('campaign.show', $campaign->slug)
                     : (
                         (auth()->check() && $campaign->public_access == 0)
-                        ? $campaign->redirect_url . '/hola'
+                        ? $campaign->redirect_url . '/' . Crypt::encryptString(auth()->user()->id)
                         : $campaign->redirect_url
                     )
                 ),
