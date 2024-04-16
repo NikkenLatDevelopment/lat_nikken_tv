@@ -5,6 +5,6 @@
     </div>
 
     <div class="offcanvas-body">
-        @livewire('general.header.content.wishlist.detail')
+        @livewire('general.header.content.wishlist.products')
     </div>
 </div>

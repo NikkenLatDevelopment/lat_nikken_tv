@@ -4,10 +4,10 @@ namespace App\Livewire\General\Header\Content\Wishlist;
 
 use Livewire\Component;
 
-class Detail extends Component
+class Products extends Component
 {
     public function render()
     {
-        return view('livewire.general.header.content.wishlist.detail');
+        return view('livewire.general.header.content.wishlist.products');
     }
 }
