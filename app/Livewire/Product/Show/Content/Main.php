@@ -133,7 +133,7 @@ class Main extends Component
         $user = Auth::user();
         if (!$user) { return; }
 
-        //Consultar si se encuentra en los productos favoritos
+        //Consultar producto
         $wishlist = $user->wishlists()
         ->where('catalog_country_id', $this->country['id'])
         ->where('product_id', $this->product_id)
@@ -148,7 +148,7 @@ class Main extends Component
         $user = Auth::user();
         if (!$user) { return; }
 
-        //Consultar si se encuentra en los productos favoritos
+        //Consultar producto
         $wishlist = $user->wishlists()
         ->where('catalog_country_id', $this->country['id'])
         ->where('product_id', $this->product_id)

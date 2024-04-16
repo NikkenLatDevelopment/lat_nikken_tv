@@ -35,7 +35,7 @@ class Menu extends Component
     }
 
     public function getCatalogProductBrands(int $catalog_country_id) {
-        //Obtener las marcas
+        //Obtener catálogo de marcas de los productos
         $this->catalogProductBrands = CatalogProductBrand::select('slug', 'name', 'alias')
         ->whereHas('products', function ($query) use($catalog_country_id) { $query->active($catalog_country_id); })
         ->status()
