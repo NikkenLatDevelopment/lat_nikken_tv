@@ -43,7 +43,7 @@
     </div>
 
     <div class="border-bottom border-secondary">
-        <div class="container my-3 pb-1">
+        <div class="container my-3 pb-2 pb-lg-1">
             <div class="row gx-3 align-items-top align-items-lg-center justify-content-between">
                 <div class="col-auto order-1">
                     <div class="d-flex align-items-center">
