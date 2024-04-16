@@ -15,10 +15,10 @@ class Main extends Component
     public array $product = [];
 
     #[Locked]
-    public int $product_id;
+    public string $currentUrl;
 
     #[Locked]
-    public string $currentUrl;
+    public int $product_id;
 
     public function render()
     {
@@ -30,11 +30,11 @@ class Main extends Component
         //Obtener información del país
         $this->country = $sessionController->getCountry()->toArray();
 
-        //Inicializar producto
-        $this->getProduct($product);
-
         //Obtener url actual
         $this->currentUrl = url()->current();
+
+        //Inicializar producto
+        $this->getProduct($product);
     }
 
     public function getProduct(array $product) {
