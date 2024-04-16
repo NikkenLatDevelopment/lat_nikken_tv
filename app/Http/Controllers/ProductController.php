@@ -16,12 +16,12 @@ class ProductController extends Controller
     }
 
     public function show(string $brandSlug, string $productSlug) {
-        //Obtener ID del país por sesión o cookie
-        $countryId = $this->sessionController->getCountryId();
+        //Obtener información del país
+        $country = $this->sessionController->getCountry()->toArray();
 
         //Obtener información del producto
         $product = Product::where('slug', $productSlug)
-        ->active($countryId, $brandSlug)
+        ->active($country['id'], $brandSlug)
         ->first();
 
         if (!$product) {

@@ -25,7 +25,13 @@
                             </div>
                         @else
                             <a href="{{ route('contact.show') }}" class="small link-success d-none d-lg-flex">Contáctanos</a>
-                            <div class="profile position-relative d-lg-none"><x-general.header.profile.options /></div>
+
+                            <div class="profile position-relative d-lg-none">
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-link dropdown-toggle link-success fw-bold text-decoration-none lh-1 d-flex align-items-center p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span class="text-truncate name">{{ Auth::user()->name }}</span></button>
+                                    <x-general.header.profile.options />
+                                </div>
+                            </div>
                         @endif
 
                         <div class="vr my-auto"></div>
@@ -35,4 +41,74 @@
             </div>
         </div>
     </div>
+
+    <div class="border-bottom border-secondary">
+        <div class="container my-3 pb-1">
+            <div class="row gx-3 align-items-top align-items-lg-center justify-content-between">
+                <div class="col-auto order-1">
+                    <div class="d-flex align-items-center">
+                        <div class="d-flex d-lg-none align-items-center mt-2 me-3">
+                            <button type="button" class="btn btn-sm btn-link h6 link-dark fw-bold text-decoration-none lh-1 p-0 mb-0 me-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu"><i class="fa-solid fa-bars fa-xl me-1"></i> Menú</button>
+                            <div class="vr my-auto"></div>
+                        </div>
+
+                        <a href="{{ route('home') }}" class="text-decoration-none">
+                            <img src="{{ asset('assets/img/general/logo.png') }}" srcset="{{ asset('assets/img/general/logo-2x.png') }} 2x" class="img-fluid" alt="Mi Tienda NIKKEN">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg order-3 order-lg-2">
+                    <form class="search mt-1 mt-lg-0" wire:submit="search">
+                        <div class="input-group bg-secondary border border-2 border-white rounded-3 shadow-sm">
+                            <div class="form-floating">
+                                <input type="text" class="form-control text-muted bg-transparent border-0 shadow-none" id="form-search" wire:model="formSearch" placeholder="Buscar..." autocomplete="off">
+                                <label for="form-search">Buscar...</label>
+                            </div>
+
+                            <button type="submit" class="btn btn-link text-decoration-none border-start border-top-0 border-bottom-0 border-end-0 border-2 border-white rounded-0 my-2 py-0 px-3"><i class="fi fi-rr-search h5 position-relative"></i></button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-auto order-2 order-lg-3">
+                    <div class="hstack gap-3 mt-1 pe-2 pe-lg-0">
+                        <button type="button" class="btn btn-sm btn-link p-0" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWishlist" aria-controls="offcanvasWishlist">
+                            <span class="position-relative">
+                                <img src="{{ asset('assets/img/general/icon-wishlist.png') }}" srcset="{{ asset('assets/img/general/icon-wishlist-2x.png') }} 2x" class="img-fluid" alt="Lista de Deseos">
+                                <span class="position-absolute top-100 start-100 translate-middle"><span class="badge bg-success rounded-pill me-3">0<span class="visually-hidden">productos</span></span></span>
+                            </span>
+                        </button>
+
+                        <button type="button" class="btn btn-sm btn-link p-0" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
+                            <span class="position-relative">
+                                <img src="{{ asset('assets/img/general/icon-cart.png') }}" srcset="{{ asset('assets/img/general/icon-cart-2x.png') }} 2x" class="img-fluid" alt="Carrito de Compras">
+                                <span class="position-absolute top-100 start-100 translate-middle"><span class="badge bg-success rounded-pill me-3">0<span class="visually-hidden">productos</span></span></span>
+                            </span>
+                        </button>
+
+                        <div class="d-none d-lg-flex">
+                            <div class="vr my-auto me-3"></div>
+
+                            <div class="lh-1 profile">
+                                @if (Auth::check())
+                                    <div class="small"><i class="fi fi-rr-hand-wave"></i> ¡Hola!</div>
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-link dropdown-toggle link-dark fw-bold text-decoration-none lh-1 d-flex align-items-center p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span class="text-truncate name">{{ Auth::user()->name }}</span></button>
+                                        <x-general.header.profile.options />
+                                    </div>
+                                @else
+                                    <div class="small">¡Bienvenido(a)!</div>
+                                    <a href="{{ route('login') }}" class="h6 fw-bold text-dark mb-0">Iniciar Sesión</a>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @livewire('general.header.content.main.menu')
 </div>
