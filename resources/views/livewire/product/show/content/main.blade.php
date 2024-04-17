@@ -42,7 +42,7 @@
 
                     <div class="col-auto" x-data="{ wishlist: @entangle('wishlist') }">
                         @if (auth()->check())
-                            <button class="btn btn-link text-decoration-none" :class="{ 'text-dark': !wishlist, 'text-success': wishlist }" x-on:click="wishlist = !wishlist" wire:click="changeWishlist" wire:loading.attr="disabled" wire:target="changeWishlist">
+                            <button class="btn btn-link text-decoration-none" :class="{ 'text-dark': !wishlist, 'text-success': wishlist }" x-on:click="wishlist = !wishlist" wire:click="changeWishlist" wire:loading.attr="disabled" wire:target="addCart,selectedColor,selectedPresentation,selectedMeasurement,changeWishlist">
                                 <i class="h1 fi" :class="{ 'fi-rr-heart': !wishlist, 'fi-sr-heart': wishlist }"></i>
                             </button>
                         @else
@@ -75,6 +75,31 @@
                 </div>
 
                 <div>{!! $product['short_description'] !!}</div>
+
+                @if (count($colors) > 0 || count($presentations) > 0 || count($measurements) > 0)
+                    <div class="pb-1">
+                        @if (count($colors) > 0)
+                            <div class="row gx-3 align-items-center mb-2">
+                                <div class="col-auto"><div class="h6 text-muted fw-bold mb-0">Colores:</div></div>
+                                <div class="col"><div class="d-flex"><x-product.color :colors="$colors" /></div></div>
+                            </div>
+                        @endif
+
+                        @if (count($presentations) > 0)
+                            <div class="row gx-3 align-items-center mb-2">
+                                <div class="col-auto"><div class="h6 text-muted fw-bold mb-0">Presentación:</div></div>
+                                <div class="col"><div class="d-flex"><x-product.presentation :presentations="$presentations" /></div></div>
+                            </div>
+                        @endif
+
+                        @if (count($measurements) > 0)
+                            <div class="row gx-3 align-items-center mb-2">
+                                <div class="col-auto"><div class="h6 text-muted fw-bold mb-0">Talla / Medidas:</div></div>
+                                <div class="col"><div class="d-flex"><x-product.measurement :measurements="$measurements" /></div></div>
+                            </div>
+                        @endif
+                    </div>
+                @endif
             </div>
         </div>
     </section>

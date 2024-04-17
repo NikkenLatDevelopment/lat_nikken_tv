@@ -38,7 +38,7 @@ small, .small {
     color: #666666 !important;
 }
 
-.badge{
+.badge {
     font-size: calc($font-size-sm - 2px);
 }
 
@@ -177,6 +177,10 @@ button, a {
             height: calc(100vh - 140px);
         }
     }
+}
+
+.btn-outline-success-custom-1 {
+    @include button-outline-variant($body-color, white, lighten($success, 5%), white, white);
 }
 
 .custom {
