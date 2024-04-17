@@ -38,31 +38,31 @@ class DetermineUserLocation
             }
 
             //Buscar país
-            $catalogCountry = CatalogCountry::sessionData()
+            $country = CatalogCountry::sessionData()
             ->where('code', $location->countryCode)
             ->closed()
             ->status()
             ->first();
 
-            if (!$catalogCountry) {
+            if (!$country) {
                 //Redireccionar
                 return redirect()->route('country.index');
             }
         } else {
             //Buscar país
-            $catalogCountry = CatalogCountry::sessionData()
+            $country = CatalogCountry::sessionData()
             ->closed()
             ->status()
             ->find($countryId);
 
-            if (!$catalogCountry) {
+            if (!$country) {
                 //Redireccionar
                 return redirect()->route('country.index');
             }
         }
 
         //Guardar país en sesión
-        $this->sessionController->setCountry($catalogCountry->toArray());
+        $this->sessionController->setCountry($country->toArray());
 
         return $next($request);
     }
