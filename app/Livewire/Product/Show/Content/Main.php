@@ -35,7 +35,7 @@ class Main extends Component
     public string $currentUrl;
 
     #[Locked]
-    public int $product_id;
+    public int $productId;
 
     #[Locked]
     public int $available = 1;
@@ -44,9 +44,9 @@ class Main extends Component
     public int $reviewsTotal = 0;
 
     #[Locked]
-    public string $textSuggestedPrice;
+    public string $price;
 
-    public bool $isFavorite = false;
+    public bool $wishlist = false;
 
     public function render()
     {
@@ -54,7 +54,7 @@ class Main extends Component
         return view('livewire.product.show.content.main');
     }
 
-    public function mount(array $product, SessionController $sessionController) {
+    public function mount(array $product, array $available, SessionController $sessionController) {
         //Obtener información del país
         $this->country = $sessionController->getCountry()->toArray();
 
@@ -62,16 +62,19 @@ class Main extends Component
         $this->currentUrl = url()->current();
 
         //Inicializar producto
-        $this->getProduct($product);
+        $this->getProduct($product, $available);
     }
 
-    public function getProduct(array $product) {
+    public function getProduct(array $product, array $available) {
         //Inicializar información
         $this->product = $product;
-        $this->product_id = $product['id'];
+        $this->productId = $product['id'];
 
-        //Formatear precio sugerido
-        $this->textSuggestedPrice = formatPriceWithCurrency($product['suggested_price'], $this->country);
+        //Obtener disponibilidad y componentes
+        list($this->available, $this->componentsAvailable, $this->componentsNotAvailable) =  array_values($available);
+
+        //Formatear precio sugerido con iva con símbolo de moneda
+        $this->price = formatPriceWithCurrency($product['suggested_price'], $this->country);
 
         //Obtener imágenes
         $this->getImages();
@@ -79,8 +82,8 @@ class Main extends Component
         //Obtener componentes
         $this->getComponents();
 
-        //Obtener favorito
-        $this->getFavorite();
+        //Obtener de lista de deseos
+        $this->getWishlist();
 
         //Obtener información del producto padre
         if ($product['parent_product_id'] != null) { $this->getParentProduct(); }
@@ -92,7 +95,7 @@ class Main extends Component
     public function getImages() {
         //Obtener imágenes
         $this->images = ProductImage::select('image')
-        ->where('product_id', $this->product_id)
+        ->where('product_id', $this->productId)
         ->get()
         ->map(function ($image) {
             $image->image = env('STORAGE_PRODUCT_IMAGE_THUMBNAIL_PATH') . $image->image;
@@ -101,20 +104,11 @@ class Main extends Component
         ->pluck('image')
         ->toArray();
 
-        //Agregar imagen principal
+        //Complementar imágenes con imagen principal
         array_unshift($this->images, env('STORAGE_PRODUCT_IMAGE_MAIN_PATH') . $this->product['image']);
     }
 
-    public function getComponents() {
-        //Consultar producto
-        $product = Product::find($this->product_id);
-        if (!$product) { return; }
-
-        //Obtener componentes
-        list($this->available, $this->componentsAvailable, $this->componentsNotAvailable) =  array_values($product->getComponents());
-    }
-
-    public function getFavorite() {
+    public function getWishlist() {
         //Obtener información del usuario
         $user = Auth::user();
         if (!$user) { return; }
@@ -122,14 +116,14 @@ class Main extends Component
         //Consultar producto
         $wishlist = $user->wishlists()
         ->where('catalog_country_id', $this->country['id'])
-        ->where('product_id', $this->product_id)
+        ->where('product_id', $this->productId)
         ->first();
 
-        //Verificar si se encuentra en los favoritos
-        $this->isFavorite = $wishlist ? true : false;
+        //Verificar si se encuentra en la lista de deseos
+        $this->wishlist = $wishlist ? true : false;
     }
 
-    public function favorite() {
+    public function changeWishlist() {
         //Obtener información del usuario
         $user = Auth::user();
         if (!$user) { return; }
@@ -137,22 +131,22 @@ class Main extends Component
         //Consultar producto
         $wishlist = $user->wishlists()
         ->where('catalog_country_id', $this->country['id'])
-        ->where('product_id', $this->product_id)
+        ->where('product_id', $this->productId)
         ->first();
 
-        if ($this->isFavorite) {
+        if ($this->wishlist) {
             if (!$wishlist) {
-                //Guardar producto en los favoritos
+                //Guardar producto en la lista de deseos
                 $user->wishlists()->create([
                     'catalog_country_id' => $this->country['id'],
-                    'product_id' => $this->product_id
+                    'product_id' => $this->productId
                 ]);
             }
 
             //Mostrar mensaje
             $this->dispatch('showToast', message: 'Producto <span class="fw-bold"><u>agregado</u></span> a tu lista de deseos.', color: 'success');
 
-            //Mostrar productos favoritos
+            //Mostrar lista de deseos
             $this->dispatch('showWishlist');
         } else {
             if ($wishlist) {
@@ -164,13 +158,13 @@ class Main extends Component
             $this->dispatch('showToast', message: 'Producto <span class="fw-bold"><u>eliminado</u></span> de tu lista de deseos.', color: 'dark');
         }
 
-        //Emitir evento para actualizar productos favoritos
+        //Emitir evento para actualizar la lista de deseos
         $this->dispatch('general.header.content.wishlist.products.getProducts');
     }
 
     public function getTotalReviews() {
         //Obtener el total de reviews
-        $this->reviewsTotal = ProductReview::where('product_id', $this->product['parent_product_id'] != null ? $this->parentProduct['id'] : $this->product_id)
+        $this->reviewsTotal = ProductReview::where('product_id', $this->product['parent_product_id'] != null ? $this->parentProduct['id'] : $this->productId)
         ->status()
         ->count();
     }
@@ -183,8 +177,8 @@ class Main extends Component
         if ($parentProduct) {
             //Complementar información
             $this->parentProduct = array_merge($parentProduct->toArray(), [
-                'text_suggested_price' => formatPriceWithCurrency($parentProduct['suggested_price'], $this->country),
-                'percentage_difference' => number_format(100 - (($this->product['suggested_price'] * 100) / $parentProduct['suggested_price']), 0),
+                'price' => formatPriceWithCurrency($parentProduct['suggested_price'], $this->country),
+                'percentage_discount' => number_format(100 - (($this->product['suggested_price'] * 100) / $parentProduct['suggested_price']), 0),
             ]);
         }
     }
