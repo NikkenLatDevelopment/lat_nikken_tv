@@ -36,7 +36,7 @@ class Products extends Component
 
         //Obtener lista de deseos
         $this->products = $user->wishlists()
-        ->with('product')
+        ->with('product', 'product.catalogProductBrand')
         ->whereHas('product', fn($query) => $query->active($country['id']))
         ->where('catalog_country_id', $country['id'])
         ->get()
@@ -49,6 +49,7 @@ class Products extends Component
                 'price' => formatPriceWithCurrency($wishlist->product->suggested_price, $country),
                 'available' => array_values($wishlist->product->getAvailability())[0],
                 'rating' => $wishlist->product->rating_total,
+                'brandSlug' => $wishlist->product->catalogProductBrand->slug
             ];
         })
         ->toArray();
