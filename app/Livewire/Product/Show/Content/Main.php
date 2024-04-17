@@ -4,6 +4,7 @@ namespace App\Livewire\Product\Show\Content;
 
 use App\Models\Product;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use App\Models\ProductImage;
 use App\Models\ProductReview;
 use Livewire\Attributes\Locked;
@@ -157,6 +158,14 @@ class Main extends Component
 
         //Emitir evento para actualizar la lista de deseos
         $this->dispatch('general.header.content.wishlist.products.getProducts');
+    }
+
+    #[On('product.show.content.main.removeWishlist')]
+    public function removeWishlist(int $productId) {
+        if ($this->productId == $productId) {
+            //Desmarcar producto en la lista de deseos
+            $this->wishlist = false;
+        }
     }
 
     public function getTotalReviews() {
