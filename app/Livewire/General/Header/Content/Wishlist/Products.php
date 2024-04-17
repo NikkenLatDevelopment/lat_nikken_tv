@@ -21,7 +21,7 @@ class Products extends Component
     }
 
     public function mount(SessionController $sessionController) {
-        //Obtener productos favoritos
+        //Obtener lista de deseos
         $this->getProducts($sessionController);
     }
 
@@ -34,7 +34,7 @@ class Products extends Component
         $user = Auth::user();
         if (!$user) { return; }
 
-        //Obtener productos favoritos
+        //Obtener lista de deseos
         $this->products = $user->wishlists()
         ->with('product')
         ->whereHas('product', fn($query) => $query->active($country['id']))
@@ -53,7 +53,7 @@ class Products extends Component
         })
         ->toArray();
 
-        //Emitir evento para actualizar el contador de los productos favoritos
+        //Emitir evento para actualizar el contador de la lista de deseos
         $this->dispatch('general.header.content.wishlist.count.getTotalProducts', count($this->products));
     }
 }
