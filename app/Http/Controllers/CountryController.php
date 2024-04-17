@@ -21,11 +21,11 @@ class CountryController extends Controller
         return view('country.index');
     }
 
-    public function update(int $catalog_country_id, SessionController $sessionController) {
+    public function update(int $countryId, SessionController $sessionController) {
         //Validar información
         $validator = Validator::make(
-            [ 'catalog_country_id' => $catalog_country_id ],
-            [ 'catalog_country_id' => 'required|integer|exists:catalog_countries,id' ]
+            [ 'countryId' => $countryId ],
+            [ 'countryId' => 'required|integer|exists:catalog_countries,id' ]
         );
 
         if ($validator->fails()) {
@@ -34,14 +34,14 @@ class CountryController extends Controller
         }
 
         //Buscar país
-        $catalogCountry = CatalogCountry::sessionData()
+        $country = CatalogCountry::sessionData()
         ->closed()
         ->status()
-        ->find($catalog_country_id);
+        ->find($countryId);
 
-        if ($catalogCountry) {
+        if ($country) {
             //Guardar país en sesión
-            $sessionController->setCountry($catalogCountry->toArray());
+            $sessionController->setCountry($country->toArray());
 
             //Redireccionar
             return redirect()->route('home');
