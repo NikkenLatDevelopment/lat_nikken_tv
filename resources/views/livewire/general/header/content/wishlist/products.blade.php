@@ -13,9 +13,9 @@
                             <div class="h6 fw-semibold text-truncate lh-1 mb-0">{{ $product['name'] }}</div>
 
                             @if ($product['available'] == 1)
-                                <div class="small text-success fw-bold lh-sm">Disponible</div>
+                                <div class="h6 small text-success fw-bold lh-sm mb-0">Disponible</div>
                             @else
-                                <div class="small text-warning fw-bold lh-sm">Entrega Postergada</div>
+                                <div class="h6 small text-warning fw-bold lh-sm mb-0">Entrega Postergada</div>
                             @endif
 
                             <div class="h5 text-muted fw-bold mb-0 mt-1">{{ $product['price'] }}</div>

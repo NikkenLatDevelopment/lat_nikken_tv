@@ -40,10 +40,10 @@
                 <div class="row d-flex align-items-center">
                     <div class="col"><h1 class="text-dark fw-bold lh-1 my-2">{{ $product['name'] }}</h1></div>
 
-                    <div class="col-auto" x-data="{ isFavorite: @entangle('isFavorite') }">
+                    <div class="col-auto" x-data="{ wishlist: @entangle('wishlist') }">
                         @if (auth()->check())
-                            <button class="btn btn-link text-decoration-none" :class="{ 'text-dark': !isFavorite, 'text-success': isFavorite }" x-on:click="isFavorite = !isFavorite" wire:click="favorite" wire:loading.attr="disabled" wire:target="favorite">
-                                <i class="h1 fi" :class="{ 'fi-rr-heart': !isFavorite, 'fi-sr-heart': isFavorite }"></i>
+                            <button class="btn btn-link text-decoration-none" :class="{ 'text-dark': !wishlist, 'text-success': wishlist }" x-on:click="wishlist = !wishlist" wire:click="changeWishlist" wire:loading.attr="disabled" wire:target="changeWishlist">
+                                <i class="h1 fi" :class="{ 'fi-rr-heart': !wishlist, 'fi-sr-heart': wishlist }"></i>
                             </button>
                         @else
                             <a href="{{ Route('login') }}" class="btn btn-link text-dark text-decoration-none">
