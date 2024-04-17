@@ -149,6 +149,16 @@
 
             Fancybox.bind('.product [data-fancybox="galeria"]', { Thumbs: false });
             Fancybox.bind('.product [data-fancybox="videos"]', { Thumbs: false });
+
+            $wire.on('refreshImages', (data) => {
+                $('.product .carousel-slider').slick('slickRemove', null, null, true);
+                $('.product .carousel-thumbnail').slick('slickRemove', null, null, true);
+
+                for (let i = 0; i < data.images.length; i++) {
+                    $('.product .carousel-slider').slick('slickAdd','<figure><img src="' + data.images[i] + '" class="img-fluid" data-fancybox="galeria" /></figure>');
+                    $('.product .carousel-thumbnail').slick('slickAdd','<figure><img src="' + data.images[i] + '" class="img-fluid" /></figure>');
+                }
+            });
         </script>
     @endscript
 </div>

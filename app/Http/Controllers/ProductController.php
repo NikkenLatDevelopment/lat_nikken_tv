@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\SessionController;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -16,12 +17,28 @@ class ProductController extends Controller
     }
 
     public function show(string $brandSlug, string $productSlug) {
+        //Validar información
+        $validator = Validator::make(
+            [
+                'brandSlug' => $brandSlug,
+                'productSlug' => $productSlug
+            ], [
+                'brandSlug' => 'required|string|exists:catalog_product_brands,slug',
+                'productSlug' => 'required|string|exists:products,slug'
+            ]
+        );
+
+        if ($validator->fails()) {
+            //Redireccionar
+            return redirect()->route('category.show', $brandSlug);
+        }
+
         //Obtener información del país
         $country = $this->sessionController->getCountry()->toArray();
 
         //Obtener información del producto
-        $product = Product::with([ 'catalogProductBrand' ])
-        ->select('id', 'catalog_product_brand_id', 'sku', 'name', 'short_description', 'description', 'differentiators', 'maintenance', 'image', 'video', 'suggested_price', 'stock', 'stock_applies', 'warranty', 'rating_total', 'available_until', 'parent_product_id')
+        $product = Product::basicData()
+        ->with([ 'catalogProductBrand' ])
         ->where('slug', $productSlug)
         ->active($country['id'], $brandSlug)
         ->first();

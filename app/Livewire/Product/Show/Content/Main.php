@@ -115,7 +115,24 @@ class Main extends Component
         $this->getMeasurements();
     }
 
-    public function updateProduct() {}
+    public function updateProduct(int $productId) {
+        //Obtener información del producto
+        $product = Product::basicData()
+        ->with([ 'catalogProductBrand' ])
+        ->active($this->country['id'])
+        ->find($productId);
+
+        if (!$product) {
+            //Redireccionar
+            return redirect()->route('category.show', $this->product['catalog_product_brand']['slug']);
+        }
+
+        //Inicializar producto
+        $this->getProduct($product->toArray(), $product->getAvailability());
+
+        //Refrescar imágenes del producto
+        $this->dispatch('refreshImages', images: $this->images);
+    }
 
     public function getImages() {
         //Obtener imágenes
@@ -189,12 +206,6 @@ class Main extends Component
 
     #[On('product.show.content.main.removeWishlist')]
     public function removeWishlist(int $productId) {
-        //Validar información
-        Validator::make(
-            [ 'productId' => $productId ],
-            [ 'productId' => 'required|integer|exists:products,id' ]
-        )->validate();
-
         if ($this->productId == $productId) {
             //Desmarcar producto en la lista de deseos
             $this->wishlist = false;
