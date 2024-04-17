@@ -19,15 +19,15 @@ class ClosingMessage extends Component
     }
 
     #[On('country.index.modal.closing-message.initialize')]
-    public function initialize(int $catalog_country_id) {
+    public function initialize(int $countryId) {
         //Buscar país
-        $catalogCountry = CatalogCountry::select('closed_message')
+        $country = CatalogCountry::select('closed_message')
         ->status()
-        ->find($catalog_country_id);
+        ->find($countryId);
 
-        if ($catalogCountry) {
+        if ($country) {
             //Guardar mensaje
-            $this->closedMessage = $catalogCountry->closed_message;
+            $this->closedMessage = $country->closed_message;
 
             //Mostrar modal
             $this->dispatch('countryIndexModalClosingMessage');
