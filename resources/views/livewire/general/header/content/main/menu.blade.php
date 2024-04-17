@@ -22,7 +22,7 @@
 
                                 @if (count($campaigns))
                                     @if (count($campaigns) > 1)
-                                        <li class="border-top border-bottom border-success border-3 py-3 me-4">
+                                        <li class="py-3 me-4">
                                             <a href="#" class="h6 link-success fw-bold text-decoration-none"><i class="fa-solid fa-bell me-1 custom bell-1"></i> Campañas <i class="fi fi-rr-angle-small-down position-relative"></i></a>
 
                                             <ul class="list-unstyled bg-white border border-secondary border-1 rounded-3 position-absolute start-0 mt-2 sub-menu">
@@ -33,7 +33,7 @@
                                         </li>
                                     @else
                                         @foreach ($campaigns as $campaign)
-                                            <li class="border-top border-bottom border-success border-3 py-3 me-4"><a href="{{ $campaign['url'] }}" class="h6 link-success fw-bold text-decoration-none"><i class="fa-solid fa-bell me-1 custom bell-1"></i> {{ $campaign['name'] }}</a></li>
+                                            <li class="py-3 me-4"><a href="{{ $campaign['url'] }}" class="h6 link-success fw-bold text-decoration-none"><i class="fa-solid fa-bell me-1 custom bell-1"></i> {{ $campaign['name'] }}</a></li>
                                         @endforeach
                                     @endif
                                 @endif
