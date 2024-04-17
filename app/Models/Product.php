@@ -37,11 +37,8 @@ class Product extends Model
             //Relación con el catálogo de marcas
             return $query->whereHas('catalogProductBrand', function ($query) use ($slug) {
                 //Filtrar por marca y estatus
-                $query->when($slug != null, function ($query) use ($slug) {
-                    //Filtrar por marca
-                    $query->where('slug', $slug);
-                    //Filtrar por estatus
-                })->status();
+                $query->when($slug != null, fn ($query) => $query->where('slug', $slug))
+                      ->status();
             });
         });
     }
@@ -61,14 +58,11 @@ class Product extends Model
                     //Filtrar por campañas activas
                     $query->active($catalog_country_id)
                           ->whereHas('campaignUserTypes.catalogUserType', function ($query) {
-                            //Filtrar por tipo de usuario
-                            $query->when(auth()->check(), function ($query) {
-                                //Filtrar por usuario autenticado
-                                $query->where('id', auth()->user()->catalog_user_type_id);
-                            }, function ($query) {
-                                //Filtrar por usuario no autenticado
-                                $query->where('id', 1);
-                            })->status();
+                            $query->when(
+                                auth()->check(),
+                                fn ($query) => $query->where('id', auth()->user()->catalog_user_type_id),
+                                fn ($query) => $query->where('id', 1)
+                            )->status();
                           });
                 });
             })->orWhereDoesntHave('campaignProducts');
@@ -115,13 +109,12 @@ class Product extends Model
         return $query->where('status', 1);
     }
 
-    public function getComponents() {
-        //Inicializar información
+    public function getAvailable() {
+        $available = 1;
         $componentsAvailable = [];
         $componentsNotAvailable = [];
-        $available = 1;
 
-        //Obtener componentes
+        //Obtener componentes del producto
         $components = ProductComponent::with('product')
         ->where('parent_product_id', $this->id)
         ->get()
@@ -132,10 +125,10 @@ class Product extends Model
             foreach ($components as $component) {
                 //Verificar inventario de los componentes
                 if ($component['product']['stock'] <= 0 && $component['product']['stock_applies'] == 1) {
-                    //Marcar producto padre como no disponible
+                    //Marcar producto en entrega postergada
                     $available = 0;
 
-                    //Guardar componentes no disponibles
+                    //Guardar componentes con entrega postergada
                     $componentsNotAvailable[] = [
                         'sku' => $component['product']['sku'],
                         'name' => $component['product']['name'],
@@ -152,9 +145,9 @@ class Product extends Model
                 }
             }
         } else {
-            //Verificar inventario del producto padre
+            //Verificar inventario del producto
             if ($this->stock <= 0 && $this->stock_applies == 1) {
-                //Marcar producto padre como no disponible
+                //Marcar producto en entrega postergada
                 $available = 0;
             }
         }

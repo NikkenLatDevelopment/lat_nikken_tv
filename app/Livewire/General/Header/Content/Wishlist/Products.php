@@ -47,7 +47,7 @@ class Products extends Component
                 'name' => $wishlist->product->name,
                 'image' => env('STORAGE_PRODUCT_IMAGE_MAIN_PATH') . $wishlist->product->image,
                 'price' => formatPriceWithCurrency($wishlist->product->suggested_price, $country),
-                'available' => array_values($wishlist->product->getComponents())[0],
+                'available' => array_values($wishlist->product->getAvailable())[0],
                 'rating' => $wishlist->product->rating_total,
             ];
         })

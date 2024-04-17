@@ -80,7 +80,7 @@ class Main extends Component
         $this->getImages();
 
         //Obtener componentes
-        $this->getComponents();
+        $this->getAvailable();
 
         //Obtener de lista de deseos
         $this->getWishlist();
