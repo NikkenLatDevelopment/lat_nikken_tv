@@ -11,6 +11,7 @@ use Livewire\Attributes\Locked;
 use App\Models\ProductComponent;
 use App\Models\SessionController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class Main extends Component
 {
@@ -162,6 +163,12 @@ class Main extends Component
 
     #[On('product.show.content.main.removeWishlist')]
     public function removeWishlist(int $productId) {
+        //Validar información
+        Validator::make(
+            [ 'productId' => $productId ],
+            [ 'productId' => 'required|integer|exists:products,id' ]
+        )->validate();
+
         if ($this->productId == $productId) {
             //Desmarcar producto en la lista de deseos
             $this->wishlist = false;

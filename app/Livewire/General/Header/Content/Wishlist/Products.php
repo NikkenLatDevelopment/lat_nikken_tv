@@ -8,6 +8,7 @@ use Livewire\Attributes\Locked;
 use App\Models\ProductComponent;
 use App\Models\SessionController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class Products extends Component
 {
@@ -63,6 +64,12 @@ class Products extends Component
     }
 
     public function removeProduct(int $productId) {
+        //Validar información
+        Validator::make(
+            [ 'productId' => $productId ],
+            [ 'productId' => 'required|integer|exists:products,id' ]
+        )->validate();
+
         //Obtener información del usuario
         $user = Auth::user();
         if (!$user) { return; }
