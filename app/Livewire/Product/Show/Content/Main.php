@@ -115,6 +115,8 @@ class Main extends Component
         $this->getMeasurements();
     }
 
+    public function updateProduct() {}
+
     public function getImages() {
         //Obtener imágenes
         $this->images = ProductImage::select('image')
@@ -233,6 +235,17 @@ class Main extends Component
         if (count($this->colors) > 0) { $this->selectedColor = $this->productId; }
     }
 
+    public function updatedSelectedColor() {
+        //Validar información
+        Validator::make(
+            [ 'selectedColor' => $this->selectedColor ],
+            [ 'selectedColor' => 'required|integer|exists:product_colors,id' ]
+        )->validate();
+
+        //Actualizar producto según el color seleccionado
+        $this->updateProduct($this->selectedColor);
+    }
+
     public function getPresentations() {
         //Obtener presentaciones
         $this->presentations = ProductPresentation::select('product_id', 'presentation')
@@ -246,6 +259,17 @@ class Main extends Component
         if (count($this->presentations) > 0) { $this->selectedPresentation = $this->productId; }
     }
 
+    public function updatedSelectedPresentation() {
+        //Validar información
+        Validator::make(
+            [ 'selectedPresentation' => $this->selectedPresentation ],
+            [ 'selectedPresentation' => 'required|integer|exists:product_presentations,id' ]
+        )->validate();
+
+        //Actualizar producto según la presentación seleccionada
+        $this->updateProduct($this->selectedPresentation);
+    }
+
     public function getMeasurements() {
         //Obtener medidas
         $this->measurements = ProductMeasurement::select('product_id', 'measurement')
@@ -257,5 +281,16 @@ class Main extends Component
 
         //Marcar medida por defecto
         if (count($this->measurements) > 0) { $this->selectedMeasurement = $this->productId; }
+    }
+
+    public function updatedSelectedMeasurement() {
+        //Validar información
+        Validator::make(
+            [ 'selectedMeasurement' => $this->selectedMeasurement ],
+            [ 'selectedMeasurement' => 'required|integer|exists:product_measurements,id' ]
+        )->validate();
+
+        //Actualizar producto según la medida seleccionada
+        $this->updateProduct($this->selectedMeasurement);
     }
 }
