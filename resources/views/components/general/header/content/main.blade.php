@@ -26,7 +26,7 @@
                         @else
                             <a href="{{ route('contact.show') }}" class="small link-success d-none d-lg-flex">Contáctanos</a>
 
-                            <div class="profile position-relative d-lg-none">
+                            <div class="position-relative d-lg-none profile">
                                 <div class="dropdown">
                                     <button class="btn btn-sm btn-link dropdown-toggle link-success fw-bold text-decoration-none lh-1 d-flex align-items-center p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span class="text-truncate name">{{ Auth::user()->name }}</span></button>
                                     <x-general.header.profile.options />
@@ -59,7 +59,7 @@
                 </div>
 
                 <div class="col-12 col-lg order-3 order-lg-2">
-                    <form class="search mt-1 mt-lg-0" wire:submit="search">
+                    <form class="mt-1 mt-lg-0 search" wire:submit="search">
                         <div class="input-group bg-secondary border border-2 border-white rounded-3 shadow-sm">
                             <div class="form-floating">
                                 <input type="text" class="form-control text-muted bg-transparent border-0 shadow-none" id="form-search" wire:model="formSearch" placeholder="Buscar..." autocomplete="off">
