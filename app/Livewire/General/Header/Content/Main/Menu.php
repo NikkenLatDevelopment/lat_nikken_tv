@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Crypt;
 class Menu extends Component
 {
     #[Locked]
-    public array $catalogProductBrands = [];
+    public array $brands = [];
 
     #[Locked]
     public array $campaigns = [];
@@ -27,42 +27,42 @@ class Menu extends Component
         //Obtener información del país
         $country = $sessionController->getCountry()->toArray();
 
-        //Obtener catálogo de marcas de los productos
-        $this->getCatalogProductBrands($country['id']);
+        //Obtener marcas
+        $this->getBrands($country['id']);
 
         //Obtener campañas
         $this->getCampaigns($country['id']);
     }
 
-    public function getCatalogProductBrands(int $catalog_country_id) {
-        //Obtener catálogo de marcas de los productos
-        $this->catalogProductBrands = CatalogProductBrand::select('slug', 'name', 'alias')
-        ->whereHas('products', fn ($query) => $query->active($catalog_country_id))
+    public function getBrands(int $countryId) {
+        //Obtener marcas
+        $this->brands = CatalogProductBrand::select('slug', 'name', 'alias')
+        ->whereHas('products', fn ($query) => $query->active($countryId))
         ->status()
         ->get()
         ->toArray();
     }
 
-    public function getCampaigns(int $catalog_country_id) {
-        //Obtener las campañas con redirección
+    public function getCampaigns(int $countryId) {
+        //Obtener campañas con redirección
         $campaigns = Campaign::whereHas('campaignUserTypes.catalogUserType', function ($query) {
             $query->when(auth()->check(),
                 fn ($query) => $query->where('id', auth()->user()->catalog_user_type_id),
                 fn ($query) => $query->where('id', 1)
             )->status();
         })
-        ->active($catalog_country_id)
+        ->active($countryId)
         ->whereNotNull('redirect_url');
 
-        //Obtener las campañas sin redirección y consolidar
-        $this->campaigns = Campaign::whereHas('campaignProducts.product', fn ($query) => $query->active($catalog_country_id))
+        //Obtener campañas sin redirección y consolidar
+        $this->campaigns = Campaign::whereHas('campaignProducts.product', fn ($query) => $query->active($countryId))
         ->whereHas('campaignUserTypes.catalogUserType', function ($query) {
             $query->when(auth()->check(),
                 fn ($query) => $query->where('id', auth()->user()->catalog_user_type_id),
                 fn ($query) => $query->where('id', 1)
             )->status();
         })
-        ->active($catalog_country_id)
+        ->active($countryId)
         ->whereNull('redirect_url')
         ->union($campaigns)
         ->orderBy('id', 'asc')
@@ -80,7 +80,6 @@ class Menu extends Component
                         : $campaign->redirect_url
                     )
                 ),
-
                 'name' => $campaign->name
             ];
         })->toArray();
