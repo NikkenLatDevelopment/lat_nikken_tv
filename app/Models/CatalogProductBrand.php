@@ -11,7 +11,7 @@ class CatalogProductBrand extends Model
 
     public function scopeStatus($query, ?int $view = 0) {
         //Filtrar por estatus y omitir sin marca
-        return $query->when($view == 0, function ($query) { $query->where('id', '>', 1); })
+        return $query->when($view == 0, fn ($query) => $query->where('id', '>', 1))
                      ->where('status', 1);
     }
 
