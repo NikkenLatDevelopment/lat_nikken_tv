@@ -14,7 +14,7 @@
 
                                         <ul class="list-unstyled bg-white border border-secondary rounded-3 position-absolute start-0 mt-2 sub-menu">
                                             @foreach ($brands as $brand)
-                                                <li><a href="{{ route('category.show', $brand['slug']) }}" class="h6 link-primary fw-bold text-decoration-none lh-1 d-block mb-0">{{ $brand['alias'] }} <span class="small text-black-50 fw-semibold opacity-75 d-block subtitle">{{ $brand['name'] }}</span></a></li>
+                                                <li><a href="{{ route('category.show', $brand['slug']) }}" class="h6 link-primary fw-bold text-decoration-none lh-1 d-block mb-0">{{ $brand['alias'] }} <span class="small text-black-50 opacity-75 fw-semibold d-block subtitle">{{ $brand['name'] }}</span></a></li>
                                             @endforeach
                                         </ul>
                                     </li>
@@ -79,7 +79,7 @@
                                 <div class="accordion-body pt-0 ms-3">
                                     <ul class="list-unstyled my-0 sub-menu">
                                         @foreach ($brands as $brand)
-                                            <li class="py-2"><a href="{{ route('category.show', $brand['slug']) }}" class="h6 fw-bold text-decoration-none lh-1 d-block mb-0">{{ $brand['alias'] }} <span class="small text-black-50 fw-semibold opacity-75 d-block subtitle">{{ $brand['name'] }}</span></a></li>
+                                            <li class="py-2"><a href="{{ route('category.show', $brand['slug']) }}" class="h6 fw-bold text-decoration-none lh-1 d-block mb-0">{{ $brand['alias'] }} <span class="small text-black-50 opacity-75 fw-semibold d-block subtitle">{{ $brand['name'] }}</span></a></li>
                                         @endforeach
                                     </ul>
                                 </div>

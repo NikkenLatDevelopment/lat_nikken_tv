@@ -12,7 +12,7 @@
     <x-general.header.content.main />
 
     <div class="product">
-        @livewire('product.show.content.main', [ 'product' => $product->toArray() ])
+        @livewire('product.show.content.main', [ 'product' => $product->toArray(), 'availability' => $availability ])
     </div>
 
     @push('scripts') @vite(['resources/js/product.js']) @endpush

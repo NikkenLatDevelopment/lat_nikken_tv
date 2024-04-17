@@ -109,7 +109,7 @@ class Product extends Model
         return $query->where('status', 1);
     }
 
-    public function getAvailable() {
+    public function getAvailability() {
         $available = 1;
         $componentsAvailable = [];
         $componentsNotAvailable = [];

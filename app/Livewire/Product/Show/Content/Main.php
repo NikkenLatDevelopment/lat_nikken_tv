@@ -54,7 +54,7 @@ class Main extends Component
         return view('livewire.product.show.content.main');
     }
 
-    public function mount(array $product, array $available, SessionController $sessionController) {
+    public function mount(array $product, array $availability, SessionController $sessionController) {
         //Obtener información del país
         $this->country = $sessionController->getCountry()->toArray();
 
@@ -62,25 +62,22 @@ class Main extends Component
         $this->currentUrl = url()->current();
 
         //Inicializar producto
-        $this->getProduct($product, $available);
+        $this->getProduct($product, $availability);
     }
 
-    public function getProduct(array $product, array $available) {
+    public function getProduct(array $product, array $availability) {
         //Inicializar información
         $this->product = $product;
         $this->productId = $product['id'];
 
         //Obtener disponibilidad y componentes
-        list($this->available, $this->componentsAvailable, $this->componentsNotAvailable) =  array_values($available);
+        list($this->available, $this->componentsAvailable, $this->componentsNotAvailable) =  array_values($availability);
 
         //Formatear precio sugerido con iva con símbolo de moneda
         $this->price = formatPriceWithCurrency($product['suggested_price'], $this->country);
 
         //Obtener imágenes
         $this->getImages();
-
-        //Obtener componentes
-        $this->getAvailable();
 
         //Obtener de lista de deseos
         $this->getWishlist();

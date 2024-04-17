@@ -9,7 +9,7 @@
                                 <ol class="breadcrumb my-3">
                                     <li class="breadcrumb-item me-2"><a href="{{ route('home') }}" class="h6 small link-success fw-semibold">Inicio</a></li>
                                     <li class="breadcrumb-item me-2"><a href="{{ route('category.show', $product['catalog_product_brand']['slug']) }}" class="h6 small link-success fw-semibold ms-2">{{ $product['catalog_product_brand']['name'] }}</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page"><span class="h6 small fw-semibold text-primary ms-2">{{ $product['name'] }}</span></li>
+                                    <li class="breadcrumb-item active" aria-current="page"><span class="h6 small text-primary fw-semibold ms-2">{{ $product['name'] }}</span></li>
                                 </ol>
                             </nav>
                         </div>
@@ -64,12 +64,12 @@
                 </div>
 
                 <div class="row gx-3 align-items-center mb-2">
-                    <div class="col-auto"><span class="h1 text-success fw-bold mb-0">{{ $textSuggestedPrice }}</span></div>
+                    <div class="col-auto"><span class="h1 text-success fw-bold mb-0">{{ $price }}</span></div>
 
                     @if (count($this->parentProduct) > 0)
                         <div class="col">
-                            <div class="h6 small text-success fw-semibold lh-1 mb-0">{{ $this->parentProduct['percentage_difference'] }}% off</div>
-                            <div class="h6 text-black-50 fw-bold opacity-50 text-decoration-line-through mb-0">{{ $this->parentProduct['text_suggested_price'] }}</div>
+                            <div class="h6 small text-success fw-semibold lh-1 mb-0">{{ $this->parentProduct['percentage_discount'] }}% off</div>
+                            <div class="h6 text-black-50 opacity-50 fw-bold text-decoration-line-through mb-0">{{ $this->parentProduct['price'] }}</div>
                         </div>
                     @endif
                 </div>

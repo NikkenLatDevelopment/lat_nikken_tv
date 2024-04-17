@@ -5,7 +5,7 @@
         </button>
 
         <ul class="dropdown-menu overflow-hidden animate__animated animate__fadeIn animate__faster">
-            <li><h6 class="dropdown-header fw-bold opacity-75">País de Residencia</h6></li>
+            <li><h6 class="dropdown-header opacity-75 fw-bold">País de Residencia</h6></li>
 
             @foreach ($catalogCountries as $catalogCountry)
                 @if ($catalogCountry['id'] != $country['id'])
