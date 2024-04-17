@@ -76,7 +76,7 @@ class Menu extends Component
                     ? route('campaign.show', $campaign->slug)
                     : (
                         (auth()->check() && $campaign->public_access == 0)
-                        ? $campaign->redirect_url . '/' . Crypt::encryptString(auth()->user()->id)
+                        ? $campaign->redirect_url . '/auth/' . Crypt::encryptString(auth()->user()->id)
                         : $campaign->redirect_url
                     )
                 ),
