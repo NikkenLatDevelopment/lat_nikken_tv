@@ -8,13 +8,13 @@
                             <ul class="p-0 m-0">
                                 <li class="py-3 me-4"><a href="{{ route('home') }}" class="h6 link-dark fw-bold text-decoration-none"><i class="fi fi-br-house-blank position-relative me-2"></i>Inicio</a></li>
 
-                                @if (count($catalogProductBrands))
+                                @if (count($brands))
                                     <li class="py-3 me-4">
                                         <a href="#" class="h6 link-dark fw-bold text-decoration-none">Productos <i class="fi fi-rr-angle-small-down position-relative"></i></a>
 
                                         <ul class="list-unstyled bg-white border border-secondary rounded-3 position-absolute start-0 mt-2 sub-menu">
-                                            @foreach ($catalogProductBrands as $catalogProductBrand)
-                                                <li><a href="{{ route('category.show', $catalogProductBrand['slug']) }}" class="h6 link-primary fw-bold text-decoration-none lh-1 d-block mb-0">{{ $catalogProductBrand['alias'] }} <span class="small text-black-50 fw-semibold opacity-75 d-block subtitle">{{ $catalogProductBrand['name'] }}</span></a></li>
+                                            @foreach ($brands as $brand)
+                                                <li><a href="{{ route('category.show', $brand['slug']) }}" class="h6 link-primary fw-bold text-decoration-none lh-1 d-block mb-0">{{ $brand['alias'] }} <span class="small text-black-50 fw-semibold opacity-75 d-block subtitle">{{ $brand['name'] }}</span></a></li>
                                             @endforeach
                                         </ul>
                                     </li>
@@ -69,7 +69,7 @@
                         </div>
                     </div>
 
-                    @if (count($catalogProductBrands))
+                    @if (count($brands))
                         <div class="accordion-item">
                             <div class="h6 accordion-header" id="flush-headingOne">
                                 <a href="#accordionMenuResponsive-collapseProduct" class="accordion-button collapsed link-dark fw-bold text-decoration-none bg-white shadow-none"  data-bs-toggle="collapse" aria-expanded="false" aria-controls="accordionMenuResponsive-collapseProduct">Productos</a>
@@ -78,8 +78,8 @@
                             <div id="accordionMenuResponsive-collapseProduct" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionMenuResponsive">
                                 <div class="accordion-body pt-0 ms-3">
                                     <ul class="list-unstyled my-0 sub-menu">
-                                        @foreach ($catalogProductBrands as $catalogProductBrand)
-                                            <li class="py-2"><a href="{{ route('category.show', $catalogProductBrand['slug']) }}" class="h6 fw-bold text-decoration-none lh-1 d-block mb-0">{{ $catalogProductBrand['alias'] }} <span class="small text-black-50 fw-semibold opacity-75 d-block subtitle">{{ $catalogProductBrand['name'] }}</span></a></li>
+                                        @foreach ($brands as $brand)
+                                            <li class="py-2"><a href="{{ route('category.show', $brand['slug']) }}" class="h6 fw-bold text-decoration-none lh-1 d-block mb-0">{{ $brand['alias'] }} <span class="small text-black-50 fw-semibold opacity-75 d-block subtitle">{{ $brand['name'] }}</span></a></li>
                                         @endforeach
                                     </ul>
                                 </div>
