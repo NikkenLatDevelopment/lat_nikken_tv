@@ -28,28 +28,28 @@ class CatalogCountries extends Component
         ->toArray();
     }
 
-    public function update(int $catalog_country_id, SessionController $sessionController) {
+    public function update(int $countryId, SessionController $sessionController) {
         //Validar información
         Validator::make(
-            [ 'catalog_country_id' => $catalog_country_id ],
-            [ 'catalog_country_id' => 'required|integer|exists:catalog_countries,id' ]
+            [ 'countryId' => $countryId ],
+            [ 'countryId' => 'required|integer|exists:catalog_countries,id' ]
         )->validate();
 
         //Buscar país
-        $catalogCountry = CatalogCountry::sessionData()
+        $country = CatalogCountry::sessionData()
         ->closed()
         ->status()
-        ->find($catalog_country_id);
+        ->find($countryId);
 
-        if ($catalogCountry) {
+        if ($country) {
             //Guardar país en sesión
-            $sessionController->setCountry($catalogCountry->toArray());
+            $sessionController->setCountry($country->toArray());
 
             //Redireccionar
             return redirect()->route('home');
         }
 
         //Mostrar modal
-        $this->dispatch('country.index.modal.closing-message.initialize', catalog_country_id: $catalog_country_id);
+        $this->dispatch('country.index.modal.closing-message.initialize', countryId: $countryId);
     }
 }
