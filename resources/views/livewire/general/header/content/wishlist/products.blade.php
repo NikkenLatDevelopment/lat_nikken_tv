@@ -18,7 +18,7 @@
                                 <div class="h6 small text-warning fw-bold lh-sm mb-0">Entrega Postergada</div>
                             @endif
 
-                            <div class="h5 text-muted fw-bold mb-0 mt-1">{{ $product['price'] }}</div>
+                            <div class="h5 fw-bold mb-0 mt-1">{{ $product['price'] }}</div>
                         </div>
                     </div>
                 </a>
