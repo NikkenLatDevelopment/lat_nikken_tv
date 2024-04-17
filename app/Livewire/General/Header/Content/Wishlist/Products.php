@@ -41,8 +41,8 @@ class Products extends Component
         //Obtener lista de deseos
         $this->products = $user->wishlists()
         ->with('product', 'product.catalogProductBrand')
-        ->whereHas('product', fn($query) => $query->active($this->country['id']))
         ->where('catalog_country_id', $this->country['id'])
+        ->whereHas('product', fn($query) => $query->active($this->country['id']))
         ->get()
         ->map(function($wishlist) {
             return [

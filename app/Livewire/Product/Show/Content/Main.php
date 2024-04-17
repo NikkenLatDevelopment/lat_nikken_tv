@@ -5,11 +5,14 @@ namespace App\Livewire\Product\Show\Content;
 use App\Models\Product;
 use Livewire\Component;
 use Livewire\Attributes\On;
+use App\Models\ProductColor;
 use App\Models\ProductImage;
 use App\Models\ProductReview;
 use Livewire\Attributes\Locked;
 use App\Models\ProductComponent;
 use App\Models\SessionController;
+use App\Models\ProductMeasurement;
+use App\Models\ProductPresentation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -34,6 +37,15 @@ class Main extends Component
     public array $parentProduct = [];
 
     #[Locked]
+    public array $colors = [];
+
+    #[Locked]
+    public array $presentations = [];
+
+    #[Locked]
+    public array $measurements = [];
+
+    #[Locked]
     public string $currentUrl;
 
     #[Locked]
@@ -49,6 +61,9 @@ class Main extends Component
     public string $price;
 
     public bool $wishlist = false;
+    public int $selectedColor;
+    public int $selectedPresentation;
+    public int $selectedMeasurement;
 
     public function render()
     {
@@ -89,6 +104,15 @@ class Main extends Component
 
         //Obtener total de reviews
         $this->getTotalReviews();
+
+        //Obtener colores
+        $this->getColors();
+
+        //Obtener presentaciones
+        $this->getPresentations();
+
+        //Obtener Medidas
+        $this->getMeasurements();
     }
 
     public function getImages() {
@@ -194,5 +218,44 @@ class Main extends Component
                 'percentage_discount' => number_format(100 - (($this->product['suggested_price'] * 100) / $parentProduct['suggested_price']), 0),
             ]);
         }
+    }
+
+    public function getColors() {
+        //Obtener colores
+        $this->colors = ProductColor::select('product_id', 'color')
+        ->where('parent_product_id', $this->productId)
+        ->whereHas('product', fn ($query) => $query->active($this->country['id']))
+        ->orderBy('product_id', 'ASC')
+        ->get()
+        ->toArray();
+
+        //Marcar color por defecto
+        if (count($this->colors) > 0) { $this->selectedColor = $this->productId; }
+    }
+
+    public function getPresentations() {
+        //Obtener presentaciones
+        $this->presentations = ProductPresentation::select('product_id', 'presentation')
+        ->where('parent_product_id', $this->productId)
+        ->whereHas('product', fn ($query) => $query->active($this->country['id']))
+        ->orderBy('product_id', 'ASC')
+        ->get()
+        ->toArray();
+
+        //Marcar presentación por defecto
+        if (count($this->presentations) > 0) { $this->selectedPresentation = $this->productId; }
+    }
+
+    public function getMeasurements() {
+        //Obtener medidas
+        $this->measurements = ProductMeasurement::select('product_id', 'measurement')
+        ->where('parent_product_id', $this->productId)
+        ->whereHas('product', fn ($query) => $query->active($this->country['id']))
+        ->orderBy('product_id', 'ASC')
+        ->get()
+        ->toArray();
+
+        //Marcar medida por defecto
+        if (count($this->measurements) > 0) { $this->selectedMeasurement = $this->productId; }
     }
 }
