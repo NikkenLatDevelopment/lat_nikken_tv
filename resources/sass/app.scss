@@ -179,6 +179,18 @@ button, a {
     }
 }
 
+.cart {
+    .products {
+        img {
+            max-width: 95px;
+        }
+
+        .empty {
+            height: calc(100vh - 140px);
+        }
+    }
+}
+
 .btn-outline-success-custom-1 {
     @include button-outline-variant($body-color, white, lighten($success, 5%), white, white);
 }
