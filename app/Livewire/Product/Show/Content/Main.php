@@ -60,6 +60,9 @@ class Main extends Component
     #[Locked]
     public string $price;
 
+    #[Locked]
+    public string $available_until;
+
     public bool $wishlist = false;
     public int $selectedColor;
     public int $selectedPresentation;
@@ -92,6 +95,11 @@ class Main extends Component
 
         //Formatear precio sugerido con iva con símbolo de moneda
         $this->price = formatPriceWithCurrency($product['suggested_price'], $this->country);
+
+        //Validar fecha de disponibilidad
+        $this->available_until = $product['available_until'] == null
+            ? 'Sin fecha estimada de disponibilidad'
+            : formatDateInSpanishLocale($product['available_until']);
 
         //Obtener imágenes
         $this->getImages();

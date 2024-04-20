@@ -100,6 +100,73 @@
                         @endif
                     </div>
                 @endif
+
+                @if ($available == 0)
+                    @if (count($componentsNotAvailable) > 0)
+                        <div class="row gx-3 mb-2 components">
+                            @if (count($componentsNotAvailable) > 0)
+                                <div class="col-12 col-sm-6 col-lg-12 col-xl-6">
+                                    <div class="card border-warning rounded-4 overflow-hidden mb-2">
+                                        <div class="card-header text-white lh-sm bg-warning border-0 px-4">
+                                            <span class="fw-bold d-block py-1">Componentes con <span class="text-decoration-underline">Entrega Postergada</span></span>
+                                        </div>
+
+                                        <div class="card-body text-warning">
+                                            <ul class="fa-ul ps-0 ms-4">
+                                                @foreach ($componentsNotAvailable as $componentNotAvailable)
+                                                    <li class="mb-2">
+                                                        <span class="fa-li"><i class="fa-solid fa-angle-right"></i></span>
+                                                        {{ $componentNotAvailable['sku'] }} - <span class="fw-bold">{{ $componentNotAvailable['name'] }}</span>.
+                                                        <span class="small lh-sm d-block">Fecha estimada de disponibilidad:</span>
+                                                        <span class="d-block"><i class="fi fi-sr-calendar-clock position-relative me-1"></i> <span class="fs-6 fw-bold text-decoration-underline">{{ $componentNotAvailable['date'] }}</span>.</span>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+
+                                            <p class="small lh-sm mb-0"><span class="fw-bold">Importante:</span> Las fechas anteriormente descritas pueden cambiar.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
+                            @if (count($componentsAvailable) > 0)
+                                <div class="col-12 col-sm-6 col-lg-12 col-xl-6">
+                                    <div class="card border-success rounded-4 overflow-hidden">
+                                        <div class="card-header text-white lh-sm bg-success border-0 px-4">
+                                            <span class="fw-bold d-block py-1">Componentes <span class="text-decoration-underline">Disponibles</span></span>
+                                        </div>
+
+                                        <div class="card-body text-success">
+                                            <ul class="fa-ul ps-0 ms-4 mb-0">
+                                                @foreach ($componentsAvailable as $componentAvailable)
+                                                    <li class="lh-sm @if (!$loop->last) mb-2 @endif">
+                                                        <span class="fa-li"><i class="fa-solid fa-angle-right"></i></span>
+                                                        {{ $componentAvailable['sku'] }} - {{ $componentAvailable['name'] }}.
+                                                        <span class="d-block fw-bold">Disponible.</span>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                    @else
+                        <div class="mt-1 mb-2 components">
+                            <div class="card border-warning rounded-4 overflow-hidden d-inline-block">
+                                <div class="card-header text-white lh-sm bg-warning border-0 px-4">
+                                    <span class="fw-bold d-block py-1">Producto en <span class="text-decoration-underline">Entrega Postergada</span></span>
+                                </div>
+
+                                <div class="card-body text-warning">
+                                    <div class="small lh-1 d-block">Fecha estimada de disponibilidad:</div>
+                                    <div><i class="fi fi-sr-calendar-clock position-relative me-1"></i> <span class="fs-6 fw-bold text-decoration-underline">{{ $available_until }}</span>.</div>
+                                    <p class="small lh-sm mt-2 mb-0"><span class="fw-bold">Importante:</span> La fecha anteriormente descrita pueden cambiar.</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                @endif
             </div>
         </div>
     </section>
