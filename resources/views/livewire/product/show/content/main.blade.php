@@ -101,7 +101,7 @@
                     </div>
                 @endif
 
-                <form class="mb-3" wire:submit="addCart">
+                <form class="mb-3" wire:submit="addCart(0)">
                     <div class="row gx-2 align-items-center">
                         <div class="col-auto">
                             <div class="border @if ($available == 0) border-warning @else border-success @endif border-2 rounded-2 py-1 quantity">

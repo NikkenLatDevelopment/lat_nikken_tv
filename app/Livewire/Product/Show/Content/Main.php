@@ -323,7 +323,7 @@ class Main extends Component
     }
 
     #[On('product.show.content.main.addCart')]
-    public function addCart(int $available = 0) {
+    public function addCart(int $available = 0, SessionController $sessionController) {
         //Validar disponibilidad del producto
         if ($this->available == 0 && $available == 0) {
             //Emitir evento para recordar productos no disponibles
@@ -336,6 +336,9 @@ class Main extends Component
 
             return;
         }
+
+        //Guardar producto en el carrito de compras
+        $sessionController->setCart($this->productId, $this->quantity);
 
         //Mostrar carrito de compras
         $this->dispatch('showCart');

@@ -44,6 +44,22 @@ class SessionController
 
         return $countryId;
     }
+
+    public function setCart(int $productId, int $quantity): void {
+        //Obtener carrito de compras
+        $cart = $this->session->get('cart', []);
+
+        //Agregar producto
+        $cart[$productId] = $quantity;
+
+        //Guardar carrito de compras
+        $this->session->put('cart', $cart);
+    }
+
+    public function getCart(): array {
+        //Obtener carrito de compras
+        return $this->session->get('cart', []);
+    }
 }
 
 class SessionControllerCountry {
