@@ -29,7 +29,7 @@ class Products extends Component
         $this->country = $sessionController->getCountry()->toArray();
 
         //Obtener lista de deseos
-        $this->getProducts($sessionController);
+        $this->getProducts();
     }
 
     #[On('general.header.content.wishlist.products.getProducts')]
