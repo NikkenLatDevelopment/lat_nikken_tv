@@ -44,7 +44,7 @@ class CountryController extends Controller
             $sessionController->setCountry($country->toArray());
 
             //Redireccionar
-            return redirect()->route('home');
+            return redirect()->back();
         }
 
         //Redireccionar
