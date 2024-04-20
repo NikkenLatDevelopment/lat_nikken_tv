@@ -11,9 +11,6 @@ use Illuminate\Support\Facades\Validator;
 class Products extends Component
 {
     #[Locked]
-    public array $country = [];
-
-    #[Locked]
     public array $products = [];
 
     public function render()
@@ -23,15 +20,15 @@ class Products extends Component
     }
 
     public function mount(SessionController $sessionController) {
-        //Obtener información del país
-        $this->country = $sessionController->getCountry()->toArray();
-
         //Obtener carrito de compras
-        $this->getProducts();
+        $this->getProducts($sessionController);
     }
 
     #[On('general.header.content.cart.products.getProducts')]
-    public function getProducts() {
+    public function getProducts(SessionController $sessionController) {
+        //Obtener carrito de compras
+        $this->products = $sessionController->getCart();
+
         //Emitir evento para actualizar el contador del carrito de compras
         $this->dispatch('general.header.content.cart.count.getTotalProducts', productsTotal: count($this->products));
     }

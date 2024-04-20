@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Session\SessionManager;
 use Illuminate\Support\Facades\Cookie;
 
@@ -57,6 +58,9 @@ class SessionController
     }
 
     public function getCart(): array {
+        //Obtener información del usuario
+        $user = Auth::user();
+
         //Obtener carrito de compras
         return $this->session->get('cart', []);
     }
