@@ -63,6 +63,9 @@ class Main extends Component
     #[Locked]
     public string $available_until;
 
+    #[Locked]
+    public array $differentiators = [];
+
     public bool $wishlist = false;
     public int $selectedColor;
     public int $selectedPresentation;
@@ -101,6 +104,11 @@ class Main extends Component
         $this->available_until = $product['available_until'] == null
             ? 'Sin fecha estimada de disponibilidad'
             : formatDateInSpanishLocale($product['available_until']);
+
+        //Organizar diferenciadores
+        $this->differentiators = $this->product['differentiators'] != null
+            ? explode('|', $product['differentiators'])
+            : [];
 
         //Obtener imágenes
         $this->getImages();

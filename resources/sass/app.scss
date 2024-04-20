@@ -207,6 +207,14 @@ button, a {
 }
 
 .custom {
+    &.i-top-1{
+        top: 3px;
+    }
+
+    &.i-top-2{
+        top: 2px;
+    }
+
     &.bell-1 {
         -webkit-animation: bellRing 4s .7s ease-in-out infinite;
         -webkit-transform-origin: 50% 4px;

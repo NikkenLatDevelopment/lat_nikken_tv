@@ -135,7 +135,7 @@
                                             <ul class="fa-ul ps-0 ms-4">
                                                 @foreach ($componentsNotAvailable as $componentNotAvailable)
                                                     <li class="mb-2">
-                                                        <span class="fa-li"><i class="fa-solid fa-angle-right"></i></span>
+                                                        <span class="fa-li"><i class="fa-solid fa-angle-right fa-xs"></i></span>
                                                         {{ $componentNotAvailable['sku'] }} - <span class="fw-bold">{{ $componentNotAvailable['name'] }}</span>.
                                                         <span class="small lh-sm d-block">Fecha estimada de disponibilidad:</span>
                                                         <span class="d-block"><i class="fi fi-sr-calendar-clock position-relative me-1"></i> <span class="fs-6 fw-bold text-decoration-underline">{{ $componentNotAvailable['date'] }}</span>.</span>
@@ -151,7 +151,7 @@
 
                             @if (count($componentsAvailable) > 0)
                                 <div class="col-12 col-sm-6 col-lg-12 col-xl-6">
-                                    <div class="card border-success rounded-4 overflow-hidden">
+                                    <div class="card border-success rounded-4 overflow-hidden mb-2">
                                         <div class="card-header text-white lh-sm bg-success border-0 px-3">
                                             <span class="fw-bold d-block py-1">Componentes <span class="text-decoration-underline">Disponibles</span></span>
                                         </div>
@@ -160,7 +160,7 @@
                                             <ul class="fa-ul ps-0 ms-4 mb-0">
                                                 @foreach ($componentsAvailable as $componentAvailable)
                                                     <li class="lh-sm @if (!$loop->last) mb-2 @endif">
-                                                        <span class="fa-li"><i class="fa-solid fa-angle-right"></i></span>
+                                                        <span class="fa-li"><i class="fa-solid fa-angle-right fa-xs"></i></span>
                                                         {{ $componentAvailable['sku'] }} - {{ $componentAvailable['name'] }}.
                                                         <span class="d-block fw-bold">Disponible.</span>
                                                     </li>
@@ -174,7 +174,7 @@
                     @else
                         <div class="row gx-3 mb-2 components">
                             <div class="col-12 col-sm-6 col-lg-12 col-xl-6">
-                                <div class="card border-warning rounded-4 overflow-hidden d-inline-block">
+                                <div class="card border-warning rounded-4 overflow-hidden mb-2">
                                     <div class="card-header text-white lh-sm bg-warning border-0 px-3">
                                         <span class="fw-bold d-block py-1">Producto en <span class="text-decoration-underline">Entrega Postergada</span></span>
                                     </div>
@@ -188,6 +188,23 @@
                             </div>
                         </div>
                     @endif
+                @endif
+
+                @if ($product['warranty'] != null || $product['video'] != null)
+                    <div class="mb-2">
+                        @if ($product['warranty'] != null) <p class="text-success fw-bold mb-0"><i class="fi fi-br-icon-star h5 position-relative me-1 custom i-top-1"></i> {{ $product['warranty'] }}.</p>@endif
+                        @if ($product['video'] != null) <p class="d-flex align-items-center mb-0"><i class="fi fi-brands-youtube h4 text-danger position-relative me-2 mb-0 custom i-top-1"></i><a href="{{ $product['video'] }}" class="link-danger fw-bold" data-fancybox="videos">Conoce el producto aquí.</a></p>@endif
+                    </div>
+                @endif
+
+                @if ($differentiators != null)
+                    <h2 class="h6 fw-bold mb-2 pt-2">Diferenciadores del producto:</h2>
+
+                    <ul class="mb-4">
+                        @foreach ($differentiators as $differentiator)
+                        <li>{{ $differentiator }}</li>
+                        @endforeach
+                    </ul>
                 @endif
             </div>
         </div>
