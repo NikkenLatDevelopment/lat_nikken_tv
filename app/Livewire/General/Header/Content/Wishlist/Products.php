@@ -63,7 +63,7 @@ class Products extends Component
         $this->dispatch('general.header.content.wishlist.count.getTotalProducts', productsTotal: count($this->products));
     }
 
-    public function removeProduct(int $productId) {
+    public function removeProduct(int $index, int $productId) {
         //Validar información
         Validator::make(
             [ 'productId' => $productId ],
@@ -74,14 +74,17 @@ class Products extends Component
         $user = Auth::user();
         if (!$user) { return; }
 
-        //Eliminar producto de la lista de deseos
+        //Eliminar producto de la lista de deseos en base de datos
         $user->wishlists()->where('product_id', $productId)->delete();
 
-        //Obtener lista de deseos
-        $this->getProducts();
+        //Eliminar producto de la lista de deseos
+        unset($this->products[$index]);
 
         //Mostrar mensaje
         $this->dispatch('showToast', message: 'Producto <span class="fw-bold"><u>eliminado</u></span> de tu lista de deseos.', color: 'dark');
+
+        //Emitir evento para actualizar el contador de la lista de deseos
+        $this->dispatch('general.header.content.wishlist.count.getTotalProducts', productsTotal: count($this->products));
 
         //Emitir evento para actualizar desmarcar el producto en la lista de deseos
         $this->dispatch('product.show.content.main.removeWishlist', productId: $productId);
