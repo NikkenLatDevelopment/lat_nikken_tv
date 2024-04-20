@@ -327,14 +327,12 @@ class Main extends Component
         //Validar disponibilidad del producto
         if ($this->available == 0 && $available == 0) {
             //Emitir evento para recordar productos no disponibles
-            $this->dispatch('product.show.modal.available-message.initialize',
+            return $this->dispatch('product.show.modal.available-message.initialize',
                 sku: $this->product['sku'],
                 name: $this->product['name'],
                 availableUntil: $this->availableUntil,
                 componentsNotAvailable: $this->componentsNotAvailable
             );
-
-            return;
         }
 
         //Guardar producto en el carrito de compras
