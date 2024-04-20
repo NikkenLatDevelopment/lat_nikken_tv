@@ -138,7 +138,7 @@
                                                         <span class="fa-li"><i class="fa-solid fa-angle-right fa-xs"></i></span>
                                                         {{ $componentNotAvailable['sku'] }} - <span class="fw-bold">{{ $componentNotAvailable['name'] }}</span>.
                                                         <span class="small lh-sm d-block">Fecha estimada de disponibilidad:</span>
-                                                        <span class="d-block"><i class="fi fi-sr-calendar-clock position-relative me-1"></i> <span class="fs-6 fw-bold text-decoration-underline">{{ $componentNotAvailable['date'] }}</span>.</span>
+                                                        <span class="lh-sm d-block"><i class="fi fi-sr-calendar-clock position-relative me-1"></i> <span class="fs-6 fw-bold text-decoration-underline">{{ $componentNotAvailable['date'] }}</span>.</span>
                                                     </li>
                                                 @endforeach
                                             </ul>
@@ -181,7 +181,7 @@
 
                                     <div class="card-body text-warning">
                                         <div class="small lh-1 d-block">Fecha estimada de disponibilidad:</div>
-                                        <div><i class="fi fi-sr-calendar-clock position-relative me-1"></i> <span class="fs-6 fw-bold text-decoration-underline">{{ $available_until }}</span>.</div>
+                                        <div class="lh-1"><i class="fi fi-sr-calendar-clock position-relative me-1"></i> <span class="fs-6 fw-bold text-decoration-underline">{{ $availableUntil }}</span>.</div>
                                         <p class="small lh-sm mt-2 mb-0"><span class="fw-bold">Importante:</span> La fecha anteriormente descrita pueden cambiar.</p>
                                     </div>
                                 </div>

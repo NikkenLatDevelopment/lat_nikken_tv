@@ -61,7 +61,7 @@ class Main extends Component
     public string $price;
 
     #[Locked]
-    public string $available_until;
+    public string $availableUntil;
 
     #[Locked]
     public array $differentiators = [];
@@ -101,7 +101,7 @@ class Main extends Component
         $this->price = formatPriceWithCurrency($product['suggested_price'], $this->country);
 
         //Validar fecha de disponibilidad
-        $this->available_until = $product['available_until'] == null
+        $this->availableUntil = $product['available_until'] == null
             ? 'Sin fecha estimada de disponibilidad'
             : formatDateInSpanishLocale($product['available_until']);
 
@@ -322,7 +322,22 @@ class Main extends Component
         $this->updateProduct($this->selectedMeasurement);
     }
 
-    public function addCart() {
-        sleep(10);
+    #[On('product.show.content.main.addCart')]
+    public function addCart(int $available = 0) {
+        //Validar disponibilidad del producto
+        if ($this->available == 0 && $available == 0) {
+            //Emitir evento para recordar productos no disponibles
+            $this->dispatch('product.show.modal.available-message.initialize',
+                sku: $this->product['sku'],
+                name: $this->product['name'],
+                availableUntil: $this->availableUntil,
+                componentsNotAvailable: $this->componentsNotAvailable
+            );
+
+            return;
+        }
+
+        //Mostrar mensaje
+        $this->dispatch('showToast', message: 'Producto <span class="fw-bold"><u>agregado</u></span> a tu carrito de compras.', color: 'success');
     }
 }

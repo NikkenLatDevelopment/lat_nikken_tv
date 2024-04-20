@@ -13,6 +13,7 @@
 
     <div class="product">
         @livewire('product.show.content.main', [ 'product' => $product->toArray(), 'availability' => $availability ])
+        @livewire('product.show.modal.available-message')
     </div>
 
     @push('scripts') @vite(['resources/js/product.js']) @endpush
