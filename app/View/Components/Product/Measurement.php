@@ -11,7 +11,7 @@ class Measurement extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public array $measurements)
+    public function __construct(public array $measurements, public int $available)
     {
         //
     }

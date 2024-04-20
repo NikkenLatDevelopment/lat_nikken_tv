@@ -11,7 +11,7 @@ class Color extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public array $colors)
+    public function __construct(public array $colors, public int $available)
     {
         //
     }

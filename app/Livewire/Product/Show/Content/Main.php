@@ -67,6 +67,7 @@ class Main extends Component
     public int $selectedColor;
     public int $selectedPresentation;
     public int $selectedMeasurement;
+    public int $quantity = 1;
 
     public function render()
     {
@@ -311,5 +312,9 @@ class Main extends Component
 
         //Actualizar producto según la medida seleccionada
         $this->updateProduct($this->selectedMeasurement);
+    }
+
+    public function addCart() {
+        sleep(10);
     }
 }

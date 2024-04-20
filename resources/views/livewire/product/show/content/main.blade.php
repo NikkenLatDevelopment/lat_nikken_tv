@@ -77,29 +77,49 @@
                 <div>{!! $product['short_description'] !!}</div>
 
                 @if (count($colors) > 0 || count($presentations) > 0 || count($measurements) > 0)
-                    <div class="pb-1">
+                    <div class="pb-2 mb-1">
                         @if (count($colors) > 0)
                             <div class="row gx-3 align-items-center mb-2">
                                 <div class="col-auto"><div class="h6 text-muted fw-bold mb-0">Colores:</div></div>
-                                <div class="col"><div class="d-flex"><x-product.color :colors="$colors" /></div></div>
+                                <div class="col"><div class="d-flex"><x-product.color :colors="$colors" :available="$available" /></div></div>
                             </div>
                         @endif
 
                         @if (count($presentations) > 0)
                             <div class="row gx-3 align-items-center mb-2">
                                 <div class="col-auto"><div class="h6 text-muted fw-bold mb-0">Presentación:</div></div>
-                                <div class="col"><div class="d-flex"><x-product.presentation :presentations="$presentations" /></div></div>
+                                <div class="col"><div class="d-flex"><x-product.presentation :presentations="$presentations" :available="$available" /></div></div>
                             </div>
                         @endif
 
                         @if (count($measurements) > 0)
                             <div class="row gx-3 align-items-center mb-2">
                                 <div class="col-auto"><div class="h6 text-muted fw-bold mb-0">Talla / Medidas:</div></div>
-                                <div class="col"><div class="d-flex"><x-product.measurement :measurements="$measurements" /></div></div>
+                                <div class="col"><div class="d-flex"><x-product.measurement :measurements="$measurements" :available="$available" /></div></div>
                             </div>
                         @endif
                     </div>
                 @endif
+
+                <form class="mb-3" wire:submit="addCart">
+                    <div class="row gx-2 align-items-center">
+                        <div class="col-auto">
+                            <div class="border @if ($available == 0) border-warning @else border-success @endif border-2 rounded-2 py-1 quantity">
+                                <div class="row gx-0 align-items-center" x-data="{ quantity: @entangle('quantity') }">
+                                    <div class="col"><input type="number" class="form-control text-muted fw-bold text-center border-0 shadow-none px-0 ms-3 py-2" x-bind:value="quantity" wire:model="quantity" readonly></div>
+
+                                    <div class="col-auto d-flex flex-column">
+                                        <button type="button" class="btn btn-link @if ($available == 0) link-warning @else link-success @endif text-decoration-none lh-1 py-0 px-1" @click="quantity++" x-bind:disabled="quantity >= 99" wire:loading.attr="disabled"><i class="fi-rs-angle-small-up @if ($available == 0) text-warning @else text-success @endif"></i></button>
+                                        <button type="button" class="btn btn-link @if ($available == 0) link-warning @else link-success @endif text-decoration-none lh-1 py-0 px-1" @click="quantity--" x-bind:disabled="quantity <= 1" wire:loading.attr="disabled"><i class="fi-rs-angle-small-down @if ($available == 0) text-warning @else text-success @endif"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-auto"><button type="submit" class="btn h6 text-white fw-bold mb-0 @if ($available == 0) btn-warning-custom-1 @else btn-success-custom-1 @endif" wire:loading.attr="disabled" wire:target="addCart,selectedColor,selectedPresentation,selectedMeasurement,changeWishlist"><i class="fi fi-br-shopping-cart me-2"></i> Agregar al Carrito</button></div>
+                        <div class="col-auto"><button type="button" class="btn btn-link text-decoration-none animation-hover-up" data-bs-toggle="tooltip" data-bs-title="Compartir"><i class="fi fi-br-share-square h3 @if ($available == 0) text-warning @else text-success @endif mb-0"></i></button></div>
+                    </div>
+                </form>
 
                 @if ($available == 0)
                     @if (count($componentsNotAvailable) > 0)
@@ -107,7 +127,7 @@
                             @if (count($componentsNotAvailable) > 0)
                                 <div class="col-12 col-sm-6 col-lg-12 col-xl-6">
                                     <div class="card border-warning rounded-4 overflow-hidden mb-2">
-                                        <div class="card-header text-white lh-sm bg-warning border-0 px-4">
+                                        <div class="card-header text-white lh-sm bg-warning border-0 px-3">
                                             <span class="fw-bold d-block py-1">Componentes con <span class="text-decoration-underline">Entrega Postergada</span></span>
                                         </div>
 
@@ -132,7 +152,7 @@
                             @if (count($componentsAvailable) > 0)
                                 <div class="col-12 col-sm-6 col-lg-12 col-xl-6">
                                     <div class="card border-success rounded-4 overflow-hidden">
-                                        <div class="card-header text-white lh-sm bg-success border-0 px-4">
+                                        <div class="card-header text-white lh-sm bg-success border-0 px-3">
                                             <span class="fw-bold d-block py-1">Componentes <span class="text-decoration-underline">Disponibles</span></span>
                                         </div>
 
@@ -152,16 +172,18 @@
                             @endif
                         </div>
                     @else
-                        <div class="mt-1 mb-2 components">
-                            <div class="card border-warning rounded-4 overflow-hidden d-inline-block">
-                                <div class="card-header text-white lh-sm bg-warning border-0 px-4">
-                                    <span class="fw-bold d-block py-1">Producto en <span class="text-decoration-underline">Entrega Postergada</span></span>
-                                </div>
+                        <div class="row gx-3 mb-2 components">
+                            <div class="col-12 col-sm-6 col-lg-12 col-xl-6">
+                                <div class="card border-warning rounded-4 overflow-hidden d-inline-block">
+                                    <div class="card-header text-white lh-sm bg-warning border-0 px-3">
+                                        <span class="fw-bold d-block py-1">Producto en <span class="text-decoration-underline">Entrega Postergada</span></span>
+                                    </div>
 
-                                <div class="card-body text-warning">
-                                    <div class="small lh-1 d-block">Fecha estimada de disponibilidad:</div>
-                                    <div><i class="fi fi-sr-calendar-clock position-relative me-1"></i> <span class="fs-6 fw-bold text-decoration-underline">{{ $available_until }}</span>.</div>
-                                    <p class="small lh-sm mt-2 mb-0"><span class="fw-bold">Importante:</span> La fecha anteriormente descrita pueden cambiar.</p>
+                                    <div class="card-body text-warning">
+                                        <div class="small lh-1 d-block">Fecha estimada de disponibilidad:</div>
+                                        <div><i class="fi fi-sr-calendar-clock position-relative me-1"></i> <span class="fs-6 fw-bold text-decoration-underline">{{ $available_until }}</span>.</div>
+                                        <p class="small lh-sm mt-2 mb-0"><span class="fw-bold">Importante:</span> La fecha anteriormente descrita pueden cambiar.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

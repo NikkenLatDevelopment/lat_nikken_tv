@@ -17,6 +17,9 @@ window.showToast = function (message, color) {
     window.toast.show();
 };
 
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) { return new bootstrap.Tooltip(tooltipTriggerEl) })
+
 window.showOffsetCanvas = function (id) {
     const offcanvas = new bootstrap.Offcanvas(id);
     offcanvas.show();

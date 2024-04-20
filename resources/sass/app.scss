@@ -183,6 +183,29 @@ button, a {
     @include button-outline-variant($body-color, white, lighten($success, 5%), white, white);
 }
 
+.btn-outline-warning-custom-1 {
+    @include button-outline-variant($body-color, white, lighten($warning, 5%), white, white);
+}
+
+.btn-success-custom-1 {
+    @include button-variant($success, $success, $success, shade-color($success, 10%), $success, white);
+    @include button-size(0.8rem, 1.4rem, $font-size-base, $btn-border-radius);
+}
+
+.btn-warning-custom-1 {
+    @include button-variant($warning, $warning, $warning, shade-color($warning, 10%), $warning, white);
+    @include button-size(0.8rem, 1.4rem, $font-size-base, $btn-border-radius);
+}
+
+.animation-hover-up{
+	transition: all .25s cubic-bezier(.02,.01,.47,1);
+
+	&:hover{
+		transform: translateY(-5px);
+		transition: all .25s cubic-bezier(.02,.01,.47,1);
+	}
+}
+
 .custom {
     &.bell-1 {
         -webkit-animation: bellRing 4s .7s ease-in-out infinite;

@@ -11,7 +11,7 @@ class Presentation extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public array $presentations)
+    public function __construct(public array $presentations, public int $available)
     {
         //
     }
