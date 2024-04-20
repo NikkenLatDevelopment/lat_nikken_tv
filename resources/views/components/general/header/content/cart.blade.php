@@ -8,3 +8,13 @@
         @livewire('general.header.content.cart.products')
     </div>
 </div>
+
+@push('scripts')
+    <script type="module">
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('showCart', () => {
+                showOffsetCanvas('#offcanvasCart');
+            });
+        });
+    </script>
+@endpush

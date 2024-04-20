@@ -10,8 +10,8 @@
                             @foreach ($componentsNotAvailable as $componentNotAvailable)
                                 <li class="mb-2">
                                     <span class="fa-li"><i class="fa-solid fa-angle-right fa-xs"></i></span>
-                                    {{ $componentNotAvailable['sku'] }} - <span class="fw-bold">{{ $componentNotAvailable['name'] }}</span>.
-                                    <span class="small d-block">Fecha estimada de disponibilidad:</span>
+                                    <span class="lh-sm d-block">{{ $componentNotAvailable['sku'] }} - <span class="fw-bold">{{ $componentNotAvailable['name'] }}</span>.</span>
+                                    <span class="small lh-sm d-block">Fecha estimada de disponibilidad:</span>
                                     <span class="lh-sm d-block"><i class="fi fi-sr-calendar-clock position-relative me-1"></i> <span class="fs-6 fw-bold text-decoration-underline">{{ $componentNotAvailable['date'] }}</span>.</span>
                                 </li>
                             @endforeach
@@ -24,7 +24,7 @@
                         <ul class="fa-ul ps-0 ms-4 components">
                             <li class="mb-2">
                                 <span class="fa-li"><i class="fa-solid fa-angle-right fa-xs"></i></span>
-                                {{ $sku }} - <span class="fw-bold">{{ $name }}</span>.
+                                <span class="lh-sm d-block">{{ $sku }} - <span class="fw-bold">{{ $name }}</span>.</span>
                                 <span class="small lh-sm d-block">Fecha estimada de disponibilidad:</span>
                                 <span class="lh-sm d-block"><i class="fi fi-sr-calendar-clock position-relative me-1"></i> <span class="fs-6 fw-bold text-decoration-underline">{{ $availableUntil }}</span>.</span>
                             </li>

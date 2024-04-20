@@ -127,7 +127,7 @@
                             @if (count($componentsNotAvailable) > 0)
                                 <div class="col-12 col-sm-6 col-lg-12 col-xl-6">
                                     <div class="card border-warning rounded-4 overflow-hidden mb-2">
-                                        <div class="card-header text-white lh-sm bg-warning border-0 px-3">
+                                        <div class="card-header text-warning lh-sm bg-white border-0 border-bottom border-warning px-3">
                                             <span class="fw-bold d-block py-1">Componentes con <span class="text-decoration-underline">Entrega Postergada</span></span>
                                         </div>
 
@@ -152,7 +152,7 @@
                             @if (count($componentsAvailable) > 0)
                                 <div class="col-12 col-sm-6 col-lg-12 col-xl-6">
                                     <div class="card border-success rounded-4 overflow-hidden mb-2">
-                                        <div class="card-header text-white lh-sm bg-success border-0 px-3">
+                                        <div class="card-header text-success lh-sm bg-white border-0 border-bottom border-success px-3">
                                             <span class="fw-bold d-block py-1">Componentes <span class="text-decoration-underline">Disponibles</span></span>
                                         </div>
 
@@ -175,14 +175,14 @@
                         <div class="row gx-3 mb-2 components">
                             <div class="col-12 col-sm-6 col-lg-12 col-xl-6">
                                 <div class="card border-warning rounded-4 overflow-hidden mb-2">
-                                    <div class="card-header text-white lh-sm bg-warning border-0 px-3">
+                                    <div class="card-header text-warning lh-sm bg-white border-0 border-bottom border-warning px-3">
                                         <span class="fw-bold d-block py-1">Producto en <span class="text-decoration-underline">Entrega Postergada</span></span>
                                     </div>
 
                                     <div class="card-body text-warning">
                                         <div class="small lh-1 d-block">Fecha estimada de disponibilidad:</div>
                                         <div class="lh-1"><i class="fi fi-sr-calendar-clock position-relative me-1"></i> <span class="fs-6 fw-bold text-decoration-underline">{{ $availableUntil }}</span>.</div>
-                                        <p class="small lh-sm mt-2 mb-0"><span class="fw-bold">Importante:</span> La fecha anteriormente descrita pueden cambiar.</p>
+                                        <p class="small lh-sm mt-3 mb-0"><span class="fw-bold">Importante:</span> La fecha anteriormente descrita pueden cambiar.</p>
                                     </div>
                                 </div>
                             </div>

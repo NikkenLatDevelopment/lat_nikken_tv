@@ -267,7 +267,7 @@ class Main extends Component
         //Validar información
         Validator::make(
             [ 'selectedColor' => $this->selectedColor ],
-            [ 'selectedColor' => 'required|integer|exists:product_colors,id' ]
+            [ 'selectedColor' => 'required|integer|exists:product_colors,parent_product_id' ]
         )->validate();
 
         //Actualizar producto según el color seleccionado
@@ -336,6 +336,9 @@ class Main extends Component
 
             return;
         }
+
+        //Mostrar carrito de compras
+        $this->dispatch('showCart');
 
         //Mostrar mensaje
         $this->dispatch('showToast', message: 'Producto <span class="fw-bold"><u>agregado</u></span> a tu carrito de compras.', color: 'success');
