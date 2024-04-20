@@ -174,8 +174,8 @@ class Main extends Component
 
         //Consultar producto
         $wishlist = $user->wishlists()
-        ->where('catalog_country_id', $this->country['id'])
         ->where('product_id', $this->productId)
+        ->country($this->country['id'])
         ->first();
 
         //Verificar si se encuentra en la lista de deseos
@@ -189,8 +189,8 @@ class Main extends Component
 
         //Consultar producto
         $wishlist = $user->wishlists()
-        ->where('catalog_country_id', $this->country['id'])
         ->where('product_id', $this->productId)
+        ->country($this->country['id'])
         ->first();
 
         if ($this->wishlist) {

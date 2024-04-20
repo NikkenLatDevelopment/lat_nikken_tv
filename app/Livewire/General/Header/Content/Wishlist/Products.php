@@ -41,8 +41,8 @@ class Products extends Component
         //Obtener lista de deseos
         $this->products = $user->wishlists()
         ->with('product', 'product.catalogProductBrand')
-        ->where('catalog_country_id', $this->country['id'])
         ->whereHas('product', fn($query) => $query->active($this->country['id']))
+        ->country($this->country['id'])
         ->get()
         ->map(function($wishlist) {
             return [
@@ -75,7 +75,7 @@ class Products extends Component
         if (!$user) { return; }
 
         //Eliminar producto de la lista de deseos en base de datos
-        $user->wishlists()->where('product_id', $productId)->delete();
+        $user->wishlists()->where('product_id', $productId)->country($this->country['id'])->delete();
 
         //Eliminar producto de la lista de deseos
         unset($this->products[$index]);

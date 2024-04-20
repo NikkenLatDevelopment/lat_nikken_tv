@@ -18,4 +18,9 @@ class Wishlist extends Model
         //Relación con el producto
         return $this->belongsTo(Product::class);
     }
+
+    public function scopeCountry($query, int $catalog_country_id) {
+        //Filtrar por país
+        return $query->where('catalog_country_id', $catalog_country_id);
+    }
 }
