@@ -29,7 +29,10 @@ class Products extends Component
         //Obtener carrito de compras
         $this->products = $sessionController->getCart();
 
+        //Sumar la cantidad de todos los productos
+        $totalQuantityProducts = array_sum(array_column($this->products, 'quantity'));
+
         //Emitir evento para actualizar el contador del carrito de compras
-        $this->dispatch('general.header.content.cart.count.getTotalProducts', productsTotal: count($this->products));
+        $this->dispatch('general.header.content.cart.count.getTotalProducts', productsTotal: $totalQuantityProducts);
     }
 }
