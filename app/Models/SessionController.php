@@ -57,13 +57,38 @@ class SessionController
                 [ 'quantity' => $quantity ]
             );
         } else {
-            //Obtener carrito de compras
+            //Obtener carrito de compras de sesión
             $cart = $this->session->get('cart', []);
 
-            //Agregar producto
-            $cart[$productId] = $quantity;
+            //Verificar si el producto ya existe en el carrito de compras
+            $index = array_search($productId, array_column($cart, 'id'));
 
-            //Guardar carrito de compras
+            if ($index !== false) {
+                //Actualizar cantidad del producto
+                $cart[$index]['quantity'] = $quantity;
+            } else {
+                //Consultar información del producto
+                $product = Product::with([ 'catalogProductBrand' ])->active($this->session->get('country.id'))->find($productId);
+
+                if ($product) {
+                    //Agregar producto al carrito de compras
+                    $cart[] = [
+                        'id' => $product->id,
+                        'slug' => $product->slug,
+                        'sku' => $product->sku,
+                        'name' => $product->name,
+                        'image' => env('STORAGE_PRODUCT_IMAGE_MAIN_PATH') . $product->image,
+                        'price' => formatPriceWithCurrency($product->suggested_price, $this->session->get('country')),
+                        'quantity' => $quantity,
+                        'total' => formatPriceWithCurrency($product->suggested_price * $quantity, $this->session->get('country')),
+                        'available' => array_values($product->getAvailability())[0],
+                        'rating' => $product->rating_total,
+                        'brandSlug' => $product->catalogProductBrand->slug
+                    ];
+                }
+            }
+
+            //Guardar carrito de compras en sesión
             $this->session->put('cart', $cart);
         }
     }
@@ -73,7 +98,7 @@ class SessionController
         $user = Auth::user();
 
         if ($user) {
-            //Obtener carrito de compras
+            //Obtener carrito de compras de base de datos
             return $user->cart()
             ->with('product', 'product.catalogProductBrand')
             ->whereHas('product', fn($query) => $query->active($this->session->get('country.id')))
@@ -96,8 +121,35 @@ class SessionController
             })
             ->toArray();
         } else {
-            //Obtener carrito de compras
+            //Obtener carrito de compras de sesión
             return $this->session->get('cart', []);
+        }
+    }
+
+    public function removeCart(int $productId): void {
+        //Obtener información del usuario
+        $user = Auth::user();
+
+        if ($user) {
+            //Eliminar producto del carrito de compras
+            $user->cart()
+            ->where('product_id', $productId)
+            ->country($this->session->get('country.id'))
+            ->delete();
+        } else {
+            //Obtener carrito de compras de sesión
+            $cart = $this->session->get('cart', []);
+
+            //Verificar si el producto ya existe en el carrito de compras
+            $index = array_search($productId, array_column($cart, 'id'));
+
+            if ($index !== false) {
+                //Eliminar producto del carrito de compras
+                unset($cart[$index]);
+            }
+
+            //Guardar carrito de compras en sesión
+            $this->session->put('cart', $cart);
         }
     }
 }

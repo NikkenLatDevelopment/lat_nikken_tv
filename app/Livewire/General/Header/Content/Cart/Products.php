@@ -35,4 +35,27 @@ class Products extends Component
         //Emitir evento para actualizar el contador del carrito de compras
         $this->dispatch('general.header.content.cart.count.getTotalProducts', productsTotal: $totalQuantityProducts);
     }
+
+    public function removeProduct(int $index, int $productId, SessionController $sessionController) {
+        //Validar información
+        Validator::make(
+            [ 'productId' => $productId ],
+            [ 'productId' => 'required|integer|exists:products,id' ]
+        )->validate();
+
+        //Eliminar producto del carrito de compras en base de datos
+        $sessionController->removeCart($productId);
+
+        //Eliminar producto del carrito de compras
+        unset($this->products[$index]);
+
+        //Sumar la cantidad de todos los productos
+        $totalQuantityProducts = array_sum(array_column($this->products, 'quantity'));
+
+        //Mostrar mensaje
+        $this->dispatch('showToast', message: 'Producto <span class="fw-bold"><u>eliminado</u></span> de tu carrito de compras.', color: 'dark');
+
+        //Emitir evento para actualizar el contador del carrito de compras
+        $this->dispatch('general.header.content.cart.count.getTotalProducts', productsTotal: $totalQuantityProducts);
+    }
 }
