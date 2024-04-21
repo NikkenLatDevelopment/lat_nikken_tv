@@ -4,7 +4,7 @@
         <button type="button" class="btn-close me-1" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
 
-    <div class="offcanvas-body bg-light p-3">
+    <div class="offcanvas-body bg-light p-0">
         @livewire('general.header.content.cart.products')
     </div>
 </div>

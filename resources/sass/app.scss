@@ -172,21 +172,32 @@ button, a {
         img {
             max-width: 90px;
         }
+    }
 
-        .empty {
-            height: calc(100vh - 140px);
+    .empty {
+        height: calc(100vh - 140px);
+
+        img {
+            max-width: 100px;
         }
     }
 }
 
 .cart {
     .products {
+        height: calc(100vh - 264px);
+        overflow-y: auto;
+
         img {
             max-width: 80px;
         }
+    }
 
-        .empty {
-            height: calc(100vh - 140px);
+    .empty {
+        height: calc(100vh - 140px);
+
+        img {
+            max-width: 100px;
         }
     }
 }
