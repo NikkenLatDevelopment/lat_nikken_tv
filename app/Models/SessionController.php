@@ -76,7 +76,7 @@ class SessionController
         //Obtener información del usuario
         if (Auth::user()) {
             //Obtener carrito de compras de base de datos
-            return Auth::user()->cart
+            return Auth::user()->cart()
             ->with('product', 'product.catalogProductBrand')
             ->whereHas('product', fn($query) => $query->active($this->session->get('country.id')))
             ->country($this->session->get('country.id'))

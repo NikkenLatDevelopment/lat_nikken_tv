@@ -9,13 +9,13 @@
                         <div class="col-auto"><div class="bg-light rounded-4"><img src="{{ $product['image'] }}" class="img-fluid" alt="{{ $product['name'] }}"></div></div>
 
                         <div class="col text-truncate">
-                            <div class="small mb-1"><x-product.rating-star :ratingTotal="$product['rating']" /></div>
+                            <div class="small d-flex align-items-end mb-2"><div class="d-inline-block lh-1"><x-product.rating-star :ratingTotal="$product['rating']" /></div> <span class="small text-black-50 opacity-50 fw-bold ms-1">(4.5)</span></div>
                             <div class="h6 fw-semibold text-truncate lh-1 mb-0">{{ $product['name'] }}</div>
 
                             @if ($product['available'] == 1)
-                                <div class="h6 small text-success fw-bold lh-sm mb-0">Disponible</div>
+                                <div class="h6 small text-success fw-bold mb-0">Disponible</div>
                             @else
-                                <div class="h6 small text-warning fw-bold lh-sm mb-0">Entrega Postergada</div>
+                                <div class="h6 small text-warning fw-bold mb-0">Entrega Postergada</div>
                             @endif
 
                             <div class="h5 fw-bold mb-0 mt-1">{{ $product['price'] }}</div>
