@@ -47,4 +47,9 @@ class User extends Authenticatable
         //Relación con la lista de deseos
         return $this->hasMany(Wishlist::class);
     }
+
+    public function cart() {
+        //Relación con el carrito de compras
+        return $this->hasMany(Cart::class);
+    }
 }

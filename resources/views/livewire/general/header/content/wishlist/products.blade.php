@@ -1,7 +1,7 @@
 <div>
     <div class="products">
         @forelse ($products as $index => $product)
-            <div class="bg-white rounded-4 position-relative p-2 mb-2">
+            <div class="bg-white rounded-4 position-relative p-2 mb-2" wire:key="wishlist-product-{{ $product['id'] }}">
                 <div class="position-absolute end-0 top-0"><button class="btn btn-link link-primary opacity-50 text-decoration-none" wire:click="removeProduct({{ $index }}, {{ $product['id'] }})"><i class="fi fi-br-trash"></i></button></div>
 
                 <a href="{{ route('product.show', [ 'brandSlug' => $product['brandSlug'], 'productSlug' => $product['slug'] ]) }}" class="text-decoration-none">

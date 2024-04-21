@@ -47,22 +47,58 @@ class SessionController
     }
 
     public function setCart(int $productId, int $quantity): void {
-        //Obtener carrito de compras
-        $cart = $this->session->get('cart', []);
+        //Obtener información del usuario
+        $user = Auth::user();
 
-        //Agregar producto
-        $cart[$productId] = $quantity;
+        if ($user) {
+            //Guardar producto en carrito de compras
+            $user->cart()->updateOrCreate(
+                [ 'catalog_country_id' => $this->session->get('country.id'), 'product_id' => $productId ],
+                [ 'quantity' => $quantity ]
+            );
+        } else {
+            //Obtener carrito de compras
+            $cart = $this->session->get('cart', []);
 
-        //Guardar carrito de compras
-        $this->session->put('cart', $cart);
+            //Agregar producto
+            $cart[$productId] = $quantity;
+
+            //Guardar carrito de compras
+            $this->session->put('cart', $cart);
+        }
     }
 
     public function getCart(): array {
         //Obtener información del usuario
         $user = Auth::user();
 
-        //Obtener carrito de compras
-        return $this->session->get('cart', []);
+        if ($user) {
+            //Obtener carrito de compras
+            return $user->cart()
+            ->with('product', 'product.catalogProductBrand')
+            ->whereHas('product', fn($query) => $query->active($this->session->get('country.id')))
+            ->country($this->session->get('country.id'))
+            ->get()
+            ->map(function($cart) {
+                return [
+                    'id' => $cart->product->id,
+                    'slug' => $cart->product->slug,
+                    'sku' => $cart->product->sku,
+                    'name' => $cart->product->name,
+                    'image' => env('STORAGE_PRODUCT_IMAGE_MAIN_PATH') . $cart->product->image,
+                    'price' => formatPriceWithCurrency($cart->product->suggested_price, $this->session->get('country')),
+                    'quantity' => $cart->quantity,
+                    'total' => formatPriceWithCurrency($cart->product->suggested_price * $cart->quantity, $this->session->get('country')),
+                    'available' => array_values($cart->product->getAvailability())[0],
+                    'rating' => $cart->product->rating_total,
+                    'brandSlug' => $cart->product->catalogProductBrand->slug
+                ];
+            })
+            ->toArray();
+        } else {
+            //Obtener carrito de compras
+            return $this->session->get('cart', []);
+        }
     }
 }
 
