@@ -75,7 +75,10 @@ class Products extends Component
         if (!$user) { return; }
 
         //Eliminar producto de la lista de deseos en base de datos
-        $user->wishlists()->where('product_id', $productId)->country($this->country['id'])->delete();
+        $user->wishlists()
+        ->where('product_id', $productId)
+        ->country($this->country['id'])
+        ->delete();
 
         //Eliminar producto de la lista de deseos
         unset($this->products[$index]);
