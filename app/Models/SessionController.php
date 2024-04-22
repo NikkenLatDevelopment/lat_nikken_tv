@@ -40,7 +40,6 @@ class SessionController
     }
 
     public function setCart(int $productId, int $quantity): void {
-        //Obtener información del usuario
         if (Auth::user()) {
             //Guardar producto en carrito de compras
             Auth::user()->cart()->updateOrCreate(
@@ -73,7 +72,6 @@ class SessionController
     }
 
     public function getCart(): array {
-        //Obtener información del usuario
         if (Auth::user()) {
             //Obtener carrito de compras de base de datos
             return Auth::user()->cart()
@@ -90,12 +88,9 @@ class SessionController
     }
 
     public function removeCart(int $productId): void {
-        //Obtener información del usuario
-        $user = Auth::user();
-
-        if ($user) {
+        if (Auth::user()) {
             //Eliminar producto del carrito de compras
-            $user->cart()
+            Auth::user()->cart()
             ->where('product_id', $productId)
             ->country($this->session->get('country.id'))
             ->delete();
