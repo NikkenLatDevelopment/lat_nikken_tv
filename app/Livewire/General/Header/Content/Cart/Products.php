@@ -44,14 +44,8 @@ class Products extends Component
         //Obtener carrito de compras
         $this->products = $sessionController->getCart();
 
-        //Sumar la cantidad de todos los productos
-        $totalQuantityProducts = array_sum(array_column($this->products, 'quantity'));
-
         //Obtener totales
         $this->getTotals();
-
-        //Emitir evento para actualizar el contador del carrito de compras
-        $this->dispatch('general.header.content.cart.count.getTotalProducts', productsTotal: $totalQuantityProducts);
     }
 
     public function removeProduct(int $index, int $productId, SessionController $sessionController) {
@@ -61,26 +55,23 @@ class Products extends Component
             [ 'productId' => 'required|integer|exists:products,id' ]
         )->validate();
 
-        //Eliminar producto del carrito de compras en base de datos
+        //Eliminar producto del carrito de compras
         $sessionController->removeCart($productId);
 
         //Eliminar producto del carrito de compras
         unset($this->products[$index]);
-
-        //Sumar la cantidad de todos los productos
-        $totalQuantityProducts = array_sum(array_column($this->products, 'quantity'));
 
         //Obtener totales
         $this->getTotals();
 
         //Mostrar mensaje
         $this->dispatch('showToast', message: 'Producto <span class="fw-bold"><u>eliminado</u></span> de tu carrito de compras.', color: 'dark');
-
-        //Emitir evento para actualizar el contador del carrito de compras
-        $this->dispatch('general.header.content.cart.count.getTotalProducts', productsTotal: $totalQuantityProducts);
     }
 
     public function getTotals() {
+        //Sumar la cantidad de todos los productos
+        $totalQuantityProducts = array_sum(array_column($this->products, 'quantity'));
+
         //Sumar el total de todos los productos
         $totalProducts = array_sum(array_column($this->products, 'total'));
 
@@ -91,5 +82,8 @@ class Products extends Component
         $this->subtotalText = formatPriceWithCurrency($totalProducts - $totalVat, $this->country);
         $this->vatText = formatPriceWithCurrency($totalVat, $this->country);
         $this->totalText = formatPriceWithCurrency($totalProducts, $this->country);
+
+        //Emitir evento para actualizar el contador del carrito de compras
+        $this->dispatch('general.header.content.cart.count.getTotalProducts', productsTotal: $totalQuantityProducts);
     }
 }
