@@ -14,7 +14,7 @@ class Product extends Model
         return $this->belongsTo(CatalogProductBrand::class);
     }
 
-    public function CampaignProducts() {
+    public function campaignProducts() {
         //Relación con los productos de la campaña
         return $this->hasMany(CampaignProduct::class);
     }
