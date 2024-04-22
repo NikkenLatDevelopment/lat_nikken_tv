@@ -17,7 +17,7 @@
         "animate.css": "^4.1.1",
         "bootstrap": "^5.2.3",
         "jquery": "^3.7.1",
-        "sass": "^1.75.0",
+        "sass": "~1.64.2",
         "slick-carousel": "^1.8.1"
     }
 }
