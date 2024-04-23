@@ -14,6 +14,7 @@
     <div class="product">
         @livewire('product.show.content.main', [ 'product' => $product->toArray(), 'availability' => $availability ])
         @livewire('product.show.modal.available-message')
+        @livewire('product.show.modal.share')
     </div>
 
     @push('scripts') @vite(['resources/js/product.js']) @endpush
