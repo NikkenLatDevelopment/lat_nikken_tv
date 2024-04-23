@@ -181,13 +181,14 @@ function formatCartProduct(Product $product, int $quantity, array $country): arr
         'sku' => $product->sku,
         'name' => $product->name,
         'image' => env('STORAGE_PRODUCT_IMAGE_MAIN_PATH') . $product->image,
-        'priceText' => formatPriceWithCurrency($product->suggested_price, $country),
+        'priceText' => formatPriceWithCurrency($product->suggested_price + $product->vat_suggested_price, $country),
         'quantity' => $quantity,
-        'vat' => $product->vat_suggested_price * $quantity,
-        'total' => $product->suggested_price * $quantity,
-        'totalText' => formatPriceWithCurrency($product->suggested_price * $quantity, $country),
         'available' => array_values($product->getAvailability())[0],
         'rating' => $product->rating_total,
         'brandSlug' => $product->catalogProductBrand->slug,
+        'subtotal' => $product->suggested_price * $quantity,
+        'vat' => $product->vat_suggested_price * $quantity,
+        'total' => ($product->suggested_price + $product->vat_suggested_price) * $quantity,
+        'totalText' => formatPriceWithCurrency(($product->suggested_price + $product->vat_suggested_price) * $quantity, $country)
     ];
 }

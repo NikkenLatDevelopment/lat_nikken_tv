@@ -72,16 +72,16 @@ class Products extends Component
         //Sumar la cantidad de todos los productos
         $totalQuantityProducts = array_sum(array_column($this->products, 'quantity'));
 
-        //Sumar el total de todos los productos
-        $totalProducts = array_sum(array_column($this->products, 'total'));
+        //Sumar el subtotal de todos los productos
+        $totalSubtotalProducts = array_sum(array_column($this->products, 'subtotal'));
 
         //Sumar el IVA de todos los productos
-        $totalVat = array_sum(array_column($this->products, 'vat'));
+        $totalVatProducts = array_sum(array_column($this->products, 'vat'));
 
         //Inicializar información
-        $this->subtotalText = formatPriceWithCurrency($totalProducts - $totalVat, $this->country);
-        $this->vatText = formatPriceWithCurrency($totalVat, $this->country);
-        $this->totalText = formatPriceWithCurrency($totalProducts, $this->country);
+        $this->subtotalText = formatPriceWithCurrency($totalSubtotalProducts, $this->country);
+        $this->vatText = formatPriceWithCurrency($totalVatProducts, $this->country);
+        $this->totalText = formatPriceWithCurrency($totalSubtotalProducts + $totalVatProducts, $this->country);
 
         //Emitir evento para actualizar el contador del carrito de compras
         $this->dispatch('general.header.content.cart.count.getTotalProducts', productsTotal: $totalQuantityProducts);
