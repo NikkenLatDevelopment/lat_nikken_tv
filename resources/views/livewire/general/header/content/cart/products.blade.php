@@ -1,6 +1,6 @@
 <div>
     @if (count($products) > 0)
-        <div class="products px-3 pt-2">
+        <div class="products px-3 pt-2 height-1 bg-danger @if (!auth()->check()) height-4 @else @if (auth()->user()->catalog_user_type_id != 3) height-3 @else @if ($country['id'] == 1 && $discountSuggestedPrice) height-1 @else height-2 @endif @endif @endif">
             @foreach ($products as $index => $product)
                 <div class="bg-white rounded-4 position-relative p-2 mb-2" wire:key="cart-product-{{ $product['id'] }}">
                     <div class="position-absolute end-0 top-0"><button class="btn btn-link link-primary opacity-50 text-decoration-none" wire:click="removeProduct({{ $index }}, {{ $product['id'] }})"><i class="fi fi-br-trash"></i></button></div>

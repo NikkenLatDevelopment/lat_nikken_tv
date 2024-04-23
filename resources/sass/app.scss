@@ -185,8 +185,23 @@ button, a {
 
 .cart {
     .products {
-        height: calc(100vh - 264px);
         overflow-y: auto;
+
+        &.height-1 {
+            height: calc(100vh - 340px);
+        }
+
+        &.height-2 {
+            height: calc(100vh - 316px);
+        }
+
+        &.height-3 {
+            height: calc(100vh - 290px);
+        }
+
+        &.height-4 {
+            height: calc(100vh - 270px);
+        }
 
         img {
             max-width: 80px;
