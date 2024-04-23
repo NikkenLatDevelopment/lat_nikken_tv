@@ -9,6 +9,7 @@ use App\Models\ProductColor;
 use App\Models\ProductImage;
 use App\Models\ProductReview;
 use Livewire\Attributes\Locked;
+use App\Models\ProductTechnology;
 use App\Models\SessionController;
 use App\Models\ProductMeasurement;
 use App\Models\ProductPresentation;
@@ -42,6 +43,9 @@ class Main extends Component
 
     #[Locked]
     public array $measurements = [];
+
+    #[Locked]
+    public array $technologies = [];
 
     #[Locked]
     public string $currentUrl;
@@ -128,6 +132,9 @@ class Main extends Component
 
         //Obtener Medidas
         $this->getMeasurements();
+
+        //Obtener tecnologías
+        $this->getTechnologies();
     }
 
     public function updateProduct(int $productId) {
@@ -226,8 +233,11 @@ class Main extends Component
     }
 
     public function getTotalReviews() {
+        //Obtener id del producto o del producto padre
+        $productId = $this->product['parent_product_id'] != null ? $this->parentProduct['id'] : $this->productId;
+
         //Obtener el total de reviews
-        $this->reviewsTotal = ProductReview::where('product_id', $this->product['parent_product_id'] != null ? $this->parentProduct['id'] : $this->productId)
+        $this->reviewsTotal = ProductReview::where('product_id', $productId)
         ->status()
         ->count();
     }
@@ -355,5 +365,24 @@ class Main extends Component
     public function showShareModal() {
         //Mostrar modal
         $this->dispatch('product.show.modal.share.initialize', name: $this->product['name'], currentUrl: $this->currentUrl);
+    }
+
+    public function getTechnologies() {
+        //Obtener id del producto o del producto padre
+        $productId = $this->product['parent_product_id'] != null ? $this->parentProduct['id'] : $this->productId;
+
+        //Obtener información de las tecnologías
+        $this->technologies = ProductTechnology::with([ 'catalogProductTechnology' ])
+        ->whereHas('catalogProductTechnology', fn ($query) => $query->status())
+        ->where('product_id', $productId)
+        ->get()
+        ->map(function ($technology) {
+            return [
+                'id' => $technology['catalogProductTechnology']['id'],
+                'slug' => $technology['catalogProductTechnology']['slug'],
+                'name' => $technology['catalogProductTechnology']['name'],
+            ];
+        })
+        ->toArray();
     }
 }

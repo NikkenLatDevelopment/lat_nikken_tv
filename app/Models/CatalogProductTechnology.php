@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class CatalogProductTechnology extends Model
 {
     use HasFactory;
+
+    public function scopeStatus($query) {
+        //Filtrar por estatus
+        return $query->where('status', 1);
+    }
 }

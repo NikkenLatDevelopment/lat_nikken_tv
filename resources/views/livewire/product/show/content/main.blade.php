@@ -198,13 +198,21 @@
                 @endif
 
                 @if ($differentiators != null)
-                    <h2 class="h6 fw-bold mb-2 pt-2">Diferenciadores del producto:</h2>
+                    <h2 class="h6 text-muted fw-bold mb-2 pt-2">Diferenciadores del producto:</h2>
 
-                    <ul class="mb-4">
+                    <ul class="mb-2">
                         @foreach ($differentiators as $differentiator)
-                        <li>{{ $differentiator }}</li>
+                            <li>{{ $differentiator }}</li>
                         @endforeach
                     </ul>
+                @endif
+
+                @if (count($technologies) > 0)
+                    <div class="mb-4 pt-2">
+                        @foreach ($technologies as $technology)
+                            <img src="{{ asset('assets/img/technologies/logo-' . $technology['slug'] . '.png') }}" srcset="{{ asset('assets/img/technologies/logo-' . $technology['slug'] . '-2x.png') }} 2x" class="img-fluid" alt="{{ $technology['name'] }}">
+                        @endforeach
+                    </div>
                 @endif
             </div>
         </div>
