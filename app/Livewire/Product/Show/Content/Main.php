@@ -351,4 +351,9 @@ class Main extends Component
         //Mostrar mensaje
         $this->dispatch('showToast', message: 'Producto <span class="fw-bold"><u>agregado</u></span> a tu carrito de compras.', color: 'success');
     }
+
+    public function showShareModal() {
+        //Mostrar modal
+        $this->dispatch('product.show.modal.share.initialize', name: $this->product['name'], currentUrl: $this->currentUrl);
+    }
 }
