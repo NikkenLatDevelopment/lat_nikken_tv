@@ -49,7 +49,7 @@ class CatalogCountries extends Component
             return redirect()->route('home');
         }
 
-        //Mostrar modal
+        //Emitir evento para mostrar mensaje de cierre
         $this->dispatch('country.index.modal.closing-message.initialize', countryId: $countryId);
     }
 }

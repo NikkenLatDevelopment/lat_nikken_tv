@@ -81,7 +81,7 @@ class Products extends Component
         //Obtener totales
         $this->getTotals();
 
-        //Mostrar mensaje
+        //Emitir evento para mostrar el mensaje de confirmación
         $this->dispatch('showToast', message: 'Producto <span class="fw-bold"><u>eliminado</u></span> de tu carrito de compras.', color: 'dark');
     }
 

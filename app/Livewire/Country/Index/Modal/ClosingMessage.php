@@ -29,7 +29,7 @@ class ClosingMessage extends Component
             //Guardar mensaje
             $this->closedMessage = $country->closed_message;
 
-            //Mostrar modal
+            //Emitir evento para mostrar el mensaje de cierre
             $this->dispatch('countryIndexModalClosingMessage');
         }
     }

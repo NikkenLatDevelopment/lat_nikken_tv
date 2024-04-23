@@ -34,12 +34,12 @@ class AvailableMessage extends Component
         $this->availableUntil = $availableUntil;
         $this->componentsNotAvailable = $componentsNotAvailable;
 
-        //Mostrar modal
+        //Emitir evento para mostrar los productos en entrega postergada
         $this->dispatch('productShowModalAvailableMessage', view: 'show');
     }
 
     public function addCart() {
-        //Cerrar modal
+        //Emitir evento para cerrar los productos en entrega postergada
         $this->dispatch('productShowModalAvailableMessage', view: 'hide');
 
         //Emitir evento para agregar producto al carrito de compras

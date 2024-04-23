@@ -1,11 +1,11 @@
 <div>
-    <div class="modal fade" id="productShowModalShare" tabindex="-1" wire:ignore.self>
+    <div class="modal fade" id="productShowModalShare" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border border-success border-4 rounded-4 overflow-hidden">
                 <div class="modal-body p-4">
                     <div class="position-absolute top-0 end-0 p-2"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button></div>
 
-                    <div class="h5 text-success fw-bold mb-0"><i class="fi fi-br-share-square mb-0"></i> Compartir</div>
+                    <div class="h5 text-success fw-bold mb-0"><i class="fi fi-br-share-square position-relative mb-0 custom i-top-4"></i> Compartir</div>
                     <p class="lh-sm">Comparte este link con tus amigo(a)s y conocido(a)s.</p>
 
                     <div class="input-group rounded-3 overflow-hidden mb-3">

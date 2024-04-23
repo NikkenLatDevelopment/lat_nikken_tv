@@ -117,7 +117,7 @@
                         </div>
 
                         <div class="col-auto"><button type="submit" class="btn h6 text-white fw-bold mb-0 @if ($available == 0) btn-warning-custom-1 @else btn-success-custom-1 @endif" wire:loading.attr="disabled" wire:target="addCart,selectedColor,selectedPresentation,selectedMeasurement,changeWishlist"><i class="fi fi-br-shopping-cart me-2"></i> Agregar al Carrito</button></div>
-                        <div class="col-auto"><button type="button" class="btn btn-link text-decoration-none animation-hover-up" wire:click="showShareModal" data-bs-toggle="tooltip" data-bs-title="Compartir"><i class="fi fi-br-share-square h3 @if ($available == 0) text-warning @else text-success @endif mb-0"></i></button></div>
+                        <div class="col-auto"><button type="button" class="btn btn-link text-decoration-none animation-hover-up" wire:click="$dispatch('product.show.modal.share.initialize', { name: '{{ $product['name'] }}', currentUrl: '{{ $currentUrl }}' })" data-bs-toggle="tooltip" data-bs-title="Compartir"><i class="fi fi-br-share-square h3 @if ($available == 0) text-warning @else text-success @endif mb-0"></i></button></div>
                     </div>
                 </form>
 
@@ -210,7 +210,9 @@
                 @if (count($technologies) > 0)
                     <div class="mb-4 pt-2">
                         @foreach ($technologies as $technology)
-                            <img src="{{ asset('assets/img/technologies/logo-' . $technology['slug'] . '.png') }}" srcset="{{ asset('assets/img/technologies/logo-' . $technology['slug'] . '-2x.png') }} 2x" class="img-fluid" alt="{{ $technology['name'] }}">
+                            <a href="#" class="text-decoration-none" wire:click.prevent="$dispatch('product.show.modal.technology-description.initialize', { productTechnologyId: {{ $technology['id'] }} })">
+                                <img src="{{ asset('assets/img/technologies/logo-' . $technology['slug'] . '.png') }}" srcset="{{ asset('assets/img/technologies/logo-' . $technology['slug'] . '-2x.png') }} 2x" class="img-fluid" alt="{{ $technology['name'] }}">
+                            </a>
                         @endforeach
                     </div>
                 @endif

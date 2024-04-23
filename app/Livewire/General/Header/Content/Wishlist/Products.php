@@ -79,7 +79,7 @@ class Products extends Component
         //Eliminar producto de la lista de deseos
         unset($this->products[$index]);
 
-        //Mostrar mensaje
+        //Emitir evento para mostrar el mensaje de confirmación
         $this->dispatch('showToast', message: 'Producto <span class="fw-bold"><u>eliminado</u></span> de tu lista de deseos.', color: 'dark');
 
         //Emitir evento para actualizar el contador de la lista de deseos

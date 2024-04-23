@@ -152,7 +152,7 @@ class Main extends Component
         //Inicializar producto
         $this->getProduct($product->toArray(), $product->getAvailability());
 
-        //Refrescar imágenes del producto
+        //Emitir evento para refrescar imágenes del producto
         $this->dispatch('refreshImages', images: $this->images);
     }
 
@@ -205,10 +205,10 @@ class Main extends Component
                 ]);
             }
 
-            //Mostrar mensaje
+            //Emitir evento para mostrar el mensaje de confirmación
             $this->dispatch('showToast', message: 'Producto <span class="fw-bold"><u>agregado</u></span> a tu lista de deseos.', color: 'success');
 
-            //Mostrar lista de deseos
+            //Emitir evento para mostrar la lista de deseos
             $this->dispatch('showWishlist');
         } else {
             if ($wishlist) {
@@ -216,7 +216,7 @@ class Main extends Component
                 $wishlist->delete();
             }
 
-            //Mostrar mensaje
+            //Emitir evento para mostrar el mensaje de confirmación
             $this->dispatch('showToast', message: 'Producto <span class="fw-bold"><u>eliminado</u></span> de tu lista de deseos.', color: 'dark');
         }
 
@@ -355,16 +355,11 @@ class Main extends Component
         //Emitir evento para actualizar el carrito de compras
         $this->dispatch('general.header.content.cart.products.getProducts');
 
-        //Mostrar carrito de compras
+        //Emitir evento para mostrar el carrito de compras
         $this->dispatch('showCart');
 
-        //Mostrar mensaje
+        //Emitir evento para mostrar el mensaje
         $this->dispatch('showToast', message: 'Producto <span class="fw-bold"><u>agregado</u></span> a tu carrito de compras.', color: 'success');
-    }
-
-    public function showShareModal() {
-        //Mostrar modal
-        $this->dispatch('product.show.modal.share.initialize', name: $this->product['name'], currentUrl: $this->currentUrl);
     }
 
     public function getTechnologies() {

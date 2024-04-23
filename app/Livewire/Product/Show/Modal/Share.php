@@ -26,7 +26,7 @@ class Share extends Component
         $this->name = str_replace(' ', '%20', $name);
         $this->currentUrl = str_replace('&', '%26', $currentUrl);
 
-        //Mostrar modal
+        //Emitir evento para mostrar el link para compartir
         $this->dispatch('productShowModalShare');
     }
 }
