@@ -40,15 +40,10 @@ class Products extends Component
         //Obtener información del país
         $this->country = $sessionController->getCountry()->toArray();
 
-        //Obtener información del usuario
-        $user = auth()->user();
-
-        if ($user) {
-            //Validar si el país y el tipo de usuario permiten sugerido con descuento
-            if ($this->country['id'] == 1 && $user->catalog_user_type_id == 3) {
-                //Obtener sugerido con descuento
-                $this->discountSuggestedPrice = $sessionController->getDiscountSuggestedPrice();
-            }
+        //Validar si el país y el tipo de usuario permiten sugerido con descuento
+        if (auth()->check() && $this->country['id'] == 1 && auth()->user()->catalog_user_type_id == 3) {
+            //Obtener sugerido con descuento
+            $this->discountSuggestedPrice = $sessionController->getDiscountSuggestedPrice();
         }
 
         //Obtener carrito de compras
@@ -117,15 +112,14 @@ class Products extends Component
     }
 
     public function updatedDiscountSuggestedPrice(SessionController $sessionController) {
-        //Obtener información del usuario
-        $user = auth()->user();
-        if (!$user) { return; }
+        //Validar sesión del usuario
+        if (!auth()->check()) { return; }
 
         //Validar información
         $validator = Validator::make(
             [
                 'countryId' => $this->country['id'],
-                'userTypeId' => $user->catalog_user_type_id
+                'userTypeId' => auth()->user()->catalog_user_type_id
             ],
             [
                 'countryId' => 'required|in:1',

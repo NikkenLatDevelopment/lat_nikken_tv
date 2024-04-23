@@ -32,12 +32,11 @@ class Products extends Component
 
     #[On('general.header.content.wishlist.products.getProducts')]
     public function getProducts() {
-        //Obtener información del usuario
-        $user = auth()->user();
-        if (!$user) { return; }
+        //Validar sesión del usuario
+        if (!auth()->check()) { return; }
 
         //Obtener lista de deseos
-        $this->products = $user->wishlists()
+        $this->products = auth()->user()->wishlists()
         ->with('product', 'product.catalogProductBrand')
         ->whereHas('product', fn($query) => $query->active($this->country['id']))
         ->country($this->country['id'])
@@ -62,18 +61,17 @@ class Products extends Component
     }
 
     public function removeProduct(int $index, int $productId) {
+        //Validar sesión del usuario
+        if (!auth()->check()) { return; }
+
         //Validar información
         Validator::make(
             [ 'productId' => $productId ],
             [ 'productId' => 'required|integer|exists:products,id' ]
         )->validate();
 
-        //Obtener información del usuario
-        $user = auth()->user();
-        if (!$user) { return; }
-
         //Eliminar producto de la lista de deseos en base de datos
-        $user->wishlists()
+        auth()->user()->wishlists()
         ->where('product_id', $productId)
         ->country($this->country['id'])
         ->delete();

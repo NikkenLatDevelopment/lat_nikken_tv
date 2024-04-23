@@ -166,12 +166,11 @@ class Main extends Component
     }
 
     public function getWishlist() {
-        //Obtener información del usuario
-        $user = auth()->user();
-        if (!$user) { return; }
+        //Validar sesión del usuario
+        if (!auth()->check()) { return; }
 
         //Consultar producto
-        $wishlist = $user->wishlists()
+        $wishlist = auth()->user()->wishlists()
         ->where('product_id', $this->productId)
         ->country($this->country['id'])
         ->first();
@@ -181,12 +180,11 @@ class Main extends Component
     }
 
     public function changeWishlist() {
-        //Obtener información del usuario
-        $user = auth()->user();
-        if (!$user) { return; }
+        //Validar sesión del usuario
+        if (!auth()->check()) { return; }
 
         //Consultar producto
-        $wishlist = $user->wishlists()
+        $wishlist = auth()->user()->wishlists()
         ->where('product_id', $this->productId)
         ->country($this->country['id'])
         ->first();
@@ -194,7 +192,7 @@ class Main extends Component
         if ($this->wishlist) {
             if (!$wishlist) {
                 //Guardar producto en la lista de deseos
-                $user->wishlists()->create([
+                auth()->user()->wishlists()->create([
                     'catalog_country_id' => $this->country['id'],
                     'product_id' => $this->productId
                 ]);

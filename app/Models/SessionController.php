@@ -35,7 +35,7 @@ class SessionController
 
     public function getCountryId(): ?int {
         //Obtener ID del país por sesión o cookie
-        return !is_null($this->session->get('country.id')) ?? !is_null(Cookie::get('country_id'));
+        return $this->session->get('country.id') ?? Cookie::get('country_id');
     }
 
     public function setCart(int $productId, int $quantity): void {
@@ -135,8 +135,7 @@ class SessionController
 
     public function removeCartForAuthenticatedUser(int $productId): void {
         //Eliminar producto en base de datos
-        auth()->user()
-        ->cart()
+        auth()->user()->cart()
         ->where('product_id', $productId)
         ->country($this->session->get('country.id'))
         ->delete();
@@ -159,31 +158,21 @@ class SessionController
     }
 
     public function setDiscountSuggestedPrice(bool $discountSuggestedPrice): void {
-        $countryId = $this->session->get('country.id');
-        $user = auth()->user();
+        //Validar si el país y el tipo de usuario permiten sugerido con descuento
+        if (auth()->check() && $this->session->get('country.id') == 1 && auth()->user()->catalog_user_type_id == 3) {
+            //Guardar sugerido con descuento en sesión
+            $this->session->put('discount_suggested_price', $discountSuggestedPrice);
 
-        if ($user) {
-            //Validar si el país y el tipo de usuario permiten sugerido con descuento
-            if ($countryId == 1 && $user->catalog_user_type_id == 3) {
-                //Guardar sugerido con descuento en sesión
-                $this->session->put('discount_suggested_price', $discountSuggestedPrice);
-
-                //Guardar sugerido con descuento en cookie
-                Cookie::queue('discount_suggested_price', $discountSuggestedPrice);
-            }
+            //Guardar sugerido con descuento en cookie
+            Cookie::queue('discount_suggested_price', $discountSuggestedPrice);
         }
     }
 
     public function getDiscountSuggestedPrice(): bool {
-        $countryId = $this->session->get('country.id');
-        $user = auth()->user();
-
-        if ($user) {
-            //Validar si el país y el tipo de usuario permiten sugerido con descuento
-            if ($countryId == 1 && $user->catalog_user_type_id == 3) {
-                //Obtener sugerido con descuento por sesión o cookie
-                return !is_null($this->session->get('discount_suggested_price')) ?? !is_null(Cookie::get('discount_suggested_price'));
-            }
+        //Validar si el país y el tipo de usuario permiten sugerido con descuento
+        if (auth()->check() && $this->session->get('country.id') == 1 && auth()->user()->catalog_user_type_id == 3) {
+            //Obtener sugerido con descuento por sesión o cookie
+            return $this->session->get('discount_suggested_price') ?? Cookie::get('discount_suggested_price');
         }
 
         return false;
