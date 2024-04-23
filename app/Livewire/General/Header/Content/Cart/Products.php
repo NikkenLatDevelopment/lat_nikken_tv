@@ -20,7 +20,7 @@ class Products extends Component
     public string $subtotalText = '';
 
     #[Locked]
-    public string $discountText = '';
+    public string $retailText = '';
 
     #[Locked]
     public string $vatText = '';
@@ -80,19 +80,50 @@ class Products extends Component
         //Sumar el subtotal de todos los productos
         $totalSubtotalProducts = array_sum(array_column($this->products, 'subtotal'));
 
+        //Sumar el retail de todos los productos
+        $totalRetailProducts = array_sum(array_column($this->products, 'retail'));
+
+        //Sumar el IVA del retail de todos los productos
+        $totalVatRetailProducts = array_sum(array_column($this->products, 'vatRetail'));
+
         //Sumar el IVA de todos los productos
         $totalVatProducts = array_sum(array_column($this->products, 'vat'));
 
         //Inicializar información
         $this->subtotalText = formatPriceWithCurrency($totalSubtotalProducts, $this->country);
-        $this->vatText = formatPriceWithCurrency($totalVatProducts, $this->country);
-        $this->totalText = formatPriceWithCurrency($totalSubtotalProducts + $totalVatProducts, $this->country);
+
+        if ($this->discountSuggestedPrice) {
+            $this->retailText = formatPriceWithCurrency($totalRetailProducts, $this->country);
+            $this->vatText = formatPriceWithCurrency($totalVatProducts - $totalVatRetailProducts, $this->country);
+            $this->totalText = formatPriceWithCurrency(($totalSubtotalProducts - $totalRetailProducts) + ($totalVatProducts - $totalVatRetailProducts), $this->country);
+        } else {
+            $this->vatText = formatPriceWithCurrency($totalVatProducts, $this->country);
+            $this->totalText = formatPriceWithCurrency($totalSubtotalProducts + $totalVatProducts, $this->country);
+        }
 
         //Emitir evento para actualizar el contador del carrito de compras
         $this->dispatch('general.header.content.cart.count.getTotalProducts', productsTotal: $totalQuantityProducts);
     }
 
     public function updatedDiscountSuggestedPrice() {
+        //Validar información
+        $validator = Validator::make(
+            [
+                'countryId' => $this->country['id'],
+                'catalogUserTypeId' => auth()->user()->catalog_user_type_id ?? 0
+            ],
+            [
+                'countryId' => 'required|in:1',
+                'catalogUserTypeId' => 'required|in:3'
+            ]
+        );
+
+        if ($validator->fails()) {
+            //No permitir sugerido con descuento
+            $this->discountSuggestedPrice = false;
+            return;
+        }
+
         //Obtener totales
         $this->getTotals();
     }

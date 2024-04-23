@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
         //Catálogo tipo de usuario
         \App\Models\CatalogUserType::factory()->create([ 'id' => 1, 'name' => 'Invitado' ]);
         \App\Models\CatalogUserType::factory()->create([ 'id' => 2, 'name' => 'Cliente' ]);
+        \App\Models\CatalogUserType::factory()->create([ 'id' => 3, 'name' => 'Socio Independiente' ]);
         //Catálogo tipo de usuario
 
         //Usuario

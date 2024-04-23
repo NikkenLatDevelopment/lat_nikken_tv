@@ -28,7 +28,7 @@
         </div>
 
         <div class="position-absolute start-0 end-0 bottom-0">
-            @if ($country['id'] == 1)
+            @if ($country['id'] == 1 && (auth()->user()->catalog_user_type_id ?? 0) == 3)
                 <div class="ps-3">
                     <div class="form-check form-switch small">
                         <input type="checkbox" class="form-check-input" role="switch" id="cart-discount-suggested-price" wire:model.live="discountSuggestedPrice">
@@ -44,10 +44,10 @@
                         <div class="h6 text-black-50 opacity-75 fw-semibold mb-0">{{ $subtotalText }}</div>
                     </div>
 
-                    @if ($discountSuggestedPrice && $country['id'] == 1)
+                    @if ($discountSuggestedPrice && $country['id'] == 1 && (auth()->user()->catalog_user_type_id ?? 0) == 3)
                         <div class="d-flex justify-content-between align-items-center mt-1">
                             <div class="h6 small text-black-50 opacity-75 fw-bold text-truncate mb-0">Descuento:</div>
-                            <div class="h6 text-black-50 opacity-75 fw-semibold mb-0">{{ $discountText }}</div>
+                            <div class="h6 text-black-50 opacity-75 fw-semibold mb-0">{{ $retailText }}</div>
                         </div>
                     @endif
 

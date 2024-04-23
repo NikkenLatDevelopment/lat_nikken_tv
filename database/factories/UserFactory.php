@@ -25,7 +25,7 @@ class UserFactory extends Factory
     {
         return [
             'catalog_country_id' => random_int(1, 8),
-            'catalog_user_type_id' => 2,
+            'catalog_user_type_id' => 3,
             'code' => fake()->unique()->randomNumber(8),
             'name' => fake()->name(),
             'name' => fake()->name(),

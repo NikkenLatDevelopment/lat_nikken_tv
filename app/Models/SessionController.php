@@ -186,6 +186,8 @@ function formatCartProduct(Product $product, int $quantity, array $country): arr
         'available' => array_values($product->getAvailability())[0],
         'rating' => $product->rating_total,
         'brandSlug' => $product->catalogProductBrand->slug,
+        'retail' => $product->retail * $quantity,
+        'vatRetail' => $product->vat_retail * $quantity,
         'subtotal' => $product->suggested_price * $quantity,
         'vat' => $product->vat_suggested_price * $quantity,
         'total' => ($product->suggested_price + $product->vat_suggested_price) * $quantity,
