@@ -51,7 +51,7 @@ class Products extends Component
                 'sku' => $wishlist->product->sku,
                 'name' => $wishlist->product->name,
                 'image' => env('STORAGE_PRODUCT_IMAGE_MAIN_PATH') . $wishlist->product->image,
-                'price' => formatPriceWithCurrency($wishlist->product->suggested_price, $this->country),
+                'price' => formatPriceWithCurrency($wishlist->product->suggested_price + $wishlist->product->vat_suggested_price, $this->country),
                 'available' => array_values($wishlist->product->getAvailability())[0],
                 'rating' => $wishlist->product->rating_total,
                 'brandSlug' => $wishlist->product->catalogProductBrand->slug
