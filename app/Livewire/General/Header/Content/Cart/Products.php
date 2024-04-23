@@ -20,10 +20,15 @@ class Products extends Component
     public string $subtotalText = '';
 
     #[Locked]
+    public string $discountText = '';
+
+    #[Locked]
     public string $vatText = '';
 
     #[Locked]
     public string $totalText = '';
+
+    public bool $discountSuggestedPrice = false;
 
     public function render()
     {
@@ -85,5 +90,10 @@ class Products extends Component
 
         //Emitir evento para actualizar el contador del carrito de compras
         $this->dispatch('general.header.content.cart.count.getTotalProducts', productsTotal: $totalQuantityProducts);
+    }
+
+    public function updatedDiscountSuggestedPrice() {
+        //Obtener totales
+        $this->getTotals();
     }
 }
