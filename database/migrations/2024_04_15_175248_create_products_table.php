@@ -34,6 +34,7 @@ return new class extends Migration
             $table->unsignedInteger('points');
             $table->unsignedDecimal('vc', 10, 2);
             $table->unsignedDecimal('retail', 10, 2);
+            $table->unsignedDecimal('vat_retail', 10, 2);
             $table->string('warranty', 100)->nullable();
             $table->unsignedDecimal('rating_total', 10, 1)->default(0);
             $table->dateTime('valid_from')->index()->nullable();

@@ -66,16 +66,17 @@ class DatabaseSeeder extends Seeder
             'differentiators' => 'Filtración H13.|Filtración de sedimentos como polvo, caspa de mascotas, entre otros.|Neutraliza olores.|Filtra partículas pequeñas con el 99.9% de efectividad.|Sistema de iones que reproduce un aire natural.|Tecnología libre de ozono.|Bajo consumo eléctrico.',
             'image' => '1441_1.png',
             'video' => 'https://www.youtube.com/watch?v=UjZdezbTAg0',
-            'wholesale_price' => 1386890.75,
-            'vat_wholesale_price' => 263509.25,
-            'suggested_price' => 1733613.38,
-            'vat_suggested_price' => 329386.62,
+            'wholesale_price' => 1848739.38,
+            'vat_wholesale_price' => 351260.62,
+            'suggested_price' => 2310924.25,
+            'vat_suggested_price' => 439075.75,
             'vat_applies' => 1,
             'stock' => 10,
             'stock_applies' => 1,
             'points' => 100,
             'vc' => 10000,
-            'retail' => 10000,
+            'retail' => 462184.88,
+            'vat_retail' => 87815.13,
             'warranty' => '3 años en el motor y un año en las partes de garantía',
             'rating_total' => 4.3,
             'is_visible' => 1
@@ -102,6 +103,7 @@ class DatabaseSeeder extends Seeder
             'points' => 100,
             'vc' => 10000,
             'retail' => 10000,
+            'vat_retail' => 87815.13,
             'is_visible' => 1
         ]);
 
@@ -124,6 +126,7 @@ class DatabaseSeeder extends Seeder
             'points' => 100,
             'vc' => 10000,
             'retail' => 10000,
+            'vat_retail' => 87815.13,
             'is_visible' => 1
         ]);
 
@@ -146,7 +149,8 @@ class DatabaseSeeder extends Seeder
             'stock_applies' => 1,
             'points' => 100,
             'vc' => 10000,
-            'retail' => 10000,
+            'retail' => 12268.91,
+            'vat_retail' => 2331.09 ,
             'warranty' => '3 años en el motor y un año en las partes de garantía',
             'is_visible' => 1
         ]);
@@ -171,6 +175,7 @@ class DatabaseSeeder extends Seeder
             'points' => 100,
             'vc' => 10000,
             'retail' => 10000,
+            'vat_retail' => 87815.13,
             'is_visible' => 1
         ]);
 
@@ -194,6 +199,7 @@ class DatabaseSeeder extends Seeder
             'points' => 100,
             'vc' => 10000,
             'retail' => 10000,
+            'vat_retail' => 87815.13,
             'is_visible' => 1
         ]);
 
@@ -217,6 +223,7 @@ class DatabaseSeeder extends Seeder
             'points' => 100,
             'vc' => 10000,
             'retail' => 10000,
+            'vat_retail' => 87815.13,
             'is_visible' => 1
         ]);
 
@@ -240,6 +247,7 @@ class DatabaseSeeder extends Seeder
             'points' => 100,
             'vc' => 10000,
             'retail' => 10000,
+            'vat_retail' => 87815.13,
             'is_visible' => 1
         ]);
 
@@ -262,6 +270,7 @@ class DatabaseSeeder extends Seeder
             'points' => 100,
             'vc' => 10000,
             'retail' => 10000,
+            'vat_retail' => 87815.13,
             'rating_total' => 4.3,
             'is_visible' => 0
         ]);
@@ -285,6 +294,7 @@ class DatabaseSeeder extends Seeder
             'points' => 100,
             'vc' => 10000,
             'retail' => 10000,
+            'vat_retail' => 87815.13,
             'rating_total' => 4.3,
             'is_visible' => 0
         ]);
@@ -308,6 +318,7 @@ class DatabaseSeeder extends Seeder
             'points' => 100,
             'vc' => 10000,
             'retail' => 10000,
+            'vat_retail' => 87815.13,
             'rating_total' => 4.3,
             'is_visible' => 0
         ]);
@@ -331,6 +342,7 @@ class DatabaseSeeder extends Seeder
             'points' => 100,
             'vc' => 10000,
             'retail' => 10000,
+            'vat_retail' => 87815.13,
             'rating_total' => 4.3,
             'is_visible' => 0
         ]);
