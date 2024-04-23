@@ -13,7 +13,7 @@
 
                 <div class="col-12 col-sm-auto">
                     <div class="hstack gap-3 justify-content-end">
-                        @if (!Auth::check())
+                        @if (!auth()->check())
                             <div class="d-flex justify-content-end">
                                 <a href="{{ route('contact.show') }}" class="small link-success d-none d-lg-inline-block">Contáctanos</a>
                                 <a href="{{ route('auth.create') }}" class="small link-success d-lg-none">Registrarme</a>
@@ -28,7 +28,7 @@
 
                             <div class="position-relative d-lg-none profile">
                                 <div class="dropdown">
-                                    <button class="btn btn-sm btn-link dropdown-toggle link-success fw-bold text-decoration-none lh-1 d-flex align-items-center p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span class="text-truncate name">{{ Auth::user()->name }}</span></button>
+                                    <button class="btn btn-sm btn-link dropdown-toggle link-success fw-bold text-decoration-none lh-1 d-flex align-items-center p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span class="text-truncate name">{{ auth()->user()->name }}</span></button>
                                     <x-general.header.profile.options />
                                 </div>
                             </div>
@@ -91,11 +91,11 @@
                             <div class="vr my-auto me-3"></div>
 
                             <div class="lh-1 profile">
-                                @if (Auth::check())
+                                @if (auth()->check())
                                     <div class="small"><i class="fi fi-rr-hand-wave"></i> ¡Hola!</div>
 
                                     <div class="dropdown">
-                                        <button class="btn btn-link dropdown-toggle link-dark fw-bold text-decoration-none lh-1 d-flex align-items-center p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span class="text-truncate name">{{ Auth::user()->name }}</span></button>
+                                        <button class="btn btn-link dropdown-toggle link-dark fw-bold text-decoration-none lh-1 d-flex align-items-center p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span class="text-truncate name">{{ auth()->user()->name }}</span></button>
                                         <x-general.header.profile.options />
                                     </div>
                                 @else

@@ -40,6 +40,14 @@ class Products extends Component
         //Obtener información del país
         $this->country = $sessionController->getCountry()->toArray();
 
+        //Obtener información del usuario
+        $user = auth()->user();
+
+        if ($this->country['id'] == 1 && $user && $user->catalog_user_type_id == 3) {
+            //Obtener sugerido con descuento
+            $this->discountSuggestedPrice = $sessionController->getDiscountSuggestedPrice();
+        }
+
         //Obtener carrito de compras
         $this->getProducts($sessionController);
     }
@@ -105,16 +113,20 @@ class Products extends Component
         $this->dispatch('general.header.content.cart.count.getTotalProducts', productsTotal: $totalQuantityProducts);
     }
 
-    public function updatedDiscountSuggestedPrice() {
+    public function updatedDiscountSuggestedPrice(SessionController $sessionController) {
+        //Obtener información del usuario
+        $user = auth()->user();
+        if (!$user) { return; }
+
         //Validar información
         $validator = Validator::make(
             [
                 'countryId' => $this->country['id'],
-                'catalogUserTypeId' => auth()->user()->catalog_user_type_id ?? 0
+                'userTypeId' => $user->catalog_user_type_id
             ],
             [
                 'countryId' => 'required|in:1',
-                'catalogUserTypeId' => 'required|in:3'
+                'userTypeId' => 'required|in:3'
             ]
         );
 
@@ -123,6 +135,9 @@ class Products extends Component
             $this->discountSuggestedPrice = false;
             return;
         }
+
+        //Guardar sugerido con descuento en sesión y cookie
+        $sessionController->setDiscountSuggestedPrice($this->discountSuggestedPrice);
 
         //Obtener totales
         $this->getTotals();

@@ -5,9 +5,7 @@ namespace App\Livewire\General\Header\Content\Wishlist;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Locked;
-use App\Models\ProductComponent;
 use App\Models\SessionController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class Products extends Component
@@ -35,7 +33,7 @@ class Products extends Component
     #[On('general.header.content.wishlist.products.getProducts')]
     public function getProducts() {
         //Obtener información del usuario
-        $user = Auth::user();
+        $user = auth()->user();
         if (!$user) { return; }
 
         //Obtener lista de deseos
@@ -71,7 +69,7 @@ class Products extends Component
         )->validate();
 
         //Obtener información del usuario
-        $user = Auth::user();
+        $user = auth()->user();
         if (!$user) { return; }
 
         //Eliminar producto de la lista de deseos en base de datos

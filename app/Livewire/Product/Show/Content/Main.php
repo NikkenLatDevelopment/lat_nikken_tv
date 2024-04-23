@@ -9,11 +9,9 @@ use App\Models\ProductColor;
 use App\Models\ProductImage;
 use App\Models\ProductReview;
 use Livewire\Attributes\Locked;
-use App\Models\ProductComponent;
 use App\Models\SessionController;
 use App\Models\ProductMeasurement;
 use App\Models\ProductPresentation;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class Main extends Component
@@ -169,7 +167,7 @@ class Main extends Component
 
     public function getWishlist() {
         //Obtener información del usuario
-        $user = Auth::user();
+        $user = auth()->user();
         if (!$user) { return; }
 
         //Consultar producto
@@ -184,7 +182,7 @@ class Main extends Component
 
     public function changeWishlist() {
         //Obtener información del usuario
-        $user = Auth::user();
+        $user = auth()->user();
         if (!$user) { return; }
 
         //Consultar producto

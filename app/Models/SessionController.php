@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Session\SessionManager;
 use Illuminate\Support\Facades\Cookie;
 
@@ -36,18 +35,18 @@ class SessionController
 
     public function getCountryId(): ?int {
         //Obtener ID del país por sesión o cookie
-        return $this->session->get('country.id') ?? Cookie::get('country_id');;
+        return $this->session->get('country.id') ?? Cookie::get('country_id');
     }
 
     public function setCart(int $productId, int $quantity): void {
-        Auth::user()
+        auth()->user()
         ? $this->setCartForAuthenticatedUser($productId, $quantity)
         : $this->setCartForGuestUser($productId, $quantity);
     }
 
     public function setCartForAuthenticatedUser(int $productId, int $quantity): void {
         //Guardar producto en base de datos
-        Auth::user()->cart()->updateOrCreate(
+        auth()->user()->cart()->updateOrCreate(
             [ 'catalog_country_id' => $this->session->get('country.id'), 'product_id' => $productId ],
             [ 'quantity' => $quantity ]
         );
@@ -78,14 +77,14 @@ class SessionController
     }
 
     public function getCart(): array {
-        return Auth::user()
+        return auth()->user()
         ? $this->getCartForAuthenticatedUser()
         : $this->getCartForGuestUser();
     }
 
     public function getCartForAuthenticatedUser(): array {
         //Obtener carrito de compras de base de datos
-        return Auth::user()->cart()
+        return auth()->user()->cart()
         ->with('product', 'product.catalogProductBrand')
         ->whereHas('product', fn($query) => $query->active($this->session->get('country.id')))
         ->country($this->session->get('country.id'))
@@ -129,14 +128,14 @@ class SessionController
     }
 
     public function removeCart(int $productId): void {
-        Auth::user()
+        auth()->user()
         ? $this->removeCartForAuthenticatedUser($productId)
         : $this->removeCartForGuestUser($productId);
     }
 
     public function removeCartForAuthenticatedUser(int $productId): void {
         //Eliminar producto en base de datos
-        Auth::user()
+        auth()->user()
         ->cart()
         ->where('product_id', $productId)
         ->country($this->session->get('country.id'))
@@ -157,6 +156,25 @@ class SessionController
 
         //Actualizar carrito de compras
         $this->session->put('cart', $cart);
+    }
+
+    public function setDiscountSuggestedPrice(bool $discountSuggestedPrice): void {
+        if ($this->session->get('country.id') == 1 && (auth()->user()->catalog_user_type_id ?? 0) == 3) {
+            //Guardar sugerido con descuento en sesión
+            $this->session->put('discount_suggested_price', $discountSuggestedPrice);
+
+            //Guardar sugerido con descuento en cookie
+            Cookie::queue('discount_suggested_price', $discountSuggestedPrice);
+        }
+    }
+
+    public function getDiscountSuggestedPrice(): bool {
+        if ($this->session->get('country.id') == 1 && (auth()->user()->catalog_user_type_id ?? 0) == 3) {
+            //Obtener sugerido con descuento por sesión o cookie
+            return $this->session->get('discount_suggested_price') ?? Cookie::get('discount_suggested_price');
+        }
+
+        return false;
     }
 }
 
