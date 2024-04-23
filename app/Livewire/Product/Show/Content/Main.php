@@ -140,7 +140,7 @@ class Main extends Component
     public function updateProduct(int $productId) {
         //Obtener información del producto
         $product = Product::basicData()
-        ->with([ 'catalogProductBrand' ])
+        ->with([ 'catalogProductBrand', 'productComponents.product' ])
         ->active($this->country['id'])
         ->find($productId);
 
@@ -150,7 +150,7 @@ class Main extends Component
         }
 
         //Inicializar producto
-        $this->getProduct($product->toArray(), $product->getAvailability());
+        $this->getProduct($product->toArray(), $product->getAvailability($product->productComponents->toArray()));
 
         //Emitir evento para refrescar imágenes del producto
         $this->dispatch('refreshImages', images: $this->images);

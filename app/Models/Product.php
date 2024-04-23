@@ -9,6 +9,11 @@ class Product extends Model
 {
     use HasFactory;
 
+    public function productComponents() {
+        //Relación con los componentes del producto
+        return $this->hasMany(ProductComponent::class, 'parent_product_id');
+    }
+
     public function catalogProductBrand() {
         //Relación con el catálogo de marcas de los productos
         return $this->belongsTo(CatalogProductBrand::class);
@@ -114,16 +119,10 @@ class Product extends Model
         return $query->where('status', 1);
     }
 
-    public function getAvailability() {
+    public function getAvailability(array $components) {
         $available = 1;
         $componentsAvailable = [];
         $componentsNotAvailable = [];
-
-        //Obtener componentes del producto
-        $components = ProductComponent::with('product')
-        ->where('parent_product_id', $this->id)
-        ->get()
-        ->toArray();
 
         if (count($components) > 0) {
             //Recorrer componentes

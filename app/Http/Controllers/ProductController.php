@@ -38,7 +38,7 @@ class ProductController extends Controller
 
         //Obtener información del producto
         $product = Product::basicData()
-        ->with([ 'catalogProductBrand' ])
+        ->with([ 'catalogProductBrand', 'productComponents.product' ])
         ->where('slug', $productSlug)
         ->active($country['id'], $brandSlug)
         ->first();
@@ -49,6 +49,6 @@ class ProductController extends Controller
         }
 
         //Mostrar vista
-        return view('product.show', [ 'product' => $product, 'availability' => $product->getAvailability() ]);
+        return view('product.show', [ 'product' => $product, 'availability' => $product->getAvailability($product->productComponents->toArray()) ]);
     }
 }

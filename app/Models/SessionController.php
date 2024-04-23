@@ -64,7 +64,9 @@ class SessionController
             $cart[$index]['quantity'] = $quantity;
         } else {
             //Consultar información del producto
-            $product = Product::with([ 'catalogProductBrand' ])->active($this->session->get('country.id'))->find($productId);
+            $product = Product::with([ 'catalogProductBrand', 'productComponents.product' ])
+            ->active($this->session->get('country.id'))
+            ->find($productId);
 
             if ($product) {
                 //Agregar producto
@@ -85,7 +87,7 @@ class SessionController
     public function getCartForAuthenticatedUser(): array {
         //Obtener carrito de compras de base de datos
         return auth()->user()->cart()
-        ->with('product', 'product.catalogProductBrand')
+        ->with('product', 'product.catalogProductBrand', 'product.productComponents.product')
         ->whereHas('product', fn($query) => $query->active($this->session->get('country.id')))
         ->country($this->session->get('country.id'))
         ->get()
@@ -202,7 +204,7 @@ function formatCartProduct(Product $product, int $quantity, array $country): arr
         'image' => env('STORAGE_PRODUCT_IMAGE_MAIN_PATH') . $product->image,
         'priceText' => formatPriceWithCurrency($product->suggested_price + $product->vat_suggested_price, $country),
         'quantity' => $quantity,
-        'available' => array_values($product->getAvailability())[0],
+        'available' => array_values($product->getAvailability($product->productComponents->toArray()))[0],
         'rating' => $product->rating_total,
         'brandSlug' => $product->catalogProductBrand->slug,
         'retail' => $product->retail * $quantity,
