@@ -10,6 +10,9 @@ class TemporalController extends Controller
         //Iniciar sesión //! Eliminar
         auth()->loginUsingId(1);
         //Iniciar sesión //! Eliminar
+
+        //Unificar carrito de compras //TODO: !!!! Pendiente
+        //Unificar carrito de compras //TODO: !!!! Pendiente
     }
 
     public function logout() {
