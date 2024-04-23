@@ -28,7 +28,14 @@
         </div>
 
         <div class="position-absolute start-0 end-0 bottom-0">
-            <div class="bg-white rounded-4 shadow-sm p-3 m-2">
+            <div class="ps-3">
+                <div class="form-check form-switch small">
+                    <input class="form-check-input" type="checkbox" role="switch" id="cart-discount-suggested-price">
+                    <label class="form-check-label" for="cart-discount-suggested-price">Comprar a <span class="fw-bold text-success">Sugerido con Descuento</span>.</label>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-4 shadow-sm p-3 mx-2 mb-2 mt-1">
                 <div class="mb-3">
                     <div class="d-flex justify-content-between align-items-center mb-1">
                         <div class="h6 small text-black-50 opacity-75 fw-bold text-truncate mb-0">Subtotal:</div>
