@@ -40,75 +40,123 @@ class SessionController
     }
 
     public function setCart(int $productId, int $quantity): void {
-        if (Auth::user()) {
-            //Guardar producto en carrito de compras
-            Auth::user()->cart()->updateOrCreate(
-                [ 'catalog_country_id' => $this->session->get('country.id'), 'product_id' => $productId ],
-                [ 'quantity' => $quantity ]
-            );
+        Auth::user()
+        ? $this->setCartForAuthenticatedUser($productId, $quantity)
+        : $this->setCartForGuestUser($productId, $quantity);
+    }
+
+    public function setCartForAuthenticatedUser(int $productId, int $quantity): void {
+        //Guardar producto en base de datos
+        Auth::user()->cart()->updateOrCreate(
+            [ 'catalog_country_id' => $this->session->get('country.id'), 'product_id' => $productId ],
+            [ 'quantity' => $quantity ]
+        );
+    }
+
+    public function setCartForGuestUser(int $productId, int $quantity): void {
+        //Obtener carrito de compras de sesión
+        $cart = $this->session->get('cart', []);
+
+        //Verificar si el producto ya existe
+        $index = array_search($productId, array_column($cart, 'id'));
+
+        if ($index !== false) {
+            //Actualizar cantidad del producto
+            $cart[$index]['quantity'] = $quantity;
         } else {
-            //Obtener carrito de compras de sesión
-            $cart = $this->session->get('cart', []);
+            //Consultar información del producto
+            $product = Product::with([ 'catalogProductBrand' ])->active($this->session->get('country.id'))->find($productId);
 
-            //Verificar si el producto ya existe en el carrito de compras
-            $index = array_search($productId, array_column($cart, 'id'));
-
-            if ($index !== false) {
-                //Actualizar cantidad del producto
-                $cart[$index]['quantity'] = $quantity;
-            } else {
-                //Consultar información del producto
-                $product = Product::with([ 'catalogProductBrand' ])->active($this->session->get('country.id'))->find($productId);
-
-                if ($product) {
-                    //Agregar producto al carrito de compras
-                    $cart[] = formatCartProduct($product, $quantity, $this->session->get('country'));
-                }
+            if ($product) {
+                //Agregar producto
+                $cart[] = formatCartProduct($product, $quantity, $this->session->get('country'));
             }
-
-            //Guardar carrito de compras en sesión
-            $this->session->put('cart', $cart);
         }
+
+        //Actualizar carrito de compras
+        $this->session->put('cart', $cart);
     }
 
     public function getCart(): array {
-        if (Auth::user()) {
-            //Obtener carrito de compras de base de datos
-            return Auth::user()->cart()
-            ->with('product', 'product.catalogProductBrand')
-            ->whereHas('product', fn($query) => $query->active($this->session->get('country.id')))
-            ->country($this->session->get('country.id'))
-            ->get()
-            ->map(function($cart) { return formatCartProduct($cart->product, $cart->quantity, $this->session->get('country')); })
-            ->toArray();
+        return Auth::user()
+        ? $this->getCartForAuthenticatedUser()
+        : $this->getCartForGuestUser();
+    }
+
+    public function getCartForAuthenticatedUser(): array {
+        //Obtener carrito de compras de base de datos
+        return Auth::user()->cart()
+        ->with('product', 'product.catalogProductBrand')
+        ->whereHas('product', fn($query) => $query->active($this->session->get('country.id')))
+        ->country($this->session->get('country.id'))
+        ->get()
+        ->map(function($cart) { return formatCartProduct($cart->product, $cart->quantity, $this->session->get('country')); })
+        ->toArray();
+    }
+
+    public function getCartForGuestUser(): array {
+        //Obtener carrito de compras de sesión
+        $cart = $this->session->get('cart', []);
+
+        //Obtener Ids de los productos
+        $productIds = array_column($cart, 'id');
+        if (empty($productIds)) { return []; }
+
+        //Consultar información de los productos
+        $products = Product::with('catalogProductBrand')
+        ->active($this->session->get('country.id'))
+        ->whereIn('id', $productIds)
+        ->get()
+        ->keyBy('id');
+
+        foreach ($cart as $index => $item) {
+            //Obtener información del producto
+            $product = $products->get($item['id']);
+
+            if ($product) {
+                //Actualizar información del producto
+                $cart[$index] = formatCartProduct($product, $item['quantity'], $this->session->get('country'));
+            } else {
+                //Eliminar producto
+                unset($cart[$index]);
+            }
         }
 
-        //Obtener carrito de compras de sesión
-        return $this->session->get('cart', []);
+        //Actualizar carrito de compras
+        $this->session->put('cart', $cart);
+
+        return $cart;
     }
 
     public function removeCart(int $productId): void {
-        if (Auth::user()) {
-            //Eliminar producto del carrito de compras
-            Auth::user()->cart()
-            ->where('product_id', $productId)
-            ->country($this->session->get('country.id'))
-            ->delete();
-        } else {
-            //Obtener carrito de compras de sesión
-            $cart = $this->session->get('cart', []);
+        Auth::user()
+        ? $this->removeCartForAuthenticatedUser($productId)
+        : $this->removeCartForGuestUser($productId);
+    }
 
-            //Verificar si el producto ya existe en el carrito de compras
-            $index = array_search($productId, array_column($cart, 'id'));
+    public function removeCartForAuthenticatedUser(int $productId): void {
+        //Eliminar producto en base de datos
+        Auth::user()
+        ->cart()
+        ->where('product_id', $productId)
+        ->country($this->session->get('country.id'))
+        ->delete();
+    }
 
-            if ($index !== false) {
-                //Eliminar producto del carrito de compras
-                unset($cart[$index]);
-            }
+    public function removeCartForGuestUser(int $productId): void {
+        //Obtener carrito de compras de sesión
+        $cart = $this->session->get('cart', []);
 
-            //Guardar carrito de compras en sesión
-            $this->session->put('cart', $cart);
+        //Verificar si el producto existe
+        $index = array_search($productId, array_column($cart, 'id'));
+
+        if ($index !== false) {
+            //Eliminar producto
+            unset($cart[$index]);
         }
+
+        //Actualizar carrito de compras
+        $this->session->put('cart', $cart);
     }
 }
 
