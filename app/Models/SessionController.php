@@ -210,6 +210,8 @@ function formatCartProduct(Product $product, int $quantity, array $country): arr
         'subtotal' => $product->suggested_price * $quantity,
         'vat' => $product->vat_suggested_price * $quantity,
         'total' => ($product->suggested_price + $product->vat_suggested_price) * $quantity,
-        'totalText' => formatPriceWithCurrency(($product->suggested_price + $product->vat_suggested_price) * $quantity, $country)
+        'totalText' => formatPriceWithCurrency(($product->suggested_price + $product->vat_suggested_price) * $quantity, $country),
+        'points' => $product->points * $quantity,
+        'vc' => $product->vc * $quantity,
     ];
 }

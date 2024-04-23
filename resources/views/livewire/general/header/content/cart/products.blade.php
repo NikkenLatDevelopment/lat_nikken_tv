@@ -30,7 +30,7 @@
         <div class="position-absolute start-0 end-0 bottom-0">
             @if (auth()->check() && $country['id'] == 1 && auth()->user()->catalog_user_type_id == 3)
                 <div class="ps-3">
-                    <div class="form-check form-switch small">
+                    <div class="form-check form-switch small pb-1">
                         <input type="checkbox" class="form-check-input" role="switch" id="cart-discount-suggested-price" wire:model.live="discountSuggestedPrice">
                         <label class="form-check-label" for="cart-discount-suggested-price">Comprar a <span class="fw-bold text-success text-decoration-underline">Sugerido con Descuento</span>.</label>
                     </div>
@@ -62,6 +62,19 @@
                         <div class="h6 text-dark fw-bold text-truncate mb-0">Total:</div>
                         <div class="h5 text-dark fw-bold mb-0">{{ $totalText }}</div>
                     </div>
+
+                    @if (auth()->check() && auth()->user()->catalog_user_type_id == 3)
+                        <div class="hstack gap-2">
+                            <div class="ms-auto"><span class="small text-black-50 opacity-75">Puntos: <span class="fw-bold">{{ $pointsText }}</span></span></div>
+                            <div class="vr"></div>
+                            <div><span class="small text-black-50 opacity-75">VC: <span class="fw-bold">{{ $vcText }}</span></span></div>
+
+                            @if ($country['id'] != 1 || !$discountSuggestedPrice)
+                                <div class="vr"></div>
+                                <div><span class="small text-black-50 opacity-75">Retail: <span class="fw-bold">{{ $retailText }}</span></span></div>
+                            @endif
+                        </div>
+                    @endif
                 </div>
 
                 <button type="submit" class="btn h6 text-white fw-bold w-100 mb-0 btn-success-custom-1">Finalizar Compra</button>

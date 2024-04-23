@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Carbon;
 
+function formatPrice(float $price, int $decimals) {
+    //Formatear precio
+    return number_format($price, $decimals);
+}
+
 function formatPriceWithCurrency(float $price, array $country) {
     //Formatear precio con símbolo de moneda
     return $country['currency_symbol'] . number_format($price, $country['currency_decimal']);

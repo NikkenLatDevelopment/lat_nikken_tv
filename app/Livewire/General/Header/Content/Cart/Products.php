@@ -28,6 +28,12 @@ class Products extends Component
     #[Locked]
     public string $totalText = '';
 
+    #[Locked]
+    public string $pointsText = '';
+
+    #[Locked]
+    public string $vcText = '';
+
     public bool $discountSuggestedPrice = false;
 
     public function render()
@@ -95,11 +101,18 @@ class Products extends Component
         //Sumar el IVA de todos los productos
         $totalVatProducts = array_sum(array_column($this->products, 'vat'));
 
-        //Inicializar información
+        //Sumar los puntos de todos los productos
+        $totalPointsProducts = array_sum(array_column($this->products, 'points'));
+
+        //Sumar el VC de todos los productos
+        $totalVcProducts = array_sum(array_column($this->products, 'vc'));
+
         $this->subtotalText = formatPriceWithCurrency($totalSubtotalProducts, $this->country);
+        $this->pointsText = formatPrice($totalPointsProducts, 0);
+        $this->vcText = formatPriceWithCurrency($totalVcProducts, $this->country);
+        $this->retailText = formatPriceWithCurrency($totalRetailProducts, $this->country);
 
         if ($this->discountSuggestedPrice) {
-            $this->retailText = formatPriceWithCurrency($totalRetailProducts, $this->country);
             $this->vatText = formatPriceWithCurrency($totalVatProducts - $totalVatRetailProducts, $this->country);
             $this->totalText = formatPriceWithCurrency(($totalSubtotalProducts - $totalRetailProducts) + ($totalVatProducts - $totalVatRetailProducts), $this->country);
         } else {
