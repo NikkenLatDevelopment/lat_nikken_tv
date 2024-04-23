@@ -43,9 +43,12 @@ class Products extends Component
         //Obtener información del usuario
         $user = auth()->user();
 
-        if ($this->country['id'] == 1 && $user && $user->catalog_user_type_id == 3) {
-            //Obtener sugerido con descuento
-            $this->discountSuggestedPrice = $sessionController->getDiscountSuggestedPrice();
+        if ($user) {
+            //Validar si el país y el tipo de usuario permiten sugerido con descuento
+            if ($this->country['id'] == 1 && $user->catalog_user_type_id == 3) {
+                //Obtener sugerido con descuento
+                $this->discountSuggestedPrice = $sessionController->getDiscountSuggestedPrice();
+            }
         }
 
         //Obtener carrito de compras

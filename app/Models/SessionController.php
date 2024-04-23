@@ -35,11 +35,11 @@ class SessionController
 
     public function getCountryId(): ?int {
         //Obtener ID del país por sesión o cookie
-        return $this->session->get('country.id') ?? Cookie::get('country_id');
+        return !is_null($this->session->get('country.id')) ?? !is_null(Cookie::get('country_id'));
     }
 
     public function setCart(int $productId, int $quantity): void {
-        auth()->user()
+        auth()->check()
         ? $this->setCartForAuthenticatedUser($productId, $quantity)
         : $this->setCartForGuestUser($productId, $quantity);
     }
@@ -77,7 +77,7 @@ class SessionController
     }
 
     public function getCart(): array {
-        return auth()->user()
+        return auth()->check()
         ? $this->getCartForAuthenticatedUser()
         : $this->getCartForGuestUser();
     }
@@ -128,7 +128,7 @@ class SessionController
     }
 
     public function removeCart(int $productId): void {
-        auth()->user()
+        auth()->check()
         ? $this->removeCartForAuthenticatedUser($productId)
         : $this->removeCartForGuestUser($productId);
     }
@@ -159,19 +159,31 @@ class SessionController
     }
 
     public function setDiscountSuggestedPrice(bool $discountSuggestedPrice): void {
-        if ($this->session->get('country.id') == 1 && (auth()->user()->catalog_user_type_id ?? 0) == 3) {
-            //Guardar sugerido con descuento en sesión
-            $this->session->put('discount_suggested_price', $discountSuggestedPrice);
+        $countryId = $this->session->get('country.id');
+        $user = auth()->user();
 
-            //Guardar sugerido con descuento en cookie
-            Cookie::queue('discount_suggested_price', $discountSuggestedPrice);
+        if ($user) {
+            //Validar si el país y el tipo de usuario permiten sugerido con descuento
+            if ($countryId == 1 && $user->catalog_user_type_id == 3) {
+                //Guardar sugerido con descuento en sesión
+                $this->session->put('discount_suggested_price', $discountSuggestedPrice);
+
+                //Guardar sugerido con descuento en cookie
+                Cookie::queue('discount_suggested_price', $discountSuggestedPrice);
+            }
         }
     }
 
     public function getDiscountSuggestedPrice(): bool {
-        if ($this->session->get('country.id') == 1 && (auth()->user()->catalog_user_type_id ?? 0) == 3) {
-            //Obtener sugerido con descuento por sesión o cookie
-            return $this->session->get('discount_suggested_price') ?? Cookie::get('discount_suggested_price');
+        $countryId = $this->session->get('country.id');
+        $user = auth()->user();
+
+        if ($user) {
+            //Validar si el país y el tipo de usuario permiten sugerido con descuento
+            if ($countryId == 1 && $user->catalog_user_type_id == 3) {
+                //Obtener sugerido con descuento por sesión o cookie
+                return !is_null($this->session->get('discount_suggested_price')) ?? !is_null(Cookie::get('discount_suggested_price'));
+            }
         }
 
         return false;
