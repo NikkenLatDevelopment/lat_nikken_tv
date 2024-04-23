@@ -98,7 +98,7 @@ class Main extends Component
         list($this->available, $this->componentsAvailable, $this->componentsNotAvailable) =  array_values($availability);
 
         //Formatear precio sugerido con iva con símbolo de moneda
-        $this->price = formatPriceWithCurrency($product['suggested_price'], $this->country);
+        $this->price = formatPriceWithCurrency($product['suggested_price'] + $product['vat_suggested_price'], $this->country);
 
         //Validar fecha de disponibilidad
         $this->availableUntil = $product['available_until'] == null

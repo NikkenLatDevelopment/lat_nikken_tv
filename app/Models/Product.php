@@ -21,7 +21,7 @@ class Product extends Model
 
     public function scopeBasicData() {
         //Obtener información necesaria para mostrar el producto
-        return $this->select('id', 'catalog_product_brand_id', 'sku', 'name', 'short_description', 'description', 'differentiators', 'maintenance', 'image', 'video', 'suggested_price', 'stock', 'stock_applies', 'warranty', 'rating_total', 'available_until', 'parent_product_id');
+        return $this->select('id', 'catalog_product_brand_id', 'sku', 'name', 'short_description', 'description', 'differentiators', 'maintenance', 'image', 'video', 'suggested_price', 'vat_suggested_price', 'stock', 'stock_applies', 'warranty', 'rating_total', 'available_until', 'parent_product_id');
     }
 
     public function scopeActive($query, int $catalog_country_id, ?string $brandSlug = null) {
