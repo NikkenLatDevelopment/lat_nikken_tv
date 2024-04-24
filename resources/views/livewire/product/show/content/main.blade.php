@@ -220,7 +220,7 @@
 
                     <h2 class="h6 fw-bold mb-1 pt-1">Caracteristicas:</h2>
 
-                    <div class="d-flex flex-wrap mb-3">
+                    <div class="d-flex flex-wrap">
                         <div class="row gx-2 me-4">
                             <div class="col-auto"><span class="small">Código:</span></div>
                             <div class="col"><span class="small text-success">{{ $product['sku'] }}</span></div>
