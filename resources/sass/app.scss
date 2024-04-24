@@ -87,7 +87,7 @@ button, a {
     }
 
     .menu {
-        &.sticky{
+        &.sticky {
             z-index: 10;
         }
 
@@ -239,33 +239,33 @@ button, a {
     @include button-size(0.8rem, 1.4rem, $font-size-base, $btn-border-radius);
 }
 
-.animation-hover-up{
+.animation-hover-up {
 	transition: all .25s cubic-bezier(.02,.01,.47,1);
 
-	&:hover{
+	&:hover {
 		transform: translateY(-5px);
 		transition: all .25s cubic-bezier(.02,.01,.47,1);
 	}
 }
 
 .custom {
-    &.fw-extrabold{
+    &.fw-extrabold {
         font-weight: 900;
     }
 
-    &.i-top-1{
+    &.i-top-1 {
         top: 3px;
     }
 
-    &.i-top-2{
+    &.i-top-2 {
         top: 2px;
     }
 
-    &.i-top-3{
+    &.i-top-3 {
         top: 4px;
     }
 
-    &.i-top-4{
+    &.i-top-4 {
         top: 1px;
     }
 

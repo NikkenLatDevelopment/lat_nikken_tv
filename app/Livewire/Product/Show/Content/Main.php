@@ -10,6 +10,7 @@ use App\Models\ProductImage;
 use App\Models\ProductReview;
 use App\Models\ProductFeature;
 use Livewire\Attributes\Locked;
+use App\Models\ProductAttachment;
 use App\Models\ProductTechnology;
 use App\Models\SessionController;
 use App\Models\ProductMeasurement;
@@ -53,6 +54,9 @@ class Main extends Component
 
     #[Locked]
     public array $features = [];
+
+    #[Locked]
+    public array $attachments = [];
 
     #[Locked]
     public string $currentUrl;
@@ -160,6 +164,9 @@ class Main extends Component
 
         //Obtener características
         $this->getFeatures();
+
+        //Obtener archivos adjuntos
+        $this->getAttachments();
     }
 
     public function updateProduct(int $productId) {
@@ -418,6 +425,21 @@ class Main extends Component
         ->whereHas('catalogProductFeature', fn ($query) => $query->status())
         ->where('product_id', $productId)
         ->get()
+        ->toArray();
+    }
+
+    public function getAttachments() {
+        //Obtener id del producto o del producto padre
+        $productId = $this->product['parent_product_id'] != null ? $this->parentProduct['id'] : $this->productId;
+
+        //Obtener información de los archivos adjuntos
+        $this->attachments = ProductAttachment::with([ 'catalogProductAttachment' => fn ($query) => $query->status() ])
+        ->where('product_id', $productId)
+        ->get()
+        ->map(function ($file) {
+            $file->file = env('STORAGE_PRODUCT_ATTACHMENT_PATH') . $file->file;
+            return $file;
+        })
         ->toArray();
     }
 }

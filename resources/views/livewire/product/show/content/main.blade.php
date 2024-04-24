@@ -219,7 +219,7 @@
 
                 <h2 class="h6 fw-bold mb-1 pt-2">Caracteristicas:</h2>
 
-                <div class="d-flex flex-wrap">
+                <div class="d-flex flex-wrap mb-3">
                     <div class="row gx-2 me-4">
                         <div class="col-auto"><span class="small">Código:</span></div>
                         <div class="col"><span class="small text-success fw-semibold">{{ $product['sku'] }}</span></div>
@@ -242,6 +242,25 @@
             </div>
         </div>
     </section>
+
+    @if (count($attachments) > 0)
+        <hr class="text-secondary opacity-75">
+
+        <section class="pt-4 pb-1 attachment">
+            <div class="container">
+                <div class="row gx-2 justify-content-center align-items-stretch">
+                    @foreach ($attachments as $attachment)
+                        <div class="col-auto animation-hover-up mb-2">
+                            <a href="{{ $attachment['file'] }}" target="_blank" class="link-dark text-decoration-none border border-light rounded-4 d-flex align-items-center justify-content-center h-100 p-4 card-custom-1">
+                                <div class="me-2"><i class="fi fi-rr-search-alt h4"></i></div>
+                                <div class="h6 fw-bold lh-sm mb-0">{{ $attachment['catalog_product_attachment']['name'] }}</div>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
 
     @script
         <script type="module">

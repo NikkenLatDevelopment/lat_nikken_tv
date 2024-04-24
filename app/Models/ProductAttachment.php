@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class ProductAttachment extends Model
 {
     use HasFactory;
+
+    public function catalogProductAttachment() {
+        //Relacionar con el catálogo de adjuntos del producto
+        return $this->belongsTo(CatalogProductAttachment::class);
+    }
 }

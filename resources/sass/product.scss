@@ -86,6 +86,25 @@
     .quantity {
         max-width: 95px;
     }
+
+    .attachment {
+        .card-custom-1 {
+            background-color: $light;
+            width: 200px;
+            transition: background-color 0.3s, box-shadow 0.3s, border-color 0.3s;
+
+            &:hover {
+                background-color: transparent;
+                border-color: $success !important;
+                box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
+
+                .h6, .h4 {
+                    transition: color 0.3s;
+                    color: $success;
+                }
+            }
+        }
+    }
 }
 
 @media (max-width: 767.98px) {
