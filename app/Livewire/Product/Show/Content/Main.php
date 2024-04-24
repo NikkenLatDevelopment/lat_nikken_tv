@@ -89,10 +89,28 @@ class Main extends Component
         $this->country = $sessionController->getCountry()->toArray();
 
         //Obtener url actual
-        $this->currentUrl = url()->current();
+        $this->getCurrentUrl();
 
         //Inicializar producto
         $this->getProduct($product, $availability);
+    }
+
+    public function getCurrentUrl() {
+        //Obtener tienda personalizada
+        $customStore = auth()->check()
+        ? auth()->user()->customStore()->status()->first()
+        : null;
+
+        if ($customStore) {
+            //Obtener url actual
+            $url = parse_url(url()->current());
+
+            //Obtener tienda personalizada
+            $this->currentUrl = $url['scheme'] . '://' . $customStore->name . '.' . $url['host'] . $url['path'];;
+        } else {
+            //Obtener url actual
+            $this->currentUrl = url()->current();
+        }
     }
 
     public function getProduct(array $product, array $availability) {

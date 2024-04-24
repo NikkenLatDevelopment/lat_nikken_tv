@@ -52,4 +52,9 @@ class User extends Authenticatable
         //Relación con el carrito de compras
         return $this->hasMany(Cart::class);
     }
+
+    public function customStore() {
+        //Relación con la tienda personalizada
+        return $this->hasOne(CustomStore::class);
+    }
 }

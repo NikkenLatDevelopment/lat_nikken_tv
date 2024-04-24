@@ -18,9 +18,7 @@
                     </div>
 
                     @if (!auth()->check())
-                        <!-- //TODO: !!!! Pendiente -->
                         <p class="small"><span class="fw-bold">Nota:</span> Si cuentas con tu Tienda Virtual Personalizada, <a href="{{ route('login') }}">inicia sesión</a> para obtener tu link personal.</p>
-                        <!-- //TODO: !!!! Pendiente -->
                     @endif
 
                     @if($currentUrl && $name)
