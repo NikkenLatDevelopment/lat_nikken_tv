@@ -8,6 +8,7 @@ use Livewire\Attributes\On;
 use App\Models\ProductColor;
 use App\Models\ProductImage;
 use App\Models\ProductReview;
+use App\Models\ProductFeature;
 use Livewire\Attributes\Locked;
 use App\Models\ProductTechnology;
 use App\Models\SessionController;
@@ -45,7 +46,13 @@ class Main extends Component
     public array $measurements = [];
 
     #[Locked]
+    public array $differentiators = [];
+
+    #[Locked]
     public array $technologies = [];
+
+    #[Locked]
+    public array $features = [];
 
     #[Locked]
     public string $currentUrl;
@@ -64,9 +71,6 @@ class Main extends Component
 
     #[Locked]
     public string $availableUntil;
-
-    #[Locked]
-    public array $differentiators = [];
 
     public bool $wishlist = false;
     public int $selectedColor;
@@ -135,6 +139,9 @@ class Main extends Component
 
         //Obtener tecnologías
         $this->getTechnologies();
+
+        //Obtener características
+        $this->getFeatures();
     }
 
     public function updateProduct(int $productId) {
@@ -381,6 +388,18 @@ class Main extends Component
                 'name' => $technology['catalogProductTechnology']['name'],
             ];
         })
+        ->toArray();
+    }
+
+    public function getFeatures() {
+        //Obtener id del producto o del producto padre
+        $productId = $this->product['parent_product_id'] != null ? $this->parentProduct['id'] : $this->productId;
+
+        //Obtener información de las características
+        $this->features = ProductFeature::with([ 'catalogProductFeature' ])
+        ->whereHas('catalogProductFeature', fn ($query) => $query->status())
+        ->where('product_id', $productId)
+        ->get()
         ->toArray();
     }
 }

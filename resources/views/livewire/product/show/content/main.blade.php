@@ -208,7 +208,7 @@
                 @endif
 
                 @if (count($technologies) > 0)
-                    <div class="mb-4 pt-2">
+                    <div class="mb-2 pt-2">
                         @foreach ($technologies as $technology)
                             <a href="#" class="text-decoration-none" wire:click.prevent="$dispatch('product.show.modal.technology-description.initialize', { productTechnologyId: {{ $technology['id'] }} })">
                                 <img src="{{ asset('assets/img/technologies/logo-' . $technology['slug'] . '.png') }}" srcset="{{ asset('assets/img/technologies/logo-' . $technology['slug'] . '-2x.png') }} 2x" class="img-fluid" alt="{{ $technology['name'] }}">
@@ -216,6 +216,29 @@
                         @endforeach
                     </div>
                 @endif
+
+                <h2 class="h6 fw-bold mb-1 pt-2">Caracteristicas:</h2>
+
+                <div class="d-flex flex-wrap">
+                    <div class="row gx-2 me-4">
+                        <div class="col-auto"><span class="small">Código:</span></div>
+                        <div class="col"><span class="small text-success fw-semibold">{{ $product['sku'] }}</span></div>
+                    </div>
+
+                    <div class="row gx-2 me-4">
+                        <div class="col-auto"><span class="small">Marca:</span></div>
+                        <div class="col-auto"><span class="small text-success fw-semibold">{{ $product['catalog_product_brand']['name'] }}</span></div>
+                    </div>
+
+                    @if (count($features) > 0)
+                        @foreach ($features as $feature)
+                            <div class="row gx-2 me-4">
+                                <div class="col-auto"><span class="small">{{ $feature['catalog_product_feature']['name'] }}:</span></div>
+                                <div class="col-auto"><span class="small text-success fw-semibold">{{ $feature['value'] }}</span></div>
+                            </div>
+                        @endforeach
+                    @endif
+                </div>
             </div>
         </div>
     </section>

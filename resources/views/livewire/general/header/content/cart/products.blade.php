@@ -32,7 +32,7 @@
                 <div class="ps-3">
                     <div class="form-check form-switch small pb-1">
                         <input type="checkbox" class="form-check-input" role="switch" id="cart-discount-suggested-price" wire:model.live="discountSuggestedPrice">
-                        <label class="form-check-label" for="cart-discount-suggested-price">Comprar a <span class="fw-bold text-success text-decoration-underline">Sugerido con Descuento</span>.</label>
+                        <label class="form-check-label" for="cart-discount-suggested-price">Comprar a <span class="text-success fw-bold text-decoration-underline">Sugerido con Descuento</span>.</label>
                     </div>
                 </div>
             @endif

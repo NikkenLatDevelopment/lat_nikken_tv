@@ -9,7 +9,7 @@ class ProductTechnology extends Model
 {
     use HasFactory;
 
-    public function CatalogProductTechnology() {
+    public function catalogProductTechnology() {
         //Relacionar con el catálogo de tecnologías del producto
         return $this->belongsTo(CatalogProductTechnology::class);
     }
