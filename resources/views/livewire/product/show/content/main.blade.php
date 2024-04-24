@@ -19,7 +19,7 @@
         </div>
     </div>
 
-    <section class="mt-4">
+    <section class="mt-4 mb-2">
         <div class="container">
             <div class="row">
                 <div class="col-12 col-lg-6">
@@ -218,9 +218,9 @@
                         </div>
                     @endif
 
-                    <h2 class="h6 fw-bold mb-1 pt-1">Caracteristicas:</h2>
+                    <h2 class="h6 text-muted fw-bold mb-1 pt-1">Caracteristicas:</h2>
 
-                    <div class="d-flex flex-wrap mb-3">
+                    <div class="d-flex flex-wrap mb-2">
                         <div class="row gx-2 me-4">
                             <div class="col-auto"><span class="small">Código:</span></div>
                             <div class="col"><span class="small text-success">{{ $product['sku'] }}</span></div>
@@ -246,7 +246,7 @@
     </section>
 
     @if (count($attachments) > 0)
-        <hr class="text-secondary opacity-75">
+        <hr class="text-secondary opacity-75 mt-3">
 
         <section class="pt-4 pb-2 attachment">
             <div class="container">

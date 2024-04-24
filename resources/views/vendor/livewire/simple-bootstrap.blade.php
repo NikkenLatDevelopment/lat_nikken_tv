@@ -13,7 +13,7 @@ $scrollIntoViewJsSnippet = ($scrollTo !== false)
 <div>
     @if ($paginator->hasPages())
         <nav>
-            <ul class="pagination pagination-sm border-top border-secondary pt-3 justify-content-end mb-0">
+            <ul class="pagination pagination-sm justify-content-end mb-0">
                 {{-- Previous Page Link --}}
                 @if ($paginator->onFirstPage())
                     <li class="page-item disabled" aria-disabled="true">
