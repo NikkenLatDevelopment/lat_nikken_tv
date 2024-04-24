@@ -14,6 +14,9 @@ class Review extends Component
     #[Locked]
     public int $productId;
 
+    #[Locked]
+    public string $productName;
+
     public function render()
     {
         //Obtener reviews
