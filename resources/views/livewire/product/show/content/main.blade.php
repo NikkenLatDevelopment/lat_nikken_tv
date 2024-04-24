@@ -127,7 +127,7 @@
                             <div class="row gx-3 mb-1 components">
                                 @if (count($componentsNotAvailable) > 0)
                                     <div class="col-12 col-sm-6 col-lg-12 col-xl-6">
-                                        <div class="card border-warning rounded-4 overflow-hidden mb-2">
+                                        <div class="card border-warning rounded-4 overflow-hidden @if (count($componentsAvailable) > 0) mb-3 @else mb-2 @endif">
                                             <div class="card-header text-warning lh-sm bg-white border-0 border-bottom border-warning px-3">
                                                 <span class="fw-bold d-block py-1">Componentes con <span class="text-decoration-underline">Entrega Postergada</span></span>
                                             </div>
@@ -291,6 +291,27 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
+
+    @if (count($videos) > 0)
+        <section class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="pb-2 subtitle"><h2 class="h4 text-dark fw-bold border-bottom border-secondary position-relative pb-3 mb-4">Videos</h2></div>
+
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4">
+                        @foreach ($videos as $video)
+                            <div class="col">
+                                <div class="ratio ratio-16x9 mb-4">
+                                    <iframe src="{{ $video['url'] }}" title="Video {{ $product['name'] }}" allowfullscreen></iframe>
+                                    <a href="{{ $video['url'] }}" data-fancybox="videos"><div class="position-absolute top-0 bottom-0 start-0 end-0"></div></a>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

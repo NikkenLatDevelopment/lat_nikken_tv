@@ -221,6 +221,18 @@ button, a {
     }
 }
 
+.subtitle{
+    h2::after{
+        content: '';
+        width: 80px;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 3px;
+        background-color: $success;
+    }
+}
+
 .btn-outline-success-custom-1 {
     @include button-outline-variant($body-color, white, lighten($success, 5%), white, white);
 }

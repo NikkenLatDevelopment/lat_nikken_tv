@@ -7,6 +7,7 @@ use Livewire\Component;
 use Livewire\Attributes\On;
 use App\Models\ProductColor;
 use App\Models\ProductImage;
+use App\Models\ProductVideo;
 use App\Models\ProductReview;
 use App\Models\ProductFeature;
 use Livewire\Attributes\Locked;
@@ -57,6 +58,9 @@ class Main extends Component
 
     #[Locked]
     public array $attachments = [];
+
+    #[Locked]
+    public array $videos = [];
 
     #[Locked]
     public string $currentUrl;
@@ -167,6 +171,9 @@ class Main extends Component
 
         //Obtener archivos adjuntos
         $this->getAttachments();
+
+        //Obtener videos
+        $this->getVideos();
     }
 
     public function updateProduct(int $productId) {
@@ -441,6 +448,17 @@ class Main extends Component
             $file->file = env('STORAGE_PRODUCT_ATTACHMENT_PATH') . $file->file;
             return $file;
         })
+        ->toArray();
+    }
+
+    public function getVideos() {
+        //Obtener id del producto o del producto padre
+        $productId = $this->product['parent_product_id'] != null ? $this->parentProduct['id'] : $this->productId;
+
+        //Obtener información de los videos
+        $this->videos = ProductVideo::select('url')
+        ->where('product_id', $productId)
+        ->get()
         ->toArray();
     }
 }
