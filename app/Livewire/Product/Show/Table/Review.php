@@ -21,7 +21,7 @@ class Review extends Component
         ->where('product_id', $this->productId)
         ->status()
         ->latest()
-        ->simplePaginate(5, pageName: 'reviews');
+        ->simplePaginate(3, pageName: 'reviews');
 
         return view('livewire.product.show.table.review', [ 'reviews' => $reviews ]);
     }
