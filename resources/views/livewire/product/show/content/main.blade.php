@@ -220,7 +220,7 @@
 
                     <h2 class="h6 fw-bold mb-1 pt-1">Caracteristicas:</h2>
 
-                    <div class="d-flex flex-wrap">
+                    <div class="d-flex flex-wrap mb-3">
                         <div class="row gx-2 me-4">
                             <div class="col-auto"><span class="small">Código:</span></div>
                             <div class="col"><span class="small text-success">{{ $product['sku'] }}</span></div>
@@ -298,10 +298,10 @@
     @endif
 
     @if (count($videos) > 0)
-        <section class="container">
+        <section class="container mt-4">
             <div class="row">
                 <div class="col">
-                    <div class="pb-2 subtitle"><h2 class="h4 text-dark fw-bold border-bottom border-secondary position-relative pb-3 mb-4">Videos</h2></div>
+                    <div class="pb-2 subtitle"><h2 class="h4 text-dark fw-bold border-bottom border-secondary position-relative pb-3 mb-3">Videos</h2></div>
 
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4">
                         @foreach ($videos as $video)
