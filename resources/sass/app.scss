@@ -248,6 +248,7 @@ button, a {
                 -webkit-line-clamp: 2;
                 -webkit-box-orient: vertical;
                 overflow: hidden;
+                transition: all .18s ease 0s, text-decoration .18s ease 0s;
             }
         }
     }

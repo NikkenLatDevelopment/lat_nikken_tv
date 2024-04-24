@@ -327,9 +327,9 @@
                     <div class="col">
                         <div class="pb-2 subtitle"><h2 class="h4 text-dark fw-bold border-bottom border-secondary position-relative pb-3 mb-3">Repuestos</h2></div>
 
-                        <div class="row gx-2 gx-xl-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                        <div class="row gx-2 gx-xl-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 align-items-stretch">
                             @foreach ($replacements as $replacement)
-                                <div class="col"><x-product.thumbnail :product="$replacement" /></div>
+                                <div class="col mb-3"><x-product.thumbnail :product="$replacement" /></div>
                             @endforeach
                         </div>
                     </div>
@@ -345,9 +345,9 @@
                     <div class="col">
                         <div class="pb-2 subtitle"><h2 class="h4 text-dark fw-bold border-bottom border-secondary position-relative pb-3 mb-3">Partes</h2></div>
 
-                        <div class="row gx-2 gx-xl-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                        <div class="row gx-2 gx-xl-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 align-items-stretch">
                             @foreach ($parts as $part)
-                                <div class="col"><x-product.thumbnail :product="$part" /></div>
+                                <div class="col mb-3"><x-product.thumbnail :product="$part" /></div>
                             @endforeach
                         </div>
                     </div>

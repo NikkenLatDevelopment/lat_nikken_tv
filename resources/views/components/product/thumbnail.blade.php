@@ -1,5 +1,5 @@
 <a href="{{ route('product.show', [ 'brandSlug' => $product['brandSlug'], 'productSlug' => $product['slug'] ]) }}" class="text-decoration-none">
-    <div class="card border-secondary rounded-4 mb-3 animation-hover-up">
+    <div class="card border-secondary rounded-4 h-100 animation-hover-up">
         <figure><img src="{{ $product['image'] }}" class="card-img-top img-fluid" alt="{{ $product['name'] }}" /></figure>
 
         <div class="card-body text-center py-0">
