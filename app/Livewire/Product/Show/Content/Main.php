@@ -15,6 +15,7 @@ use App\Models\ProductAttachment;
 use App\Models\ProductTechnology;
 use App\Models\SessionController;
 use App\Models\ProductMeasurement;
+use App\Models\ProductReplacement;
 use App\Models\ProductPresentation;
 use Illuminate\Support\Facades\Validator;
 
@@ -61,6 +62,9 @@ class Main extends Component
 
     #[Locked]
     public array $videos = [];
+
+    #[Locked]
+    public array $replacements = [];
 
     #[Locked]
     public string $currentUrl;
@@ -174,6 +178,9 @@ class Main extends Component
 
         //Obtener videos
         $this->getVideos();
+
+        //Obtener repuestos
+        $this->getReplacements();
     }
 
     public function updateProduct(int $productId) {
@@ -293,8 +300,8 @@ class Main extends Component
         if ($parentProduct) {
             //Complementar información
             $this->parentProduct = array_merge($parentProduct->toArray(), [
-                'price' => formatPriceWithCurrency($parentProduct['suggested_price'], $this->country),
-                'percentage_discount' => number_format(100 - (($this->product['suggested_price'] * 100) / $parentProduct['suggested_price']), 0),
+                'price' => formatPriceWithCurrency($parentProduct['suggested_price'] + $parentProduct['vat_suggested_price'], $this->country),
+                'percentage_discount' => number_format(100 - ((($this->product['suggested_price'] + $parentProduct['vat_suggested_price']) * 100) / $parentProduct['suggested_price']), 0),
             ]);
         }
     }
@@ -459,6 +466,29 @@ class Main extends Component
         $this->videos = ProductVideo::select('url')
         ->where('product_id', $productId)
         ->get()
+        ->toArray();
+    }
+
+    public function getReplacements() {
+        //Obtener id del producto o del producto padre
+        $productId = $this->product['parent_product_id'] != null ? $this->parentProduct['id'] : $this->productId;
+
+        //Obtener información de los repuestos
+        $this->replacements = ProductReplacement::with([ 'product', 'product.catalogProductBrand' ])
+        ->whereHas('product', fn ($query) => $query->active($this->country['id']))
+        ->where('parent_product_id', $productId)
+        ->get()
+        ->map(function ($product) {
+            return [
+                'slug' => $product->product->slug,
+                'sku' => $product->product->sku,
+                'name' => $product->product->name,
+                'image' => env('STORAGE_PRODUCT_IMAGE_THUMBNAIL_PATH') . $product->product->image,
+                'price' => formatPriceWithCurrency($product->product->suggested_price + $product->product->vat_suggested_price, $this->country),
+                'rating' => $product->product->rating_total,
+                'brandSlug' => $product->product->catalogProductBrand->slug
+            ];
+        })
         ->toArray();
     }
 }

@@ -298,20 +298,40 @@
     @endif
 
     @if (count($videos) > 0)
-        <section class="container mt-4">
-            <div class="row">
-                <div class="col">
-                    <div class="pb-2 subtitle"><h2 class="h4 text-dark fw-bold border-bottom border-secondary position-relative pb-3 mb-3">Videos</h2></div>
+        <section class="mt-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="pb-2 subtitle"><h2 class="h4 text-dark fw-bold border-bottom border-secondary position-relative pb-3 mb-3">Videos</h2></div>
 
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4">
-                        @foreach ($videos as $video)
-                            <div class="col">
-                                <div class="ratio ratio-16x9 mb-4">
-                                    <iframe src="{{ $video['url'] }}" title="Video {{ $product['name'] }}" allowfullscreen></iframe>
-                                    <a href="{{ $video['url'] }}" data-fancybox="videos"><div class="position-absolute top-0 bottom-0 start-0 end-0"></div></a>
+                        <div class="row gx-2 gx-xl-3 row-cols-1 row-cols-sm-2 row-cols-lg-4">
+                            @foreach ($videos as $video)
+                                <div class="col">
+                                    <div class="ratio ratio-16x9 mb-3">
+                                        <iframe src="{{ $video['url'] }}" title="Video {{ $product['name'] }}" allowfullscreen></iframe>
+                                        <a href="{{ $video['url'] }}" data-fancybox="videos"><div class="position-absolute top-0 bottom-0 start-0 end-0"></div></a>
+                                    </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
+
+    @if (count($replacements) > 0)
+        <section class="mt-4 thumbnail">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="pb-2 subtitle"><h2 class="h4 text-dark fw-bold border-bottom border-secondary position-relative pb-3 mb-3">Repuestos</h2></div>
+
+                        <div class="row gx-2 gx-xl-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                            @foreach ($replacements as $replacement)
+                                <div class="col"><x-product.thumbnail :product="$replacement" /></div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>

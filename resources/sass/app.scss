@@ -233,6 +233,26 @@ button, a {
     }
 }
 
+.product {
+    .thumbnail {
+        .card {
+            cursor: pointer;
+
+            &:hover {
+                border-color: $success !important;
+                box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
+            }
+
+            .card-title {
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+        }
+    }
+}
+
 .btn-outline-success-custom-1 {
     @include button-outline-variant($body-color, white, lighten($success, 5%), white, white);
 }
