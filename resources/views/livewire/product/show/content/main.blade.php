@@ -298,7 +298,7 @@
     @endif
 
     @if (count($videos) > 0)
-        <section class="mt-4">
+        <section class="mt-3">
             <div class="container">
                 <div class="row">
                     <div class="col">
@@ -321,7 +321,7 @@
     @endif
 
     @if (count($replacements) > 0)
-        <section class="mt-4 thumbnail">
+        <section class="mt-3 thumbnail">
             <div class="container">
                 <div class="row">
                     <div class="col">
@@ -339,7 +339,7 @@
     @endif
 
     @if (count($parts) > 0)
-        <section class="mt-4 thumbnail">
+        <section class="mt-3 thumbnail">
             <div class="container">
                 <div class="row">
                     <div class="col">
@@ -355,6 +355,22 @@
             </div>
         </section>
     @endif
+
+    <section class="mt-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <div class="pb-2 subtitle"><h2 class="h4 text-dark fw-bold border-bottom border-secondary position-relative pb-3 mb-3">Preguntas y Respuestas</h2></div>
+                    @livewire('product.show.table.faq', [ 'productId' => $product['parent_product_id'] != null ? $parentProduct['id'] : $productId ])
+                </div>
+
+                <div class="col-12 col-lg-6">
+                    <div class="pb-2 subtitle"><h2 class="h4 text-dark fw-bold border-bottom border-secondary position-relative pb-3 mb-3">Experiencias del Producto</h2></div>
+                    @livewire('product.show.table.review', [ 'productId' => $product['parent_product_id'] != null ? $parentProduct['id'] : $productId ])
+                </div>
+            </div>
+        </div>
+    </section>
 
     @script
         <script type="module">
