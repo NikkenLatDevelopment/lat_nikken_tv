@@ -43,6 +43,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function catalogCountry() {
+        //Relación con el país
+        return $this->belongsTo(CatalogCountry::class);
+    }
+
     public function wishlists() {
         //Relación con la lista de deseos
         return $this->hasMany(Wishlist::class);
