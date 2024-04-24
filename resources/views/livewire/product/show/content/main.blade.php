@@ -124,10 +124,10 @@
 
                     @if ($available == 0)
                         @if (count($componentsNotAvailable) > 0)
-                            <div class="row gx-3 mb-1 components">
+                            <div class="row gx-3 pt-1 components">
                                 @if (count($componentsNotAvailable) > 0)
                                     <div class="col-12 col-sm-6 col-lg-12 col-xl-6">
-                                        <div class="card border-warning rounded-4 overflow-hidden @if (count($componentsAvailable) > 0) mb-3 @else mb-2 @endif">
+                                        <div class="card border-warning rounded-4 overflow-hidden mb-3">
                                             <div class="card-header text-warning lh-sm bg-white border-0 border-bottom border-warning px-3">
                                                 <span class="fw-bold d-block py-1">Componentes con <span class="text-decoration-underline">Entrega Postergada</span></span>
                                             </div>
@@ -152,7 +152,7 @@
 
                                 @if (count($componentsAvailable) > 0)
                                     <div class="col-12 col-sm-6 col-lg-12 col-xl-6">
-                                        <div class="card border-success rounded-4 overflow-hidden mb-2">
+                                        <div class="card border-success rounded-4 overflow-hidden mb-3">
                                             <div class="card-header text-success lh-sm bg-white border-0 border-bottom border-success px-3">
                                                 <span class="fw-bold d-block py-1">Componentes <span class="text-decoration-underline">Disponibles</span></span>
                                             </div>
@@ -173,7 +173,7 @@
                                 @endif
                             </div>
                         @else
-                            <div class="row gx-3 mb-1 components">
+                            <div class="row gx-3 mb-2 pt-1 components">
                                 <div class="col-12 col-sm-6 col-lg-12 col-xl-6">
                                     <div class="card border-warning rounded-4 overflow-hidden mb-2">
                                         <div class="card-header text-warning lh-sm bg-white border-0 border-bottom border-warning px-3">
@@ -192,7 +192,7 @@
                     @endif
 
                     @if ($product['warranty'] != null || $product['video'] != null)
-                        <div class="mb-2">
+                        <div class="mb-3">
                             @if ($product['warranty'] != null) <p class="text-success fw-bold mb-0"><i class="fi fi-br-icon-star h5 position-relative me-1 custom i-top-1"></i> {{ $product['warranty'] }}.</p>@endif
                             @if ($product['video'] != null) <p class="d-flex align-items-center mb-0"><i class="fi fi-brands-youtube h4 text-danger position-relative me-2 mb-0 custom i-top-1"></i><a href="{{ $product['video'] }}" class="link-danger fw-bold" data-fancybox="videos">Conoce el producto aquí.</a></p>@endif
                         </div>
@@ -201,7 +201,7 @@
                     @if ($differentiators != null)
                         <h2 class="h6 text-muted fw-bold mb-2 pt-1">Diferenciadores del producto:</h2>
 
-                        <ul class="mb-2">
+                        <ul class="mb-3">
                             @foreach ($differentiators as $differentiator)
                                 <li>{{ $differentiator }}</li>
                             @endforeach
@@ -209,7 +209,7 @@
                     @endif
 
                     @if (count($technologies) > 0)
-                        <div class="mb-2 pt-1">
+                        <div class="mb-3 pt-1">
                             @foreach ($technologies as $technology)
                                 <a href="#" class="text-decoration-none" wire:click.prevent="$dispatch('product.show.modal.technology-description.initialize', { productTechnologyId: {{ $technology['id'] }} })">
                                     <img src="{{ asset('assets/img/technologies/logo-' . $technology['slug'] . '.png') }}" srcset="{{ asset('assets/img/technologies/logo-' . $technology['slug'] . '-2x.png') }} 2x" class="img-fluid" alt="{{ $technology['name'] }}">
@@ -330,6 +330,24 @@
                         <div class="row gx-2 gx-xl-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
                             @foreach ($replacements as $replacement)
                                 <div class="col"><x-product.thumbnail :product="$replacement" /></div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
+
+    @if (count($parts) > 0)
+        <section class="mt-4 thumbnail">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="pb-2 subtitle"><h2 class="h4 text-dark fw-bold border-bottom border-secondary position-relative pb-3 mb-3">Partes</h2></div>
+
+                        <div class="row gx-2 gx-xl-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                            @foreach ($parts as $part)
+                                <div class="col"><x-product.thumbnail :product="$part" /></div>
                             @endforeach
                         </div>
                     </div>
