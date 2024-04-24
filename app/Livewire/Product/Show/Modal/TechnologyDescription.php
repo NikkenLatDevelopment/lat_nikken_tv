@@ -27,7 +27,7 @@ class TechnologyDescription extends Component
             [ 'productTechnologyId' => 'required|integer|exists:catalog_product_technologies,id' ],
         )->validate();
 
-        //Buscar tecnología
+        //Obtener información de la tecnología
         $catalogProductTechnology = CatalogProductTechnology::select('description')
         ->status()
         ->find($productTechnologyId);

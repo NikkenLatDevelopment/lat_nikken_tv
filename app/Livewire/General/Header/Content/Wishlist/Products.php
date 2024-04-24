@@ -74,7 +74,7 @@ class Products extends Component
             [ 'productId' => 'required|integer|exists:products,id' ]
         )->validate();
 
-        //Eliminar producto de la lista de deseos en base de datos
+        //Eliminar producto de la lista de deseos
         auth()->user()->wishlists()
         ->where('product_id', $productId)
         ->country($this->country['id'])

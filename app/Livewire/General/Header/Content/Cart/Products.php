@@ -74,8 +74,6 @@ class Products extends Component
 
         //Eliminar producto del carrito de compras
         $sessionController->removeCart($productId);
-
-        //Eliminar producto del carrito de compras
         unset($this->products[$index]);
 
         //Obtener totales

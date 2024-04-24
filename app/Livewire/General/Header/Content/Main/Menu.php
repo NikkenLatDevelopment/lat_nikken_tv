@@ -27,15 +27,15 @@ class Menu extends Component
         //Obtener información del país
         $country = $sessionController->getCountry()->toArray();
 
-        //Obtener marcas
+        //Obtener catálogo de marcas
         $this->getBrands($country['id']);
 
-        //Obtener campañas
+        //Obtener catálogo de campañas
         $this->getCampaigns($country['id']);
     }
 
     public function getBrands(int $countryId) {
-        //Obtener marcas
+        //Obtener catálogo de marcas
         $this->brands = CatalogProductBrand::select('slug', 'name', 'alias')
         ->whereHas('products', fn ($query) => $query->active($countryId))
         ->status()
@@ -44,7 +44,7 @@ class Menu extends Component
     }
 
     public function getCampaigns(int $countryId) {
-        //Obtener campañas con redirección
+        //Obtener catálogo de campañas con redirección
         $campaigns = Campaign::whereHas('campaignUserTypes.catalogUserType', function ($query) {
             $query->when(auth()->check(),
                 fn ($query) => $query->where('id', auth()->user()->catalog_user_type_id),
@@ -54,7 +54,7 @@ class Menu extends Component
         ->active($countryId)
         ->whereNotNull('redirect_url');
 
-        //Obtener campañas sin redirección y consolidar
+        //Obtener catálogo de campañas sin redirección y consolidar
         $this->campaigns = Campaign::whereHas('campaignProducts.product', fn ($query) => $query->active($countryId))
         ->whereHas('campaignUserTypes.catalogUserType', function ($query) {
             $query->when(auth()->check(),

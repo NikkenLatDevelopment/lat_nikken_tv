@@ -35,7 +35,7 @@ class CatalogCountries extends Component
             [ 'countryId' => 'required|integer|exists:catalog_countries,id' ]
         )->validate();
 
-        //Buscar país
+        //Obtener información del país
         $country = CatalogCountry::sessionData()
         ->closed()
         ->status()

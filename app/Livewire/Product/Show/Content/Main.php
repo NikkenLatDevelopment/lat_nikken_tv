@@ -133,7 +133,7 @@ class Main extends Component
             ? 'Sin fecha estimada de disponibilidad'
             : formatDateInSpanishLocale($product['available_until']);
 
-        //Organizar diferenciadores
+        //Obtener y organizar diferenciadores
         $this->differentiators = $this->product['differentiators'] != null
             ? explode('|', $product['differentiators'])
             : [];
@@ -192,7 +192,7 @@ class Main extends Component
     }
 
     public function getImages() {
-        //Obtener imágenes
+        //Obtener información de las imágenes
         $this->images = ProductImage::select('image')
         ->where('product_id', $this->productId)
         ->get()
@@ -211,7 +211,7 @@ class Main extends Component
         //Validar sesión del usuario
         if (!auth()->check()) { return; }
 
-        //Consultar producto
+        //Obtener información de la lista de deseos
         $wishlist = auth()->user()->wishlists()
         ->where('product_id', $this->productId)
         ->country($this->country['id'])
@@ -225,7 +225,7 @@ class Main extends Component
         //Validar sesión del usuario
         if (!auth()->check()) { return; }
 
-        //Consultar producto
+        //Obtener información de la lista de deseos
         $wishlist = auth()->user()->wishlists()
         ->where('product_id', $this->productId)
         ->country($this->country['id'])
@@ -247,7 +247,7 @@ class Main extends Component
             $this->dispatch('showWishlist');
         } else {
             if ($wishlist) {
-                //Eliminar producto
+                //Eliminar producto de la lista de deseos
                 $wishlist->delete();
             }
 
@@ -261,6 +261,7 @@ class Main extends Component
 
     #[On('product.show.content.main.removeWishlist')]
     public function removeWishlist(int $productId) {
+        //Validar si el producto de la lista de deseos es el mismo
         if ($this->productId == $productId) {
             //Desmarcar producto en la lista de deseos
             $this->wishlist = false;
@@ -292,7 +293,7 @@ class Main extends Component
     }
 
     public function getColors() {
-        //Obtener colores
+        //Obtener información de los colores
         $this->colors = ProductColor::select('product_id', 'color')
         ->where('parent_product_id', $this->productId)
         ->whereHas('product', fn ($query) => $query->active($this->country['id']))
@@ -316,7 +317,7 @@ class Main extends Component
     }
 
     public function getPresentations() {
-        //Obtener presentaciones
+        //Obtener información de las presentaciones
         $this->presentations = ProductPresentation::select('product_id', 'presentation')
         ->where('parent_product_id', $this->productId)
         ->whereHas('product', fn ($query) => $query->active($this->country['id']))
@@ -340,7 +341,7 @@ class Main extends Component
     }
 
     public function getMeasurements() {
-        //Obtener medidas
+        //Obtener información de las medidas
         $this->measurements = ProductMeasurement::select('product_id', 'measurement')
         ->where('parent_product_id', $this->productId)
         ->whereHas('product', fn ($query) => $query->active($this->country['id']))

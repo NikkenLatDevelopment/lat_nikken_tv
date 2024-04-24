@@ -20,13 +20,13 @@ class ClosingMessage extends Component
 
     #[On('country.index.modal.closing-message.initialize')]
     public function initialize(int $countryId) {
-        //Buscar país
+        //Obtener información del país
         $country = CatalogCountry::select('closed_message')
         ->status()
         ->find($countryId);
 
         if ($country) {
-            //Guardar mensaje
+            //Guardar mensaje de cierre
             $this->closedMessage = $country->closed_message;
 
             //Emitir evento para mostrar el mensaje de cierre

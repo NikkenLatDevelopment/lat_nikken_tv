@@ -33,7 +33,7 @@ class CountryController extends Controller
             return redirect()->route('country.index');
         }
 
-        //Buscar país
+        //Obtener país
         $country = CatalogCountry::sessionData()
         ->closed()
         ->status()
