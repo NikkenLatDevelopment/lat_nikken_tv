@@ -229,6 +229,10 @@ button, a {
     @include button-outline-variant($body-color, white, lighten($warning, 5%), white, white);
 }
 
+.btn-outline-primary-custom-1 {
+    @include button-outline-variant($body-color, $success, white, white, $success);
+}
+
 .btn-success-custom-1 {
     @include button-variant($success, $success, $success, shade-color($success, 10%), $success, white);
     @include button-size(0.8rem, 1.4rem, $font-size-base, $btn-border-radius);

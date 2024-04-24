@@ -123,7 +123,7 @@
 
                 @if ($available == 0)
                     @if (count($componentsNotAvailable) > 0)
-                        <div class="row gx-3 mb-2 components">
+                        <div class="row gx-3 components">
                             @if (count($componentsNotAvailable) > 0)
                                 <div class="col-12 col-sm-6 col-lg-12 col-xl-6">
                                     <div class="card border-warning rounded-4 overflow-hidden mb-2">
@@ -172,7 +172,7 @@
                             @endif
                         </div>
                     @else
-                        <div class="row gx-3 mb-2 components">
+                        <div class="row gx-3 components">
                             <div class="col-12 col-sm-6 col-lg-12 col-xl-6">
                                 <div class="card border-warning rounded-4 overflow-hidden mb-2">
                                     <div class="card-header text-warning lh-sm bg-white border-0 border-bottom border-warning px-3">
@@ -198,7 +198,7 @@
                 @endif
 
                 @if ($differentiators != null)
-                    <h2 class="h6 text-muted fw-bold mb-2 pt-2">Diferenciadores del producto:</h2>
+                    <h2 class="h6 text-muted fw-bold mb-2 pt-1">Diferenciadores del producto:</h2>
 
                     <ul class="mb-2">
                         @foreach ($differentiators as $differentiator)
@@ -208,7 +208,7 @@
                 @endif
 
                 @if (count($technologies) > 0)
-                    <div class="mb-2 pt-2">
+                    <div class="mb-2 pt-1">
                         @foreach ($technologies as $technology)
                             <a href="#" class="text-decoration-none" wire:click.prevent="$dispatch('product.show.modal.technology-description.initialize', { productTechnologyId: {{ $technology['id'] }} })">
                                 <img src="{{ asset('assets/img/technologies/logo-' . $technology['slug'] . '.png') }}" srcset="{{ asset('assets/img/technologies/logo-' . $technology['slug'] . '-2x.png') }} 2x" class="img-fluid" alt="{{ $technology['name'] }}">
@@ -217,7 +217,7 @@
                     </div>
                 @endif
 
-                <h2 class="h6 fw-bold mb-1 pt-2">Caracteristicas:</h2>
+                <h2 class="h6 fw-bold mb-1 pt-1">Caracteristicas:</h2>
 
                 <div class="d-flex flex-wrap mb-3">
                     <div class="row gx-2 me-4">
@@ -246,7 +246,7 @@
     @if (count($attachments) > 0)
         <hr class="text-secondary opacity-75">
 
-        <section class="pt-4 pb-1 attachment">
+        <section class="pt-4 pb-2 attachment">
             <div class="container">
                 <div class="row gx-2 justify-content-center align-items-stretch">
                     @foreach ($attachments as $attachment)
@@ -257,6 +257,39 @@
                             </a>
                         </div>
                     @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
+
+    @if ($product['description'] != null || $product['maintenance'] != null)
+        <section class="mt-4 pb-3 descriptions">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="card border-secondary rounded-4">
+                            <div class="card-body px-4 px-lg-5">
+                                <ul class="nav nav-pills my-3" role="tablist">
+                                    @if ($product['description'] != null)
+                                        <li class="nav-item" role="presentation">
+                                            <button class="btn @if ($product['description'] != null) active @endif h5 fw-bold border border-secondary rounded-4 px-3 py-2 me-2 btn-outline-primary-custom-1 animation-hover-up" id="product-content-description-tab" data-bs-toggle="pill" data-bs-target="#product-content-description" type="button" role="tab" aria-controls="product-content-description" aria-selected="@if ($product['description'] != null) true @else false @endif"><i class="fi fi-sr-comment-info me-1"></i> Descripción</button>
+                                        </li>
+                                    @endif
+
+                                    @if ($product['maintenance'] != null)
+                                        <li class="nav-item" role="presentation">
+                                            <button class="btn @if ($product['description'] == null) active @endif h5 fw-bold border border-secondary rounded-4 px-3 py-2 me-2 btn-outline-primary-custom-1 animation-hover-up" id="product-content-maintenance-tab" data-bs-toggle="pill" data-bs-target="#product-content-maintenance" type="button" role="tab" aria-controls="product-content-maintenance" aria-selected="@if ($product['description'] == null) true @else false @endif"><i class="fi fi-br-shuffle me-2"></i>Mantenimiento</button>
+                                        </li>
+                                    @endif
+                                </ul>
+
+                                <div class="tab-content">
+                                    @if ($product['description'] != null) <div class="tab-pane fade @if ($product['description'] != null) show active @endif" id="product-content-description" role="tabpanel" aria-labelledby="product-content-description-tab" tabindex="0">{!! $product['description'] !!}</div> @endif
+                                    @if ($product['maintenance'] != null) <div class="tab-pane fade @if ($product['description'] == null) show active @endif" id="product-content-maintenance" role="tabpanel" aria-labelledby="product-content-maintenance-tab" tabindex="0">{!! $product['maintenance'] !!}</div> @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
