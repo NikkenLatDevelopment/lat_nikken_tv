@@ -26,8 +26,8 @@
                     <div class="position-relative carousel" wire:ignore>
                         <span class="position-absolute top-0 end-0 p-3"><i class="fi-rs-search h5 opacity-50"></i></span>
 
-                        <div class="border border-secondary rounded-4 mb-3 carousel-slider"> @foreach ($images as $image) <figure><img src="{{ $image }}" class="img-fluid" alt="{{ $product['name'] }}" data-fancybox="galeria" /></figure> @endforeach </div>
-                        <div class="carousel-thumbnail"> @if (count($images) > 1) @foreach ($images as $image) <figure><img src="{{ $image }}" class="img-fluid" alt="{{ $product['name'] }}" /></figure> @endforeach @endif </div>
+                        <div class="border border-secondary rounded-4 mb-3 carousel-slider"> @foreach ($images as $image) <figure class="mb-2"><img src="{{ $image }}" class="img-fluid" alt="{{ $product['name'] }}" data-fancybox="galeria" /></figure> @endforeach </div>
+                        <div class="carousel-thumbnail"> @if (count($images) > 1) @foreach ($images as $image) <figure class="mb-2"><img src="{{ $image }}" class="img-fluid" alt="{{ $product['name'] }}" /></figure> @endforeach @endif </div>
                     </div>
                 </div>
 
@@ -220,7 +220,7 @@
 
                     <h2 class="h6 text-muted fw-bold mb-1 pt-1">Caracteristicas:</h2>
 
-                    <div class="d-flex flex-wrap mb-2">
+                    <div class="d-flex flex-wrap mb-1">
                         <div class="row gx-2 me-4">
                             <div class="col-auto"><span class="small">Código:</span></div>
                             <div class="col"><span class="small text-success">{{ $product['sku'] }}</span></div>
@@ -423,8 +423,8 @@
                 $('.product .carousel-thumbnail').slick('slickRemove', null, null, true);
 
                 for (let i = 0; i < data.images.length; i++) {
-                    $('.product .carousel-slider').slick('slickAdd','<figure><img src="' + data.images[i] + '" class="img-fluid" data-fancybox="galeria" /></figure>');
-                    $('.product .carousel-thumbnail').slick('slickAdd','<figure><img src="' + data.images[i] + '" class="img-fluid" /></figure>');
+                    $('.product .carousel-slider').slick('slickAdd','<figure class="mb-2"><img src="' + data.images[i] + '" class="img-fluid" data-fancybox="galeria" /></figure>');
+                    $('.product .carousel-thumbnail').slick('slickAdd','<figure class="mb-2"><img src="' + data.images[i] + '" class="img-fluid" /></figure>');
                 }
             });
         </script>

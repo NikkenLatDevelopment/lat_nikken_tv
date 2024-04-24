@@ -35,7 +35,7 @@ class SessionController
 
     public function getCountryId(): ?int {
         //Obtener ID del país por sesión o cookie
-        return $this->session->get('country.id') ?? Cookie::get('country_id');
+        return $this->session->get('country.id', Cookie::get('country_id'));
     }
 
     public function setCart(int $productId, int $quantity): void {
@@ -184,7 +184,7 @@ class SessionController
         //Validar si el país y el tipo de usuario permiten sugerido con descuento
         if (auth()->check() && $this->session->get('country.id') == 1 && auth()->user()->catalog_user_type_id == 3) {
             //Obtener sugerido con descuento por sesión o cookie
-            return $this->session->get('discount_suggested_price') ?? Cookie::get('discount_suggested_price');
+            return $this->session->get('discount_suggested_price', Cookie::get('discount_suggested_price', false));
         }
 
         return false;
