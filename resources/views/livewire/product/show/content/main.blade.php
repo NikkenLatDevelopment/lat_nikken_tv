@@ -209,7 +209,7 @@
                     @endif
 
                     @if (count($technologies) > 0)
-                        <div class="mb-3 pt-1">
+                        <div class="mb-2 pb-1">
                             @foreach ($technologies as $technology)
                                 <a href="#" class="text-decoration-none" wire:click.prevent="$dispatch('product.show.modal.technology-description.initialize', { productTechnologyId: {{ $technology['id'] }} })">
                                     <img src="{{ asset('assets/img/technologies/logo-' . $technology['slug'] . '.png') }}" srcset="{{ asset('assets/img/technologies/logo-' . $technology['slug'] . '-2x.png') }} 2x" class="img-fluid" alt="{{ $technology['name'] }}">
