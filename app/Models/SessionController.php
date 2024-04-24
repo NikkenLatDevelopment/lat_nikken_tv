@@ -64,7 +64,10 @@ class SessionController
             $cart[$index]['quantity'] = $quantity;
         } else {
             //Consultar información del producto
-            $product = Product::with([ 'catalogProductBrand', 'productComponents.product' ])
+            $product = Product::with([
+                'catalogProductBrand',
+                'productComponents.product' => fn ($query) => $query->select('id', 'sku', 'name', 'stock', 'stock_applies', 'available_until')
+            ])
             ->active($this->session->get('country.id'))
             ->find($productId);
 
@@ -87,7 +90,11 @@ class SessionController
     public function getCartForAuthenticatedUser(): array {
         //Obtener carrito de compras de base de datos
         return auth()->user()->cart()
-        ->with('product', 'product.catalogProductBrand', 'product.productComponents.product')
+        ->with([
+            'product',
+            'product.catalogProductBrand',
+            'product.productComponents.product' => fn ($query) => $query->select('id', 'sku', 'name', 'stock', 'stock_applies', 'available_until')
+        ])
         ->whereHas('product', fn($query) => $query->active($this->session->get('country.id')))
         ->country($this->session->get('country.id'))
         ->get()
@@ -104,7 +111,10 @@ class SessionController
         if (empty($productIds)) { return []; }
 
         //Consultar información de los productos
-        $products = Product::with('catalogProductBrand')
+        $products = Product::with([
+            'catalogProductBrand',
+            'productComponents.product' => fn ($query) => $query->select('id', 'sku', 'name', 'stock', 'stock_applies', 'available_until')
+        ])
         ->active($this->session->get('country.id'))
         ->whereIn('id', $productIds)
         ->get()

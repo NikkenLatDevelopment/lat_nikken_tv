@@ -37,7 +37,11 @@ class Products extends Component
 
         //Obtener lista de deseos
         $this->products = auth()->user()->wishlists()
-        ->with('product', 'product.catalogProductBrand', 'product.productComponents.product')
+        ->with([
+            'product',
+            'product.catalogProductBrand',
+            'product.productComponents.product' => fn ($query) => $query->select('id', 'sku', 'name', 'stock', 'stock_applies', 'available_until')
+        ])
         ->whereHas('product', fn($query) => $query->active($this->country['id']))
         ->country($this->country['id'])
         ->get()

@@ -38,7 +38,10 @@ class ProductController extends Controller
 
         //Obtener información del producto
         $product = Product::basicData()
-        ->with([ 'catalogProductBrand', 'productComponents.product' ])
+        ->with([
+            'catalogProductBrand',
+            'productComponents.product' => fn ($query) => $query->select('id', 'sku', 'name', 'stock', 'stock_applies', 'available_until'),
+        ])
         ->where('slug', $productSlug)
         ->active($country['id'], $brandSlug)
         ->first();
