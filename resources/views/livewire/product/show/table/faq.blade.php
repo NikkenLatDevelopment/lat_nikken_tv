@@ -1,5 +1,5 @@
 <div>
-    <div class="mb-4">
+    <div class="mb-3">
         <div class="bg-light rounded-4 px-4 pt-4 pb-1 mb-1">
             <div class="faqs">
                 @forelse ($faqs as $faq)

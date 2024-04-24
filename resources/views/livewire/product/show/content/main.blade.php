@@ -26,16 +26,16 @@
                     <div class="position-relative carousel" wire:ignore>
                         <span class="position-absolute top-0 end-0 p-3"><i class="fi-rs-search h5 opacity-50"></i></span>
 
-                        <div class="border border-secondary rounded-4 mb-3 carousel-slider"> @foreach ($images as $image) <figure class="mb-2"><img src="{{ $image }}" class="img-fluid" alt="{{ $product['name'] }}" data-fancybox="galeria" /></figure> @endforeach </div>
-                        <div class="carousel-thumbnail"> @if (count($images) > 1) @foreach ($images as $image) <figure class="mb-2"><img src="{{ $image }}" class="img-fluid" alt="{{ $product['name'] }}" /></figure> @endforeach @endif </div>
+                        <div class="border border-secondary rounded-4 mb-3 carousel-slider"> @foreach ($images as $image) <figure class="mb-0"><img src="{{ $image }}" class="img-fluid" alt="{{ $product['name'] }}" data-fancybox="galeria" /></figure> @endforeach </div>
+                        <div class="carousel-thumbnail"> @if (count($images) > 1) @foreach ($images as $image) <figure class="mb-0"><img src="{{ $image }}" class="img-fluid" alt="{{ $product['name'] }}" /></figure> @endforeach @endif </div>
                     </div>
                 </div>
 
                 <div class="col-12 col-lg-6">
                     @if ($available == 1)
-                        <div class="badge text-success border border-2 border-success py-2">Disponible</div>
+                        <div class="badge text-success border border-2 border-success py-2 mt-3 mt-lg-0">Disponible</div>
                     @else
-                        <div class="badge text-warning border border-2 border-warning py-2">Entrega Postergada</div>
+                        <div class="badge text-warning border border-2 border-warning py-2 mt-3 mt-lg-0">Entrega Postergada</div>
                     @endif
 
                     <div class="row d-flex align-items-center">
@@ -246,9 +246,9 @@
     </section>
 
     @if (count($attachments) > 0)
-        <hr class="text-secondary opacity-75 mt-3">
+        <hr class="text-secondary opacity-75">
 
-        <section class="pt-4 pb-2 attachment">
+        <section class="pt-4 pb-3 attachment">
             <div class="container">
                 <div class="row gx-2 justify-content-center align-items-stretch">
                     @foreach ($attachments as $attachment)
@@ -265,7 +265,7 @@
     @endif
 
     @if ($product['description'] != null || $product['maintenance'] != null)
-        <section class="mt-4 pb-3 description">
+        <section class="mt-3 pb-3 description">
             <div class="container">
                 <div class="row">
                     <div class="col">
@@ -302,7 +302,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <div class="pb-2 subtitle"><h2 class="h4 text-dark fw-bold border-bottom border-secondary position-relative pb-3 mb-3">Videos</h2></div>
+                        <div class="pb-2 subtitle"><h2 class="h4 text-dark fw-bold border-bottom border-secondary position-relative pb-3 mb-2">Videos</h2></div>
 
                         <div class="row gx-2 gx-xl-3 row-cols-1 row-cols-sm-2 row-cols-lg-4">
                             @foreach ($videos as $video)
@@ -325,7 +325,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <div class="pb-2 subtitle"><h2 class="h4 text-dark fw-bold border-bottom border-secondary position-relative pb-3 mb-3">Repuestos</h2></div>
+                        <div class="pb-2 subtitle"><h2 class="h4 text-dark fw-bold border-bottom border-secondary position-relative pb-3 mb-2">Repuestos</h2></div>
 
                         <div class="row gx-2 gx-xl-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 align-items-stretch">
                             @foreach ($replacements as $replacement)
@@ -343,7 +343,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <div class="pb-2 subtitle"><h2 class="h4 text-dark fw-bold border-bottom border-secondary position-relative pb-3 mb-3">Partes</h2></div>
+                        <div class="pb-2 subtitle"><h2 class="h4 text-dark fw-bold border-bottom border-secondary position-relative pb-3 mb-2">Partes</h2></div>
 
                         <div class="row gx-2 gx-xl-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 align-items-stretch">
                             @foreach ($parts as $part)
@@ -360,12 +360,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-lg-6">
-                    <div class="pb-2 subtitle"><h2 class="h4 text-dark fw-bold border-bottom border-secondary position-relative pb-3 mb-3">Preguntas y Respuestas</h2></div>
+                    <div class="pb-2 subtitle"><h2 class="h4 text-dark fw-bold border-bottom border-secondary position-relative pb-3 mb-2">Preguntas y Respuestas</h2></div>
                     @livewire('product.show.table.faq', [ 'productId' => $product['parent_product_id'] != null ? $parentProduct['id'] : $productId ])
                 </div>
 
                 <div class="col-12 col-lg-6">
-                    <div class="pb-2 subtitle"><h2 class="h4 text-dark fw-bold border-bottom border-secondary position-relative pb-3 mb-3">Experiencias del Producto</h2></div>
+                    <div class="pb-2 subtitle"><h2 class="h4 text-dark fw-bold border-bottom border-secondary position-relative pb-3 mb-2">Experiencias del Producto</h2></div>
                     @livewire('product.show.table.review', [ 'productId' => $product['parent_product_id'] != null ? $parentProduct['id'] : $productId ])
                 </div>
             </div>
@@ -423,8 +423,8 @@
                 $('.product .carousel-thumbnail').slick('slickRemove', null, null, true);
 
                 for (let i = 0; i < data.images.length; i++) {
-                    $('.product .carousel-slider').slick('slickAdd','<figure class="mb-2"><img src="' + data.images[i] + '" class="img-fluid" data-fancybox="galeria" /></figure>');
-                    $('.product .carousel-thumbnail').slick('slickAdd','<figure class="mb-2"><img src="' + data.images[i] + '" class="img-fluid" /></figure>');
+                    $('.product .carousel-slider').slick('slickAdd','<figure class="mb-0"><img src="' + data.images[i] + '" class="img-fluid" data-fancybox="galeria" /></figure>');
+                    $('.product .carousel-thumbnail').slick('slickAdd','<figure class="mb-0"><img src="' + data.images[i] + '" class="img-fluid" /></figure>');
                 }
             });
         </script>
