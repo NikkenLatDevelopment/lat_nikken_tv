@@ -1,49 +1,47 @@
 <div>
-    <div class="border-bottom d-none d-lg-block">
+    <div class="bg-white border-bottom d-none d-lg-block w-100 menu sticky">
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <div class="menu">
-                        <nav>
-                            <ul class="p-0 m-0">
-                                <li class="py-3 me-4"><a href="{{ route('home') }}" class="h6 link-dark fw-bold text-decoration-none"><i class="fi fi-br-house-blank position-relative me-2"></i>Inicio</a></li>
+                    <nav>
+                        <ul class="p-0 m-0">
+                            <li class="py-3 me-4"><a href="{{ route('home') }}" class="h6 link-dark fw-bold text-decoration-none"><i class="fi fi-br-house-blank position-relative me-2"></i>Inicio</a></li>
 
-                                @if (count($brands))
+                            @if (count($brands))
+                                <li class="py-3 me-4">
+                                    <a href="#" class="h6 link-dark fw-bold text-decoration-none">Productos <i class="fi fi-rr-angle-small-down position-relative"></i></a>
+
+                                    <ul class="list-unstyled bg-white border border-secondary rounded-3 position-absolute start-0 mt-2 sub-menu">
+                                        @foreach ($brands as $brand)
+                                            <li><a href="{{ route('category.show', $brand['slug']) }}" class="h6 link-primary fw-bold text-decoration-none lh-1 d-block mb-0">{{ $brand['alias'] }} <span class="small text-black-50 opacity-75 fw-semibold d-block subtitle">{{ $brand['name'] }}</span></a></li>
+                                        @endforeach
+                                    </ul>
+                                </li>
+                            @endif
+
+                            @if (count($campaigns))
+                                @if (count($campaigns) > 1)
                                     <li class="py-3 me-4">
-                                        <a href="#" class="h6 link-dark fw-bold text-decoration-none">Productos <i class="fi fi-rr-angle-small-down position-relative"></i></a>
+                                        <a href="#" class="h6 link-success fw-bold text-decoration-none"><i class="fa-solid fa-bell me-1 custom bell-1"></i> Campañas <i class="fi fi-rr-angle-small-down position-relative"></i></a>
 
-                                        <ul class="list-unstyled bg-white border border-secondary rounded-3 position-absolute start-0 mt-2 sub-menu">
-                                            @foreach ($brands as $brand)
-                                                <li><a href="{{ route('category.show', $brand['slug']) }}" class="h6 link-primary fw-bold text-decoration-none lh-1 d-block mb-0">{{ $brand['alias'] }} <span class="small text-black-50 opacity-75 fw-semibold d-block subtitle">{{ $brand['name'] }}</span></a></li>
+                                        <ul class="list-unstyled bg-white border border-secondary border-1 rounded-3 position-absolute start-0 mt-2 sub-menu">
+                                            @foreach ($campaigns as $campaign)
+                                                <li><a href="{{ $campaign['url'] }}" class="h6 link-primary fw-bold text-decoration-none lh-1 d-block mb-0">{{ $campaign['name'] }}</a></li>
                                             @endforeach
                                         </ul>
                                     </li>
+                                @else
+                                    @foreach ($campaigns as $campaign)
+                                        <li class="py-3 me-4"><a href="{{ $campaign['url'] }}" class="h6 link-success fw-bold text-decoration-none"><i class="fa-solid fa-bell me-1 custom bell-1"></i> {{ $campaign['name'] }}</a></li>
+                                    @endforeach
                                 @endif
+                            @endif
 
-                                @if (count($campaigns))
-                                    @if (count($campaigns) > 1)
-                                        <li class="py-3 me-4">
-                                            <a href="#" class="h6 link-success fw-bold text-decoration-none"><i class="fa-solid fa-bell me-1 custom bell-1"></i> Campañas <i class="fi fi-rr-angle-small-down position-relative"></i></a>
-
-                                            <ul class="list-unstyled bg-white border border-secondary border-1 rounded-3 position-absolute start-0 mt-2 sub-menu">
-                                                @foreach ($campaigns as $campaign)
-                                                    <li><a href="{{ $campaign['url'] }}" class="h6 link-primary fw-bold text-decoration-none lh-1 d-block mb-0">{{ $campaign['name'] }}</a></li>
-                                                @endforeach
-                                            </ul>
-                                        </li>
-                                    @else
-                                        @foreach ($campaigns as $campaign)
-                                            <li class="py-3 me-4"><a href="{{ $campaign['url'] }}" class="h6 link-success fw-bold text-decoration-none"><i class="fa-solid fa-bell me-1 custom bell-1"></i> {{ $campaign['name'] }}</a></li>
-                                        @endforeach
-                                    @endif
-                                @endif
-
-                                <li class="py-3 me-4"><a href="{{ route('replacement.index') }}" class="h6 link-dark fw-bold text-decoration-none">Repuestos y Piezas</a></li>
-                                <li class="py-3 me-4"><a href="{{ route('event.index') }}" class="h6 link-dark fw-bold text-decoration-none">Eventos</a></li>
-                                <li class="py-3"><a href="{{ route('tool.index') }}" class="h6 link-dark fw-bold text-decoration-none">Material de Apoyo</a></li>
-                            </ul>
-                        </nav>
-                    </div>
+                            <li class="py-3 me-4"><a href="{{ route('replacement.index') }}" class="h6 link-dark fw-bold text-decoration-none">Repuestos y Piezas</a></li>
+                            <li class="py-3 me-4"><a href="{{ route('event.index') }}" class="h6 link-dark fw-bold text-decoration-none">Eventos</a></li>
+                            <li class="py-3"><a href="{{ route('tool.index') }}" class="h6 link-dark fw-bold text-decoration-none">Material de Apoyo</a></li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>

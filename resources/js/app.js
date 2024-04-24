@@ -24,3 +24,11 @@ window.showOffsetCanvas = function (id) {
     const offcanvas = new bootstrap.Offcanvas(id);
     offcanvas.show();
 }
+
+var stickyBar = $(".sticky");
+var windowScroll = $(window);
+windowScroll.on("scroll", function () {
+    var scroll = windowScroll.scrollTop();
+    if (scroll < 200) { stickyBar.removeClass("shadow-sm position-fixed top-0 animate__animated animate__fadeInDown");
+    } else { stickyBar.addClass("shadow-sm position-fixed top-0 animate__animated animate__fadeInDown"); }
+});
