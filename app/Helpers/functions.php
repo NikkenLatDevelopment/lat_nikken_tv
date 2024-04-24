@@ -16,3 +16,8 @@ function formatDateInSpanishLocale(string $date) {
     //Formatear fecha a texto en español
     return Carbon::parse($date)->locale('es_ES')->isoFormat('DD [de] MMMM [del] YYYY');
 }
+
+function formatDateToDDMMMYYYY(string $date) {
+    //Formatear fecha
+    return Carbon::parse($date)->isoFormat('DD MMM YYYY');
+}
