@@ -106,7 +106,7 @@
                         <div class="col-auto">
                             <div class="border @if ($available == 0) border-warning @else border-success @endif border-2 rounded-2 py-1 quantity">
                                 <div class="row gx-0 align-items-center" x-data="{ quantity: @entangle('quantity') }">
-                                    <div class="col"><input type="number" class="form-control text-muted fw-bold text-center border-0 shadow-none px-0 ms-3 py-2" x-bind:value="quantity" wire:model="quantity" readonly></div>
+                                    <div class="col"><input type="number" class="form-control text-muted fw-bold text-center border-0 shadow-none px-0 ms-2 ms-sm-3 py-2" x-bind:value="quantity" wire:model="quantity" readonly></div>
 
                                     <div class="col-auto d-flex flex-column">
                                         <button type="button" class="btn btn-link @if ($available == 0) link-warning @else link-success @endif text-decoration-none lh-1 py-0 px-1" @click="quantity++" x-bind:disabled="quantity >= 99" wire:loading.attr="disabled"><i class="fi-rs-angle-small-up @if ($available == 0) text-warning @else text-success @endif"></i></button>
