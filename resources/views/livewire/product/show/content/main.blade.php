@@ -19,7 +19,7 @@
         </div>
     </div>
 
-    <section class="mt-4 mb-2">
+    <section class="mt-4 @if (count($attachments) == 0 && $product['description'] == null && $product['maintenance'] == null) mb-4 @else mb-2 @endif">
         <div class="container">
             <div class="row">
                 <div class="col-12 col-lg-6">
