@@ -9,7 +9,7 @@ use Livewire\Attributes\Locked;
 class Share extends Component
 {
     #[Locked]
-    public string $name;
+    public string $productName;
 
     #[Locked]
     public string $currentUrl;
@@ -21,9 +21,9 @@ class Share extends Component
     }
 
     #[On('product.show.modal.share.initialize')]
-    public function initialize(string $name, string $currentUrl) {
+    public function initialize(string $productName, string $currentUrl) {
         //Inicializar información
-        $this->name = str_replace(' ', '%20', $name);
+        $this->productName = str_replace(' ', '%20', $productName);
         $this->currentUrl = str_replace('&', '%26', $currentUrl);
 
         //Emitir evento para mostrar el link para compartir

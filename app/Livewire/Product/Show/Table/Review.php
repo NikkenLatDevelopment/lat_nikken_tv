@@ -27,7 +27,8 @@ class Review extends Component
 
         if (auth()->check()) {
             //Obtener reviews del usuario
-            $userReviews = auth()->user()->productReviews()->with([ 'catalogCountry' => fn ($query) => $query->select('id', 'name', 'catalog_country_id') ])
+            $userReviews = auth()->user()->productReviews()
+            ->with([ 'catalogCountry' => fn ($query) => $query->select('id', 'name', 'catalog_country_id') ])
             ->where('product_id', $this->productId)
             ->status(1)
             ->latest();
@@ -44,7 +45,7 @@ class Review extends Component
 
     #[On('product.show.table.review.refresh')]
     public function refresh() {
-        //Refrescar reviews
+        //Refrescar tabla
         $this->render();
     }
 }

@@ -21,15 +21,15 @@
                         <p class="small"><span class="fw-bold">Nota:</span> Si cuentas con tu Tienda Virtual Personalizada, <a href="{{ route('login') }}">inicia sesión</a> para obtener tu link personal.</p>
                     @endif
 
-                    @if($currentUrl && $name)
+                    @if($currentUrl && $productName)
                         <hr class="text-secondary opacity-75">
                         <div class="h6 text-dark fw-bold mb-0 mt-4">Compartir en redes sociales:</div>
 
                         <div>
-                            <div class="d-inline-block pe-1"><a href="https://api.whatsapp.com/send?text={{ $name }}%20{{ $currentUrl }}" target="_blank" class="h6 small link-primary fw-semibold me-2">WhatsApp</a></div>
-                            <div class="d-inline-block pe-1"><a href="https://telegram.me/share/url?url={{ $currentUrl }}&text={{ $name }}" target="_blank" class="h6 small link-primary fw-semibold me-2">Telegram</a></div>
-                            <div class="d-inline-block pe-1"><a href="http://www.facebook.com/sharer.php?u={{ $currentUrl }}/&t={{ $name }}" target="_blank" class="h6 small link-primary fw-semibold me-2">Facebook</a></div>
-                            <div class="d-inline-block pe-1"><a href="https://twitter.com/intent/tweet?text={{ $name }}&url={{ $currentUrl }}" target="_blank" class="h6 small link-primary fw-semibold me-2">X (Antes Twitter)</a></div>
+                            <div class="d-inline-block pe-1"><a href="https://api.whatsapp.com/send?text={{ $productName }}%20{{ $currentUrl }}" target="_blank" class="h6 small link-primary fw-semibold me-2">WhatsApp</a></div>
+                            <div class="d-inline-block pe-1"><a href="https://telegram.me/share/url?url={{ $currentUrl }}&text={{ $productName }}" target="_blank" class="h6 small link-primary fw-semibold me-2">Telegram</a></div>
+                            <div class="d-inline-block pe-1"><a href="http://www.facebook.com/sharer.php?u={{ $currentUrl }}/&t={{ $productName }}" target="_blank" class="h6 small link-primary fw-semibold me-2">Facebook</a></div>
+                            <div class="d-inline-block pe-1"><a href="https://twitter.com/intent/tweet?text={{ $productName }}&url={{ $currentUrl }}" target="_blank" class="h6 small link-primary fw-semibold me-2">X (Antes Twitter)</a></div>
                         </div>
                     @endif
                 </div>
