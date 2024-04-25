@@ -62,4 +62,9 @@ class User extends Authenticatable
         //Relación con la tienda personalizada
         return $this->hasOne(CustomStore::class);
     }
+
+    public function productReviews() {
+        //Relación con los reviews de los productos
+        return $this->hasMany(ProductReview::class);
+    }
 }
