@@ -22,8 +22,8 @@
                         </ul>
 
                         <div class="form-floating mb-2">
-                            <textarea class="form-control text-dark bg-light @error('comment') is-invalid @enderror" placeholder="Experiencia: (*)" id="form-review-comment" wire:model="comment" style="height: 200px"></textarea>
-                            <label for="form-review-comment">Experiencia: (*)</label>
+                            <textarea class="form-control text-dark bg-light @error('comment') is-invalid @enderror" placeholder="Experiencia:" id="form-review-comment" wire:model="comment" style="height: 200px"></textarea>
+                            <label for="form-review-comment">Experiencia:</label>
 
                             @error('comment') <div class="invalid-feedback d-inline-block"><strong>{{ $message }}</strong></div> @enderror
                         </div>
