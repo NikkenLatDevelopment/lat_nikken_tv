@@ -64,10 +64,10 @@ class Review extends Component
         auth()->user()->productReviews()->create([
             'product_id' => $this->productId,
             'rating' => $this->rating,
-            'comment' => $this->comment,
+            'comment' => $this->comment
         ]);
 
-        //Emitir evento para refrescar la tabla
+        //Emitir evento para refrescar la tabla de reviews
         $this->dispatch('product.show.table.review.refresh');
 
         //Emitir evento para cerrar el review
