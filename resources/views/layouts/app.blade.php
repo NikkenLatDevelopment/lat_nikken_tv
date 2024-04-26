@@ -21,6 +21,12 @@
     </head>
 
     <body>
+        <div class="bg-white position-fixed top-0 end-0 bottom-0 start-0" id="preloader">
+            <div class="bg-white position-fixed top-50 start-50 translate-middle">
+                <img src="{{ asset('assets/img/general/loading.gif') }}" alt="Mi Tienda NIKKEN">
+            </div>
+        </div>
+
         @yield('content')
 
         @vite([ 'resources/js/app.js' ])

@@ -32,3 +32,7 @@ windowScroll.on("scroll", function () {
     if (scroll < 200) { stickyBar.removeClass("shadow-sm position-fixed top-0 animate__animated animate__fadeInDown");
     } else { stickyBar.addClass("shadow-sm position-fixed top-0 animate__animated animate__fadeInDown"); }
 });
+
+$(window).on('load', function() {
+    $('#preloader').fadeOut("slow");
+});

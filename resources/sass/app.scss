@@ -21,6 +21,10 @@ $font-size-sm: calc($font-size-base - 1px);
     color: white;
 }
 
+#preloader {
+    z-index: 999999;
+}
+
 .link-dark:hover, .link-dark:focus {
     color: $success !important;
     text-decoration-color: $success !important;
