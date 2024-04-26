@@ -7,6 +7,7 @@ export default defineConfig({
             input: [
                 'resources/sass/app.scss',
                 'resources/sass/product.scss',
+                'resources/sass/checkout.scss',
                 'resources/js/app.js',
                 'resources/js/product.js'
             ],
