@@ -77,7 +77,7 @@
                     @endif
                 </div>
 
-                <button type="submit" class="btn h6 text-white fw-bold w-100 mb-0 btn-success-custom-1">Finalizar Compra</button>
+                <a @if (auth()->check()) href="{{ route('checkout.index') }}" @else href="{{ route('login') }}" @endif class="btn h6 text-white fw-bold w-100 mb-0 btn-success-custom-1">Finalizar Compra</a>
             </div>
         </div>
     @else

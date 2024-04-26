@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\TemporalController;
 use App\Http\Middleware\DetermineUserLocation;
 
@@ -80,4 +81,8 @@ Route::middleware([ DetermineUserLocation::class ])->group(function () {
     Route::get('/temporal', [ TemporalController::class, 'index' ]);
     Route::get('/temporal/logout', [ TemporalController::class, 'logout' ]);
     //Eliminar // ! TODO: !!!! Eliminar
+
+    //Checkout
+    Route::get('/checkout', [ CheckoutController::class, 'index' ])->name('checkout.index');
+    //Checkout
 });
