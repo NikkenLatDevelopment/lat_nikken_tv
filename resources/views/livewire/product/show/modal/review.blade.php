@@ -7,7 +7,7 @@
 
                     <form id="form-review" wire:submit="create">
                         <div class="h6 text-muted">Experiencia del producto <span class="h5 text-dark fw-bold">{{ $productName }}</span></div>
-                        <div class="lh-sm pt-1 mb-1">Calificación:</div>
+                        <div class="h6 text-warning fw-semibold lh-sm pt-1 mb-1">Calificación:</div>
 
                         <div class="mb-2" x-data="{ rating: @entangle('rating') }">
                             <template x-for="star in 5">
@@ -17,13 +17,13 @@
                             @error('rating') <div class="invalid-feedback d-inline-block"><strong>{{ $message }}</strong></div> @enderror
                         </div>
 
-                        <ul class="fa-ul mb-3 ms-4 pb-1 pt-1">
+                        <ul class="fa-ul mb-3 ms-4 py-1">
                             <li class="small text-black-50 opacity-75 lh-sm"><span class="fa-li"><i class="fa-solid fa-circle-info"></i></span>Recuerda ser respetuoso(a) en tu experiencia. Valoramos tu opinión y queremos que nuestra comunidad sea un espacio seguro para todo(a)s.</li>
                         </ul>
 
                         <div class="form-floating mb-2">
-                            <textarea class="form-control text-dark bg-light @error('comment') is-invalid @enderror" placeholder="Experiencia:" id="form-review-comment" wire:model="comment" style="height: 200px"></textarea>
-                            <label for="form-review-comment">Experiencia:</label>
+                            <textarea class="form-control text-dark rounded-4 @error('comment') is-invalid @enderror" placeholder="Experiencia:" id="form-review-comment" wire:model="comment" style="height: 200px"></textarea>
+                            <label for="form-review-comment">Experiencia *</label>
 
                             @error('comment') <div class="invalid-feedback d-inline-block"><strong>{{ $message }}</strong></div> @enderror
                         </div>

@@ -8,13 +8,13 @@
                     <div class="h5 text-dark fw-bold mb-0"><i class="fi fi-br-share-square position-relative mb-0 custom i-top-4"></i> Compartir</div>
                     <p class="lh-sm">Comparte este link con tus amigo(a)s y conocido(a)s.</p>
 
-                    <div class="input-group border border-1 border-secondary rounded-3 overflow-hidden mb-3">
+                    <div class="input-group rounded-3 shadow-sm overflow-hidden mb-3">
                         <div class="form-floating">
                             <input type="text" class="form-control text-dark fw-bold text-decoration-underline bg-light border-end-0 border-light shadow-none" id="product-share-url" placeholder="Link" value="{{ $currentUrl }}">
                             <label for="product-share-url">Link</label>
                         </div>
 
-                        <button type="button" class="btn btn-sm input-group-text link-success fw-semibold bg-light border-light pe-3" id="product-share-btn"><i class="fi fi-rr-copy-alt fs-5 position-relative mb-0 me-1 custom i-top-3"></i> Copiar</button>
+                        <button type="button" class="btn btn-sm input-group-text link-success fw-bold bg-light border-light pe-3" id="product-share-btn"><i class="fi fi-rr-copy-alt fs-5 position-relative mb-0 me-1 custom i-top-3"></i> Copiar</button>
                     </div>
 
                     @if (!auth()->check())
