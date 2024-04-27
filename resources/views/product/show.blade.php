@@ -19,5 +19,7 @@
         @livewire('product.show.modal.review')
     </div>
 
+    <x-general.footer.content.main />
+
     @push('scripts') @vite(['resources/js/product.js']) @endpush
 @endsection

@@ -139,6 +139,9 @@ class Products extends Component
         );
 
         if ($validator->fails()) {
+            //Guardar sugerido con descuento en sesión y cookie
+            $sessionController->setDiscountSuggestedPrice(false);
+
             //No permitir sugerido con descuento
             $this->discountSuggestedPrice = false;
             return;

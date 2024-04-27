@@ -9,4 +9,6 @@
 
     <div class="checkout">
     </div>
+
+    <x-general.footer.content.main />
 @endsection
