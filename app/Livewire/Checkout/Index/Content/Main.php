@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Livewire\General\Header\Content\Cart;
+namespace App\Livewire\Checkout\Index\Content;
 
 use Livewire\Component;
 use Livewire\Attributes\On;
-use App\Models\SessionController;
 use App\Livewire\Forms\CartForm;
+use App\Models\SessionController;
+use Livewire\Attributes\Reactive;
 
-class Products extends Component
+class Main extends Component
 {
     public CartForm $cartForm;
     public bool $discountSuggestedPrice = false;
@@ -15,7 +16,7 @@ class Products extends Component
     public function render()
     {
         //Mostrar vista
-        return view('livewire.general.header.content.cart.products');
+        return view('livewire.checkout.index.content.main');
     }
 
     public function mount(SessionController $sessionController) {
@@ -33,7 +34,6 @@ class Products extends Component
         $this->getProducts($sessionController);
     }
 
-    #[On('general.header.content.cart.products.getProducts')]
     public function getProducts(SessionController $sessionController) {
         //Obtener carrito de compras
         $this->cartForm->getProducts($sessionController);
@@ -42,6 +42,12 @@ class Products extends Component
         $this->getTotals();
     }
 
+    public function getTotals() {
+        //Obtener totales
+        $this->cartForm->getTotals();
+    }
+
+    #[On('checkout.index.content.main.removeProduct')]
     public function removeProduct(int $index, int $productId, SessionController $sessionController) {
         //Eliminar producto del carrito de compras
         $this->cartForm->removeProduct($index, $productId, $sessionController);
@@ -50,34 +56,18 @@ class Products extends Component
         $this->dispatch('showToast', message: 'Producto <span class="fw-bold"><u>eliminado</u></span> de tu carrito de compras.', color: 'dark');
 
         //Emitir evento para eliminar el producto del carrito de compras
-        $this->dispatch('checkout.index.content.main.removeProductExternal', index: $index);
+        $this->dispatch('general.header.content.cart.products.removeProductExternal', index: $index);
 
         //Obtener totales
         $this->getTotals();
     }
 
-    #[On('general.header.content.cart.products.removeProductExternal')]
+    #[On('checkout.index.content.main.removeProductExternal')]
     public function removeProductExternal(int $index) {
         //Eliminar producto del carrito de compras
         unset($this->cartForm->products[$index]);
 
         //Obtener totales
         $this->getTotals();
-    }
-
-    public function updatedDiscountSuggestedPrice(SessionController $sessionController) {
-        //Actualizar sugerido con descuento
-        $this->discountSuggestedPrice = $this->cartForm->changeDiscountSuggestedPrice($this->discountSuggestedPrice, $sessionController);
-
-        //Obtener totales
-        $this->getTotals();
-    }
-
-    public function getTotals() {
-        //Obtener totales
-        $this->cartForm->getTotals();
-
-        //Emitir evento para actualizar el contador del carrito de compras
-        $this->dispatch('general.header.content.cart.count.getTotalProducts', productsTotal: $this->cartForm->quantity);
     }
 }

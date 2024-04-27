@@ -1,2 +1,14 @@
 //Estilos generales
 @import 'app.scss';
+
+.checkout {
+    .products {
+        img {
+            max-width: 80px;
+        }
+
+        .quantity {
+            max-width: 95px;
+        }
+    }
+}

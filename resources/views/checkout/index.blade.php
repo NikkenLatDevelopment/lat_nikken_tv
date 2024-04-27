@@ -8,6 +8,7 @@
     <x-general.header.content.main />
 
     <div class="checkout">
+        @livewire('checkout.index.content.main')
     </div>
 
     <x-general.footer.content.main />

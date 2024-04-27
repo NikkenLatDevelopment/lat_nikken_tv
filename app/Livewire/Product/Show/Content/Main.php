@@ -122,7 +122,7 @@ class Main extends Component
             $url = parse_url(url()->current());
 
             //Obtener tienda personalizada
-            $this->currentUrl = $url['scheme'] . '://' . $customStore->name . '.' . $url['host'] . $url['path'];;
+            $this->currentUrl = $url['scheme'] . '://' . $customStore->name . '.' . $url['host'] . $url['path'];
         } else {
             //Obtener url actual
             $this->currentUrl = url()->current();
