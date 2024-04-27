@@ -323,7 +323,7 @@ class Main extends Component
         ->toArray();
 
         //Marcar color por defecto
-        if (count($this->colors) > 0) { $this->selectedColor = $this->productId; }
+        if (!empty($this->colors)) { $this->selectedColor = $this->productId; }
     }
 
     public function updatedSelectedColor() {
@@ -347,7 +347,7 @@ class Main extends Component
         ->toArray();
 
         //Marcar presentación por defecto
-        if (count($this->presentations) > 0) { $this->selectedPresentation = $this->productId; }
+        if (!empty($this->presentations)) { $this->selectedPresentation = $this->productId; }
     }
 
     public function updatedSelectedPresentation() {
@@ -371,7 +371,7 @@ class Main extends Component
         ->toArray();
 
         //Marcar medida por defecto
-        if (count($this->measurements) > 0) { $this->selectedMeasurement = $this->productId; }
+        if (!empty($this->measurements)) { $this->selectedMeasurement = $this->productId; }
     }
 
     public function updatedSelectedMeasurement() {

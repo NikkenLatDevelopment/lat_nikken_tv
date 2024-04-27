@@ -22,14 +22,14 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <section class="mt-4 @if (count($attachments) == 0 && $product['description'] == null && $product['maintenance'] == null) mb-4 @else mb-2 @endif">
+                <section class="mt-4 @if (empty($attachments) && $product['description'] == null && $product['maintenance'] == null) mb-4 @else mb-2 @endif">
                     <div class="row">
                         <div class="col-12 col-lg-6">
                             <div class="position-relative carousel" wire:ignore>
                                 <span class="position-absolute top-0 end-0 p-3"><i class="fi-rs-search h5 opacity-50"></i></span>
 
                                 <div class="border border-secondary rounded-4 mb-3 carousel-slider"> @foreach ($images as $image) <figure class="mb-0"><img src="{{ $image }}" class="img-fluid" alt="{{ $product['name'] }}" data-fancybox="galeria" /></figure> @endforeach </div>
-                                <div class="carousel-thumbnail"> @if (count($images) > 1) @foreach ($images as $image) <figure class="mb-0"><img src="{{ $image }}" class="img-fluid" alt="{{ $product['name'] }}" /></figure> @endforeach @endif </div>
+                                <div class="carousel-thumbnail"> @if (!empty($images)) @foreach ($images as $image) <figure class="mb-0"><img src="{{ $image }}" class="img-fluid" alt="{{ $product['name'] }}" /></figure> @endforeach @endif </div>
                             </div>
                         </div>
 
@@ -43,7 +43,7 @@
                             <div class="row d-flex align-items-center">
                                 <div class="col"><h1 class="text-dark fw-bold lh-1 my-2">{{ $product['name'] }}</h1></div>
 
-                                <div class="col-auto" x-data="{ wishlist: @entangle('wishlist') }">
+                                <div class="col-auto" x-data="{ wishlist: $wire.entangle('wishlist') }">
                                     @if (auth()->check())
                                         <button class="btn btn-link text-decoration-none" :class="{ 'text-dark': !wishlist, 'text-success': wishlist }" x-on:click="wishlist = !wishlist" wire:click="changeWishlist" wire:loading.attr="disabled" wire:target="addCart,selectedColor,selectedPresentation,selectedMeasurement,changeWishlist">
                                             <i class="h1 fi" :class="{ 'fi-rr-heart': !wishlist, 'fi-sr-heart': wishlist }"></i>
@@ -69,7 +69,7 @@
                             <div class="row gx-3 align-items-center mb-2">
                                 <div class="col-auto"><span class="h1 text-success fw-bold mb-0">{{ $price }}</span></div>
 
-                                @if (count($this->parentProduct) > 0)
+                                @if (!empty($this->parentProduct))
                                     <div class="col">
                                         <div class="h6 small text-success fw-semibold lh-1 mb-0">{{ $this->parentProduct['percentage_discount'] }}% off</div>
                                         <div class="h6 text-black-50 opacity-50 fw-bold text-decoration-line-through mb-0">{{ $this->parentProduct['price'] }}</div>
@@ -79,23 +79,23 @@
 
                             <div>{!! $product['short_description'] !!}</div>
 
-                            @if (count($colors) > 0 || count($presentations) > 0 || count($measurements) > 0)
+                            @if (!empty($colors) || !empty($presentations) || !empty($measurements))
                                 <div class="pb-2 mb-1">
-                                    @if (count($colors) > 0)
+                                    @if (!empty($colors))
                                         <div class="row gx-3 align-items-center mb-2">
                                             <div class="col-auto"><div class="h6 text-muted fw-bold mb-0">Colores:</div></div>
                                             <div class="col"><div class="d-flex"><x-product.color :colors="$colors" :available="$available" /></div></div>
                                         </div>
                                     @endif
 
-                                    @if (count($presentations) > 0)
+                                    @if (!empty($presentations))
                                         <div class="row gx-3 align-items-center mb-2">
                                             <div class="col-auto"><div class="h6 text-muted fw-bold mb-0">Presentación:</div></div>
                                             <div class="col"><div class="d-flex"><x-product.presentation :presentations="$presentations" :available="$available" /></div></div>
                                         </div>
                                     @endif
 
-                                    @if (count($measurements) > 0)
+                                    @if (!empty($measurements))
                                         <div class="row gx-3 align-items-center mb-2">
                                             <div class="col-auto"><div class="h6 text-muted fw-bold mb-0">Talla / Medidas:</div></div>
                                             <div class="col"><div class="d-flex"><x-product.measurement :measurements="$measurements" :available="$available" /></div></div>
@@ -108,7 +108,7 @@
                                 <div class="row gx-2 align-items-center">
                                     <div class="col-auto">
                                         <div class="border @if ($available == 0) border-warning @else border-success @endif border-2 rounded-2 py-1 quantity">
-                                            <div class="row gx-0 align-items-center" x-data="{ quantity: @entangle('quantity') }">
+                                            <div class="row gx-0 align-items-center" x-data="{ quantity: $wire.entangle('quantity') }">
                                                 <div class="col"><input type="number" class="form-control text-muted fw-bold text-center border-0 shadow-none px-0 ms-2 ms-sm-3 py-2" x-bind:value="quantity" wire:model="quantity" readonly></div>
 
                                                 <div class="col-auto d-flex flex-column">
@@ -125,9 +125,9 @@
                             </form>
 
                             @if ($available == 0)
-                                @if (count($componentsNotAvailable) > 0)
+                                @if (!empty($componentsNotAvailable))
                                     <div class="row gx-3 pt-1 components">
-                                        @if (count($componentsNotAvailable) > 0)
+                                        @if (!empty($componentsNotAvailable))
                                             <div class="col-12 col-sm-6 col-lg-12 col-xl-6">
                                                 <div class="card border-warning rounded-4 overflow-hidden mb-3">
                                                     <div class="card-header text-warning lh-sm bg-white border-0 border-bottom border-warning px-3">
@@ -152,7 +152,7 @@
                                             </div>
                                         @endif
 
-                                        @if (count($componentsAvailable) > 0)
+                                        @if (!empty($componentsAvailable))
                                             <div class="col-12 col-sm-6 col-lg-12 col-xl-6">
                                                 <div class="card border-success rounded-4 overflow-hidden mb-3">
                                                     <div class="card-header text-success lh-sm bg-white border-0 border-bottom border-success px-3">
@@ -210,7 +210,7 @@
                                 </ul>
                             @endif
 
-                            @if (count($technologies) > 0)
+                            @if (!empty($technologies))
                                 <div class="mb-2 pb-1">
                                     @foreach ($technologies as $technology)
                                         <a href="#" class="text-decoration-none" wire:click.prevent="$dispatch('product.show.modal.technology-description.initialize', { productTechnologyId: {{ $technology['id'] }} })">
@@ -233,7 +233,7 @@
                                     <div class="col-auto"><span class="small text-success">{{ $product['catalog_product_brand']['name'] }}</span></div>
                                 </div>
 
-                                @if (count($features) > 0)
+                                @if (!empty($features))
                                     @foreach ($features as $feature)
                                         <div class="row gx-2 me-4">
                                             <div class="col-auto"><span class="small">{{ $feature['catalog_product_feature']['name'] }}:</span></div>
@@ -246,7 +246,7 @@
                     </div>
                 </section>
 
-                @if (count($attachments) > 0)
+                @if (!empty($attachments))
                     <hr class="text-secondary opacity-75">
 
                     <section class="pt-4 pb-3 attachment">
@@ -294,7 +294,7 @@
                     </section>
                 @endif
 
-                @if (count($videos) > 0)
+                @if (!empty($videos))
                     <section class="mt-3">
                         <div class="row">
                             <div class="col">
@@ -315,7 +315,7 @@
                     </section>
                 @endif
 
-                @if (count($replacements) > 0)
+                @if (!empty($replacements))
                     <section class="mt-3 thumbnail">
                         <div class="row">
                             <div class="col">
@@ -331,7 +331,7 @@
                     </section>
                 @endif
 
-                @if (count($parts) > 0)
+                @if (!empty($parts))
                     <section class="mt-3 thumbnail">
                         <div class="row">
                             <div class="col">

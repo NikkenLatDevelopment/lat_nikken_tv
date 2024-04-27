@@ -121,4 +121,15 @@ class CartForm extends Form
         $this->discountSuggestedPrice = $discountSuggestedPrice;
         return $this->discountSuggestedPrice;
     }
+
+    public function changeQuantity(int $index, int $productId, int $quantity, bool $DB, SessionController $sessionController) {
+        if ($DB) {
+            //Actualizar cantidad del producto en el carrito de compras
+            $sessionController->setCart($productId, $quantity);
+        }
+
+        //Actualizar cantidad del producto
+        $this->products[$index]['quantity'] = $quantity;
+        $this->products[$index]['totalText'] = formatPriceWithCurrency($this->products[$index]['price'] * $quantity, $this->country);
+    }
 }

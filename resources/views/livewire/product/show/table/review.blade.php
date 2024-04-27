@@ -3,7 +3,7 @@
         <div class="pb-1 mb-1 reviews">
             <div class="bg-light rounded-4 p-4 mb-2"><span class="text-muted fw-bold">¿Te ha gustado el producto?</span> Comparte tu experiencia y ayuda a otras personas a conocer más sobre este producto. <a @if (auth()->check()) href="#" wire:click.prevent="$dispatch('product.show.modal.review.initialize', { productId: {{ $productId }}, productName: '{{ $productName }}' })" @else href="{{ route('login') }}" @endif class="link-success fw-bold">Compartir Experiencia</a>.</div>
 
-            @if (count($reviews) > 0)
+            @if (!empty($reviews))
                 <ul class="fa-ul mb-3 pt-1 ms-4">
                     <li class="small text-black-50 opacity-75 lh-sm"><span class="fa-li"><i class="fa-solid fa-circle-info"></i></span>Las siguientes son experiencias personales de algunos de nuestros usuarios de producto, NIKKEN se reserva el derecho de interpretación y estas han sido suministradas bajo su consentimiento.</li>
                 </ul>

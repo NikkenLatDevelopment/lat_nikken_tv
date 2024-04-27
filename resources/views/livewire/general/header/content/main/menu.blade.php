@@ -7,7 +7,7 @@
                         <ul class="p-0 m-0">
                             <li class="py-3 me-4"><a href="{{ route('home') }}" class="h6 link-dark fw-bold text-decoration-none"><i class="fi fi-br-house-blank position-relative me-2"></i>Inicio</a></li>
 
-                            @if (count($brands))
+                            @if (!empty($brands))
                                 <li class="py-3 me-4">
                                     <a href="#" class="h6 link-dark fw-bold text-decoration-none">Productos <i class="fi fi-rr-angle-small-down position-relative"></i></a>
 
@@ -19,8 +19,8 @@
                                 </li>
                             @endif
 
-                            @if (count($campaigns))
-                                @if (count($campaigns) > 1)
+                            @if (!empty($campaigns))
+                                @if (!empty($campaigns))
                                     <li class="py-3 me-4">
                                         <a href="#" class="h6 link-success fw-bold text-decoration-none"><i class="fa-solid fa-bell me-1 custom bell-1"></i> Campañas <i class="fi fi-rr-angle-small-down position-relative"></i></a>
 
@@ -67,7 +67,7 @@
                         </div>
                     </div>
 
-                    @if (count($brands))
+                    @if (!empty($brands))
                         <div class="accordion-item">
                             <div class="h6 accordion-header" id="flush-headingOne">
                                 <a href="#accordionMenuResponsive-collapseProduct" class="accordion-button collapsed link-dark fw-bold text-decoration-none bg-white shadow-none"  data-bs-toggle="collapse" aria-expanded="false" aria-controls="accordionMenuResponsive-collapseProduct">Productos</a>
@@ -85,8 +85,8 @@
                         </div>
                     @endif
 
-                    @if (count($campaigns))
-                        @if (count($campaigns) > 1)
+                    @if (!empty($campaigns))
+                        @if (!empty($campaigns))
                             <div class="accordion-item">
                                 <div class="h6 accordion-header" id="flush-headingTwo">
                                     <a href="#accordionMenuResponsive-collapseCampaign" class="accordion-button collapsed link-success fw-bold text-decoration-none lh-1 bg-white shadow-none"  data-bs-toggle="collapse" aria-expanded="false" aria-controls="accordionMenuResponsive-collapseCampaign"><i class="fa-solid fa-bell me-2 custom bell-1"></i> Campañas</a>

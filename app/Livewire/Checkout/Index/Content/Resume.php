@@ -17,9 +17,4 @@ class Resume extends Component
         //Mostrar vista
         return view('livewire.checkout.index.content.resume');
     }
-
-    public function mount(array $products) {
-        //Obtener productos
-        $this->products = $products;
-    }
 }

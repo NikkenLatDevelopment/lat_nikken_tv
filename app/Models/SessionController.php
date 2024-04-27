@@ -212,6 +212,7 @@ function formatCartProduct(Product $product, int $quantity, array $country): arr
         'sku' => $product->sku,
         'name' => $product->name,
         'image' => env('STORAGE_PRODUCT_IMAGE_MAIN_PATH') . $product->image,
+        'price' => $product->suggested_price + $product->vat_suggested_price,
         'priceText' => formatPriceWithCurrency($product->suggested_price + $product->vat_suggested_price, $country),
         'quantity' => $quantity,
         'available' => array_values($product->getAvailability($product->productComponents->toArray()))[0],

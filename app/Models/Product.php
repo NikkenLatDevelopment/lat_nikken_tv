@@ -124,7 +124,7 @@ class Product extends Model
         $componentsAvailable = [];
         $componentsNotAvailable = [];
 
-        if (count($components) > 0) {
+        if (!empty($components)) {
             //Recorrer componentes
             foreach ($components as $component) {
                 //Verificar inventario de los componentes

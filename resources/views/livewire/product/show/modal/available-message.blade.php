@@ -3,7 +3,7 @@
         <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content border border-warning border-4 rounded-4 overflow-hidden">
                 <div class="modal-body">
-                    @if (count($componentsNotAvailable) > 0)
+                    @if (!empty($componentsNotAvailable))
                         <p class="text-center lh-sm mt-2">Recuerda que los productos a continuación <span class="fs-5 text-warning text-decoration-underline lh-1 custom fw-extrabold">no se encuentran disponibles:</span></p>
 
                         <ul class="fa-ul ps-0 ms-4 components">

@@ -1,5 +1,5 @@
 <div>
-    @if (count($cartForm->products) > 0)
+    @if (!empty($cartForm->products))
         <div class="products px-3 pt-2 height-1 @if (!auth()->check()) height-4 @else @if (auth()->user()->catalog_user_type_id != 3) height-3 @else @if ($cartForm->country['id'] == 1 && $cartForm->discountSuggestedPrice) height-1 @else height-2 @endif @endif @endif">
             @foreach ($cartForm->products as $index => $product)
                 <div class="bg-white rounded-4 position-relative p-2 mb-2" wire:key="cart-product-{{ $product['id'] }}">

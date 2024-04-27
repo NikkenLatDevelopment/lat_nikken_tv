@@ -9,7 +9,7 @@
                         <div class="h6 text-muted">Experiencia del producto <span class="h5 text-dark fw-bold">{{ $productName }}</span></div>
                         <div class="h6 text-warning fw-semibold lh-sm pt-1 mb-1">Calificación:</div>
 
-                        <div class="mb-2" x-data="{ rating: @entangle('rating') }">
+                        <div class="mb-2" x-data="{ rating: $wire.entangle('rating') }">
                             <template x-for="star in 5">
                                 <i class="fi fi-sr-star h5 text-secondary me-1 mb-0 custom cursor-pointer" :class="{ 'text-warning': rating >= star }" @click="rating = star"></i>
                             </template>

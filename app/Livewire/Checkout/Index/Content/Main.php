@@ -43,6 +43,11 @@ class Main extends Component
     }
 
     public function getTotals() {
+        if (empty($this->cartForm->products)) {
+            //Redireccionar al catálogo
+            return redirect()->route('home');
+        }
+
         //Obtener totales
         $this->cartForm->getTotals();
     }
@@ -66,6 +71,18 @@ class Main extends Component
     public function removeProductExternal(int $index) {
         //Eliminar producto del carrito de compras
         unset($this->cartForm->products[$index]);
+
+        //Obtener totales
+        $this->getTotals();
+    }
+
+    #[On('checkout.index.content.main.changeQuantity')]
+    public function changeQuantity(int $index, int $productId, int $quantity, bool $DB, SessionController $sessionController) {
+        //Actualizar cantidad del producto
+        $this->cartForm->changeQuantity($index, $productId, $quantity, $DB, $sessionController);
+
+        //Emitir evento para cambiar la cantidad del producto del carrito de compras
+        $this->dispatch('general.header.content.cart.products.changeQuantity', index: $index, productId: $productId, quantity: $quantity, DB: false);
 
         //Obtener totales
         $this->getTotals();

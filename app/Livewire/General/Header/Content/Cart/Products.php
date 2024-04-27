@@ -73,6 +73,15 @@ class Products extends Component
         $this->getTotals();
     }
 
+    #[On('general.header.content.cart.products.changeQuantity')]
+    public function changeQuantity(int $index, int $productId, int $quantity, bool $DB, SessionController $sessionController) {
+        //Actualizar cantidad del producto
+        $this->cartForm->changeQuantity($index, $productId, $quantity, $DB, $sessionController);
+
+        //Obtener totales
+        $this->getTotals();
+    }
+
     public function getTotals() {
         //Obtener totales
         $this->cartForm->getTotals();
