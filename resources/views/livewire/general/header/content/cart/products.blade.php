@@ -1,7 +1,7 @@
 <div>
-    @if (count($products) > 0)
-        <div class="products px-3 pt-2 height-1 @if (!auth()->check()) height-4 @else @if (auth()->user()->catalog_user_type_id != 3) height-3 @else @if ($country['id'] == 1 && $discountSuggestedPrice) height-1 @else height-2 @endif @endif @endif">
-            @foreach ($products as $index => $product)
+    @if (count($cartForm->products) > 0)
+        <div class="products px-3 pt-2 height-1 @if (!auth()->check()) height-4 @else @if (auth()->user()->catalog_user_type_id != 3) height-3 @else @if ($cartForm->country['id'] == 1 && $cartForm->discountSuggestedPrice) height-1 @else height-2 @endif @endif @endif">
+            @foreach ($cartForm->products as $index => $product)
                 <div class="bg-white rounded-4 position-relative p-2 mb-2" wire:key="cart-product-{{ $product['id'] }}">
                     <div class="position-absolute end-0 top-0"><button class="btn btn-link link-primary opacity-50 text-decoration-none" wire:click="removeProduct({{ $index }}, {{ $product['id'] }})"><i class="fi fi-br-trash"></i></button></div>
 
@@ -28,7 +28,7 @@
         </div>
 
         <div class="position-absolute start-0 end-0 bottom-0">
-            @if (auth()->check() && $country['id'] == 1 && auth()->user()->catalog_user_type_id == 3)
+            @if (auth()->check() && $cartForm->country['id'] == 1 && auth()->user()->catalog_user_type_id == 3)
                 <div class="ps-3">
                     <div class="form-check form-switch small pb-1">
                         <input type="checkbox" class="form-check-input" role="switch" id="cart-discount-suggested-price" wire:model.live="discountSuggestedPrice">
@@ -41,37 +41,37 @@
                 <div class="mb-3">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="h6 small text-black-50 opacity-75 fw-bold text-truncate mb-0">Subtotal:</div>
-                        <div class="h6 text-black-50 opacity-75 fw-semibold mb-0">{{ $subtotalText }}</div>
+                        <div class="h6 text-black-50 opacity-75 fw-semibold mb-0">{{ $cartForm->subtotalText }}</div>
                     </div>
 
-                    @if (auth()->check() && $discountSuggestedPrice && $country['id'] == 1 && auth()->user()->catalog_user_type_id == 3)
+                    @if (auth()->check() && $cartForm->discountSuggestedPrice && $cartForm->country['id'] == 1 && auth()->user()->catalog_user_type_id == 3)
                         <div class="d-flex justify-content-between align-items-center mt-1">
                             <div class="h6 small text-black-50 opacity-75 fw-bold text-truncate mb-0">Descuento:</div>
-                            <div class="h6 text-black-50 opacity-75 fw-semibold mb-0">{{ $retailText }}</div>
+                            <div class="h6 text-black-50 opacity-75 fw-semibold mb-0">{{ $cartForm->retailText }}</div>
                         </div>
                     @endif
 
                     <div class="d-flex justify-content-between align-items-center mt-1">
                         <div class="h6 small text-black-50 opacity-75 fw-bold text-truncate mb-0">IVA:</div>
-                        <div class="h6 text-black-50 opacity-75 fw-semibold mb-0">{{ $vatText }}</div>
+                        <div class="h6 text-black-50 opacity-75 fw-semibold mb-0">{{ $cartForm->vatText }}</div>
                     </div>
 
                     <hr class="text-secondary opacity-75">
 
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="h6 text-dark fw-bold text-truncate mb-0">Total:</div>
-                        <div class="h5 text-dark fw-bold mb-0">{{ $totalText }}</div>
+                        <div class="h5 text-dark fw-bold mb-0">{{ $cartForm->totalText }}</div>
                     </div>
 
                     @if (auth()->check() && auth()->user()->catalog_user_type_id == 3)
                         <div class="hstack gap-2">
-                            <div class="ms-auto"><span class="small text-black-50 opacity-75">Puntos: <span class="fw-bold">{{ $pointsText }}</span></span></div>
+                            <div class="ms-auto"><span class="small text-black-50 opacity-75">Puntos: <span class="fw-bold">{{ $cartForm->pointsText }}</span></span></div>
                             <div class="vr"></div>
-                            <div><span class="small text-black-50 opacity-75">VC: <span class="fw-bold">{{ $vcText }}</span></span></div>
+                            <div><span class="small text-black-50 opacity-75">VC: <span class="fw-bold">{{ $cartForm->vcText }}</span></span></div>
 
-                            @if ($country['id'] != 1 || !$discountSuggestedPrice)
+                            @if ($cartForm->country['id'] != 1 || !$cartForm->discountSuggestedPrice)
                                 <div class="vr"></div>
-                                <div><span class="small text-black-50 opacity-75">Retail: <span class="fw-bold">{{ $retailText }}</span></span></div>
+                                <div><span class="small text-black-50 opacity-75">Retail: <span class="fw-bold">{{ $cartForm->retailText }}</span></span></div>
                             @endif
                         </div>
                     @endif
