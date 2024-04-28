@@ -1,5 +1,5 @@
 @foreach ($colors as $color)
-    <div wire:key="color-{{ $color['product_id'] }}">
+    <div wire:key="product-color-{{ $color['product_id'] }}">
         <input
             type="radio"
             class="btn-check"

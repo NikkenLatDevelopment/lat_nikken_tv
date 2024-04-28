@@ -44,16 +44,26 @@ class CartForm extends Form
         $this->products = $sessionController->getCart();
     }
 
-    public function removeProduct(int $index, int $productId, SessionController $sessionController) {
-        //Validar información
-        Validator::make(
-            [ 'productId' => $productId ],
-            [ 'productId' => 'required|integer|exists:products,id' ]
-        )->validate();
+    public function removeProduct(int $index, int $productId, bool $DB, SessionController $sessionController): bool {
+        if ($DB) {
+            //Validar información
+            $validator = Validator::make(
+                [ 'productId' => $productId ],
+                [ 'productId' => 'required|integer|exists:products,id' ]
+            );
+
+            //Validar información
+            if ($validator->fails()) { return false; }
+
+            //Eliminar producto del carrito de compras
+            $sessionController->removeCart($productId);
+        }
 
         //Eliminar producto del carrito de compras
-        $sessionController->removeCart($productId);
         unset($this->products[$index]);
+
+        //Retornar
+        return true;
     }
 
     public function getTotals() {
@@ -104,8 +114,8 @@ class CartForm extends Form
                 'userTypeId' => auth()->user()->catalog_user_type_id
             ],
             [
-                'countryId' => 'required|in:1',
-                'userTypeId' => 'required|in:3'
+                'countryId' => 'required|integer|in:1',
+                'userTypeId' => 'required|integer|in:3'
             ]
         );
 
@@ -117,19 +127,41 @@ class CartForm extends Form
         //Guardar sugerido con descuento en sesión y cookie
         $sessionController->setDiscountSuggestedPrice($discountSuggestedPrice);
 
-        //Actualizar permiso sugerido con descuento
+        //Actualizar sugerido con descuento
         $this->discountSuggestedPrice = $discountSuggestedPrice;
+
+        //Retornar sugerido con descuento
         return $this->discountSuggestedPrice;
     }
 
-    public function changeQuantity(int $index, int $productId, int $quantity, bool $DB, SessionController $sessionController) {
+    public function changeQuantity(int $index, int $productId, int $quantity, bool $DB, SessionController $sessionController): array {
         if ($DB) {
+            //Validar información
+            $validator = Validator::make(
+                [
+                    'productId' => $productId,
+                    'quantity' => $quantity
+                ],
+                [
+                    'quantity' => 'required|integer|min:1|max:99',
+                    'productId' => 'required|integer|exists:products,id'
+                ]
+            );
+
+            if ($validator->fails()) {
+                //Retornar producto sin cambios
+                return [ $this->products[$index]['quantity'], false ];
+            }
+
             //Actualizar cantidad del producto en el carrito de compras
             $sessionController->setCart($productId, $quantity);
         }
 
-        //Actualizar cantidad del producto
+        //Actualizar cantidad del producto en el carrito de compras
         $this->products[$index]['quantity'] = $quantity;
         $this->products[$index]['totalText'] = formatPriceWithCurrency($this->products[$index]['price'] * $quantity, $this->country);
+
+        //Retornar producto actualizado
+        return [ $this->products[$index], true ];
     }
 }

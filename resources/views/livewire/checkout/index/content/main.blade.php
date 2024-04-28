@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col">
                 <section class="mt-3">
-                    @livewire('checkout.index.content.resume', [ 'products' => $cartForm->products ])
+                    <x-checkout.resume :products="$cartForm->products" />
                 </section>
             </div>
         </div>

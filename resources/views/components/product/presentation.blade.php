@@ -1,5 +1,5 @@
 @foreach ($presentations as $presentation)
-    <div wire:key="presentation-{{ $presentation['product_id'] }}">
+    <div wire:key="product-presentation-{{ $presentation['product_id'] }}">
         <input
             type="radio"
             class="btn-check"

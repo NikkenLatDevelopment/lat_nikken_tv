@@ -21,7 +21,7 @@
                         <p class="small"><span class="fw-bold">Nota:</span> Si cuentas con tu Tienda Virtual Personalizada, <a href="{{ route('login') }}">inicia sesión</a> para obtener tu link personal.</p>
                     @endif
 
-                    @if($currentUrl && $productName)
+                    @if ($currentUrl && $productName)
                         <hr class="text-secondary opacity-75">
                         <div class="h6 text-dark fw-bold mb-0 mt-4">Compartir en redes sociales:</div>
 

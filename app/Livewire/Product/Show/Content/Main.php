@@ -261,7 +261,7 @@ class Main extends Component
                 ]);
             }
 
-            //Emitir evento para mostrar el mensaje de confirmación
+            //Emitir evento para mostrar mensaje de confirmación
             $this->dispatch('showToast', message: 'Producto <span class="fw-bold"><u>agregado</u></span> a tu lista de deseos.', color: 'success');
 
             //Emitir evento para mostrar la lista de deseos
@@ -272,7 +272,7 @@ class Main extends Component
                 $wishlist->delete();
             }
 
-            //Emitir evento para mostrar el mensaje de confirmación
+            //Emitir evento para mostrar mensaje de confirmación
             $this->dispatch('showToast', message: 'Producto <span class="fw-bold"><u>eliminado</u></span> de tu lista de deseos.', color: 'dark');
         }
 
@@ -390,17 +390,12 @@ class Main extends Component
         //Validar disponibilidad del producto
         if ($this->available == 0 && $available == 0) {
             //Emitir evento para recordar productos no disponibles
-            return $this->dispatch('product.show.modal.available-message.initialize',
-                sku: $this->product['sku'],
-                name: $this->product['name'],
-                availableUntil: $this->availableUntil,
-                componentsNotAvailable: $this->componentsNotAvailable
-            );
+            return $this->dispatch('product.show.modal.available-message.initialize', sku: $this->product['sku'], name: $this->product['name'], availableUntil: $this->availableUntil, componentsNotAvailable: $this->componentsNotAvailable);
         }
 
         //Validar información
         $this->validate([
-            'quantity' => 'required|numeric|min:1|max:99',
+            'quantity' => 'required|integer|min:1|max:99',
             'selectedColor' => 'nullable|integer|exists:product_colors,product_id',
             'selectedPresentation' => 'nullable|integer|exists:product_presentations,product_id',
             'selectedMeasurement' => 'nullable|integer|exists:product_measurements,product_id',

@@ -1,6 +1,6 @@
 <div>
     @foreach ($catalogCountries as $catalogCountry)
-        <div class="d-inline-block d-lg-block my-2 mx-1" wire:key="catalog-country-{{ $catalogCountry['id'] }}">
+        <div class="d-inline-block d-lg-block my-2 mx-1" wire:key="country-index-content-catalog-countries-{{ $catalogCountry['id'] }}">
             <div class="bg-light rounded-3 d-inline-block">
                 <button type="button" class="btn btn-link link-dark d-flex align-items-center" wire:click="update({{ $catalogCountry['id'] }})" wire:loading.attr="disabled">
                     <img src="{{ asset('assets/img/countries/' . $catalogCountry['code'] . '.png') }}" srcset="{{ asset('assets/img/countries/' . $catalogCountry['code'] . '-2x.png') }} 2x" class="img-fluid" alt="Bandera de {{ $catalogCountry['name'] }}">

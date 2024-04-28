@@ -23,8 +23,8 @@ class ProductController extends Controller
                 'brandSlug' => $brandSlug,
                 'productSlug' => $productSlug
             ], [
-                'brandSlug' => 'required|string|exists:catalog_product_brands,slug',
-                'productSlug' => 'required|string|exists:products,slug'
+                'brandSlug' => 'required|string|max:20|exists:catalog_product_brands,slug',
+                'productSlug' => 'required|string|max:100|exists:products,slug'
             ]
         );
 

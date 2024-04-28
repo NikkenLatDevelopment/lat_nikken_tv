@@ -1,5 +1,5 @@
 @foreach ($measurements as $measurement)
-    <div wire:key="measurement-{{ $measurement['product_id'] }}">
+    <div wire:key="product-measurement-{{ $measurement['product_id'] }}">
         <input
             type="radio"
             class="btn-check"

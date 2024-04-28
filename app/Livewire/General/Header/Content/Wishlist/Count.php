@@ -19,7 +19,7 @@ class Count extends Component
 
     #[On('general.header.content.wishlist.count.getTotalProducts')]
     public function getTotalProducts(int $productsTotal) {
-        //Actualizar contador de productos
+        //Actualizar contador lista de deseos
         $this->productsTotal = $productsTotal;
     }
 }
