@@ -72,7 +72,7 @@
                 </div>
 
                 <div class="col-auto order-2 order-lg-3">
-                    <div class="hstack gap-3 mt-1 pe-2 pe-lg-0">
+                    <div class="hstack gap-3 mt-1 pe-2 pe-lg-0 me-2">
                         <button type="button" class="btn btn-sm btn-link p-0" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWishlist" aria-controls="offcanvasWishlist">
                             <span class="position-relative">
                                 <img src="{{ asset('assets/img/general/icon-wishlist.png') }}" srcset="{{ asset('assets/img/general/icon-wishlist-2x.png') }} 2x" class="img-fluid" alt="Lista de Deseos">

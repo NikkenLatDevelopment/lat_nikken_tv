@@ -29,8 +29,13 @@ var stickyBar = $(".sticky");
 var windowScroll = $(window);
 windowScroll.on("scroll", function () {
     var scroll = windowScroll.scrollTop();
-    if (scroll < 200) { stickyBar.removeClass("shadow-sm position-fixed top-0 animate__animated animate__fadeInDown");
-    } else { stickyBar.addClass("shadow-sm position-fixed top-0 animate__animated animate__fadeInDown"); }
+    if (scroll < 200) {
+        stickyBar.removeClass("shadow-sm position-fixed top-0 animate__animated animate__fadeInDown");
+        $('.checkout .sticky-top.total').removeClass('top');
+    } else {
+        stickyBar.addClass("shadow-sm position-fixed top-0 animate__animated animate__fadeInDown");
+        $('.checkout .sticky-top.total').addClass('top');
+    }
 });
 
 $(window).on('load', function() {

@@ -37,26 +37,26 @@
             <div class="bg-white rounded-4 shadow-sm p-3 mx-2 mb-2 mt-1">
                 <div class="mb-3">
                     <div class="d-flex justify-content-between align-items-center">
-                        <div class="h6 small text-black-50 opacity-75 fw-bold text-truncate mb-0">Subtotal:</div>
+                        <div class="h6 small text-black-50 opacity-75 fw-bold mb-0">Subtotal:</div>
                         <div class="h6 text-black-50 opacity-75 fw-semibold mb-0">{{ $cartForm->subtotalText }}</div>
                     </div>
 
                     @if (auth()->check() && $cartForm->discountSuggestedPrice && $cartForm->country['id'] == 1 && auth()->user()->catalog_user_type_id == 3)
                         <div class="d-flex justify-content-between align-items-center mt-1">
-                            <div class="h6 small text-black-50 opacity-75 fw-bold text-truncate mb-0">Descuento:</div>
+                            <div class="h6 small text-black-50 opacity-75 fw-bold mb-0">Descuento:</div>
                             <div class="h6 text-black-50 opacity-75 fw-semibold mb-0">{{ $cartForm->retailText }}</div>
                         </div>
                     @endif
 
                     <div class="d-flex justify-content-between align-items-center mt-1">
-                        <div class="h6 small text-black-50 opacity-75 fw-bold text-truncate mb-0">IVA:</div>
+                        <div class="h6 small text-black-50 opacity-75 fw-bold mb-0">IVA:</div>
                         <div class="h6 text-black-50 opacity-75 fw-semibold mb-0">{{ $cartForm->vatText }}</div>
                     </div>
 
                     <hr class="text-secondary opacity-75">
 
                     <div class="d-flex justify-content-between align-items-center">
-                        <div class="h6 text-dark fw-bold text-truncate mb-0">Total:</div>
+                        <div class="h6 text-dark fw-bold mb-0">Total:</div>
                         <div class="h5 text-dark fw-bold mb-0">{{ $cartForm->totalText }}</div>
                     </div>
 

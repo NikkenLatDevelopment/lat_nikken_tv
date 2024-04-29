@@ -11,11 +11,15 @@
     </div>
 </div>
 
-<div class="products mt-2 pt-1">
+<div class="products">
+    <hr class="text-secondary opacity-75">
+
     @foreach ($this->cartForm->products as $product)
-        <div class="border-bottom border-secondary mb-2 pb-2" wire:key="checkout-resume-{{ $product['id'] }}">
+        <div wire:key="checkout-resume-{{ $product['id'] }}">
             @livewire('checkout.index.content.resume-product', [ 'productId' => $product['id'], 'product' => $product ], key('checkout-index-content-resume-product-' . $product['id']))
         </div>
+
+        <hr class="text-secondary opacity-75">
     @endforeach
 </div>
 
