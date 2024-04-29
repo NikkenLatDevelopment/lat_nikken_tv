@@ -44,7 +44,11 @@ class CartForm extends Form
         $this->products = $sessionController->getCart();
     }
 
-    public function removeProduct(int $index, int $productId, bool $DB, SessionController $sessionController): bool {
+    public function removeProduct(int $productId, bool $DB, SessionController $sessionController): bool {
+        //Verificar si el producto existe
+        $index = array_search($productId, array_column($this->products, 'id'));
+        if ($index === false) { return false; }
+
         if ($DB) {
             //Validar información
             $validator = Validator::make(
@@ -61,6 +65,9 @@ class CartForm extends Form
 
         //Eliminar producto del carrito de compras
         unset($this->products[$index]);
+
+        //Reorganizar índices
+        $this->products = array_values($this->products);
 
         //Retornar
         return true;
@@ -134,7 +141,11 @@ class CartForm extends Form
         return $this->discountSuggestedPrice;
     }
 
-    public function changeQuantity(int $index, int $productId, int $quantity, bool $DB, SessionController $sessionController): array {
+    public function changeQuantity(int $productId, int $quantity, bool $DB, SessionController $sessionController): array {
+        //Verificar si el producto existe
+        $index = array_search($productId, array_column($this->products, 'id'));
+        if ($index === false) { return []; }
+
         if ($DB) {
             //Validar información
             $validator = Validator::make(

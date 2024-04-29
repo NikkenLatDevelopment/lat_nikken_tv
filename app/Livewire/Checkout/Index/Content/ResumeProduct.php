@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class ResumeProduct extends Component
 {
     #[Locked]
-    public int $index;
+    public int $productId;
 
     public array $product = [];
 
@@ -23,10 +23,10 @@ class ResumeProduct extends Component
 
     public function updatedProductQuantity() {
         //Emitir evento para actualizar la cantidad del producto en el carrito de compras
-        $this->dispatch('checkout.index.content.main.changeQuantity', index: $this->index, productId: $this->product['id'], quantity: $this->product['quantity']);
+        $this->dispatch('checkout.index.content.main.changeQuantity', productId: $this->productId, quantity: $this->product['quantity']);
     }
 
-    #[On('checkout.index.content.resumeProduct.refreshProduct.{index}')]
+    #[On('checkout.index.content.resumeProduct.refreshProduct.{productId}')]
     public function refreshProduct(array $product) {
         //Actualizar producto del carrito de compras
         $this->product = $product;

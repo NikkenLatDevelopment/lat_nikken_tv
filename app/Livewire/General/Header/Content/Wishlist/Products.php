@@ -64,7 +64,11 @@ class Products extends Component
         $this->dispatch('general.header.content.wishlist.count.getTotalProducts', productsTotal: count($this->products));
     }
 
-    public function removeProduct(int $index, int $productId) {
+    public function removeProduct(int $productId) {
+        //Verificar si el producto existe
+        $index = array_search($productId, array_column($this->products, 'id'));
+        if ($index === false) { return false; }
+
         //Validar sesión del usuario
         if (!auth()->check()) { return; }
 
@@ -82,6 +86,9 @@ class Products extends Component
 
         //Eliminar producto de la lista de deseos
         unset($this->products[$index]);
+
+        //Reorganizar índices
+        $this->products = array_values($this->products);
 
         //Emitir evento para mostrar mensaje de confirmación
         $this->dispatch('showToast', message: 'Producto <span class="fw-bold"><u>eliminado</u></span> de tu lista de deseos.', color: 'dark');

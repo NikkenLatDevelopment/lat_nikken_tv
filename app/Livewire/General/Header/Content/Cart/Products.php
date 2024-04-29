@@ -40,16 +40,16 @@ class Products extends Component
     }
 
     #[On('general.header.content.cart.products.removeProduct')]
-    public function removeProduct(int $index, int $productId, SessionController $sessionController) {
+    public function removeProduct(int $productId, SessionController $sessionController) {
         //Eliminar producto del carrito de compras
-        $validate = $this->cartForm->removeProduct($index, $productId, true, $sessionController);
+        $validate = $this->cartForm->removeProduct($productId, true, $sessionController);
 
         if ($validate) {
             //Emitir evento para mostrar mensaje de confirmación
             $this->dispatch('showToast', message: 'Producto <span class="fw-bold"><u>eliminado</u></span> de tu carrito de compras.', color: 'dark');
 
             //Emitir evento para eliminar el producto del carrito de compras
-            $this->dispatch('checkout.index.content.main.removeProductExternal', index: $index, productId: $productId);
+            $this->dispatch('checkout.index.content.main.removeProductExternal', productId: $productId);
 
             //Calcular totales
             $this->getTotals();
@@ -57,9 +57,9 @@ class Products extends Component
     }
 
     #[On('general.header.content.cart.products.removeProductExternal')]
-    public function removeProductExternal(int $index, int $productId, SessionController $sessionController) {
+    public function removeProductExternal(int $productId, SessionController $sessionController) {
         //Eliminar producto del carrito de compras
-        $validate = $this->cartForm->removeProduct($index, $productId, false, $sessionController);
+        $validate = $this->cartForm->removeProduct($productId, false, $sessionController);
 
         if ($validate) {
             //Calcular totales
@@ -76,9 +76,9 @@ class Products extends Component
     }
 
     #[On('general.header.content.cart.products.changeQuantity')]
-    public function changeQuantity(int $index, int $productId, int $quantity, SessionController $sessionController) {
+    public function changeQuantity(int $productId, int $quantity, SessionController $sessionController) {
         //Actualizar cantidad del producto en el carrito de compras
-        list($product, $validate) = $this->cartForm->changeQuantity($index, $productId, $quantity, false, $sessionController);
+        list($product, $validate) = $this->cartForm->changeQuantity($productId, $quantity, false, $sessionController);
 
         if ($validate) {
             //Calcular totales

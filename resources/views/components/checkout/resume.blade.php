@@ -15,9 +15,9 @@
             </div>
 
             <div class="products mt-2 pt-1">
-                @foreach ($products as $index => $product)
+                @foreach ($products as $product)
                     <div class="border-bottom border-secondary mb-2 pb-2" wire:key="checkout-resume-{{ $product['id'] }}">
-                        @livewire('checkout.index.content.resume-product', [ 'product' => $product, 'index' => $index ], key('checkout-index-content-resume-product-' . $product['id']))
+                        @livewire('checkout.index.content.resume-product', [ 'productId' => $product['id'], 'product' => $product ], key('checkout-index-content-resume-product-' . $product['id']))
                     </div>
                 @endforeach
             </div>

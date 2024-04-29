@@ -35,6 +35,6 @@
         </div>
 
         <div class="col"><span class="h5 @if ($product['available'] == 0) text-warning @else text-success @endif fw-bold mb-0">{{ $product['totalText'] }}</span></div>
-        <div class="col-auto"><button class="btn btn-link link-primary opacity-50 text-decoration-none" wire:click="$dispatch('checkout.index.content.main.removeProduct', { index: {{ $index }}, productId: {{ $product['id'] }} })"><i class="fi fi-br-trash"></i></button></div>
+        <div class="col-auto"><button class="btn btn-link link-primary opacity-50 text-decoration-none" wire:click="$dispatch('checkout.index.content.main.removeProduct', { productId: {{ $product['id'] }} })"><i class="fi fi-br-trash"></i></button></div>
     </div>
 </div>
