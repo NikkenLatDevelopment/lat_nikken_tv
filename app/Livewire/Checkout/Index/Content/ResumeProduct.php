@@ -5,8 +5,6 @@ namespace App\Livewire\Checkout\Index\Content;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Locked;
-use App\Models\SessionController;
-use Illuminate\Support\Facades\Validator;
 
 class ResumeProduct extends Component
 {

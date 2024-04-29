@@ -6,7 +6,6 @@ use Livewire\Component;
 use Livewire\Attributes\On;
 use App\Livewire\Forms\CartForm;
 use App\Models\SessionController;
-use Livewire\Attributes\Reactive;
 
 class Main extends Component
 {
