@@ -80,11 +80,11 @@ class Main extends Component
         $this->dispatch('checkout.index.content.resumeProduct.refreshProduct.' . $productId, product: $product);
 
         if ($validate) {
-            //Emitir evento para cambiar la cantidad del producto en el carrito de compras del menú
-            $this->dispatch('general.header.content.cart.products.changeQuantity', productId: $productId, quantity: $quantity);
-
             //Calcular totales
             $this->getTotals();
+
+            //Emitir evento para cambiar la cantidad del producto en el carrito de compras del menú
+            $this->dispatch('general.header.content.cart.products.changeQuantity', productId: $productId, quantity: $quantity);
         }
     }
 }

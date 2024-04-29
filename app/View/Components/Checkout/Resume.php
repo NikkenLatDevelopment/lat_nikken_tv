@@ -11,7 +11,7 @@ class Resume extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public array $products)
+    public function __construct()
     {
         //
     }

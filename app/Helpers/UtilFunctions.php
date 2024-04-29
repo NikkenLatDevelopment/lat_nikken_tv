@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Product;
 use Illuminate\Support\Carbon;
 
 function formatPrice(float $price, int $decimals) {
@@ -20,4 +21,29 @@ function formatDateInSpanishLocale(string $date) {
 function formatDateToDDMMMYYYY(string $date) {
     //Formatear fecha
     return Carbon::parse($date)->isoFormat('DD MMM YYYY');
+}
+
+function formatCartProduct(Product $product, int $quantity, array $country): array {
+    //Formatear información del producto
+    return [
+        'id' => $product->id,
+        'slug' => $product->slug,
+        'sku' => $product->sku,
+        'name' => $product->name,
+        'image' => env('STORAGE_PRODUCT_IMAGE_MAIN_PATH') . $product->image,
+        'price' => $product->suggested_price + $product->vat_suggested_price,
+        'priceText' => formatPriceWithCurrency($product->suggested_price + $product->vat_suggested_price, $country),
+        'quantity' => $quantity,
+        'available' => array_values($product->getAvailability($product->productComponents->toArray()))[0],
+        'rating' => $product->rating_total,
+        'brandSlug' => $product->catalogProductBrand->slug,
+        'retail' => $product->retail * $quantity,
+        'vatRetail' => $product->vat_retail * $quantity,
+        'subtotal' => $product->suggested_price * $quantity,
+        'vat' => $product->vat_suggested_price * $quantity,
+        'total' => ($product->suggested_price + $product->vat_suggested_price) * $quantity,
+        'totalText' => formatPriceWithCurrency(($product->suggested_price + $product->vat_suggested_price) * $quantity, $country),
+        'points' => $product->points * $quantity,
+        'vc' => $product->vc * $quantity,
+    ];
 }

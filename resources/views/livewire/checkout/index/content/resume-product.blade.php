@@ -7,14 +7,17 @@
                 </div>
 
                 <div class="col">
-                    <div class="small text-black-50 opacity-50 mb-1">Código: <span class="h6 small fw-bold">{{ $product['sku'] }}</span></div>
                     <div class="h6 text-dark fw-bold mb-0">{{ $product['name'] }}</div>
 
-                    @if ($product['available'] == 1)
-                        <div class="h6 small text-success fw-bold mb-0">Disponible</div>
-                    @else
-                        <div class="h6 small text-warning fw-bold mb-0">Entrega Postergada</div>
-                    @endif
+                    <div class="mb-2">
+                        @if ($product['available'] == 1)
+                            <div class="h6 small text-success fw-bold mb-0">Disponible</div>
+                        @else
+                            <div class="h6 small text-warning fw-bold mb-0">Entrega Postergada</div>
+                        @endif
+                    </div>
+
+                    <div class="small text-black-50 opacity-50">Código: <span class="h6 small fw-bold mb-0">{{ $product['sku'] }}</span></div>
                 </div>
             </div>
         </div>

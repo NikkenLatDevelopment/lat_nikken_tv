@@ -9,7 +9,7 @@
 
         <div class="card-footer text-center bg-transparent border-0 pb-3 mt-1">
             <div class="h5 text-success fw-bold lh-1 mb-0">{{ $product['price'] }}</div>
-            <div class="small text-black-50 opacity-50 lh-sm">Código: <span class="h6 small fw-bold">{{ $product['sku'] }}</span></div>
+            <div class="small text-black-50 opacity-50 lh-sm">Código: <span class="h6 small fw-bold mb-0">{{ $product['sku'] }}</span></div>
         </div>
     </div>
 </a>

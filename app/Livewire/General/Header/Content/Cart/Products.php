@@ -78,7 +78,7 @@ class Products extends Component
     #[On('general.header.content.cart.products.changeQuantity')]
     public function changeQuantity(int $productId, int $quantity, SessionController $sessionController) {
         //Actualizar cantidad del producto en el carrito de compras
-        list($product, $validate) = $this->cartForm->changeQuantity($productId, $quantity, false, $sessionController);
+        $validate = $this->cartForm->changeQuantity($productId, $quantity, false, $sessionController)[1];
 
         if ($validate) {
             //Calcular totales

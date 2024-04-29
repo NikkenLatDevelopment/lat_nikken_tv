@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use App\Models\Product;
 use Livewire\Form;
 use Livewire\Attributes\Locked;
 use App\Models\SessionController;
@@ -144,7 +145,7 @@ class CartForm extends Form
     public function changeQuantity(int $productId, int $quantity, bool $DB, SessionController $sessionController): array {
         //Verificar si el producto existe
         $index = array_search($productId, array_column($this->products, 'id'));
-        if ($index === false) { return []; }
+        if ($index === false) { return [ $this->products[$index], false ]; }
 
         if ($DB) {
             //Validar información
@@ -161,18 +162,25 @@ class CartForm extends Form
 
             if ($validator->fails()) {
                 //Retornar producto sin cambios
-                return [ $this->products[$index]['quantity'], false ];
+                return [ $this->products[$index], false ];
             }
 
             //Actualizar cantidad del producto en el carrito de compras
             $sessionController->setCart($productId, $quantity);
         }
 
-        //Actualizar cantidad del producto en el carrito de compras
-        $this->products[$index]['quantity'] = $quantity;
-        $this->products[$index]['totalText'] = formatPriceWithCurrency($this->products[$index]['price'] * $quantity, $this->country);
+        //Obtener información del producto
+        $product = Product::find($productId);
 
-        //Retornar producto actualizado
-        return [ $this->products[$index], true ];
+        if ($product) {
+            //Actualizar información del producto
+            $this->products[$index] = formatCartProduct($product, $quantity, $this->country);
+
+            //Retornar producto actualizado
+            return [ $this->products[$index], true ];
+        } else {
+            //Retornar producto sin cambios
+            return [ $this->products[$index], false ];
+        }
     }
 }

@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col">
                 <section class="mt-3">
-                    <x-checkout.resume :products="$cartForm->products" />
+                    <x-checkout.resume />
                 </section>
             </div>
         </div>
