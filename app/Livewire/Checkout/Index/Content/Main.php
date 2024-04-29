@@ -87,4 +87,24 @@ class Main extends Component
             $this->dispatch('general.header.content.cart.products.changeQuantity', productId: $productId, quantity: $quantity);
         }
     }
+
+    public function updatedDiscountSuggestedPrice(SessionController $sessionController) {
+        //Actualizar sugerido con descuento
+        $this->discountSuggestedPrice = $this->cartForm->changeDiscountSuggestedPrice($this->discountSuggestedPrice, true, $sessionController);
+
+        //Calcular totales
+        $this->getTotals();
+
+        //Emitir evento para actualizar el sugerido con descuento en el menú
+        $this->dispatch('general.header.content.cart.products.updatedDiscountSuggestedPriceExternal', discountSuggestedPrice: $this->discountSuggestedPrice);
+    }
+
+    #[On('checkout.index.content.main.updatedDiscountSuggestedPriceExternal')]
+    public function updatedDiscountSuggestedPriceExternal(bool $discountSuggestedPrice, SessionController $sessionController) {
+        //Actualizar sugerido con descuento
+        $this->discountSuggestedPrice = $this->cartForm->changeDiscountSuggestedPrice($discountSuggestedPrice, false, $sessionController);
+
+        //Calcular totales
+        $this->getTotals();
+    }
 }

@@ -67,14 +67,6 @@ class Products extends Component
         }
     }
 
-    public function updatedDiscountSuggestedPrice(SessionController $sessionController) {
-        //Actualizar sugerido con descuento
-        $this->discountSuggestedPrice = $this->cartForm->changeDiscountSuggestedPrice($this->discountSuggestedPrice, $sessionController);
-
-        //Calcular totales
-        $this->getTotals();
-    }
-
     #[On('general.header.content.cart.products.changeQuantity')]
     public function changeQuantity(int $productId, int $quantity, SessionController $sessionController) {
         //Actualizar cantidad del producto en el carrito de compras
@@ -84,6 +76,26 @@ class Products extends Component
             //Calcular totales
             $this->getTotals();
         }
+    }
+
+    public function updatedDiscountSuggestedPrice(SessionController $sessionController) {
+        //Actualizar sugerido con descuento
+        $this->discountSuggestedPrice = $this->cartForm->changeDiscountSuggestedPrice($this->discountSuggestedPrice, true, $sessionController);
+
+        //Calcular totales
+        $this->getTotals();
+
+        //Emitir evento para actualizar el sugerido con descuento
+        $this->dispatch('checkout.index.content.main.updatedDiscountSuggestedPriceExternal', discountSuggestedPrice: $this->discountSuggestedPrice);
+    }
+
+    #[On('general.header.content.cart.products.updatedDiscountSuggestedPriceExternal')]
+    public function updatedDiscountSuggestedPriceExternal(bool $discountSuggestedPrice, SessionController $sessionController) {
+        //Actualizar sugerido con descuento
+        $this->discountSuggestedPrice = $this->cartForm->changeDiscountSuggestedPrice($discountSuggestedPrice, false, $sessionController);
+
+        //Calcular totales
+        $this->getTotals();
     }
 
     public function getTotals() {

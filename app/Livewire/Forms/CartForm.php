@@ -111,29 +111,31 @@ class CartForm extends Form
         }
     }
 
-    public function changeDiscountSuggestedPrice(bool $discountSuggestedPrice, SessionController $sessionController): bool {
-        //Validar sesión del usuario
-        if (!auth()->check()) { return false; }
+    public function changeDiscountSuggestedPrice(bool $discountSuggestedPrice, bool $DB, SessionController $sessionController): bool {
+        if ($DB) {
+            //Validar sesión del usuario
+            if (!auth()->check()) { return false; }
 
-        //Validar información
-        $validator = Validator::make(
-            [
-                'countryId' => $this->country['id'],
-                'userTypeId' => auth()->user()->catalog_user_type_id
-            ],
-            [
-                'countryId' => 'required|integer|in:1',
-                'userTypeId' => 'required|integer|in:3'
-            ]
-        );
+            //Validar información
+            $validator = Validator::make(
+                [
+                    'countryId' => $this->country['id'],
+                    'userTypeId' => auth()->user()->catalog_user_type_id
+                ],
+                [
+                    'countryId' => 'required|integer|in:1',
+                    'userTypeId' => 'required|integer|in:3'
+                ]
+            );
 
-        if ($validator->fails()) {
-            //No permitir sugerido con descuento
-            $discountSuggestedPrice = false;
+            if ($validator->fails()) {
+                //No permitir sugerido con descuento
+                $discountSuggestedPrice = false;
+            }
+
+            //Guardar sugerido con descuento en sesión y cookie
+            $sessionController->setDiscountSuggestedPrice($discountSuggestedPrice);
         }
-
-        //Guardar sugerido con descuento en sesión y cookie
-        $sessionController->setDiscountSuggestedPrice($discountSuggestedPrice);
 
         //Actualizar sugerido con descuento
         $this->discountSuggestedPrice = $discountSuggestedPrice;
