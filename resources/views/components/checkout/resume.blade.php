@@ -3,7 +3,7 @@
 
 <div class="bg-light rounded-3 p-3">
     <div class="row">
-        <div class="col-5"><span class="h6 fw-bold mb-0">Producto</span></div>
+        <div class="col-5"><span class="h6 fw-bold mb-0">Producto<span class="d-inline-block d-md-none">s</span></span></div>
         <div class="col-2"><span class="h6 fw-bold d-none d-md-inline-block mb-0">Precio</span></div>
         <div class="col-2"><span class="h6 fw-bold d-none d-md-inline-block mb-0">Cantidad</span></div>
         <div class="col-2"><span class="h6 fw-bold d-none d-md-inline-block mb-0">Total</span></div>

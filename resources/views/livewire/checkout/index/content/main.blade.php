@@ -20,7 +20,7 @@
 
     <div class="mb-3">
         <div class="container">
-            <div class="row gx-5">
+            <div class="row">
                 <div class="col-12 col-lg">
                     <section class="mt-3 resume">
                         <x-checkout.resume />
@@ -29,7 +29,7 @@
 
                 <div class="col-12 col-lg-auto">
                     <div class="sticky-top total" wire:ignore.self>
-                        <div class="pt-4">
+                        <div class="pt-3 pt-lg-4">
                             <div class="bg-white border border-light border-4 rounded-4 shadow-sm p-3">
                                 @if (auth()->check() && $this->cartForm->country['id'] == 1 && auth()->user()->catalog_user_type_id == 3)
                                     <div class="mb-2">
