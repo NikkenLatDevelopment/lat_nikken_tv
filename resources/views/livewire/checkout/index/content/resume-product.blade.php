@@ -15,7 +15,7 @@
                             @else <div class="h6 small text-warning fw-bold mb-0">Entrega Postergada</div> @endif
                         </div>
 
-                        <div class="small text-black-50 opacity-50 lh-sm mb-2 mb-sm-0">Código: <span class="h6 small fw-bold mb-0">{{ $product['sku'] }}</span></div>
+                        <div class="small text-black-50 opacity-50 lh-sm">Código: <span class="h6 small fw-bold mb-0">{{ $product['sku'] }}</span></div>
                     </div>
                 </div>
             </a>
@@ -23,12 +23,14 @@
 
         <div class="col-12 col-sm-5 col-md-6 text-center text-md-start">
             <div class="row gx-2 align-items-center">
-                <div class="col-12 col-md order-2 order-md-1"><div class="mt-3 mt-md-0"><span class="h6 small text-black-50 opacity-75 fw-bold d-md-none mb-0">Precio:</span> <span class="h6">{{ $product['priceText'] }}</span></div></div>
+                <div class="col-12 col-md order-2 order-md-1"><span class="h6 small text-black-50 opacity-75 fw-bold d-md-none mb-0">Precio:</span> <span class="h6">{{ $product['priceText'] }}</span></div>
 
                 <div class="col-12 col-md order-1 order-md-2">
-                    <span class="h6 small text-black-50 opacity-75 fw-bold d-md-none mb-0 me-1">Cantidad:</span>
+                    <hr class="text-secondary opacity-75 d-md-none">
 
-                    <div class="border @if ($product['available'] == 0) border-warning @else border-success @endif border-2 rounded-2 d-inline-block py-0 py-xl-1 mx-auto mx-md-0 mt-2 mt-sm-0 quantity">
+                    <span class="h6 small text-black-50 opacity-75 fw-bold d-md-none me-1">Cantidad:</span>
+
+                    <div class="border @if ($product['available'] == 0) border-warning @else border-success @endif border-2 rounded-2 d-inline-block py-0 py-xl-1 mx-auto mx-md-0 quantity">
                         <div class="row gx-0 align-items-center" x-data="{ quantity: $wire.entangle('product.quantity').live }">
                             <div class="col"><input type="number" class="form-control text-muted fw-bold text-center border-0 shadow-none px-0 ms-3 py-2" x-bind:value="quantity" wire:model.live="product.quantity" readonly></div>
 
@@ -38,6 +40,8 @@
                             </div>
                         </div>
                     </div>
+
+                    <hr class="text-secondary opacity-75 d-md-none">
                 </div>
 
                 <div class="col-12 col-md order-3 order-md-3"><span class="h6 small text-black-50 opacity-75 fw-bold d-md-none mb-0">Total:</span> <span class="h5 @if ($product['available'] == 0) text-warning @else text-success @endif fw-bold mb-0">{{ $product['totalText'] }}</span></div>
