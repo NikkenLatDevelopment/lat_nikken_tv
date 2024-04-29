@@ -34,11 +34,8 @@
                         </div>
 
                         <div class="col-12 col-lg-6">
-                            @if ($available == 1)
-                                <div class="badge text-success border border-2 border-success py-2 mt-3 mt-lg-0">Disponible</div>
-                            @else
-                                <div class="badge text-warning border border-2 border-warning py-2 mt-3 mt-lg-0">Entrega Postergada</div>
-                            @endif
+                            @if ($available == 1) <div class="badge text-success border border-2 border-success py-2 mt-3 mt-lg-0">Disponible</div>
+                            @else <div class="badge text-warning border border-2 border-warning py-2 mt-3 mt-lg-0">Entrega Postergada</div> @endif
 
                             <div class="row d-flex align-items-center">
                                 <div class="col"><h1 class="text-dark fw-bold lh-1 my-2">{{ $product['name'] }}</h1></div>

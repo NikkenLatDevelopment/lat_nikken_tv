@@ -2,13 +2,39 @@
 @import 'app.scss';
 
 .checkout {
-    .products {
-        img {
-            max-width: 80px;
-        }
+    .resume {
+        .products {
+            img {
+                max-width: 80px;
+            }
 
-        .quantity {
-            max-width: 95px;
+            .quantity {
+                max-width: 95px;
+            }
+        }
+    }
+
+    .total {
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .checkout {
+        .total {
+            max-width: 100%;
+        }
+    }
+}
+
+@media (max-width: 1199.98px) {
+    .checkout {
+        .resume {
+            .products {
+                .quantity {
+                    max-width: 70px;
+                }
+            }
         }
     }
 }

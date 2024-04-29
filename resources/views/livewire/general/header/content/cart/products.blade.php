@@ -12,11 +12,8 @@
                             <div class="col text-truncate">
                                 <div class="h6 fw-semibold text-truncate lh-1 mb-0 pe-5">{{ $product['name'] }}</div>
 
-                                @if ($product['available'] == 1)
-                                    <div class="h6 small text-success fw-bold mb-0">Disponible</div>
-                                @else
-                                    <div class="h6 small text-warning fw-bold mb-0">Entrega Postergada</div>
-                                @endif
+                                @if ($product['available'] == 1) <div class="h6 small text-success fw-bold mb-0">Disponible</div>
+                                @else <div class="h6 small text-warning fw-bold mb-0">Entrega Postergada</div> @endif
 
                                 <div class="mt-1 lh-sm"><span class="text-black-50 opacity-75 fw-bold">{{ $product['quantity'] }} x</span> <span class="h5 fw-bold mb-0">{{ $product['priceText'] }}</span></div>
                                 <div class="badge small text-black-50 opacity-50 text-start d-block p-0 m-0">Total: {{ $product['totalText'] }}</div>

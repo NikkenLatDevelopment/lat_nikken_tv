@@ -10,11 +10,8 @@
                     <div class="h6 text-dark fw-bold mb-0">{{ $product['name'] }}</div>
 
                     <div class="mb-2">
-                        @if ($product['available'] == 1)
-                            <div class="h6 small text-success fw-bold mb-0">Disponible</div>
-                        @else
-                            <div class="h6 small text-warning fw-bold mb-0">Entrega Postergada</div>
-                        @endif
+                        @if ($product['available'] == 1) <div class="h6 small text-success fw-bold mb-0">Disponible</div>
+                        @else <div class="h6 small text-warning fw-bold mb-0">Entrega Postergada</div> @endif
                     </div>
 
                     <div class="small text-black-50 opacity-50">Código: <span class="h6 small fw-bold mb-0">{{ $product['sku'] }}</span></div>
@@ -22,10 +19,10 @@
             </div>
         </div>
 
-        <div class="col"><span class="h6">{{ $product['priceText'] }}</span></div>
+        <div class="col-2"><span class="h6">{{ $product['priceText'] }}</span></div>
 
-        <div class="col">
-            <div class="border @if ($product['available'] == 0) border-warning @else border-success @endif border-2 rounded-2 py-1 quantity">
+        <div class="col-2">
+            <div class="border @if ($product['available'] == 0) border-warning @else border-success @endif border-2 rounded-2 py-0 py-xl-1 quantity">
                 <div class="row gx-0 align-items-center" x-data="{ quantity: $wire.entangle('product.quantity').live }">
                     <div class="col"><input type="number" class="form-control text-muted fw-bold text-center border-0 shadow-none px-0 ms-2 ms-sm-3 py-2" x-bind:value="quantity" wire:model.live="product.quantity" readonly></div>
 
@@ -37,7 +34,7 @@
             </div>
         </div>
 
-        <div class="col"><span class="h5 @if ($product['available'] == 0) text-warning @else text-success @endif fw-bold mb-0">{{ $product['totalText'] }}</span></div>
-        <div class="col-auto"><button class="btn btn-link link-primary opacity-50 text-decoration-none" wire:click="$dispatch('checkout.index.content.main.removeProduct', { productId: {{ $product['id'] }} })"><i class="fi fi-br-trash"></i></button></div>
+        <div class="col-2"><span class="h5 @if ($product['available'] == 0) text-warning @else text-success @endif fw-bold mb-0">{{ $product['totalText'] }}</span></div>
+        <div class="col-1"><button class="btn btn-link link-primary opacity-50 text-decoration-none" wire:click="$dispatch('checkout.index.content.main.removeProduct', { productId: {{ $product['id'] }} })"><i class="fi fi-br-trash"></i></button></div>
     </div>
 </div>
