@@ -37,10 +37,6 @@ Route::middleware([ DetermineUserLocation::class ])->group(function () {
     Route::get('/registrarme', function () { echo 'Hello World - auth.create'; })->name('auth.create');
     //Registro //TODO: !!!! Pendiente
 
-    //Cerrar sesión
-    Route::get('/cerrar-sesion', [ AuthController::class, 'destroy' ])->name('auth.destroy');
-    //Cerrar sesión
-
     //Contacto //TODO: !!!! Pendiente
     Route::get('/contacto', function () { echo 'Hello World - contact.show'; })->name('contact.show');
     //Contacto //TODO: !!!! Pendiente
@@ -82,7 +78,13 @@ Route::middleware([ DetermineUserLocation::class ])->group(function () {
     Route::get('/temporal/logout', [ TemporalController::class, 'logout' ]);
     //Eliminar // ! TODO: !!!! Eliminar
 
-    //Checkout
-    Route::get('/checkout', [ CheckoutController::class, 'index' ])->name('checkout.index');
-    //Checkout
+    Route::middleware('auth')->group(function(){
+        //Cerrar sesión
+        Route::get('/cerrar-sesion', [ AuthController::class, 'destroy' ])->name('auth.destroy');
+        //Cerrar sesión
+
+        //Checkout
+        Route::get('/checkout', [ CheckoutController::class, 'index' ])->name('checkout.index');
+        //Checkout
+    });
 });
