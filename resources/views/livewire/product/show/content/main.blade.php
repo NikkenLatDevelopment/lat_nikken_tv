@@ -30,8 +30,12 @@
                         </div>
 
                         <div class="col-12 col-lg-6">
-                            @if ($available == 1) <div class="badge text-success border border-2 border-success py-2 mt-3 mt-lg-0">Disponible</div>
-                            @else <div class="badge text-warning border border-2 border-warning py-2 mt-3 mt-lg-0">Entrega Postergada</div> @endif
+                            <div class="d-flex align-items-center">
+                                @if ($available == 1) <div class="badge text-success border border-2 border-success d-flex align-items-center justify-content-center py-2 mt-3 mt-lg-0"><i class="fi fi-br-check-circle position-relative custom i-top-4 me-1"></i> Disponible</div>
+                                @else <div class="badge text-warning border border-2 border-warning d-flex align-items-center justify-content-center py-2 mt-3 mt-lg-0"><i class="fi fi-rr-light-emergency-on me-1"></i> Entrega Postergada</div> @endif
+
+                                <div class="badge text-dark border border-2 border-dark d-flex align-items-center justify-content-center py-2 mt-3 mt-lg-0 ms-2"><i class="fi fi-br-shipping-fast position-relative custom i-top-4 me-1"></i> Envío gratis</div>
+                            </div>
 
                             <div class="row align-items-center">
                                 <div class="col"><h1 class="text-dark fw-bold lh-1 my-2">{{ $product['name'] }}</h1></div>
