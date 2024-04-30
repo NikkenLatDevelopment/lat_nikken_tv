@@ -40,7 +40,7 @@ class Products extends Component
         ->with([
             'product',
             'product.catalogProductBrand',
-            'product.productComponents.product' => fn ($query) => $query->select('id', 'sku', 'name', 'stock', 'stock_applies', 'available_until')
+            'product.productComponents.product' => fn ($query) => $query->availabilityData()
         ])
         ->whereHas('product', fn($query) => $query->active($this->country['id']))
         ->country($this->country['id'])

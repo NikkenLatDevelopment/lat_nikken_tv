@@ -195,7 +195,7 @@ class Main extends Component
         $product = Product::basicData()
         ->with([
             'catalogProductBrand',
-            'productComponents.product' => fn ($query) => $query->select('id', 'sku', 'name', 'stock', 'stock_applies', 'available_until')
+            'productComponents.product' => fn ($query) => $query->availabilityData()
         ])
         ->active($this->country['id'])
         ->find($productId);

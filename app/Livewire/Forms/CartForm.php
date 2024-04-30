@@ -172,7 +172,11 @@ class CartForm extends Form
         }
 
         //Obtener información del producto
-        $product = Product::find($productId);
+        $product = Product::basicData()
+        ->with([
+            'catalogProductBrand',
+            'productComponents.product' => fn ($query) => $query->availabilityData(),
+        ])->find($productId);
 
         if ($product) {
             //Actualizar información del producto

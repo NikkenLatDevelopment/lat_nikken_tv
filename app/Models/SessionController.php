@@ -66,7 +66,7 @@ class SessionController
             //Consultar información del producto
             $product = Product::with([
                 'catalogProductBrand',
-                'productComponents.product' => fn ($query) => $query->select('id', 'sku', 'name', 'stock', 'stock_applies', 'available_until')
+                'productComponents.product' => fn ($query) => $query->availabilityData()
             ])
             ->active($this->session->get('country.id'))
             ->find($productId);
@@ -93,7 +93,7 @@ class SessionController
         ->with([
             'product',
             'product.catalogProductBrand',
-            'product.productComponents.product' => fn ($query) => $query->select('id', 'sku', 'name', 'stock', 'stock_applies', 'available_until')
+            'product.productComponents.product' => fn ($query) => $query->availabilityData()
         ])
         ->whereHas('product', fn($query) => $query->active($this->session->get('country.id')))
         ->country($this->session->get('country.id'))
@@ -113,7 +113,7 @@ class SessionController
         //Consultar información de los productos
         $products = Product::with([
             'catalogProductBrand',
-            'productComponents.product' => fn ($query) => $query->select('id', 'sku', 'name', 'stock', 'stock_applies', 'available_until')
+            'productComponents.product' => fn ($query) => $query->availabilityData()
         ])
         ->active($this->session->get('country.id'))
         ->whereIn('id', $productIds)

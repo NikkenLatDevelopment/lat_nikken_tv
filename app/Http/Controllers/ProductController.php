@@ -40,7 +40,7 @@ class ProductController extends Controller
         $product = Product::basicData()
         ->with([
             'catalogProductBrand',
-            'productComponents.product' => fn ($query) => $query->select('id', 'sku', 'name', 'stock', 'stock_applies', 'available_until'),
+            'productComponents.product' => fn ($query) => $query->availabilityData(),
         ])
         ->where('slug', $productSlug)
         ->active($country['id'], $brandSlug)
