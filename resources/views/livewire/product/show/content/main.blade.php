@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col">
                     <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%23c7c7c7'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-                        <ol class="breadcrumb my-3">
+                        <ol class="breadcrumb my-3 py-1">
                             <li class="breadcrumb-item me-2"><a href="{{ route('home') }}" class="h6 small link-success fw-semibold">Inicio</a></li>
                             <li class="breadcrumb-item me-2"><a href="{{ route('category.show', $product['catalog_product_brand']['slug']) }}" class="h6 small link-success fw-semibold ms-2">{{ $product['catalog_product_brand']['name'] }}</a></li>
                             <li class="breadcrumb-item active" aria-current="page"><span class="h6 small text-primary fw-semibold ms-2">{{ $product['name'] }}</span></li>
@@ -34,7 +34,7 @@
                                 @if ($available == 1) <div class="badge text-success border border-2 border-success d-flex align-items-center justify-content-center py-2 mt-3 mt-lg-0"><i class="fi fi-br-check-circle position-relative custom i-top-4 me-1"></i> Disponible</div>
                                 @else <div class="badge text-warning border border-2 border-warning d-flex align-items-center justify-content-center py-2 mt-3 mt-lg-0"><i class="fi fi-rr-light-emergency-on me-1"></i> Entrega Postergada</div> @endif
 
-                                <div class="badge text-dark border border-2 border-dark d-flex align-items-center justify-content-center py-2 mt-3 mt-lg-0 ms-2"><i class="fi fi-br-shipping-fast position-relative custom i-top-4 me-1"></i> Envío gratis</div>
+                                <div class="badge text-dark border border-2 border-dark d-flex align-items-center justify-content-center py-2 mt-3 mt-lg-0 ms-2"><i class="fi fi-br-shipping-fast position-relative custom i-top-4 me-1"></i>Envío gratis</div>
                             </div>
 
                             <div class="row align-items-center">
@@ -291,13 +291,17 @@
                                         <ul class="nav nav-pills my-3" role="tablist">
                                             @if ($product['description'] != null)
                                                 <li class="nav-item" role="presentation">
-                                                    <button class="btn h5 fw-bold border border-secondary rounded-4 px-3 py-2 me-2 btn-outline-primary-custom-1 animation-hover-up @if ($product['description'] != null) active @endif" id="product-description-general-tab" data-bs-toggle="pill" data-bs-target="#product-description-general" type="button" role="tab" aria-controls="product-description-general" aria-selected="@if ($product['description'] != null) true @else false @endif"><i class="fi fi-sr-comment-info me-1"></i> Descripción</button>
+                                                    <button class="btn h5 fw-bold border border-secondary rounded-4 px-3 py-2 me-2 btn-outline-primary-custom-1 animation-hover-up @if ($product['description'] != null) active @endif" id="product-description-general-tab" data-bs-toggle="pill" data-bs-target="#product-description-general" type="button" role="tab" aria-controls="product-description-general" aria-selected="@if ($product['description'] != null) true @else false @endif">
+                                                        <i class="fi fi-sr-comment-info position-relative custom i-top-2 me-2"></i>Descripción
+                                                    </button>
                                                 </li>
                                             @endif
 
                                             @if ($product['maintenance'] != null)
                                                 <li class="nav-item" role="presentation">
-                                                    <button class="btn h5 fw-bold border border-secondary rounded-4 px-3 py-2 me-2 btn-outline-primary-custom-1 animation-hover-up @if ($product['description'] == null) active @endif" id="product-description-maintenance-tab" data-bs-toggle="pill" data-bs-target="#product-description-maintenance" type="button" role="tab" aria-controls="product-description-maintenance" aria-selected="@if ($product['description'] == null) true @else false @endif"><i class="fi fi-br-shuffle me-2"></i>Mantenimiento</button>
+                                                    <button class="btn h5 fw-bold border border-secondary rounded-4 px-3 py-2 me-2 btn-outline-primary-custom-1 animation-hover-up @if ($product['description'] == null) active @endif" id="product-description-maintenance-tab" data-bs-toggle="pill" data-bs-target="#product-description-maintenance" type="button" role="tab" aria-controls="product-description-maintenance" aria-selected="@if ($product['description'] == null) true @else false @endif">
+                                                        <i class="fi fi-br-shuffle position-relative custom i-top-2 me-2"></i>Mantenimiento
+                                                    </button>
                                                 </li>
                                             @endif
                                         </ul>

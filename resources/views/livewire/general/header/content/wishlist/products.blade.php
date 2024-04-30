@@ -15,7 +15,7 @@
                             @if ($product['available'] == 1) <div class="h6 small text-success fw-bold mb-0">Disponible</div>
                             @else <div class="h6 small text-warning fw-bold mb-0">Entrega Postergada</div> @endif
 
-                            <div class="small mt-1 custom padding-top-1"><i class="fi fi-br-shipping-fast position-relative custom i-top-2 me-1"></i> Envío gratis</div>
+                            <div class="small mt-1 custom padding-top-1"><i class="fi fi-br-shipping-fast position-relative custom i-top-2 me-1"></i>Envío gratis</div>
 
                             <div class="h5 fw-bold mb-0 mt-1">{{ $product['price'] }}</div>
                         </div>

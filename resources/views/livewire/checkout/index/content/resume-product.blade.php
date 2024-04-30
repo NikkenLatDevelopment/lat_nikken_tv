@@ -18,7 +18,7 @@
                                 @else <div class="h6 small text-warning fw-bold mb-0">Entrega Postergada</div> @endif
                             </div>
 
-                            <div class="small mt-2 lh-1"><i class="fi fi-br-shipping-fast position-relative custom i-top-2 me-1"></i> Envío gratis</div>
+                            <div class="small mt-2 lh-1"><i class="fi fi-br-shipping-fast position-relative custom i-top-2 me-1"></i>Envío gratis</div>
                             <div class="small text-black-50 opacity-50 lh-sm">Código: <span class="h6 small fw-bold mb-0">{{ $product['sku'] }}</span></div>
                         </div>
                     </div>

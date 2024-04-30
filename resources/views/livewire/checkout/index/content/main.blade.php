@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col">
                     <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%23c7c7c7'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-                        <ol class="breadcrumb my-3">
+                        <ol class="breadcrumb my-3 py-1">
                             <li class="breadcrumb-item me-2"><a href="{{ route('home') }}" class="h6 small link-success fw-semibold">Inicio</a></li>
                             <li class="breadcrumb-item active" aria-current="page"><span class="h6 small text-primary fw-semibold ms-2">Checkout</span></li>
                         </ol>
@@ -18,7 +18,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-lg">
-                    <section class="mt-3 resume">
+                    <section class="mt-4 resume">
                         <x-checkout.resume />
                     </section>
 
@@ -29,7 +29,7 @@
 
                 <div class="col-12 col-lg-auto">
                     <div class="sticky-top total" wire:ignore.self>
-                        <div class="pt-3 pt-lg-4">
+                        <div class="pt-2 pt-lg-4 mt-0 mt-lg-2">
                             <div class="bg-white border border-light border-4 rounded-4 shadow-sm p-3">
                                 @if (auth()->check() && $this->cartForm->country['id'] == 1 && auth()->user()->catalog_user_type_id == 3)
                                     <div class="mb-2">

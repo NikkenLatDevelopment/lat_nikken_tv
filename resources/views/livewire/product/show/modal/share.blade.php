@@ -10,7 +10,7 @@
 
                     <div class="input-group rounded-3 overflow-hidden mb-3">
                         <div class="form-floating">
-                            <input type="text" class="form-control text-dark fw-bold text-decoration-underline bg-light border-end-0 border-light shadow-none" id="product-share-url" placeholder="Link" value="{{ $currentUrl }}">
+                            <input type="text" class="form-control fw-bold text-decoration-underline bg-light border-end-0 border-light shadow-none" id="product-share-url" placeholder="Link" value="{{ $currentUrl }}">
                             <label for="product-share-url">Link</label>
                         </div>
 
