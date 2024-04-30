@@ -11,7 +11,7 @@ class CatalogCountry extends Model
 
     public function scopeSessionData() {
         //Obtener información necesaria para la sesión
-        return $this->select('id', 'code', 'name', 'vat', 'currency_symbol', 'currency_decimal');
+        return $this->select('id', 'code', 'name', 'abbrev', 'vat', 'currency_symbol', 'currency_decimal');
     }
 
     public function scopeClosed($query) {

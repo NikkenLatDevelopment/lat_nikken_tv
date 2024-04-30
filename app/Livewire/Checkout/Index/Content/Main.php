@@ -6,8 +6,8 @@ use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Locked;
 use App\Livewire\Forms\CartForm;
-use App\Livewire\Forms\AddressForm;
 use App\Models\SessionController;
+use App\Livewire\Forms\AddressForm;
 
 class Main extends Component
 {
@@ -16,7 +16,13 @@ class Main extends Component
 
     public CartForm $cartForm;
     public AddressForm $addressForm;
+
     public bool $discountSuggestedPrice = false;
+
+    public int $postalCode;
+    public string $state;
+    public string $municipality;
+    public string $colony;
 
     public function render()
     {
@@ -27,14 +33,24 @@ class Main extends Component
     public function mount(SessionController $sessionController) {
         //Obtener información del país
         $this->country = $sessionController->getCountry()->toArray();
-        $this->cartForm->country = $this->country;
 
         //Obtener información del sugerido con descuento
         $this->discountSuggestedPrice = $sessionController->getDiscountSuggestedPrice();
+
+        //Iniciar formulario carrito de compras
+        $this->cartForm->country = $this->country;
         $this->cartForm->discountSuggestedPrice = $this->discountSuggestedPrice;
 
         //Obtener productos del carrito de compras
         $this->getProducts($sessionController);
+
+        //Iniciar formulario dirección
+        $this->addressForm->country = $this->country;
+
+        if ($this->country['id'] != 2) {
+            //Obtener catálogo de estados
+            $this->addressForm->getCatalogStates();
+        }
     }
 
     public function getProducts(SessionController $sessionController) {
@@ -113,5 +129,46 @@ class Main extends Component
 
         //Calcular totales
         $this->getTotals();
+    }
+
+    public function updatedState() {
+        //Validar información
+        $this->validate([ 'state' => 'required|string|max:60' ]);
+
+        //Limpiar municipio
+        $this->municipality = '';
+
+        //Obtener catálogo de municipios
+        $this->addressForm->getCatalogMunicipalities($this->state);
+    }
+
+    public function updatedMunicipality() {
+        if (in_array($this->country['id'], [ 3, 4, 5, 8, 10 ])) {
+            //Validar información
+            $this->validate([ 'municipality' => 'required|string|max:60' ]);
+
+            //Limpiar colonia
+            $this->colony = '';
+
+            //Obtener catálogo de colonias
+            $this->addressForm->getCatalogColonies($this->state, $this->municipality);
+        }
+    }
+
+    public function updatedPostalCode() {
+        //Validar información
+        $this->validate([ 'postalCode' => 'required|max:5|min:5' ], [], [ 'postalCode' => 'código postal' ]);
+
+        //Limpiar estado
+        $this->state = '';
+
+        //Limpiar municipio
+        $this->municipality = '';
+
+        //Limpiar colonia
+        $this->colony = '';
+
+        //Obtener catálogo de colonias
+        $this->addressForm->getCatalogMex($this->postalCode);
     }
 }

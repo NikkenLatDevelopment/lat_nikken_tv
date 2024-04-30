@@ -315,6 +315,10 @@ button, a {
         top: 1px;
     }
 
+    &.i-top-5 {
+        top: -1px;
+    }
+
     &.cursor-pointer {
         cursor: pointer;
     }

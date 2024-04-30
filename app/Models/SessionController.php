@@ -192,16 +192,16 @@ class SessionController
 }
 
 class SessionControllerCountry {
-    public function __construct(public int $id, public string $code, public string $name, public float $vat, public string $currency_symbol, public int $currency_decimal) {}
+    public function __construct(public int $id, public string $code, public string $name, public string $abbrev, public float $vat, public string $currency_symbol, public int $currency_decimal) {}
 
     public static function toObject(array $country): object {
         //Generar objeto
-        return new self(id: $country['id'], code: $country['code'], name: $country['name'], vat: $country['vat'], currency_symbol: $country['currency_symbol'], currency_decimal: $country['currency_decimal']);
+        return new self(id: $country['id'], code: $country['code'], name: $country['name'], abbrev: $country['abbrev'], vat: $country['vat'], currency_symbol: $country['currency_symbol'], currency_decimal: $country['currency_decimal']);
     }
 
     public function toArray(): array {
         //Generar array
-        return [ 'id' => $this->id, 'code' => $this->code, 'name' => $this->name, 'vat' => $this->vat, 'currency_symbol' => $this->currency_symbol, 'currency_decimal' => $this->currency_decimal ];
+        return [ 'id' => $this->id, 'code' => $this->code, 'name' => $this->name, 'abbrev' => $this->abbrev, 'vat' => $this->vat, 'currency_symbol' => $this->currency_symbol, 'currency_decimal' => $this->currency_decimal ];
     }
 }
 
