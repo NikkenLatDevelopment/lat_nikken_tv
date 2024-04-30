@@ -18,58 +18,77 @@
 <div class="tab-content border-top border-secondary pt-4">
     <div class="tab-pane fade show active" id="product-description-general" role="tabpanel" aria-labelledby="product-description-general-tab" tabindex="0">
         <div class="row gx-3">
-            <div class="col-4">
+            <div class="col-12 col-sm-6">
                 <div class="form-floating mb-3">
                     <input type="email" class="form-control" id="checkout-address-addresses" placeholder="Destinatario *">
                     <label for="checkout-address-addresses">Destinatario *</label>
                 </div>
             </div>
 
-            <div class="col-4">
-                <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="checkout-address-cellular" placeholder="Número de Celular *">
-                    <label for="checkout-address-cellular">Número de Celular *</label>
-                </div>
-            </div>
-
-            <div class="col-4">
+            <div class="col-12 col-sm-6">
                 <div class="form-floating mb-3">
                     <input type="email" class="form-control" id="checkout-address-email" placeholder="Correo Electrónico *">
                     <label for="checkout-address-email">Correo Electrónico *</label>
                 </div>
             </div>
 
-            <div class="col-8">
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-cellular" placeholder="Teléfono Celular *">
+                    <label for="checkout-address-cellular">Teléfono Celular *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-phone" placeholder="Teléfono Fijo">
+                    <label for="checkout-address-phone">Teléfono Fijo</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-12">
                 <div class="form-floating mb-3">
                     <input type="email" class="form-control" id="checkout-address-addresses" placeholder="Dirección *">
                     <label for="checkout-address-addresses">Dirección *</label>
                 </div>
             </div>
 
-            <div class="col-4">
+            <div class="col-12 col-sm-6">
                 <div class="form-floating mb-3">
                     <input type="email" class="form-control" id="checkout-address-complement" placeholder="Complemento">
                     <label for="checkout-address-complement">Complemento</label>
                 </div>
             </div>
 
-            <div class="col-12">
+            <div class="col-12 col-sm-6">
                 <div class="form-floating mb-3">
                     <input type="email" class="form-control" id="checkout-address-reference" placeholder="Referencia">
                     <label for="checkout-address-reference">Referencia</label>
                 </div>
             </div>
 
-            <div class="col-6">
+            <div class="col-12 col-sm-6">
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="checkout-address-department" placeholder="Departamento *">
+                    <select class="form-select" id="checkout-address-department" aria-label="Departamento *">
+                        <option selected>Selecciona una opción</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
                     <label for="checkout-address-department">Departamento *</label>
                 </div>
             </div>
 
-            <div class="col-6">
+            <div class="col-12 col-sm-6">
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="checkout-address-city" placeholder="Ciudad *">
+                    <select class="form-select" id="checkout-address-city" aria-label="Ciudad *">
+                        <option selected>Selecciona una opción</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
                     <label for="checkout-address-city">Ciudad *</label>
                 </div>
             </div>

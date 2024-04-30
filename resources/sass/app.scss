@@ -50,6 +50,10 @@ button, a {
     transition: all .18s ease 0s, text-decoration .18s ease 0s;
 }
 
+.form-select:focus {
+    box-shadow: none;
+}
+
 .dropdown-toggle::after {
     content: "\f13c";
     font-family: uicons-regular-rounded !important;
