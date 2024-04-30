@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Locked;
 use App\Livewire\Forms\CartForm;
+use App\Livewire\Forms\AddressForm;
 use App\Models\SessionController;
 
 class Main extends Component
@@ -14,6 +15,7 @@ class Main extends Component
     public array $country = [];
 
     public CartForm $cartForm;
+    public AddressForm $addressForm;
     public bool $discountSuggestedPrice = false;
 
     public function render()
