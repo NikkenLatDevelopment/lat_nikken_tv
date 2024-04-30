@@ -4,11 +4,15 @@ namespace App\Livewire\Checkout\Index\Content;
 
 use Livewire\Component;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Locked;
 use App\Livewire\Forms\CartForm;
 use App\Models\SessionController;
 
 class Main extends Component
 {
+    #[Locked]
+    public array $country = [];
+
     public CartForm $cartForm;
     public bool $discountSuggestedPrice = false;
 
@@ -20,7 +24,8 @@ class Main extends Component
 
     public function mount(SessionController $sessionController) {
         //Obtener información del país
-        $this->cartForm->country = $sessionController->getCountry()->toArray();
+        $this->country = $sessionController->getCountry()->toArray();
+        $this->cartForm->country = $this->country;
 
         //Obtener información del sugerido con descuento
         $this->discountSuggestedPrice = $sessionController->getDiscountSuggestedPrice();

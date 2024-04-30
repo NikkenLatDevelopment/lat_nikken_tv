@@ -1,22 +1,5 @@
-<h2 class="h2 text-dark fw-bold lh-1 mb-0">Dirección de Envío</h2>
-<p class="mb-4">Tienes <span class="text-success fw-bold">5 direcciones</span> registradas en tu cuenta.</p>
-
-<ul class="nav nav-pills my-3" role="tablist">
-    <li class="nav-item" role="presentation">
-        <button class="btn h5 fw-bold border border-secondary rounded-4 px-3 py-2 me-2 btn-outline-primary-custom-1 animation-hover-up active" id="product-description-general-tab" data-bs-toggle="pill" data-bs-target="#product-description-general" type="button" role="tab" aria-controls="product-description-general" aria-selected="true">
-            <i class="fi fi-sr-map-pin position-relative custom i-top-2 me-1"></i>Nueva Dirección
-        </button>
-    </li>
-
-    <li class="nav-item" role="presentation">
-        <button class="btn h5 fw-bold border border-secondary rounded-4 px-3 py-2 me-2 btn-outline-primary-custom-1 animation-hover-up" id="product-description-maintenance-tab" data-bs-toggle="pill" data-bs-target="#product-description-maintenance" type="button" role="tab" aria-controls="product-description-maintenance" aria-selected="false">
-            <i class="fi fi-br-search position-relative custom i-top-2 me-2"></i>Direcciones Existentes
-        </button>
-    </li>
-</ul>
-
-<div class="tab-content border-top border-secondary pt-4">
-    <div class="tab-pane fade show active" id="product-description-general" role="tabpanel" aria-labelledby="product-description-general-tab" tabindex="0">
+@switch($this->country['id'])
+    @case(1)
         <div class="row gx-3">
             <div class="col-12 col-sm-6">
                 <div class="form-floating mb-3">
@@ -48,8 +31,8 @@
 
             <div class="col-12 col-sm-12">
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="checkout-address-addresses" placeholder="Dirección *">
-                    <label for="checkout-address-addresses">Dirección *</label>
+                    <input type="email" class="form-control" id="checkout-address-address" placeholder="Dirección *">
+                    <label for="checkout-address-address">Dirección *</label>
                 </div>
             </div>
 
@@ -69,32 +52,706 @@
 
             <div class="col-12 col-sm-6">
                 <div class="form-floating mb-3">
-                    <select class="form-select" id="checkout-address-department" aria-label="Departamento *">
+                    <select class="form-select" id="checkout-address-state" aria-label="Departamento *">
                         <option selected>Selecciona una opción</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
                     </select>
 
-                    <label for="checkout-address-department">Departamento *</label>
+                    <label for="checkout-address-state">Departamento *</label>
                 </div>
             </div>
 
             <div class="col-12 col-sm-6">
                 <div class="form-floating mb-3">
-                    <select class="form-select" id="checkout-address-city" aria-label="Ciudad *">
+                    <select class="form-select" id="checkout-address-municipality" aria-label="Ciudad *">
                         <option selected>Selecciona una opción</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
                     </select>
 
-                    <label for="checkout-address-city">Ciudad *</label>
+                    <label for="checkout-address-municipality">Ciudad *</label>
                 </div>
             </div>
         </div>
-    </div>
+        @break
 
-    <div class="tab-pane fade" id="product-description-maintenance" role="tabpanel" aria-labelledby="product-description-maintenance-tab" tabindex="0">2</div>
-</div>
+    @case(2)
+        <div class="row gx-3">
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-addresses" placeholder="Destinatario *">
+                    <label for="checkout-address-addresses">Destinatario *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-email" placeholder="Correo Electrónico *">
+                    <label for="checkout-address-email">Correo Electrónico *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-cellular" placeholder="Teléfono Celular *">
+                    <label for="checkout-address-cellular">Teléfono Celular *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-phone" placeholder="Teléfono Fijo">
+                    <label for="checkout-address-phone">Teléfono Fijo</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-12">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-address" placeholder="Dirección *">
+                    <label for="checkout-address-address">Dirección *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-reference" placeholder="Referencia">
+                    <label for="checkout-address-reference">Referencia</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-postal-code" placeholder="Código Postal *">
+                    <label for="checkout-address-postal-code">Código Postal *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="checkout-address-state" aria-label="Estado *">
+                        <option selected>Selecciona una opción</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
+                    <label for="checkout-address-state">Estado *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="checkout-address-municipality" aria-label="Municipio *">
+                        <option selected>Selecciona una opción</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
+                    <label for="checkout-address-municipality">Municipio *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="checkout-address-colony" aria-label="Colonia *">
+                        <option selected>Selecciona una opción</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
+                    <label for="checkout-address-colony">Colonia *</label>
+                </div>
+            </div>
+        </div>
+        @break
+
+    @case(3)
+        <div class="row gx-3">
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-addresses" placeholder="Destinatario *">
+                    <label for="checkout-address-addresses">Destinatario *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-email" placeholder="Correo Electrónico *">
+                    <label for="checkout-address-email">Correo Electrónico *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-cellular" placeholder="Teléfono Celular *">
+                    <label for="checkout-address-cellular">Teléfono Celular *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-phone" placeholder="Teléfono Fijo">
+                    <label for="checkout-address-phone">Teléfono Fijo</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-12">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-address" placeholder="Dirección *">
+                    <label for="checkout-address-address">Dirección *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-reference" placeholder="Referencia">
+                    <label for="checkout-address-reference">Referencia</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="checkout-address-state" aria-label="Departamento *">
+                        <option selected>Selecciona una opción</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
+                    <label for="checkout-address-state">Departamento *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="checkout-address-municipality" aria-label="Provincia *">
+                        <option selected>Selecciona una opción</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
+                    <label for="checkout-address-municipality">Provincia *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="checkout-address-colony" aria-label="Distrito *">
+                        <option selected>Selecciona una opción</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
+                    <label for="checkout-address-colony">Distrito *</label>
+                </div>
+            </div>
+        </div>
+        @break
+
+    @case(4)
+        <div class="row gx-3">
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-addresses" placeholder="Destinatario *">
+                    <label for="checkout-address-addresses">Destinatario *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-email" placeholder="Correo Electrónico *">
+                    <label for="checkout-address-email">Correo Electrónico *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-cellular" placeholder="Teléfono Celular *">
+                    <label for="checkout-address-cellular">Teléfono Celular *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-phone" placeholder="Teléfono Fijo">
+                    <label for="checkout-address-phone">Teléfono Fijo</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-12">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-address" placeholder="Dirección *">
+                    <label for="checkout-address-address">Dirección *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-reference" placeholder="Referencia">
+                    <label for="checkout-address-reference">Referencia</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="checkout-address-state" aria-label="Provincia *">
+                        <option selected>Selecciona una opción</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
+                    <label for="checkout-address-state">Provincia *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="checkout-address-municipality" aria-label="Ciudad *">
+                        <option selected>Selecciona una opción</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
+                    <label for="checkout-address-municipality">Ciudad *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="checkout-address-colony" aria-label="Parroquia *">
+                        <option selected>Selecciona una opción</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
+                    <label for="checkout-address-colony">Parroquia *</label>
+                </div>
+            </div>
+        </div>
+        @break
+
+    @case(5)
+        <div class="row gx-3">
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-addresses" placeholder="Destinatario *">
+                    <label for="checkout-address-addresses">Destinatario *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-email" placeholder="Correo Electrónico *">
+                    <label for="checkout-address-email">Correo Electrónico *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-cellular" placeholder="Teléfono Celular *">
+                    <label for="checkout-address-cellular">Teléfono Celular *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-phone" placeholder="Teléfono Fijo">
+                    <label for="checkout-address-phone">Teléfono Fijo</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-12">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-address" placeholder="Dirección *">
+                    <label for="checkout-address-address">Dirección *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-reference" placeholder="Referencia">
+                    <label for="checkout-address-reference">Referencia</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="checkout-address-state" aria-label="Provincia *">
+                        <option selected>Selecciona una opción</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
+                    <label for="checkout-address-state">Provincia *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="checkout-address-municipality" aria-label="Distrito *">
+                        <option selected>Selecciona una opción</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
+                    <label for="checkout-address-municipality">Distrito *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="checkout-address-colony" aria-label="Corregimiento *">
+                        <option selected>Selecciona una opción</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
+                    <label for="checkout-address-colony">Corregimiento *</label>
+                </div>
+            </div>
+        </div>
+        @break
+
+    @case(6)
+        <div class="row gx-3">
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-addresses" placeholder="Destinatario *">
+                    <label for="checkout-address-addresses">Destinatario *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-email" placeholder="Correo Electrónico *">
+                    <label for="checkout-address-email">Correo Electrónico *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-cellular" placeholder="Teléfono Celular *">
+                    <label for="checkout-address-cellular">Teléfono Celular *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-phone" placeholder="Teléfono Fijo">
+                    <label for="checkout-address-phone">Teléfono Fijo</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-12">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-address" placeholder="Dirección *">
+                    <label for="checkout-address-address">Dirección *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-12">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-reference" placeholder="Referencia">
+                    <label for="checkout-address-reference">Referencia</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="checkout-address-state" aria-label="Departamento *">
+                        <option selected>Selecciona una opción</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
+                    <label for="checkout-address-state">Departamento *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="checkout-address-municipality" aria-label="Municipio *">
+                        <option selected>Selecciona una opción</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
+                    <label for="checkout-address-municipality">Municipio *</label>
+                </div>
+            </div>
+        </div>
+        @break
+
+    @case(7)
+        <div class="row gx-3">
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-addresses" placeholder="Destinatario *">
+                    <label for="checkout-address-addresses">Destinatario *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-email" placeholder="Correo Electrónico *">
+                    <label for="checkout-address-email">Correo Electrónico *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-cellular" placeholder="Teléfono Celular *">
+                    <label for="checkout-address-cellular">Teléfono Celular *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-phone" placeholder="Teléfono Fijo">
+                    <label for="checkout-address-phone">Teléfono Fijo</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-12">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-address" placeholder="Dirección *">
+                    <label for="checkout-address-address">Dirección *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-12">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-reference" placeholder="Referencia">
+                    <label for="checkout-address-reference">Referencia</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="checkout-address-state" aria-label="Departamento *">
+                        <option selected>Selecciona una opción</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
+                    <label for="checkout-address-state">Departamento *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="checkout-address-municipality" aria-label="Municipio *">
+                        <option selected>Selecciona una opción</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
+                    <label for="checkout-address-municipality">Municipio *</label>
+                </div>
+            </div>
+        </div>
+        @break
+
+    @case(8)
+        <div class="row gx-3">
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-addresses" placeholder="Destinatario *">
+                    <label for="checkout-address-addresses">Destinatario *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-email" placeholder="Correo Electrónico *">
+                    <label for="checkout-address-email">Correo Electrónico *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-cellular" placeholder="Teléfono Celular *">
+                    <label for="checkout-address-cellular">Teléfono Celular *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-phone" placeholder="Teléfono Fijo">
+                    <label for="checkout-address-phone">Teléfono Fijo</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-12">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-address" placeholder="Dirección *">
+                    <label for="checkout-address-address">Dirección *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-reference" placeholder="Referencia">
+                    <label for="checkout-address-reference">Referencia</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="checkout-address-state" aria-label="Provincia *">
+                        <option selected>Selecciona una opción</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
+                    <label for="checkout-address-state">Provincia *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="checkout-address-municipality" aria-label="Cantón *">
+                        <option selected>Selecciona una opción</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
+                    <label for="checkout-address-municipality">Cantón *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="checkout-address-colony" aria-label="Distrito *">
+                        <option selected>Selecciona una opción</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
+                    <label for="checkout-address-colony">Distrito *</label>
+                </div>
+            </div>
+        </div>
+        @break
+
+    @case(10)
+        <div class="row gx-3">
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-addresses" placeholder="Destinatario *">
+                    <label for="checkout-address-addresses">Destinatario *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-email" placeholder="Correo Electrónico *">
+                    <label for="checkout-address-email">Correo Electrónico *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-cellular" placeholder="Teléfono Celular *">
+                    <label for="checkout-address-cellular">Teléfono Celular *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-phone" placeholder="Teléfono Fijo">
+                    <label for="checkout-address-phone">Teléfono Fijo</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-12">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-address" placeholder="Calle *">
+                    <label for="checkout-address-address">Calle *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-complement" placeholder="Número *">
+                    <label for="checkout-address-complement">Número *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-reference" placeholder="Referencia *">
+                    <label for="checkout-address-reference">Referencia *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="checkout-address-postal-code" placeholder="Código Postal *">
+                    <label for="checkout-address-postal-code">Código Postal *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="checkout-address-state" aria-label="Región *">
+                        <option selected>Selecciona una opción</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
+                    <label for="checkout-address-state">Región *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="checkout-address-municipality" aria-label="Ciudad *">
+                        <option selected>Selecciona una opción</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
+                    <label for="checkout-address-municipality">Ciudad *</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="checkout-address-colony" aria-label="Comuna *">
+                        <option selected>Selecciona una opción</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
+                    <label for="checkout-address-colony">Comuna *</label>
+                </div>
+            </div>
+        </div>
+        @break
+    @default
+@endswitch
 
