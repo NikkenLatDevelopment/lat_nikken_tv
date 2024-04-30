@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('catalog_product_brands', function (Blueprint $table) {
             $table->id();
-            $table->string('slug', 20)->unique();
-            $table->string('name', 20)->unique();
-            $table->string('alias', 20)->unique();
+            $table->string('slug', 40)->unique();
+            $table->string('name', 40)->unique();
+            $table->string('alias', 40)->unique();
             $table->tinyInteger('status')->index()->default(1);
             $table->timestamps();
         });

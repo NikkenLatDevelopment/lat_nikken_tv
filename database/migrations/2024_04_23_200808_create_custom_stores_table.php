@@ -14,9 +14,12 @@ return new class extends Migration
         Schema::create('custom_stores', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->string('name')->unique();
+            $table->string('name', 60)->unique();
             $table->tinyInteger('status')->index()->default(1);
             $table->timestamps();
+
+            //No permitir tiendas personalizadas duplicadas
+            $table->unique([ 'user_id', 'name' ]);
         });
     }
 
