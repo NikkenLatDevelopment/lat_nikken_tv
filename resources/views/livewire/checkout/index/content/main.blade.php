@@ -21,6 +21,10 @@
                     <section class="mt-3 resume">
                         <x-checkout.resume />
                     </section>
+
+                    <section class="mt-5 address">
+                        <x-checkout.address />
+                    </section>
                 </div>
 
                 <div class="col-12 col-lg-auto">
