@@ -1,4 +1,4 @@
-<h1 class="text-dark fw-bold lh-1 mb-0">Checkout</h1>
+<h1 class="text-dark fw-bold lh-1 mb-0">Resumen</h1>
 <p class="mb-4">Tienes <span class="text-success fw-bold">{{ $this->cartForm->quantity }} @choice('producto|productos', $this->cartForm->quantity)</span> en tu carrito de compras.</p>
 
 <div class="bg-light rounded-3 p-3">
