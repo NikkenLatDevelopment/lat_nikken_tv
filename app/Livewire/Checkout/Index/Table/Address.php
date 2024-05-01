@@ -14,10 +14,13 @@ class Address extends Component
     #[Locked]
     public int $countryId;
 
+    public string $search = '';
+
     public function render()
     {
         //Obtener direcciones del usuario
         $userAddresses = auth()->user()->userAddresses()
+        ->search($this->search)
         ->country($this->countryId)
         ->status()
         ->latest()

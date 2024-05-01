@@ -4,7 +4,7 @@
 
     <div class="input-group border border-1 border-secondary rounded-3 mb-3">
         <div class="form-floating">
-            <input type="text" class="form-control bg-transparent border-0 shadow-none" id="checkout-index-table-address-search" placeholder="Buscar..." autocomplete="off">
+            <input type="text" class="form-control bg-transparent border-0 shadow-none" id="checkout-index-table-address-search" wire:model.live.debounce.500ms="search" placeholder="Buscar..." autocomplete="off">
             <label for="checkout-index-table-address-search" class="text-muted">Buscar...</label>
         </div>
 
