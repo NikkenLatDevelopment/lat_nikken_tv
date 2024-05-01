@@ -345,3 +345,14 @@ button, a {
         transform-origin: 50% 4px;
     }
 }
+
+@media (max-width: 767.98px) {
+    .animation-hover-up {
+        transition: none;
+
+        &:hover {
+            transform: none;
+            transition: none;
+        }
+    }
+}
