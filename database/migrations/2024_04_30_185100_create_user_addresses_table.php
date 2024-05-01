@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('user_addresses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
+            $table->foreignId('catalog_country_id')->constrained();
             $table->string('name', 60)->index()->nullable();
             $table->string('address', 100)->index();
             $table->string('complement_address', 100)->index()->nullable();

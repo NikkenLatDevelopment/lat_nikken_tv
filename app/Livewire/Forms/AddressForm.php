@@ -27,7 +27,10 @@ class AddressForm extends Form
         if (!auth()->check()) { return false; }
 
         //Obtener la cantidad de direcciones registradas
-        $this->totalAddresses = auth()->user()->userAddresses()->status()->count();
+        $this->totalAddresses = auth()->user()->userAddresses()
+        ->country($this->country['id'])
+        ->status()
+        ->count();
     }
 
     public function getCatalogStates() {
