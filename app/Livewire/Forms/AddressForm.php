@@ -20,6 +20,8 @@ class AddressForm extends Form
     #[Locked]
     public array $catalogColonies = [];
 
+    public bool $saveAddress = true;
+
     public function getCatalogStates() {
         //Iniciar petición
         $client = new Client();
