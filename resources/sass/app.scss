@@ -262,6 +262,11 @@ button, a {
     @include button-outline-variant($body-color, white, lighten($success, 5%), white, white);
 }
 
+.btn-outline-dark-custom-1 {
+    @include button-outline-variant($dark, white, lighten($dark, 5%), white, white);
+    @include button-size(0.8rem, 1.4rem, $font-size-base, $btn-border-radius);
+}
+
 .btn-outline-warning-custom-1 {
     @include button-outline-variant($body-color, white, lighten($warning, 5%), white, white);
 }

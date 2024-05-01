@@ -89,8 +89,8 @@
 
                                 <hr class="text-secondary opacity-75">
 
-                                <a href="#" class="btn h6 text-white fw-bold w-100 mb-2 btn-success-custom-1">Finalizar Compra</a>
-                                <a href="{{ route('product.index') }}" class="btn h6 text-white fw-bold w-100 mb-0 btn-dark-custom-1">Continuar Comprando</a>
+                                <a href="#" class="btn h6 text-white fw-bold w-100 mb-2 btn-success-custom-1">Pagar {{ $this->cartForm->totalText }}</a>
+                                <a href="#" class="btn h6 fw-bold w-100 mb-0 btn-outline-dark-custom-1">Generar Cotización</a>
                             </div>
                         </div>
                     </div>
