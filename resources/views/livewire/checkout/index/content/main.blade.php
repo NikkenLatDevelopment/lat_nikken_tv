@@ -24,6 +24,11 @@
 
                     <section class="mt-4 pt-4 address" id="addresses">
                         <x-checkout.address />
+                        <hr class="text-secondary opacity-75">
+                    </section>
+
+                    <section class="mt-4 pt-4 payment">
+                        <x-checkout.payment />
                     </section>
                 </div>
 
