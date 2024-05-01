@@ -250,6 +250,29 @@
                                     </div>
                                 </div>
 
+                                @if (auth()->check() && auth()->user()->catalog_user_type_id == 3)
+                                    <div class="me-4">
+                                        <div class="row gx-2">
+                                            <div class="col-auto"><span class="small">Puntos:</span></div>
+                                            <div class="col-auto"><span class="small text-success">{{ $product['points'] }}</span></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="me-4">
+                                        <div class="row gx-2">
+                                            <div class="col-auto"><span class="small">VC:</span></div>
+                                            <div class="col-auto"><span class="small text-success">{{ $vc }}</span></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="me-4">
+                                        <div class="row gx-2">
+                                            <div class="col-auto"><span class="small">Retail:</span></div>
+                                            <div class="col-auto"><span class="small text-success">{{ $retail }}</span></div>
+                                        </div>
+                                    </div>
+                                @endif
+
                                 @if (!empty($features))
                                     @foreach ($features as $feature)
                                         <div class="me-4">

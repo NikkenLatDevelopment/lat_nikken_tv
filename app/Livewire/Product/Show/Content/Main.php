@@ -86,6 +86,12 @@ class Main extends Component
     public string $price;
 
     #[Locked]
+    public string $vc;
+
+    #[Locked]
+    public string $retail;
+
+    #[Locked]
     public string $availableUntil;
 
     public bool $wishlist = false;
@@ -137,8 +143,10 @@ class Main extends Component
         //Obtener disponibilidad y componentes
         list($this->available, $this->componentsAvailable, $this->componentsNotAvailable) =  array_values($availability);
 
-        //Formatear precio sugerido con iva con símbolo de moneda
+        //Formatear precio sugerido con iva, VC y retail con símbolo de moneda
         $this->price = formatPriceWithCurrency($product['suggested_price'] + $product['vat_suggested_price'], $this->country);
+        $this->vc = formatPriceWithCurrency($product['vc'], $this->country);
+        $this->retail = formatPriceWithCurrency($product['retail'], $this->country);
 
         //Validar fecha de disponibilidad
         $this->availableUntil = $product['available_until'] == null
