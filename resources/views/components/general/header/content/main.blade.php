@@ -59,10 +59,10 @@
                 </div>
 
                 <div class="col-12 col-lg order-3 order-lg-2">
-                    <form class="mt-1 mt-lg-0 search" wire:submit="search">
+                    <form class="mt-1 mt-lg-0 search">
                         <div class="input-group bg-secondary border border-2 border-white rounded-3 shadow-sm">
                             <div class="form-floating">
-                                <input type="text" class="form-control bg-transparent border-0 shadow-none" id="general-header-content-main-search" wire:model="formSearch" placeholder="Buscar..." autocomplete="off">
+                                <input type="text" class="form-control bg-transparent border-0 shadow-none" id="general-header-content-main-search" placeholder="Buscar..." autocomplete="off">
                                 <label for="general-header-content-main-search" class="text-muted">Buscar...</label>
                             </div>
 

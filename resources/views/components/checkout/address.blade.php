@@ -1,7 +1,7 @@
 <h2 class="h2 text-dark fw-bold lh-1 mb-0">Dirección de Envío</h2>
-<p class="mb-4">Aquí recibirás @choice('tu producto|tus <span class="text-success fw-bold">'  . $this->cartForm->quantity .' productos</span>', $this->cartForm->quantity)  NIKKEN.</p>
+<p class="mb-3">Aquí recibirás @choice('tu producto|tus <span class="text-success fw-bold">'  . $this->cartForm->quantity .' productos</span>', $this->cartForm->quantity)  NIKKEN.</p>
 
-<ul class="nav nav-pills my-3" role="tablist">
+<ul class="nav nav-pills mt-4 mb-2 pb-1" role="tablist">
     <li class="nav-item" role="presentation">
         <button class="btn h5 fw-bold border border-secondary rounded-4 px-3 py-2 me-2 btn-outline-primary-custom-1 animation-hover-up active" id="checkout-address-form-tab" data-bs-toggle="pill" data-bs-target="#checkout-address-form" type="button" role="tab" aria-controls="checkout-address-form" aria-selected="true">
             <i class="fi fi-sr-map-pin position-relative custom i-top-2 me-1"></i>Nueva Dirección
@@ -17,7 +17,7 @@
     @endif
 </ul>
 
-<div class="tab-content border-top border-secondary pt-4">
+<div class="tab-content">
     <div class="tab-pane fade show active" id="checkout-address-form" role="tabpanel" aria-labelledby="checkout-address-form-tab" tabindex="0">
         <x-checkout.address-country />
     </div>

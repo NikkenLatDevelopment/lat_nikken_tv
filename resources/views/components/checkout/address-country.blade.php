@@ -1,3 +1,6 @@
+<div class="fw-bold">Selecciona una dirección para continuar.</div>
+<div class="small mb-3">Si deseas actualizar la información de alguna de las direcciones, debes dirigirte a tu cuenta, sección mis direcciones.</div>
+
 @switch($this->country['id'])
     @case(1)
         <div class="row gx-3">
