@@ -62,6 +62,11 @@ class Main extends Component
     }
 
     public function getTotals() {
+        if (empty($this->cartForm->products)) {
+            //Redireccionar
+            return redirect()->route('home');
+        }
+
         //Calcular totales carrito de compras
         $this->cartForm->getTotals();
     }
