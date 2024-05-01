@@ -9,13 +9,6 @@ use Illuminate\Support\Facades\Validator;
 
 class CountryController extends Controller
 {
-    protected SessionController $sessionController;
-
-    public function __construct(SessionController $sessionController) {
-        //Iniciar sesión
-        $this->sessionController = $sessionController;
-    }
-
     public function index() {
         //Mostrar vista
         return view('country.index');

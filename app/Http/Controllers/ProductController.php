@@ -9,21 +9,14 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
-    protected SessionController $sessionController;
-
-    public function __construct(SessionController $sessionController) {
-        //Iniciar sesión
-        $this->sessionController = $sessionController;
-    }
-
-    public function show(string $brandSlug, string $productSlug) {
+    public function show(string $brandSlug, string $productSlug, SessionController $sessionController) {
         //Validar información
         $validator = Validator::make(
             [
                 'brandSlug' => $brandSlug,
                 'productSlug' => $productSlug
             ], [
-                'brandSlug' => 'required|string|max:20|exists:catalog_product_brands,slug',
+                'brandSlug' => 'required|string|max:40|exists:catalog_product_brands,slug',
                 'productSlug' => 'required|string|max:100|exists:products,slug'
             ]
         );
@@ -34,7 +27,7 @@ class ProductController extends Controller
         }
 
         //Obtener información del país
-        $country = $this->sessionController->getCountry()->toArray();
+        $country = $sessionController->getCountry()->toArray();
 
         //Obtener información del producto
         $product = Product::basicData()
