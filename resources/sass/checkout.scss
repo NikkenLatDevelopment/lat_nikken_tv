@@ -81,7 +81,11 @@
         .resume {
             .products {
                 img {
-                    max-width: 150px;
+                    max-width: 100px;
+                }
+
+                .information {
+                    max-width: 200px;
                 }
             }
         }

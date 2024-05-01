@@ -2,15 +2,15 @@
     <div class="row align-items-center">
         <div class="col-12 col-sm-5 col-md-5">
             <a href="{{ route('product.show', [ 'brandSlug' => $product['brandSlug'], 'productSlug' => $product['slug'] ]) }}" class="text-decoration-none">
-                <div class="row gx-3 d-flex align-items-center">
-                    <div class="col-12 col-md-auto">
-                        <div class="text-center text-md-start">
+                <div class="row gx-3 d-flex align-items-center justify-content-center">
+                    <div class="col-auto col-sm-12 col-md-auto">
+                        <div class="text-start text-sm-center text-md-start">
                             <div class="bg-light rounded-4 d-inline-block d-md-none d-xl-inline-block"><img src="{{ $product['image'] }}" class="img-fluid" alt="{{ $product['name'] }}"></div>
                         </div>
                     </div>
 
-                    <div class="col">
-                        <div class="text-center text-md-start">
+                    <div class="col-auto col-sm">
+                        <div class="text-start text-sm-center text-md-start information">
                             <div class="h6 text-dark fw-bold mb-0 mt-2 mt-md-0">{{ $product['name'] }}</div>
 
                             <div class="mb-0">
