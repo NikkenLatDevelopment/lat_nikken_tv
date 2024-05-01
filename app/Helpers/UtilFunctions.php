@@ -52,10 +52,10 @@ function formatContactInfo(string $cellular, ?string $phone) {
     //Inicializar
     $result = $cellular;
 
-    //Verificar si el teléfono fijo no está vacío
+    //Unificar información con el celular
     if (!empty($phone)) { $result .= ", " . $phone; }
 
-    //Retornar
+    //Retornar teléfonos
     return $result;
 }
 
@@ -63,7 +63,7 @@ function formatAddressInfo(string $address, string $state, string $municipality,
     //Inicializar
     $result = $address;
 
-    //Verificar información adicional
+    //Unificar información con la dirección
     if (!empty($complement_address)) { $result .= ", " . $complement_address; }
     if (!empty($reference_address)) { $result .= ", " . $reference_address; }
     if (!empty($state)) { $result .= ", " . $state; }
@@ -71,6 +71,6 @@ function formatAddressInfo(string $address, string $state, string $municipality,
     if (!empty($colony)) { $result .= ", " . $colony; }
     if (!empty($postal_code)) { $result .= ", " . $postal_code; }
 
-    //Retornar
+    //Retornar dirección
     return $result;
 }

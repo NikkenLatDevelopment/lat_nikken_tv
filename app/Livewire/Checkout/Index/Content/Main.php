@@ -11,18 +11,15 @@ use App\Livewire\Forms\AddressForm;
 
 class Main extends Component
 {
-    #[Locked]
-    public array $country = [];
-
     public CartForm $cartForm;
     public AddressForm $addressForm;
 
     public bool $discountSuggestedPrice = false;
 
-    public int $postalCode;
     public string $state;
     public string $municipality;
     public string $colony;
+    public int $postalCode;
 
     public function render()
     {
@@ -32,22 +29,22 @@ class Main extends Component
 
     public function mount(SessionController $sessionController) {
         //Obtener información del país
-        $this->country = $sessionController->getCountry()->toArray();
+        $country = $sessionController->getCountry()->toArray();
 
         //Obtener información del sugerido con descuento
         $this->discountSuggestedPrice = $sessionController->getDiscountSuggestedPrice();
 
         //Iniciar formulario carrito de compras
-        $this->cartForm->country = $this->country;
+        $this->cartForm->country = $country;
         $this->cartForm->discountSuggestedPrice = $this->discountSuggestedPrice;
 
         //Obtener productos del carrito de compras
         $this->getProducts($sessionController);
 
         //Iniciar formulario dirección
-        $this->addressForm->country = $this->country;
+        $this->addressForm->country = $country;
 
-        if ($this->country['id'] != 2) {
+        if ($this->addressForm->country['id'] != 2) {
             //Obtener catálogo de estados
             $this->addressForm->getCatalogStates();
         }
@@ -60,12 +57,12 @@ class Main extends Component
         //Obtener productos del carrito de compras
         $this->cartForm->getProducts($sessionController);
 
-        //Calcular totales
+        //Calcular totales carrito de compras
         $this->getTotals();
     }
 
     public function getTotals() {
-        //Calcular totales
+        //Calcular totales carrito de compras
         $this->cartForm->getTotals();
     }
 
@@ -81,7 +78,7 @@ class Main extends Component
             //Emitir evento para eliminar el producto del carrito de compras del menú
             $this->dispatch('general.header.content.cart.products.removeProductExternal', productId: $productId);
 
-            //Calcular totales
+            //Calcular totales carrito de compras
             $this->getTotals();
         }
     }
@@ -92,7 +89,7 @@ class Main extends Component
         $validate = $this->cartForm->removeProduct($productId, false, $sessionController);
 
         if ($validate) {
-            //Calcular totales
+            //Calcular totales carrito de compras
             $this->getTotals();
         }
     }
@@ -106,7 +103,7 @@ class Main extends Component
         $this->dispatch('checkout.index.content.resumeProduct.refreshProduct.' . $productId, product: $product);
 
         if ($validate) {
-            //Calcular totales
+            //Calcular totales carrito de compras
             $this->getTotals();
 
             //Emitir evento para cambiar la cantidad del producto en el carrito de compras del menú
@@ -118,7 +115,7 @@ class Main extends Component
         //Actualizar sugerido con descuento
         $this->discountSuggestedPrice = $this->cartForm->changeDiscountSuggestedPrice($this->discountSuggestedPrice, true, $sessionController);
 
-        //Calcular totales
+        //Calcular totales carrito de compras
         $this->getTotals();
 
         //Emitir evento para actualizar el sugerido con descuento en el menú
@@ -130,13 +127,13 @@ class Main extends Component
         //Actualizar sugerido con descuento
         $this->discountSuggestedPrice = $this->cartForm->changeDiscountSuggestedPrice($discountSuggestedPrice, false, $sessionController);
 
-        //Calcular totales
+        //Calcular totales carrito de compras
         $this->getTotals();
     }
 
     public function updatedState() {
         //Validar información
-        $this->validate([ 'state' => 'required|string|max:60' ]);
+        $this->validate([ 'state' => 'required|string|max:40' ]);
 
         //Limpiar municipio
         $this->municipality = '';
@@ -146,9 +143,13 @@ class Main extends Component
     }
 
     public function updatedMunicipality() {
-        if (in_array($this->country['id'], [ 3, 4, 5, 8, 10 ])) {
+        //Validar si el país aplica para obtener las colonias
+        if (in_array($this->addressForm->country['id'], [ 3, 4, 5, 8, 10 ])) {
             //Validar información
-            $this->validate([ 'municipality' => 'required|string|max:60' ]);
+            $this->validate([
+                'state' => 'required|string|max:40',
+                'municipality' => 'required|string|max:40'
+            ]);
 
             //Limpiar colonia
             $this->colony = '';
@@ -159,19 +160,22 @@ class Main extends Component
     }
 
     public function updatedPostalCode() {
-        //Validar información
-        $this->validate([ 'postalCode' => 'required|max:5|min:5' ], [], [ 'postalCode' => 'código postal' ]);
+        //Validar si el país aplica para obtener el código postal
+        if ($this->addressForm->country['id'] == 2) {
+            //Validar información
+            $this->validate([ 'postalCode' => 'required|max:5|min:5' ], [], [ 'postalCode' => 'código postal' ]);
 
-        //Limpiar estado
-        $this->state = '';
+            //Limpiar estado
+            $this->state = '';
 
-        //Limpiar municipio
-        $this->municipality = '';
+            //Limpiar municipio
+            $this->municipality = '';
 
-        //Limpiar colonia
-        $this->colony = '';
+            //Limpiar colonia
+            $this->colony = '';
 
-        //Obtener catálogo de colonias
-        $this->addressForm->getCatalogMex($this->postalCode);
+            //Obtener catálogo de estados, municipios y colonias
+            $this->addressForm->getCatalogMex($this->postalCode);
+        }
     }
 }

@@ -24,9 +24,7 @@ class AddressForm extends Form
     public bool $saveAddress = true;
 
     public function getTotalAddresses() {
-        if (!auth()->check()) { return false; }
-
-        //Obtener la cantidad de direcciones registradas
+        //Obtener la cantidad de direcciones registradas por el usuario
         $this->totalAddresses = auth()->user()->userAddresses()
         ->country($this->country['id'])
         ->status()
@@ -199,7 +197,7 @@ class AddressForm extends Form
                         $this->catalogMunicipalities[] = [ 'Direccion_2' => $catalog['Direccion_2'], 'CodigoDir_2' => $catalog['CodigoDir_2'] ];
                         $this->catalogColonies[] = [ 'Direccion_3' => $catalog['Direccion_3'], 'CodigoDir_3' => $catalog['CodigoDir_3'] ];
 
-                        //Eliminar registros duplicados
+                        //Eliminar registros duplicados en catálogos
                         $this->catalogStates = array_map('unserialize', array_unique(array_map('serialize', $this->catalogStates)));
                         $this->catalogMunicipalities = array_map('unserialize', array_unique(array_map('serialize', $this->catalogMunicipalities)));
                         $this->catalogColonies = array_map('unserialize', array_unique(array_map('serialize', $this->catalogColonies)));
