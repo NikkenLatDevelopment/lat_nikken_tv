@@ -30,8 +30,8 @@
             @if (auth()->check() && $cartForm->country['id'] == 1 && auth()->user()->catalog_user_type_id == 3)
                 <div class="ps-3">
                     <div class="form-check form-switch small pb-1">
-                        <input type="checkbox" class="form-check-input" role="switch" id="cart-discount-suggested-price" wire:model.live="discountSuggestedPrice">
-                        <label class="form-check-label" for="cart-discount-suggested-price">Comprar a <span class="text-success fw-bold text-decoration-underline">Sugerido con Descuento</span>.</label>
+                        <input type="checkbox" class="form-check-input" role="switch" id="general-header-content-cart-products-discount-suggested-price" wire:model.live="discountSuggestedPrice">
+                        <label class="form-check-label" for="general-header-content-cart-products-discount-suggested-price">Comprar a <span class="text-success fw-bold text-decoration-underline">Sugerido con Descuento</span>.</label>
                     </div>
                 </div>
             @endif

@@ -1,5 +1,5 @@
 <div>
-    <div class="mb-3">
+    <div class="mb-3" id="faqs">
         <div class="bg-light rounded-4 px-4 pt-4 pb-1 mb-1 faqs">
             @forelse ($faqs as $faq)
                 <div class="@if (!$loop->last) mb-4 @else mb-2 @endif">

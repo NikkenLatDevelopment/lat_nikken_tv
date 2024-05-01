@@ -149,10 +149,10 @@ class AddressForm extends Form
                     if ($this->country['id'] == 5) {
                         //Guardar catálogo de colonias para Panamá
                         $this->catalogColonies = $responseData['dataDir']['corregimiento'];
-                    }else if ($this->country['id'] == 8) {
+                    } else if ($this->country['id'] == 8) {
                         //Guardar catálogo de colonias para Costa Rica
                         $this->catalogColonies = $responseData['dataDir']['distrito'];
-                    }else if ($this->country['id'] == 10) {
+                    } else if ($this->country['id'] == 10) {
                         //Guardar catálogo de colonias para Chile
                         $this->catalogColonies = $responseData['dataDir']['comuna'];
                     } else {
@@ -186,12 +186,12 @@ class AddressForm extends Form
             //Validar estatus de la API
             $statusCode = $response->getStatusCode();
 
-            if($statusCode == 200){
+            if ($statusCode == 200) {
                 //Obtener datos
                 $data = $response->getBody();
                 $responseData = json_decode($data, true);
 
-                if($responseData['status'] == 200){
+                if ($responseData['status'] == 200) {
                     //Recorrer catálogos
                     foreach ($responseData['dataDir'] as $catalog) {
                         //Guardar catálogos

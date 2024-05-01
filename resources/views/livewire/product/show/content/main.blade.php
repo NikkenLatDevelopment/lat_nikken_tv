@@ -291,7 +291,7 @@
                                         <ul class="nav nav-pills my-3" role="tablist">
                                             @if ($product['description'] != null)
                                                 <li class="nav-item" role="presentation">
-                                                    <button class="btn h5 fw-bold border border-secondary rounded-4 px-3 py-2 me-2 btn-outline-primary-custom-1 animation-hover-up @if ($product['description'] != null) active @endif" id="product-description-general-tab" data-bs-toggle="pill" data-bs-target="#product-description-general" type="button" role="tab" aria-controls="product-description-general" aria-selected="@if ($product['description'] != null) true @else false @endif">
+                                                    <button class="btn h5 fw-bold border border-secondary rounded-4 px-3 py-2 me-2 btn-outline-primary-custom-1 animation-hover-up @if ($product['description'] != null) active @endif" id="product-show-content-main-description-tab" data-bs-toggle="pill" data-bs-target="#product-show-content-main-description" type="button" role="tab" aria-controls="product-show-content-main-description" aria-selected="@if ($product['description'] != null) true @else false @endif">
                                                         <i class="fi fi-sr-comment-info position-relative custom i-top-2 me-2"></i>Descripción
                                                     </button>
                                                 </li>
@@ -299,7 +299,7 @@
 
                                             @if ($product['maintenance'] != null)
                                                 <li class="nav-item" role="presentation">
-                                                    <button class="btn h5 fw-bold border border-secondary rounded-4 px-3 py-2 me-2 btn-outline-primary-custom-1 animation-hover-up @if ($product['description'] == null) active @endif" id="product-description-maintenance-tab" data-bs-toggle="pill" data-bs-target="#product-description-maintenance" type="button" role="tab" aria-controls="product-description-maintenance" aria-selected="@if ($product['description'] == null) true @else false @endif">
+                                                    <button class="btn h5 fw-bold border border-secondary rounded-4 px-3 py-2 me-2 btn-outline-primary-custom-1 animation-hover-up @if ($product['description'] == null) active @endif" id="product-show-content-main-maintenance-tab" data-bs-toggle="pill" data-bs-target="#product-show-content-main-maintenance" type="button" role="tab" aria-controls="product-show-content-main-maintenance" aria-selected="@if ($product['description'] == null) true @else false @endif">
                                                         <i class="fi fi-br-shuffle position-relative custom i-top-2 me-2"></i>Mantenimiento
                                                     </button>
                                                 </li>
@@ -307,8 +307,8 @@
                                         </ul>
 
                                         <div class="tab-content">
-                                            @if ($product['description'] != null) <div class="tab-pane fade @if ($product['description'] != null) show active @endif" id="product-description-general" role="tabpanel" aria-labelledby="product-description-general-tab" tabindex="0">{!! $product['description'] !!}</div> @endif
-                                            @if ($product['maintenance'] != null) <div class="tab-pane fade @if ($product['description'] == null) show active @endif" id="product-description-maintenance" role="tabpanel" aria-labelledby="product-description-maintenance-tab" tabindex="0">{!! $product['maintenance'] !!}</div> @endif
+                                            @if ($product['description'] != null) <div class="tab-pane fade @if ($product['description'] != null) show active @endif" id="product-show-content-main-description" role="tabpanel" aria-labelledby="product-show-content-main-description-tab" tabindex="0">{!! $product['description'] !!}</div> @endif
+                                            @if ($product['maintenance'] != null) <div class="tab-pane fade @if ($product['description'] == null) show active @endif" id="product-show-content-main-maintenance" role="tabpanel" aria-labelledby="product-show-content-main-maintenance-tab" tabindex="0">{!! $product['maintenance'] !!}</div> @endif
                                         </div>
                                     </div>
                                 </div>

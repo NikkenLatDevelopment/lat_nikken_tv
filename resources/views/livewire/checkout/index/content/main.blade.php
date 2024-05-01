@@ -22,7 +22,7 @@
                         <x-checkout.resume />
                     </section>
 
-                    <section class="mt-4 pt-4 address">
+                    <section class="mt-4 pt-4 address" id="addresses">
                         <x-checkout.address />
                     </section>
                 </div>
@@ -34,8 +34,8 @@
                                 @if (auth()->check() && $this->cartForm->country['id'] == 1 && auth()->user()->catalog_user_type_id == 3)
                                     <div class="mb-2">
                                         <div class="form-check form-switch small pb-1">
-                                            <input type="checkbox" class="form-check-input" role="switch" id="checkout-discount-suggested-price" wire:model.live="discountSuggestedPrice">
-                                            <label class="form-check-label" for="checkout-discount-suggested-price">Comprar a <span class="text-success fw-bold text-decoration-underline">Sugerido con Descuento</span>.</label>
+                                            <input type="checkbox" class="form-check-input" role="switch" id="checkout-index-content-main-discount-suggested-price" wire:model.live="discountSuggestedPrice">
+                                            <label class="form-check-label" for="checkout-index-content-main-discount-suggested-price">Comprar a <span class="text-success fw-bold text-decoration-underline">Sugerido con Descuento</span>.</label>
                                         </div>
                                     </div>
                                 @endif

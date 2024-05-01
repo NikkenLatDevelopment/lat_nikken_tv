@@ -60,7 +60,7 @@
 
         <div class="offcanvas-body">
             <div class="menu-responsive mb-4">
-                <div class="accordion accordion-flush" id="accordionMenuResponsive">
+                <div class="accordion accordion-generalHeaderContentMainMenuResponsiveAccordion" id="geCampaignalHeaderContentMainMenuResponsiveAccordion">
                     <div class="accordion-item not-sub-menu">
                         <div class="h6 accordion-header">
                             <a href="{{ route('home') }}" class="accordion-button collapsed link-dark fw-bold text-decoration-none shadow-none">Inicio</a>
@@ -69,11 +69,11 @@
 
                     @if (!empty($brands))
                         <div class="accordion-item">
-                            <div class="h6 accordion-header" id="flush-headingOne">
-                                <a href="#accordionMenuResponsive-collapseProduct" class="accordion-button collapsed link-dark fw-bold text-decoration-none bg-white shadow-none"  data-bs-toggle="collapse" aria-expanded="false" aria-controls="accordionMenuResponsive-collapseProduct">Productos</a>
+                            <div class="h6 accordion-header" id="generalHeaderContentMainMenuResponsiveAccordion-headingBrand">
+                                <a href="#generalHeaderContentMainMenuResponsiveAccordion-collapseBrand" class="accordion-button collapsed link-dark fw-bold text-decoration-none bg-white shadow-none"  data-bs-toggle="collapse" aria-expanded="false" aria-controls="generalHeaderContentMainMenuResponsiveAccordion-collapseBrand">Productos</a>
                             </div>
 
-                            <div id="accordionMenuResponsive-collapseProduct" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionMenuResponsive">
+                            <div id="generalHeaderContentMainMenuResponsiveAccordion-collapseBrand" class="accordion-collapse collapse" aria-labelledby="generalHeaderContentMainMenuResponsiveAccordion-headingBrand" data-bs-parent="#generalHeaderContentMainMenuResponsiveAccordion">
                                 <div class="accordion-body pt-0 ms-3">
                                     <ul class="list-unstyled my-0 sub-menu">
                                         @foreach ($brands as $brand)
@@ -88,11 +88,11 @@
                     @if (!empty($campaigns))
                         @if (!empty($campaigns))
                             <div class="accordion-item">
-                                <div class="h6 accordion-header" id="flush-headingTwo">
-                                    <a href="#accordionMenuResponsive-collapseCampaign" class="accordion-button collapsed link-success fw-bold text-decoration-none lh-1 bg-white shadow-none"  data-bs-toggle="collapse" aria-expanded="false" aria-controls="accordionMenuResponsive-collapseCampaign"><i class="fa-solid fa-bell me-2 custom bell-1"></i> Campañas</a>
+                                <div class="h6 accordion-header" id="generalHeaderContentMainMenuResponsiveAccordion-headingCampaign">
+                                    <a href="#generalHeaderContentMainMenuResponsiveAccordion-collapseCampaign" class="accordion-button collapsed link-success fw-bold text-decoration-none lh-1 bg-white shadow-none"  data-bs-toggle="collapse" aria-expanded="false" aria-controls="generalHeaderContentMainMenuResponsiveAccordion-collapseCampaign"><i class="fa-solid fa-bell me-2 custom bell-1"></i> Campañas</a>
                                 </div>
 
-                                <div id="accordionMenuResponsive-collapseCampaign" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionMenuResponsive">
+                                <div id="generalHeaderContentMainMenuResponsiveAccordion-collapseCampaign" class="accordion-collapse collapse" aria-labelledby="generalHeaderContentMainMenuResponsiveAccordion-headingCampaign" data-bs-parent="#generalHeaderContentMainMenuResponsiveAccordion">
                                     <div class="accordion-body pt-0 ms-3">
                                         <ul class="list-unstyled my-0 sub-menu">
                                             @foreach ($campaigns as $campaign)

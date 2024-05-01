@@ -47,3 +47,30 @@ function formatCartProduct(Product $product, int $quantity, array $country): arr
         'vc' => $product->vc * $quantity,
     ];
 }
+
+function formatContactInfo(string $cellular, ?string $phone) {
+    //Inicializar
+    $result = $cellular;
+
+    //Verificar si el teléfono fijo no está vacío
+    if (!empty($phone)) { $result .= ", " . $phone; }
+
+    //Retornar
+    return $result;
+}
+
+function formatAddressInfo(string $address, string $state, string $municipality, ?string $complement_address, ?string $reference_address, ?string $colony, ?string $postal_code) {
+    //Inicializar
+    $result = $address;
+
+    //Verificar información adicional
+    if (!empty($complement_address)) { $result .= ", " . $complement_address; }
+    if (!empty($reference_address)) { $result .= ", " . $reference_address; }
+    if (!empty($state)) { $result .= ", " . $state; }
+    if (!empty($municipality)) { $result .= ", " . $municipality; }
+    if (!empty($colony)) { $result .= ", " . $colony; }
+    if (!empty($postal_code)) { $result .= ", " . $postal_code; }
+
+    //Retornar
+    return $result;
+}
