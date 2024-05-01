@@ -20,7 +20,13 @@ class AddressForm extends Form
     #[Locked]
     public array $catalogColonies = [];
 
+    #[Locked]
     public int $totalAddresses = 0;
+
+    #[Locked]
+    public int $selectedAddress;
+
+    public int $typeSelectedAddress = 0;
     public bool $saveAddress = true;
 
     public function getTotalAddresses() {

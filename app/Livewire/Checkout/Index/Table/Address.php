@@ -15,6 +15,7 @@ class Address extends Component
     public int $countryId;
 
     public string $search = '';
+    public int $selectedAddress;
 
     public function render()
     {
@@ -34,6 +35,4 @@ class Address extends Component
         //Obtener información del país
         $this->countryId = $sessionController->getCountryId();
     }
-
-
 }

@@ -8,6 +8,7 @@ use Livewire\Attributes\Locked;
 use App\Livewire\Forms\CartForm;
 use App\Models\SessionController;
 use App\Livewire\Forms\AddressForm;
+use Illuminate\Support\Facades\Validator;
 
 class Main extends Component
 {
@@ -182,5 +183,22 @@ class Main extends Component
             //Obtener catálogo de estados, municipios y colonias
             $this->addressForm->getCatalogMex($this->postalCode);
         }
+    }
+
+    #[On('checkout.index.content.main.selectedAddressExternal')]
+    public function selectedAddressExternal(int $addressId) {
+        //Validar información
+        Validator::make(
+            [ 'addressId' => $addressId ],
+            [ 'addressId' => 'required|integer|exists:user_addresses,id' ]
+        )->validate();
+
+        //Guardar dirección seleccionada
+        $this->addressForm->selectedAddress = $addressId;
+    }
+
+    public function changeTypeSelectedAddress(int $typeSelectedAddress) {
+        //Cambiar tipo de dirección seleccionada
+        $this->addressForm->typeSelectedAddress = $typeSelectedAddress;
     }
 }

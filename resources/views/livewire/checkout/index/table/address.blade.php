@@ -12,14 +12,14 @@
     </div>
 
     <div class="pt-1" x-data="{ selectedAddress: null }">
-        <div class="row gx-3 row-cols-1 row-cols-sm-2">
+        <div class="row gx-3 row-cols-1 row-cols-md-2">
             @forelse ($userAddresses as $index => $userAddress)
                 <div class="col" wire:key="checkout-index-table-address-{{ $userAddress->id }}">
                     <label class="form-check-label d-flex align-items-stretch h-100" for="checkout-index-table-address-{{ $userAddress->id }}">
                         <div class="bg-light border rounded-4 d-flex align-items-center w-100 px-4 py-3 mb-3" :class="selectedAddress === {{ $userAddress->id }} ? 'border-success' : 'border-light'">
                             <div>
                                 <div class="form-check form-switch d-flex align-items-center mb-2">
-                                    <input type="radio" class="form-check-input" name="checkout-index-table-address" role="switch" id="checkout-index-table-address-{{ $userAddress->id }}" @change="selectedAddress =  {{ $userAddress->id }}">
+                                    <input type="radio" class="form-check-input" name="checkout-index-table-address" role="switch" id="checkout-index-table-address-{{ $userAddress->id }}" wire:model="selectedAddress" wire:click="$dispatch('checkout.index.content.main.selectedAddressExternal', { addressId: {{ $userAddress->id }} })" @change="selectedAddress =  {{ $userAddress->id }}" value="{{ $userAddress->id }}">
                                     <div class="h6 text-dark fw-bold mb-0 mt-1 ms-2">{{ $userAddress->name }}</div>
                                 </div>
 
