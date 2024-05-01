@@ -51,6 +51,9 @@ class Main extends Component
             //Obtener catálogo de estados
             $this->addressForm->getCatalogStates();
         }
+
+        //Obtener la cantidad de direcciones registradas
+        $this->addressForm->getTotalAddresses();
     }
 
     public function getProducts(SessionController $sessionController) {

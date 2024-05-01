@@ -67,4 +67,9 @@ class User extends Authenticatable
         //Relación con los reviews de los productos
         return $this->hasMany(ProductReview::class);
     }
+
+    public function userAddresses() {
+        //Relación con las direcciones del usuario
+        return $this->hasMany(UserAddress::class);
+    }
 }

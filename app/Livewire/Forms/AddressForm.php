@@ -20,7 +20,15 @@ class AddressForm extends Form
     #[Locked]
     public array $catalogColonies = [];
 
+    public int $totalAddresses = 0;
     public bool $saveAddress = true;
+
+    public function getTotalAddresses() {
+        if (!auth()->check()) { return false; }
+
+        //Obtener la cantidad de direcciones registradas
+        $this->totalAddresses = auth()->user()->userAddresses()->status()->count();
+    }
 
     public function getCatalogStates() {
         //Iniciar petición
