@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('catalog_country_id')->constrained();
-            $table->string('alias', 60)->index()->nullable();
             $table->string('name', 60)->index();
             $table->string('email', 100)->index();
             $table->string('phone', 30)->index()->nullable();

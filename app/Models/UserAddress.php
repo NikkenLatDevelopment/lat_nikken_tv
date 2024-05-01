@@ -14,8 +14,7 @@ class UserAddress extends Model
         return $query->where(function($query) use ($search) {
             empty($search)
             ? null
-            : $query->where('alias', 'like', '%' . $search . '%')
-                    ->orWhere('name', 'like', '%' . $search . '%')
+            : $query->where('name', 'like', '%' . $search . '%')
                     ->orWhere('email', 'like', '%' . $search . '%')
                     ->orWhere('phone', 'like', '%' . $search . '%')
                     ->orWhere('cellular', 'like', '%' . $search . '%')
