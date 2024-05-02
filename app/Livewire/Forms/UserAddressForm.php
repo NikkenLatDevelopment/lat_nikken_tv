@@ -222,7 +222,6 @@ class UserAddressForm extends Form
     }
 
     public function validateAddress() {
-        //Validar dirección de acuerdo al país
         switch ($this->catalogCountry['id']) {
             case 1:
                 $this->validate([

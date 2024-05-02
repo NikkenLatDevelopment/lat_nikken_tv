@@ -45,20 +45,20 @@ class CartForm extends Form
         $this->products = $sessionController->getCart();
     }
 
-    public function remove(int $id, bool $DB, SessionController $sessionController): bool {
-        //Verificar si el producto existe en el array
-        $index = array_search($id, array_column($this->products, 'id'));
+    public function remove(int $productId, bool $DB, SessionController $sessionController): bool {
+        //Verificar si el producto existe en el array del carrito de compras
+        $index = array_search($productId, array_column($this->products, 'id'));
         if ($index === false) { return false; }
 
         if ($DB) {
-            //Eliminar producto
-            $sessionController->removeCart($id);
+            //Eliminar producto del carrito de compras
+            $sessionController->removeCart($productId);
         }
 
-        //Eliminar producto
+        //Eliminar producto del array del carrito de compras
         unset($this->products[$index]);
 
-        //Reorganizar índices del array
+        //Reorganizar índices del array del carrito de compras
         $this->products = array_values($this->products);
 
         //Retornar
@@ -135,9 +135,9 @@ class CartForm extends Form
         return $this->discountSuggestedPrice;
     }
 
-    public function changeQuantity(int $id, int $quantity, bool $DB, SessionController $sessionController): array {
+    public function changeQuantity(int $productId, int $quantity, bool $DB, SessionController $sessionController): array {
         //Verificar si el producto existe
-        $index = array_search($id, array_column($this->products, 'id'));
+        $index = array_search($productId, array_column($this->products, 'id'));
         if ($index === false) { return [ [], false ]; }
 
         if ($DB) {
@@ -150,7 +150,7 @@ class CartForm extends Form
             }
 
             //Actualizar cantidad del producto
-            $sessionController->setCart($id, $quantity);
+            $sessionController->setCart($productId, $quantity);
         }
 
         //Obtener información del producto
@@ -158,7 +158,7 @@ class CartForm extends Form
         ->with([
             'catalogProductBrand',
             'productComponents.product' => fn ($query) => $query->availabilityData(),
-        ])->find($id);
+        ])->find($productId);
 
         if ($product) {
             //Actualizar información del producto

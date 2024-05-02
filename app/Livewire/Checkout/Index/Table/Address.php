@@ -19,7 +19,7 @@ class Address extends Component
 
     public function render()
     {
-        //Obtener direcciones del usuario
+        //Obtener direcciones registradas por el usuario
         $userAddresses = auth()->user()->userAddresses()
         ->when($this->search, fn ($query) => $query->search($this->search))
         ->catalogCountryId($this->catalogCountryId)
