@@ -32,7 +32,7 @@ class Address extends Component
     }
 
     public function mount(SessionController $sessionController) {
-        //Obtener ID del país en sesión
+        //Obtener ID del país en sesión o cookie
         $this->catalogCountryId = $sessionController->getCatalogCountryId();
     }
 }
