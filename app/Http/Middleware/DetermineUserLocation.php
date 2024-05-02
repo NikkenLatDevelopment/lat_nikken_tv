@@ -26,9 +26,9 @@ class DetermineUserLocation
     public function handle(Request $request, Closure $next): Response
     {
         //Obtener el ID del país por sesión o cookie
-        $countryId = $this->sessionController->getCountryId();
+        $catalogCountryId = $this->sessionController->getCatalogCountryId();
 
-        if (!$countryId) {
+        if (!$catalogCountryId) {
             //Obtener localización
             $location = Location::get();
 
@@ -38,31 +38,31 @@ class DetermineUserLocation
             }
 
             //Obtener información del país
-            $country = CatalogCountry::sessionData()
+            $catalogCountry = CatalogCountry::sessionData()
             ->where('code', $location->countryCode)
             ->closed()
             ->status()
             ->first();
 
-            if (!$country) {
+            if (!$catalogCountry) {
                 //Redireccionar
                 return redirect()->route('country.index');
             }
         } else {
             //Obtener información del país
-            $country = CatalogCountry::sessionData()
+            $catalogCountry = CatalogCountry::sessionData()
             ->closed()
             ->status()
-            ->find($countryId);
+            ->find($catalogCountryId);
 
-            if (!$country) {
+            if (!$catalogCountry) {
                 //Redireccionar
                 return redirect()->route('country.index');
             }
         }
 
         //Guardar país en sesión
-        $this->sessionController->setCountry($country->toArray());
+        $this->sessionController->setCountry($catalogCountry->toArray());
 
         //Retornar
         return $next($request);
