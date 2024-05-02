@@ -31,7 +31,7 @@ class CatalogCountries extends Component
         //Validar información
         if ($id <= 0) { return; }
 
-        //Obtener información del país en sesión
+        //Obtener información del país
         $catalogCountry = CatalogCountry::sessionData()
         ->closed()
         ->status()

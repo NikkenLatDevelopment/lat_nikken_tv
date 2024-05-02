@@ -4,8 +4,8 @@ namespace App\Livewire\Country\Index\Modal;
 
 use Livewire\Component;
 use Livewire\Attributes\On;
-use App\Models\CatalogCountry;
 use Livewire\Attributes\Locked;
+use App\Models\CatalogCountry;
 
 class ClosingMessage extends Component
 {
@@ -19,15 +19,15 @@ class ClosingMessage extends Component
     }
 
     #[On('country.index.modal.closing-message.initialize')]
-    public function initialize(int $countryId) {
+    public function initialize(int $id) {
         //Obtener información del país
-        $country = CatalogCountry::select('closed_message')
+        $catalogCountry = CatalogCountry::select('closed_message')
         ->status()
-        ->find($countryId);
+        ->find($id);
 
-        if ($country) {
+        if ($catalogCountry) {
             //Guardar mensaje de cierre
-            $this->closedMessage = $country->closed_message;
+            $this->closedMessage = $catalogCountry->closed_message;
 
             //Emitir evento para mostrar el mensaje de cierre
             $this->dispatch('countryIndexModalClosingMessage');
