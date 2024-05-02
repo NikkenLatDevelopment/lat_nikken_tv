@@ -9,7 +9,7 @@ use Livewire\Attributes\Locked;
 class ResumeProduct extends Component
 {
     #[Locked]
-    public int $id;
+    public int $productId;
 
     public array $product = [];
 
@@ -21,10 +21,10 @@ class ResumeProduct extends Component
 
     public function updatedProductQuantity() {
         //Emitir evento para actualizar la cantidad del producto en el carrito de compras
-        $this->dispatch('checkout.index.content.main.changeQuantityProduct', id: $this->id, quantity: $this->product['quantity']);
+        $this->dispatch('checkout.index.content.main.changeQuantityProduct', productId: $this->productId, quantity: $this->product['quantity']);
     }
 
-    #[On('checkout.index.content.resumeProduct.updateProduct.{id}')]
+    #[On('checkout.index.content.resumeProduct.updateProduct.{productId}')]
     public function updateProduct(array $product) {
         //Actualizar producto
         $this->product = $product;
