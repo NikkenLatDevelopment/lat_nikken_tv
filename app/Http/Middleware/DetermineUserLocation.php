@@ -61,7 +61,7 @@ class DetermineUserLocation
             }
         }
 
-        //Guardar país en sesión
+        //Guardar país en sesión y cookie
         $this->sessionController->setCatalogCountry($catalogCountry->toArray());
 
         //Retornar

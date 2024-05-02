@@ -24,7 +24,7 @@ class CountryController extends Controller
         ->find($catalogCountryId);
 
         if ($catalogCountry) {
-            //Guardar información del país en sesión
+            //Guardar información del país en sesión y cookie
             $sessionController->setCatalogCountry($catalogCountry->toArray());
 
             //Redireccionar
