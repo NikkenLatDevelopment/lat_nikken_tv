@@ -27,7 +27,7 @@ class ProductController extends Controller
         }
 
         //Obtener información del país
-        $catalogCountry = $sessionController->getCountry()->toArray();
+        $catalogCountry = $sessionController->getCatalogCountry()->toArray();
 
         //Obtener información del producto
         $product = Product::basicData()
