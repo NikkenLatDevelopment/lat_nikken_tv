@@ -2,10 +2,10 @@
 
 namespace App\Livewire\Checkout\Index\Table;
 
-use App\Models\SessionController;
 use Livewire\Component;
 use Livewire\Attributes\Locked;
 use Livewire\WithPagination;
+use App\Models\SessionController;
 
 class Address extends Component
 {

@@ -2,11 +2,11 @@
 
 namespace App\Livewire\Forms;
 
-use App\Models\Product;
+use Illuminate\Support\Facades\Validator;
 use Livewire\Form;
 use Livewire\Attributes\Locked;
 use App\Models\SessionController;
-use Illuminate\Support\Facades\Validator;
+use App\Models\Product;
 
 class CartForm extends Form
 {

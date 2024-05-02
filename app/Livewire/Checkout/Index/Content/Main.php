@@ -6,8 +6,8 @@ use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Locked;
 use App\Livewire\Forms\CartForm;
-use App\Models\SessionController;
 use App\Livewire\Forms\UserAddressForm;
+use App\Models\SessionController;
 use App\Models\CatalogSalePaymentMethod;
 
 class Main extends Component
