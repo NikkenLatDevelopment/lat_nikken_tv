@@ -46,10 +46,10 @@ class ProductController extends Controller
         }
 
         //Obtener disponibilidad y componentes del producto
-        $available = $product->getAvailability($product->productComponents->toArray());
+        $productAvailable = $product->getAvailability($product->productComponents->toArray());
 
         //Agregar disponibilidad y componentes a la información del producto
-        $product['availability'] = $available;
+        $product['availability'] = $productAvailable;
 
         //Mostrar vista
         return view('product.show', [ 'product' => $product ]);
