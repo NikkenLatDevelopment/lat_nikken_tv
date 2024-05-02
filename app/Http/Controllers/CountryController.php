@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\CatalogCountry;
 use App\Models\SessionController;
-use Illuminate\Support\Facades\Validator;
 
 class CountryController extends Controller
 {

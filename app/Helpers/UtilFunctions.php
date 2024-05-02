@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Product;
 use Illuminate\Support\Carbon;
+use App\Models\Product;
 
 function formatPrice(float $price, int $decimals): float {
     //Formatear precio

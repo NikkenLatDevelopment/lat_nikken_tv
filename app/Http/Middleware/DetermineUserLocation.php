@@ -4,10 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use App\Models\CatalogCountry;
-use App\Models\SessionController;
 use Stevebauman\Location\Facades\Location;
 use Symfony\Component\HttpFoundation\Response;
+use App\Models\SessionController;
+use App\Models\CatalogCountry;
 
 class DetermineUserLocation
 {

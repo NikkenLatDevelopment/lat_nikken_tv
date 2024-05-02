@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use Illuminate\Http\Request;
-use App\Models\SessionController;
 use Illuminate\Support\Facades\Validator;
+use App\Models\SessionController;
+use App\Models\Product;
 
 class ProductController extends Controller
 {
