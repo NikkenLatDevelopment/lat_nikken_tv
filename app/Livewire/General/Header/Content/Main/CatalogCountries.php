@@ -10,7 +10,7 @@ use App\Models\SessionController;
 class CatalogCountries extends Component
 {
     #[Locked]
-    public array $country = [];
+    public array $catalogCountry = [];
 
     #[Locked]
     public array $catalogCountries = [];
@@ -23,7 +23,7 @@ class CatalogCountries extends Component
 
     public function mount(SessionController $sessionController) {
         //Obtener información del país
-        $this->country = $sessionController->getCountry()->toArray();
+        $this->catalogCountry = $sessionController->getCatalogCountry()->toArray();
 
         //Obtener catálogo de países
         $this->catalogCountries = CatalogCountry::select('id', 'code', 'name')
