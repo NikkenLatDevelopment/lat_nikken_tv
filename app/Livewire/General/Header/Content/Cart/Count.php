@@ -19,7 +19,7 @@ class Count extends Component
 
     #[On('general.header.content.cart.count.getCountProducts')]
     public function getCountProducts(int $countProducts) {
-        //Actualizar total de productos en el carrito de compras
+        //Actualizar total de productos del carrito de compras
         $this->countProducts = $countProducts;
     }
 }
