@@ -22,7 +22,7 @@ class CatalogCountries extends Component
     }
 
     public function mount(SessionController $sessionController) {
-        //Obtener información del país
+        //Obtener información del país en sesión
         $this->catalogCountry = $sessionController->getCatalogCountry()->toArray();
 
         //Obtener catálogo de países
