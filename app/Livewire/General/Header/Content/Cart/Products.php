@@ -4,8 +4,8 @@ namespace App\Livewire\General\Header\Content\Cart;
 
 use Livewire\Component;
 use Livewire\Attributes\On;
-use App\Models\SessionController;
 use App\Livewire\Forms\CartForm;
+use App\Models\SessionController;
 
 class Products extends Component
 {
