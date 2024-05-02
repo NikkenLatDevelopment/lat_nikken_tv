@@ -26,7 +26,7 @@ class ProductController extends Controller
             return redirect()->route('category.show', $catalogProductBrandSlug);
         }
 
-        //Obtener información del país
+        //Obtener ID del país en sesión
         $catalogCountryId = $sessionController->getCatalogCountryId();
 
         //Obtener información del producto

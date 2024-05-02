@@ -33,7 +33,7 @@ class Main extends Component
     }
 
     public function mount(SessionController $sessionController) {
-        //Obtener información del país
+        //Obtener información del país en sesión
         $catalogCountry = $sessionController->getCatalogCountry()->toArray();
 
         //Obtener información del sugerido con descuento
@@ -67,7 +67,7 @@ class Main extends Component
             $this->userAddressForm->getApiCatalogStates();
         }
 
-        //Obtener la cantidad de direcciones registradas por el usuario
+        //Obtener la cantidad de direcciones del usuario
         $this->userAddressForm->getCountUserAddresses();
     }
 

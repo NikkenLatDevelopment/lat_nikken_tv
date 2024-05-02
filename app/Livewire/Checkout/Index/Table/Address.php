@@ -12,17 +12,17 @@ class Address extends Component
     use WithPagination;
 
     #[Locked]
-    public int $countryId;
+    public int $catalogCountryId;
 
     public string $search = '';
-    public int $selectedAddress;
+    public int $selectedUserAddress;
 
     public function render()
     {
         //Obtener direcciones del usuario
         $userAddresses = auth()->user()->userAddresses()
-        ->search($this->search)
-        ->country($this->countryId)
+        ->when($this->search, fn ($query) => $query->search($this->search))
+        ->catalogCountryId($this->catalogCountryId)
         ->status()
         ->latest()
         ->simplePaginate(4, pageName: 'addresses');
@@ -32,7 +32,7 @@ class Address extends Component
     }
 
     public function mount(SessionController $sessionController) {
-        //Obtener información del país
-        $this->countryId = $sessionController->getCountryId();
+        //Obtener ID del país en sesión
+        $this->catalogCountryId = $sessionController->getCatalogCountryId();
     }
 }
