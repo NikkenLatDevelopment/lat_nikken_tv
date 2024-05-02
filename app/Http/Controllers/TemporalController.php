@@ -14,10 +14,4 @@ class TemporalController extends Controller
         //Unificar carrito de compras //TODO: !!!! Pendiente
         //Unificar carrito de compras //TODO: !!!! Pendiente
     }
-
-    public function logout() {
-        //Cerrar sesión //! Eliminar
-        auth()->logout();
-        //Cerrar sesión //! Eliminar
-    }
 }
