@@ -92,14 +92,14 @@ class Main extends Component
     #[On('checkout.index.content.main.removeProduct')]
     public function removeProduct(int $id, SessionController $sessionController) {
         //Eliminar producto del carrito de compras
-        $validate = $this->cartForm->removeProduct($id, true, $sessionController);
+        $validate = $this->cartForm->remove($id, true, $sessionController);
 
         if ($validate) {
             //Emitir evento para mostrar mensaje de confirmación
             $this->dispatch('showToast', message: 'Producto <span class="fw-bold"><u>eliminado</u></span> de tu carrito de compras.', color: 'dark');
 
             //Emitir evento para eliminar el producto en el carrito de compras del menú
-            $this->dispatch('general.header.content.cart.products.removeProductExternal', id: $id);
+            $this->dispatch('general.header.content.cart.products.removeExternal', id: $id);
 
             //Generar los cálculos del carrito de compras
             $this->getTotals();
@@ -109,7 +109,7 @@ class Main extends Component
     #[On('checkout.index.content.main.removeProductExternal')]
     public function removeProductExternal(int $id, SessionController $sessionController) {
         //Eliminar producto del carrito de compras
-        $validate = $this->cartForm->removeProduct($id, false, $sessionController);
+        $validate = $this->cartForm->remove($id, false, $sessionController);
 
         if ($validate) {
             //Generar los cálculos del carrito de compras
@@ -117,13 +117,13 @@ class Main extends Component
         }
     }
 
-    #[On('checkout.index.content.main.changeQuantity')]
-    public function changeQuantity(int $id, int $quantity, SessionController $sessionController) {
+    #[On('checkout.index.content.main.changeQuantityProduct')]
+    public function changeQuantityProduct(int $id, int $quantity, SessionController $sessionController) {
         //Actualizar cantidad del producto en el carrito de compras
         list($product, $validate) = $this->cartForm->changeQuantity($id, $quantity, true, $sessionController);
 
         //Emitir evento para actualizar el producto en el carrito de compras
-        $this->dispatch('checkout.index.content.resumeProduct.refreshProduct.' . $id, product: $product);
+        $this->dispatch('checkout.index.content.resumeProduct.updateProduct.' . $id, product: $product);
 
         if ($validate) {
             //Generar los cálculos del carrito de compras
