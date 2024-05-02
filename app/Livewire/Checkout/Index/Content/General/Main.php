@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Checkout\Index\Content;
+namespace App\Livewire\Checkout\Index\Content\General;
 
 use Livewire\Component;
 use Livewire\Attributes\On;
@@ -29,7 +29,7 @@ class Main extends Component
     public function render()
     {
         //Mostrar vista
-        return view('livewire.checkout.index.content.main');
+        return view('livewire.checkout.index.content.general.main');
     }
 
     public function mount(SessionController $sessionController) {
@@ -85,7 +85,7 @@ class Main extends Component
         $this->cartForm->getTotals();
     }
 
-    #[On('checkout.index.content.main.removeProduct')]
+    #[On('checkout.index.content.general.main.removeProduct')]
     public function removeProduct(int $productId, SessionController $sessionController) {
         //Eliminar producto del carrito de compras
         $validate = $this->cartForm->remove($productId, true, $sessionController);
@@ -102,7 +102,7 @@ class Main extends Component
         }
     }
 
-    #[On('checkout.index.content.main.removeProductExternal')]
+    #[On('checkout.index.content.general.main.removeProductExternal')]
     public function removeProductExternal(int $productId, SessionController $sessionController) {
         //Eliminar producto del carrito de compras
         $validate = $this->cartForm->remove($productId, false, $sessionController);
@@ -113,13 +113,13 @@ class Main extends Component
         }
     }
 
-    #[On('checkout.index.content.main.changeQuantityProduct')]
+    #[On('checkout.index.content.general.main.changeQuantityProduct')]
     public function changeQuantityProduct(int $productId, int $quantity, SessionController $sessionController) {
         //Actualizar la cantidad del producto en el carrito de compras
         list($product, $validate) = $this->cartForm->changeQuantity($productId, $quantity, true, $sessionController);
 
         //Emitir evento para actualizar el producto en el carrito de compras
-        $this->dispatch('checkout.index.content.resumeProduct.updateProduct.' . $productId, product: $product);
+        $this->dispatch('checkout.index.content.resume.product.update.' . $productId, product: $product);
 
         if ($validate) {
             //Generar cálculos del carrito de compras
@@ -141,7 +141,7 @@ class Main extends Component
         $this->dispatch('general.header.content.cart.products.updatedDiscountSuggestedPriceExternal', discountSuggestedPrice: $this->discountSuggestedPrice);
     }
 
-    #[On('checkout.index.content.main.updatedDiscountSuggestedPriceExternal')]
+    #[On('checkout.index.content.general.main.updatedDiscountSuggestedPriceExternal')]
     public function updatedDiscountSuggestedPriceExternal(bool $discountSuggestedPrice, SessionController $sessionController) {
         //Actualizar sugerido con descuento
         $this->discountSuggestedPrice = $this->cartForm->changeDiscountSuggestedPrice($discountSuggestedPrice, false, $sessionController);
@@ -154,27 +154,31 @@ class Main extends Component
         //Validar información
         $this->validate([ 'stateUserAddressForm' => 'required|string|max:255' ], [], [ 'stateUserAddressForm' => 'estado' ]);
 
-        //Actualizar estado
+        //Actualizar estado en el formulario de dirección
         $this->userAddressForm->state = $this->stateUserAddressForm;
 
         //Limpiar información
         $this->municipalityUserAddressForm = '';
         $this->colonyUserAddressForm = '';
+
+        //Limpiar información en el formulario de dirección
         $this->userAddressForm->municipality = '';
         $this->userAddressForm->colony = '';
         $this->userAddressForm->catalogMunicipalities = [];
         $this->userAddressForm->catalogColonies = [];
 
-        //Obtener catálogo de municipios
+        //Obtener catálogo de municipios en el formulario de dirección
         $this->userAddressForm->getApiCatalogMunicipalities();
     }
 
     public function updatedMunicipalityUserAddressForm() {
-        //Actualizar municipio
+        //Actualizar municipio en el formulario de dirección
         $this->userAddressForm->municipality = $this->municipality;
 
         //Limpiar información
         $this->colonyUserAddressForm = '';
+
+        //Limpiar información en el formulario de dirección
         $this->userAddressForm->colony = '';
         $this->userAddressForm->catalogColonies = [];
 
@@ -188,7 +192,7 @@ class Main extends Component
                 'municipalityUserAddressForm' => 'municipio'
             ]);
 
-            //Obtener catálogo de colonias
+            //Obtener catálogo de colonias en el formulario de dirección
             $this->userAddressForm->getApiCatalogColonies();
         }
     }
@@ -197,7 +201,7 @@ class Main extends Component
         //Validar información
         $this->validate([ 'colonyUserAddressForm' => 'required|string|max:255' ], [], [ 'colonyUserAddressForm' => 'colonia' ]);
 
-        //Actualizar colonia
+        //Actualizar colonia en el formulario de dirección
         $this->userAddressForm->colony = $this->colonyUserAddressForm;
     }
 
@@ -206,13 +210,15 @@ class Main extends Component
             //Validar información
             $this->validate([ 'postalCodeUserAddressForm' => 'required|string|max:5|min:5' ], [], [ 'postalCodeUserAddressForm' => 'código postal' ]);
 
-            //Actualizar código postal
+            //Actualizar código postal en el formulario de dirección
             $this->userAddressForm->postalCode = $this->postalCodeUserAddressForm;
 
             //Limpiar información
             $this->stateUserAddressForm = '';
             $this->municipalityUserAddressForm = '';
             $this->colonyUserAddressForm = '';
+
+            //Limpiar información en el formulario de dirección
             $this->userAddressForm->state = '';
             $this->userAddressForm->municipality = '';
             $this->userAddressForm->colony = '';
@@ -220,14 +226,14 @@ class Main extends Component
             $this->userAddressForm->catalogMunicipalities = [];
             $this->userAddressForm->catalogColonies = [];
 
-            //Obtener catálogo de estados, municipios y colonias
+            //Obtener catálogo de estados, municipios y colonias en el formulario de dirección
             $this->userAddressForm->getApiCatalogs();
         }
     }
 
-    #[On('checkout.index.content.main.changeSelectedUserAddressExternal')]
+    #[On('checkout.index.content.general.main.changeSelectedUserAddressExternal')]
     public function changeSelectedUserAddressExternal(int $id) {
-        //Guardar dirección seleccionada por el usuario
+        //Guardar dirección seleccionada por el usuario en el formulario de dirección
         $this->userAddressForm->selectedUserAddress = $id;
     }
 

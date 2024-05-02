@@ -15,7 +15,7 @@ class Address extends Component
     public int $catalogCountryId;
 
     public string $search = '';
-    public int $selectedUserAddress;
+    public int $selected;
 
     public function render()
     {

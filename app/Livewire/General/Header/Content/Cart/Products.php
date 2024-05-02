@@ -49,7 +49,7 @@ class Products extends Component
             $this->dispatch('showToast', message: 'Producto <span class="fw-bold"><u>eliminado</u></span> de tu carrito de compras.', color: 'dark');
 
             //Emitir evento para eliminar el producto del carrito de compras en el checkout
-            $this->dispatch('checkout.index.content.main.removeProductExternal', id: $productId);
+            $this->dispatch('checkout.index.content.general.main.removeProductExternal', id: $productId);
 
             //Generar cálculos del carrito de compras
             $this->getTotals();
@@ -86,7 +86,7 @@ class Products extends Component
         $this->getTotals();
 
         //Emitir evento para actualizar el sugerido con descuento en el checkout
-        $this->dispatch('checkout.index.content.main.updatedDiscountSuggestedPriceExternal', discountSuggestedPrice: $this->discountSuggestedPrice);
+        $this->dispatch('checkout.index.content.general.main.updatedDiscountSuggestedPriceExternal', discountSuggestedPrice: $this->discountSuggestedPrice);
     }
 
     #[On('general.header.content.cart.products.updatedDiscountSuggestedPriceExternal')]
@@ -103,6 +103,6 @@ class Products extends Component
         $this->cartForm->getTotals();
 
         //Emitir evento para actualizar el contador del carrito de compras
-        $this->dispatch('general.header.content.cart.count.getCountProducts', countProducts: $this->cartForm->quantity);
+        $this->dispatch('general.header.content.cart.count.setCount', countProducts: $this->cartForm->quantity);
     }
 }
