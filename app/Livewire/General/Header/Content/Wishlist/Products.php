@@ -67,7 +67,7 @@ class Products extends Component
         //Validar sesión del usuario
         if (!auth()->check()) { return; }
 
-        //Verificar si el producto existe en el array
+        //Verificar si el producto existe en el array de la lista de deseos
         $index = array_search($productId, array_column($this->products, 'id'));
         if ($index === false) { return; }
 

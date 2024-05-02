@@ -22,7 +22,7 @@ class Products extends Component
         //Obtener información del país en sesión
         $this->cartForm->catalogCountry = $sessionController->getCatalogCountry()->toArray();
 
-        //Obtener información del sugerido con descuento
+        //Obtener información de sugerido con descuento
         $this->discountSuggestedPrice = $sessionController->getDiscountSuggestedPrice();
         $this->cartForm->discountSuggestedPrice = $this->discountSuggestedPrice;
 

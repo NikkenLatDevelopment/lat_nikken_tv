@@ -36,7 +36,7 @@ class Main extends Component
         //Obtener información del país en sesión
         $catalogCountry = $sessionController->getCatalogCountry()->toArray();
 
-        //Obtener información del sugerido con descuento
+        //Obtener información de sugerido con descuento
         $this->discountSuggestedPrice = $sessionController->getDiscountSuggestedPrice();
 
         //Inicializar formulario carrito de compras
@@ -63,7 +63,7 @@ class Main extends Component
         $this->userAddressForm->catalogCountry = $catalogCountry;
         if ($this->userAddressForm->catalogCountry['id'] != 2) { $this->userAddressForm->getApiCatalogStates(); }
 
-        //Obtener la cantidad de direcciones del usuario
+        //Obtener la cantidad de direcciones registradas por el usuario
         $this->userAddressForm->getCountUserAddresses();
     }
 

@@ -45,10 +45,10 @@ class ProductController extends Controller
             return redirect()->route('category.show', $catalogProductBrandSlug);
         }
 
-        //Obtener disponibilidad de los componentes del producto
+        //Obtener disponibilidad y componentes del producto
         $available = $product->getAvailability($product->productComponents->toArray());
 
-        //Agregar disponibilidad de los componentes a la información del producto
+        //Agregar disponibilidad y componentes a la información del producto
         $product['availability'] = $available;
 
         //Mostrar vista

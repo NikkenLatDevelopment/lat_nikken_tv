@@ -38,7 +38,7 @@ class CatalogCountries extends Component
         ->find($catalogCountryId);
 
         if ($catalogCountry) {
-            //Guardar país en sesión
+            //Guardar información del país en sesión y cookie
             $sessionController->setCatalogCountry($catalogCountry->toArray());
 
             //Redireccionar

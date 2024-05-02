@@ -46,7 +46,7 @@ class CartForm extends Form
     }
 
     public function remove(int $productId, bool $DB, SessionController $sessionController): bool {
-        //Verificar si el producto existe en el array
+        //Verificar si el producto existe en el array del carrito de compras
         $index = array_search($productId, array_column($this->products, 'id'));
         if ($index === false) { return false; }
 
@@ -136,7 +136,7 @@ class CartForm extends Form
     }
 
     public function changeQuantity(int $productId, int $quantity, bool $DB, SessionController $sessionController): array {
-        //Verificar si el producto existe en el array
+        //Verificar si el producto existe en el array del carrito de compras
         $index = array_search($productId, array_column($this->products, 'id'));
         if ($index === false) { return [ [], false ]; }
 
