@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class CartForm extends Form
 {
     #[Locked]
-    public array $country = [];
+    public array $catalogCountry = [];
 
     #[Locked]
     public array $products = [];
@@ -45,29 +45,20 @@ class CartForm extends Form
         $this->products = $sessionController->getCart();
     }
 
-    public function removeProduct(int $productId, bool $DB, SessionController $sessionController): bool {
-        //Verificar si el producto existe
-        $index = array_search($productId, array_column($this->products, 'id'));
+    public function remove(int $id, bool $DB, SessionController $sessionController): bool {
+        //Verificar si el producto existe en el array
+        $index = array_search($id, array_column($this->products, 'id'));
         if ($index === false) { return false; }
 
         if ($DB) {
-            //Validar información
-            $validator = Validator::make(
-                [ 'productId' => $productId ],
-                [ 'productId' => 'required|integer|exists:products,id' ]
-            );
-
-            //Validar información
-            if ($validator->fails()) { return false; }
-
-            //Eliminar producto del carrito de compras
-            $sessionController->removeCart($productId);
+            //Eliminar producto
+            $sessionController->removeCart($id);
         }
 
-        //Eliminar producto del carrito de compras
+        //Eliminar producto
         unset($this->products[$index]);
 
-        //Reorganizar índices
+        //Reorganizar índices del array
         $this->products = array_values($this->products);
 
         //Retornar
@@ -97,17 +88,17 @@ class CartForm extends Form
         $totalVcProducts = array_sum(array_column($this->products, 'vc'));
 
         $this->quantity = $totalQuantityProducts;
-        $this->subtotalText = formatPriceWithCurrency($totalSubtotalProducts, $this->country);
+        $this->subtotalText = formatPriceWithCurrency($totalSubtotalProducts, $this->catalogCountry);
         $this->pointsText = formatPrice($totalPointsProducts, 0);
-        $this->vcText = formatPriceWithCurrency($totalVcProducts, $this->country);
-        $this->retailText = formatPriceWithCurrency($totalRetailProducts, $this->country);
+        $this->vcText = formatPriceWithCurrency($totalVcProducts, $this->catalogCountry);
+        $this->retailText = formatPriceWithCurrency($totalRetailProducts, $this->catalogCountry);
 
         if ($this->discountSuggestedPrice) {
-            $this->vatText = formatPriceWithCurrency($totalVatProducts - $totalVatRetailProducts, $this->country);
-            $this->totalText = formatPriceWithCurrency(($totalSubtotalProducts - $totalRetailProducts) + ($totalVatProducts - $totalVatRetailProducts), $this->country);
+            $this->vatText = formatPriceWithCurrency($totalVatProducts - $totalVatRetailProducts, $this->catalogCountry);
+            $this->totalText = formatPriceWithCurrency(($totalSubtotalProducts - $totalRetailProducts) + ($totalVatProducts - $totalVatRetailProducts), $this->catalogCountry);
         } else {
-            $this->vatText = formatPriceWithCurrency($totalVatProducts, $this->country);
-            $this->totalText = formatPriceWithCurrency($totalSubtotalProducts + $totalVatProducts, $this->country);
+            $this->vatText = formatPriceWithCurrency($totalVatProducts, $this->catalogCountry);
+            $this->totalText = formatPriceWithCurrency($totalSubtotalProducts + $totalVatProducts, $this->catalogCountry);
         }
     }
 
@@ -119,12 +110,12 @@ class CartForm extends Form
             //Validar información
             $validator = Validator::make(
                 [
-                    'countryId' => $this->country['id'],
-                    'userTypeId' => auth()->user()->catalog_user_type_id
+                    'catalogCountryId' => $this->catalogCountry['id'],
+                    'catalogUserTypeId' => auth()->user()->catalog_user_type_id
                 ],
                 [
-                    'countryId' => 'required|integer|in:1',
-                    'userTypeId' => 'required|integer|in:3'
+                    'catalogCountryId' => 'required|integer|in:1',
+                    'catalogUserTypeId' => 'required|integer|in:3'
                 ]
             );
 
@@ -144,31 +135,22 @@ class CartForm extends Form
         return $this->discountSuggestedPrice;
     }
 
-    public function changeQuantity(int $productId, int $quantity, bool $DB, SessionController $sessionController): array {
+    public function changeQuantity(int $id, int $quantity, bool $DB, SessionController $sessionController): array {
         //Verificar si el producto existe
-        $index = array_search($productId, array_column($this->products, 'id'));
-        if ($index === false) { return [ $this->products[$index], false ]; }
+        $index = array_search($id, array_column($this->products, 'id'));
+        if ($index === false) { return [ [], false ]; }
 
         if ($DB) {
             //Validar información
-            $validator = Validator::make(
-                [
-                    'productId' => $productId,
-                    'quantity' => $quantity
-                ],
-                [
-                    'quantity' => 'required|integer|min:1|max:99',
-                    'productId' => 'required|integer|exists:products,id'
-                ]
-            );
+            $validator = Validator::make([ 'quantity' => $quantity ], [ 'quantity' => 'required|integer|min:1|max:99' ]);
 
             if ($validator->fails()) {
                 //Retornar producto sin cambios
                 return [ $this->products[$index], false ];
             }
 
-            //Actualizar cantidad del producto en el carrito de compras
-            $sessionController->setCart($productId, $quantity);
+            //Actualizar cantidad del producto
+            $sessionController->setCart($id, $quantity);
         }
 
         //Obtener información del producto
@@ -176,11 +158,11 @@ class CartForm extends Form
         ->with([
             'catalogProductBrand',
             'productComponents.product' => fn ($query) => $query->availabilityData(),
-        ])->find($productId);
+        ])->find($id);
 
         if ($product) {
             //Actualizar información del producto
-            $this->products[$index] = formatCartProduct($product, $quantity, $this->country);
+            $this->products[$index] = formatCartProduct($product, $quantity, $this->catalogCountry);
 
             //Retornar producto actualizado
             return [ $this->products[$index], true ];
