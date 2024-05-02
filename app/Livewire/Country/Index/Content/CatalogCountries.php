@@ -3,10 +3,9 @@
 namespace App\Livewire\Country\Index\Content;
 
 use Livewire\Component;
-use App\Models\CatalogCountry;
 use Livewire\Attributes\Locked;
 use App\Models\SessionController;
-use Illuminate\Support\Facades\Validator;
+use App\Models\CatalogCountry;
 
 class CatalogCountries extends Component
 {
