@@ -13,18 +13,18 @@ class CountryController extends Controller
         return view('country.index');
     }
 
-    public function update(int $id, SessionController $sessionController) {
+    public function update(int $catalogCountryId, SessionController $sessionController) {
         //Validar información
-        if ($id <= 0) { return redirect()->route('country.index'); }
+        if ($catalogCountryId <= 0) { return redirect()->route('country.index'); }
 
-        //Obtener país
+        //Obtener información del país
         $catalogCountry = CatalogCountry::sessionData()
         ->closed()
         ->status()
-        ->find($id);
+        ->find($catalogCountryId);
 
         if ($catalogCountry) {
-            //Guardar país en sesión
+            //Guardar información del país en sesión
             $sessionController->setCatalogCountry($catalogCountry->toArray());
 
             //Redireccionar

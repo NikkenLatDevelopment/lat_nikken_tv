@@ -47,7 +47,7 @@ class ProductController extends Controller
 
         //Mostrar vista
         return view('product.show', [
-            'product' => $product,
+            'product' => $product->toArray(),
             'productAvailability' => $product->getAvailability($product->productComponents->toArray())
         ]);
     }
