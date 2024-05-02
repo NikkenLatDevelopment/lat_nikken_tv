@@ -7,21 +7,14 @@ use App\Models\SessionController;
 
 class CheckoutController extends Controller
 {
-    protected SessionController $sessionController;
-
-    public function __construct(SessionController $sessionController) {
-        //Iniciar sesión
-        $this->sessionController = $sessionController;
-    }
-
-    public function index() {
+    public function index(SessionController $sessionController) {
         if (!auth()->check()) {
             //Redireccionar
             return redirect()->route('login');
         }
 
         //Obtener productos del carrito de compras
-        $products = $this->sessionController->getCart();
+        $products = $sessionController->getCart();
 
         if (empty($products)) {
             //Redireccionar
