@@ -9,16 +9,16 @@ use Livewire\Attributes\Locked;
 class AvailableMessage extends Component
 {
     #[Locked]
-    public string $sku;
+    public string $skuProduct;
 
     #[Locked]
-    public string $name;
+    public string $nameProduct;
 
     #[Locked]
-    public string $availableUntil;
+    public string $availableUntilProduct;
 
     #[Locked]
-    public array $componentsNotAvailable = [];
+    public array $componentNotAvailablesProduct = [];
 
     public function render()
     {
@@ -27,12 +27,12 @@ class AvailableMessage extends Component
     }
 
     #[On('product.show.modal.available-message.initialize')]
-    public function initialize(string $sku, string $name, string $availableUntil, array $componentsNotAvailable) {
+    public function initialize(string $skuProduct, string $nameProduct, string $availableUntilProduct, array $componentNotAvailablesProduct) {
         //Inicializar información
-        $this->sku = $sku;
-        $this->name = $name;
-        $this->availableUntil = $availableUntil;
-        $this->componentsNotAvailable = $componentsNotAvailable;
+        $this->skuProduct = $skuProduct;
+        $this->nameProduct = $nameProduct;
+        $this->availableUntilProduct = $availableUntilProduct;
+        $this->componentNotAvailablesProduct = $componentNotAvailablesProduct;
 
         //Emitir evento para mostrar los productos en entrega postergada
         $this->dispatch('productShowModalAvailableMessage', view: 'show');

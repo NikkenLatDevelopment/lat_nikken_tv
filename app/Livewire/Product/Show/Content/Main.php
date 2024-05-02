@@ -71,7 +71,7 @@ class Main extends Component
     public array $parts = [];
 
     #[Locked]
-    public int $id;
+    public int $productId;
 
     #[Locked]
     public string $currentUrl;
@@ -138,7 +138,7 @@ class Main extends Component
     public function getProduct(array $product) {
         //Inicializar información
         $this->product = $product;
-        $this->id = $product['id'];
+        $this->productId = $product['id'];
 
         //Guardar disponibilidad y componentes del producto
         list($this->available, $this->componentAvailables, $this->componentNotAvailables) =  array_values($product['availability']);
@@ -229,7 +229,7 @@ class Main extends Component
     public function getImages() {
         //Obtener información de las imágenes del producto
         $this->images = ProductImage::select('image')
-        ->where('product_id', $this->id)
+        ->where('product_id', $this->productId)
         ->get()
         ->map(function ($image) {
             $image->image = env('STORAGE_PRODUCT_IMAGE_THUMBNAIL_PATH') . $image->image;
@@ -248,7 +248,7 @@ class Main extends Component
 
         //Obtener información de la lista de deseos
         $wishlist = auth()->user()->wishlists()
-        ->where('product_id', $this->id)
+        ->where('product_id', $this->productId)
         ->catalogCountryId($this->catalogCountry['id'])
         ->first();
 
@@ -262,13 +262,13 @@ class Main extends Component
 
         //Obtener información de la lista de deseos
         $wishlist = auth()->user()->wishlists()
-        ->where('product_id', $this->id)
+        ->where('product_id', $this->productId)
         ->catalogCountryId($this->catalogCountry['id'])
         ->first();
 
         if ($this->wishlist) {
             //Guardar producto en la lista de deseos
-            if (!$wishlist) { auth()->user()->wishlists()->create([ 'catalog_country_id' => $this->catalogCountry['id'], 'product_id' => $this->id ]); }
+            if (!$wishlist) { auth()->user()->wishlists()->create([ 'catalog_country_id' => $this->catalogCountry['id'], 'product_id' => $this->productId ]); }
 
             //Emitir evento para mostrar mensaje de confirmación
             $this->dispatch('showToast', message: 'Producto <span class="fw-bold"><u>agregado</u></span> a tu lista de deseos.', color: 'success');
@@ -289,7 +289,7 @@ class Main extends Component
 
     #[On('product.show.content.main.removeWishlist')]
     public function removeWishlist(int $productId) {
-        if ($this->id == $productId) {
+        if ($this->productId == $productId) {
             //Desmarcar producto de la lista de deseos
             $this->wishlist = false;
         }
@@ -297,7 +297,7 @@ class Main extends Component
 
     public function getTotalReviews() {
         //Obtener ID del producto principal o del producto padre
-        $productId = $this->product['parent_product_id'] != null ? $this->parentProduct['id'] : $this->id;
+        $productId = $this->product['parent_product_id'] != null ? $this->parentProduct['id'] : $this->productId;
 
         //Obtener el total de reviews del producto
         $this->countReviewProduct = ProductReview::where('product_id', $productId)
@@ -322,14 +322,14 @@ class Main extends Component
     public function getColors() {
         //Obtener información de los colores del producto
         $this->colors = ProductColor::select('product_id', 'color')
-        ->where('parent_product_id', $this->id)
+        ->where('parent_product_id', $this->productId)
         ->whereHas('product', fn ($query) => $query->active($this->catalogCountry['id']))
         ->orderBy('product_id', 'ASC')
         ->get()
         ->toArray();
 
         //Marcar color por defecto
-        if (!empty($this->colors)) { $this->selectedColor = $this->id; }
+        if (!empty($this->colors)) { $this->selectedColor = $this->productId; }
     }
 
     public function updatedSelectedColor() {
@@ -346,14 +346,14 @@ class Main extends Component
     public function getPresentations() {
         //Obtener información de las presentaciones del producto
         $this->presentations = ProductPresentation::select('product_id', 'presentation')
-        ->where('parent_product_id', $this->id)
+        ->where('parent_product_id', $this->productId)
         ->whereHas('product', fn ($query) => $query->active($this->catalogCountry['id']))
         ->orderBy('product_id', 'ASC')
         ->get()
         ->toArray();
 
         //Marcar presentación por defecto
-        if (!empty($this->presentations)) { $this->selectedPresentation = $this->id; }
+        if (!empty($this->presentations)) { $this->selectedPresentation = $this->productId; }
     }
 
     public function updatedSelectedPresentation() {
@@ -370,14 +370,14 @@ class Main extends Component
     public function getMeasurements() {
         //Obtener información de las medidas del producto
         $this->measurements = ProductMeasurement::select('product_id', 'measurement')
-        ->where('parent_product_id', $this->id)
+        ->where('parent_product_id', $this->productId)
         ->whereHas('product', fn ($query) => $query->active($this->catalogCountry['id']))
         ->orderBy('product_id', 'ASC')
         ->get()
         ->toArray();
 
         //Marcar medida por defecto
-        if (!empty($this->measurements)) { $this->selectedMeasurement = $this->id; }
+        if (!empty($this->measurements)) { $this->selectedMeasurement = $this->productId; }
     }
 
     public function updatedSelectedMeasurement() {
@@ -407,7 +407,7 @@ class Main extends Component
         ]);
 
         //Guardar producto en el carrito de compras
-        $sessionController->setCart($this->id, $this->quantity);
+        $sessionController->setCart($this->productId, $this->quantity);
 
         //Emitir evento para actualizar el carrito de compras del menú
         $this->dispatch('general.header.content.cart.products.getProducts');
@@ -421,7 +421,7 @@ class Main extends Component
 
     public function getTechnologies() {
         //Obtener ID del producto principal o del producto padre
-        $productId = $this->product['parent_product_id'] != null ? $this->parentProduct['id'] : $this->id;
+        $productId = $this->product['parent_product_id'] != null ? $this->parentProduct['id'] : $this->productId;
 
         //Obtener información de las tecnologías del producto
         $this->technologies = ProductTechnology::with([ 'catalogProductTechnology' ])
@@ -440,7 +440,7 @@ class Main extends Component
 
     public function getFeatures() {
         //Obtener ID del producto principal o del producto padre
-        $productId = $this->product['parent_product_id'] != null ? $this->parentProduct['id'] : $this->id;
+        $productId = $this->product['parent_product_id'] != null ? $this->parentProduct['id'] : $this->productId;
 
         //Obtener información de las características del producto
         $this->features = ProductFeature::with([ 'catalogProductFeature' ])
@@ -452,7 +452,7 @@ class Main extends Component
 
     public function getAttachments() {
         //Obtener ID del producto principal o del producto padre
-        $productId = $this->product['parent_product_id'] != null ? $this->parentProduct['id'] : $this->id;
+        $productId = $this->product['parent_product_id'] != null ? $this->parentProduct['id'] : $this->productId;
 
         //Obtener información de los archivos adjuntos del producto
         $this->attachments = ProductAttachment::with([ 'catalogProductAttachment' => fn ($query) => $query->status() ])
@@ -467,7 +467,7 @@ class Main extends Component
 
     public function getVideos() {
         //Obtener ID del producto principal o del producto padre
-        $productId = $this->product['parent_product_id'] != null ? $this->parentProduct['id'] : $this->id;
+        $productId = $this->product['parent_product_id'] != null ? $this->parentProduct['id'] : $this->productId;
 
         //Obtener información de los videos del producto
         $this->videos = ProductVideo::select('url')
@@ -478,7 +478,7 @@ class Main extends Component
 
     public function getReplacements() {
         //Obtener ID del producto principal o del producto padre
-        $productId = $this->product['parent_product_id'] != null ? $this->parentProduct['id'] : $this->id;
+        $productId = $this->product['parent_product_id'] != null ? $this->parentProduct['id'] : $this->productId;
 
         //Obtener información de los repuestos del producto
         $this->replacements = ProductReplacement::with([ 'product', 'product.catalogProductBrand' ])
@@ -501,7 +501,7 @@ class Main extends Component
 
     public function getParts() {
         //Obtener ID del producto principal o del producto padre
-        $productId = $this->product['parent_product_id'] != null ? $this->parentProduct['id'] : $this->id;
+        $productId = $this->product['parent_product_id'] != null ? $this->parentProduct['id'] : $this->productId;
 
         //Obtener información de las partes del producto
         $this->parts = ProductPart::with([ 'product', 'product.catalogProductBrand' ])

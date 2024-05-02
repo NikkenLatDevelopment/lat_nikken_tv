@@ -2,11 +2,11 @@
 
 namespace App\Livewire\Product\Show\Modal;
 
+use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Locked;
 use App\Models\CatalogProductTechnology;
-use Illuminate\Support\Facades\Validator;
 
 class TechnologyDescription extends Component
 {
@@ -27,7 +27,7 @@ class TechnologyDescription extends Component
             [ 'productTechnologyId' => 'required|integer|exists:catalog_product_technologies,id' ],
         )->validate();
 
-        //Obtener información de la tecnología
+        //Obtener información de la tecnología del producto
         $catalogProductTechnology = CatalogProductTechnology::select('description')
         ->status()
         ->find($productTechnologyId);

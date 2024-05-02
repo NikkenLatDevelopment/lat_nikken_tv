@@ -5,8 +5,8 @@ namespace App\Livewire\Product\Show\Table;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
-use App\Models\ProductReview;
 use Livewire\Attributes\Locked;
+use App\Models\ProductReview;
 
 class Review extends Component
 {
@@ -20,13 +20,13 @@ class Review extends Component
 
     public function render()
     {
-        //Obtener reviews generales y consolidar
-        $generalReviews = ProductReview::with([ 'user' => fn ($query) => $query->with([ 'catalogCountry' ])->select('id', 'name', 'catalog_country_id') ])
+        //Obtener reviews generales del producto
+        $productReviews = ProductReview::with([ 'user' => fn ($query) => $query->with([ 'catalogCountry' ])->select('id', 'name', 'catalog_country_id') ])
         ->where('product_id', $this->productId)
         ->status();
 
         if (auth()->check()) {
-            //Obtener reviews del usuario
+            //Obtener reviews del producto del usuario
             $userReviews = auth()->user()->productReviews()
             ->with([ 'catalogCountry' => fn ($query) => $query->select('id', 'name', 'catalog_country_id') ])
             ->where('product_id', $this->productId)
@@ -34,18 +34,15 @@ class Review extends Component
             ->latest();
 
             //Unir reviews
-            $reviews = $generalReviews->union($userReviews);
-        } else {
-            //Mostrar reviews generales
-            $reviews = $generalReviews;
+            $productReviews = $productReviews->union($userReviews);
         }
 
-        return view('livewire.product.show.table.review', [ 'reviews' => $reviews->latest()->simplePaginate(3, pageName: 'reviews') ]);
+        return view('livewire.product.show.table.review', [ 'productReviews' => $productReviews->latest()->simplePaginate(3, pageName: 'reviews') ]);
     }
 
     #[On('product.show.table.review.refresh')]
     public function refresh() {
-        //Refrescar tabla
+        //Refrescar reviews del producto
         $this->render();
     }
 }

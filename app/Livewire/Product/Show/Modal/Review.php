@@ -49,7 +49,7 @@ class Review extends Component
         $this->productId = $productId;
         $this->productName = $productName;
 
-        //Emitir evento para crear el review
+        //Emitir evento para crear el review del producto
         $this->dispatch('productShowModalReview', view: 'show');
     }
 
@@ -60,12 +60,8 @@ class Review extends Component
         //Validar información
         $this->validate();
 
-        //Crear review
-        auth()->user()->productReviews()->create([
-            'product_id' => $this->productId,
-            'rating' => $this->rating,
-            'comment' => $this->comment
-        ]);
+        //Crear review del producto
+        auth()->user()->productReviews()->create([ 'product_id' => $this->productId, 'rating' => $this->rating, 'comment' => $this->comment ]);
 
         //Emitir evento para refrescar la tabla de reviews
         $this->dispatch('product.show.table.review.refresh');

@@ -232,9 +232,9 @@ class Main extends Component
     }
 
     #[On('checkout.index.content.general.main.changeSelectedUserAddressExternal')]
-    public function changeSelectedUserAddressExternal(int $id) {
+    public function changeSelectedUserAddressExternal(int $userAddressId) {
         //Guardar dirección seleccionada por el usuario en el formulario de dirección
-        $this->userAddressForm->selectedUserAddress = $id;
+        $this->userAddressForm->selectedUserAddress = $userAddressId;
     }
 
     public function getCatalogSalePaymentMethods() {
