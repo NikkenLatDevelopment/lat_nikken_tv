@@ -17,8 +17,8 @@ class Count extends Component
         return view('livewire.general.header.content.wishlist.count');
     }
 
-    #[On('general.header.content.wishlist.count.getCount')]
-    public function getCount(int $count) {
+    #[On('general.header.content.wishlist.count.setCount')]
+    public function setCount(int $count) {
         //Actualizar total de productos de la lista de deseos
         $this->count = $count;
     }

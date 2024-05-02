@@ -60,7 +60,7 @@ class Products extends Component
         ->toArray();
 
         //Emitir evento para actualizar el contador de la lista de deseos
-        $this->dispatch('general.header.content.wishlist.count.getCount', countProducts: count($this->products));
+        $this->dispatch('general.header.content.wishlist.count.setCount', countProducts: count($this->products));
     }
 
     public function remove(int $productId) {
@@ -87,7 +87,7 @@ class Products extends Component
         $this->dispatch('showToast', message: 'Producto <span class="fw-bold"><u>eliminado</u></span> de tu lista de deseos.', color: 'dark');
 
         //Emitir evento para actualizar el contador de la lista de deseos
-        $this->dispatch('general.header.content.wishlist.count.getCount', countProducts: count($this->products));
+        $this->dispatch('general.header.content.wishlist.count.setCount', countProducts: count($this->products));
 
         //Emitir evento para eliminar el producto en la lista de deseos
         $this->dispatch('product.show.content.main.removeWishlist', productId: $productId);
