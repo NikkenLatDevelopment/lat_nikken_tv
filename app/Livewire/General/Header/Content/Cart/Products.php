@@ -19,8 +19,8 @@ class Products extends Component
     }
 
     public function mount(SessionController $sessionController) {
-        //Obtener información del país
-        $this->cartForm->country = $sessionController->getCountry()->toArray();
+        //Obtener información del país en sesión
+        $this->cartForm->catalogCountry = $sessionController->getCatalogCountry()->toArray();
 
         //Obtener información del sugerido con descuento
         $this->discountSuggestedPrice = $sessionController->getDiscountSuggestedPrice();
@@ -35,45 +35,45 @@ class Products extends Component
         //Obtener productos del carrito de compras
         $this->cartForm->getProducts($sessionController);
 
-        //Calcular totales
+        //Generar los cálculos del carrito de compras
         $this->getTotals();
     }
 
-    #[On('general.header.content.cart.products.removeProduct')]
-    public function removeProduct(int $productId, SessionController $sessionController) {
+    #[On('general.header.content.cart.products.remove')]
+    public function remove(int $id, SessionController $sessionController) {
         //Eliminar producto del carrito de compras
-        $validate = $this->cartForm->removeProduct($productId, true, $sessionController);
+        $validate = $this->cartForm->remove($id, true, $sessionController);
 
         if ($validate) {
             //Emitir evento para mostrar mensaje de confirmación
             $this->dispatch('showToast', message: 'Producto <span class="fw-bold"><u>eliminado</u></span> de tu carrito de compras.', color: 'dark');
 
             //Emitir evento para eliminar el producto del carrito de compras
-            $this->dispatch('checkout.index.content.main.removeProductExternal', productId: $productId);
+            $this->dispatch('checkout.index.content.main.removeProductExternal', id: $id);
 
-            //Calcular totales
+            //Generar los cálculos del carrito de compras
             $this->getTotals();
         }
     }
 
-    #[On('general.header.content.cart.products.removeProductExternal')]
-    public function removeProductExternal(int $productId, SessionController $sessionController) {
+    #[On('general.header.content.cart.products.removeExternal')]
+    public function removeProductExternal(int $id, SessionController $sessionController) {
         //Eliminar producto del carrito de compras
-        $validate = $this->cartForm->removeProduct($productId, false, $sessionController);
+        $validate = $this->cartForm->remove($id, false, $sessionController);
 
         if ($validate) {
-            //Calcular totales
+            //Generar los cálculos del carrito de compras
             $this->getTotals();
         }
     }
 
     #[On('general.header.content.cart.products.changeQuantity')]
-    public function changeQuantity(int $productId, int $quantity, SessionController $sessionController) {
+    public function changeQuantity(int $id, int $quantity, SessionController $sessionController) {
         //Actualizar cantidad del producto en el carrito de compras
-        $validate = $this->cartForm->changeQuantity($productId, $quantity, false, $sessionController)[1];
+        $validate = $this->cartForm->changeQuantity($id, $quantity, false, $sessionController)[1];
 
         if ($validate) {
-            //Calcular totales
+            //Generar los cálculos del carrito de compras
             $this->getTotals();
         }
     }
@@ -82,7 +82,7 @@ class Products extends Component
         //Actualizar sugerido con descuento
         $this->discountSuggestedPrice = $this->cartForm->changeDiscountSuggestedPrice($this->discountSuggestedPrice, true, $sessionController);
 
-        //Calcular totales
+        //Generar los cálculos del carrito de compras
         $this->getTotals();
 
         //Emitir evento para actualizar el sugerido con descuento
@@ -94,15 +94,15 @@ class Products extends Component
         //Actualizar sugerido con descuento
         $this->discountSuggestedPrice = $this->cartForm->changeDiscountSuggestedPrice($discountSuggestedPrice, false, $sessionController);
 
-        //Calcular totales
+        //Generar los cálculos del carrito de compras
         $this->getTotals();
     }
 
     public function getTotals() {
-        //Calcular totales
+        //Generar los cálculos del carrito de compras
         $this->cartForm->getTotals();
 
         //Emitir evento para actualizar el contador del carrito de compras
-        $this->dispatch('general.header.content.cart.count.getTotalProducts', productsTotal: $this->cartForm->quantity);
+        $this->dispatch('general.header.content.cart.count.getCountProducts', countProducts: $this->cartForm->quantity);
     }
 }
