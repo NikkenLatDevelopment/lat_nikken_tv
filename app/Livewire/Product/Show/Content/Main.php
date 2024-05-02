@@ -394,7 +394,7 @@ class Main extends Component
     #[On('product.show.content.main.addCart')]
     public function addCart(int $available, SessionController $sessionController) {
         if ($this->available == 0 && $available == 0) {
-            //Emitir evento para mostrar modal recordando productos no disponibles
+            //Emitir evento para mostrar mostrar los productos no disponibles
             return $this->dispatch('product.show.modal.available-message.initialize', skuProduct: $this->product['sku'], nameProduct: $this->product['name'], availableUntilProduct: $this->availableUntil, componentNotAvailablesProduct: $this->componentNotAvailables);
         }
 
