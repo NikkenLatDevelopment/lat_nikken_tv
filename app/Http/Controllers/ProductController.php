@@ -27,7 +27,7 @@ class ProductController extends Controller
         }
 
         //Obtener información del país
-        $catalogCountry = $sessionController->getCatalogCountry()->toArray();
+        $catalogCountryId = $sessionController->getCatalogCountryId();
 
         //Obtener información del producto
         $product = Product::basicData()
@@ -36,7 +36,7 @@ class ProductController extends Controller
             'productComponents.product' => fn ($query) => $query->availabilityData(),
         ])
         ->where('slug', $productSlug)
-        ->active($catalogCountry['id'], $catalogProductBrandSlug)
+        ->active($catalogCountryId, $catalogProductBrandSlug)
         ->first();
 
         if (!$product) {
