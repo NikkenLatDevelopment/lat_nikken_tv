@@ -3,22 +3,22 @@
 use App\Models\Product;
 use Illuminate\Support\Carbon;
 
-function formatPrice(float $price, int $decimals) {
+function formatPrice(float $price, int $decimals): float {
     //Formatear precio
     return number_format($price, $decimals);
 }
 
-function formatPriceWithCurrency(float $price, array $country) {
+function formatPriceWithCurrency(float $price, array $country): string {
     //Formatear precio con símbolo de moneda
     return $country['currency_symbol'] . number_format($price, $country['currency_decimal']);
 }
 
-function formatDateInSpanishLocale(string $date) {
+function formatDateInSpanishLocale(string $date): string {
     //Formatear fecha a texto en español
     return Carbon::parse($date)->locale('es_ES')->isoFormat('DD [de] MMMM [del] YYYY');
 }
 
-function formatDateToDDMMMYYYY(string $date) {
+function formatDateToDDMMMYYYY(string $date): string {
     //Formatear fecha
     return Carbon::parse($date)->isoFormat('DD MMM YYYY');
 }
@@ -48,28 +48,17 @@ function formatCartProduct(Product $product, int $quantity, array $country): arr
     ];
 }
 
-function formatContactInfo(string $cellular, ?string $phone) {
-    //Inicializar
-    $result = $cellular;
-
-    //Unificar información con el celular
-    if (!empty($phone)) { $result .= ", " . $phone; }
-
-    //Retornar teléfonos
-    return $result;
+function formatAddressPhone(string $cellphone, ?string $phone): string {
+    //Formatear información de contacto
+    return $phone ? "$cellphone, $phone" : $cellphone;
 }
 
-function formatAddressInfo(string $address, string $state, string $municipality, ?string $complement_address, ?string $reference_address, ?string $colony, ?string $postal_code) {
-    //Inicializar
-    $result = $address;
+function formatAddressInfo(string $address, string $state, string $municipality, ?string $complementAddress, ?string $referenceAddress, ?string $colony, ?string $postalCode): string {
+    //Crear array con todos los componentes de la dirección
+    $parts = [ $address, $complementAddress, $referenceAddress, $state, $municipality, $colony, $postalCode ];
 
-    //Unificar información con la dirección
-    if (!empty($complement_address)) { $result .= ", " . $complement_address; }
-    if (!empty($reference_address)) { $result .= ", " . $reference_address; }
-    if (!empty($state)) { $result .= ", " . $state; }
-    if (!empty($municipality)) { $result .= ", " . $municipality; }
-    if (!empty($colony)) { $result .= ", " . $colony; }
-    if (!empty($postal_code)) { $result .= ", " . $postal_code; }
+    //Filtrar elementos vacíos y unirlos con coma
+    $result = implode(', ', array_filter($parts, fn ($part) => !empty($part)));
 
     //Retornar dirección
     return $result;
