@@ -27,15 +27,15 @@ class CatalogCountries extends Component
         ->toArray();
     }
 
-    public function update(int $id, SessionController $sessionController) {
+    public function update(int $catalogCountryId, SessionController $sessionController) {
         //Validar información
-        if ($id <= 0) { return; }
+        if ($catalogCountryId <= 0) { return; }
 
         //Obtener información del país
         $catalogCountry = CatalogCountry::sessionData()
         ->closed()
         ->status()
-        ->find($id);
+        ->find($catalogCountryId);
 
         if ($catalogCountry) {
             //Guardar país en sesión
@@ -46,6 +46,6 @@ class CatalogCountries extends Component
         }
 
         //Emitir evento para mostrar mensaje de cierre
-        $this->dispatch('country.index.modal.closing-message.initialize', id: $id);
+        $this->dispatch('country.index.modal.closing-message.initialize', catalogCountryId: $catalogCountryId);
     }
 }
