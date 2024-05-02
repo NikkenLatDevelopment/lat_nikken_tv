@@ -9,25 +9,25 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
-    public function show(string $brandSlug, string $productSlug, SessionController $sessionController) {
+    public function show(string $catalogProductBrandSlug, string $productSlug, SessionController $sessionController) {
         //Validar información
         $validator = Validator::make(
             [
-                'brandSlug' => $brandSlug,
+                'catalogProductBrandSlug' => $catalogProductBrandSlug,
                 'productSlug' => $productSlug
             ], [
-                'brandSlug' => 'required|string|max:40|exists:catalog_product_brands,slug',
-                'productSlug' => 'required|string|max:100|exists:products,slug'
+                'catalogProductBrandSlug' => 'required|string|max:255|exists:catalog_product_brands,slug',
+                'productSlug' => 'required|string|max:255|exists:products,slug'
             ]
         );
 
         if ($validator->fails()) {
             //Redireccionar
-            return redirect()->route('category.show', $brandSlug);
+            return redirect()->route('category.show', $catalogProductBrandSlug);
         }
 
         //Obtener información del país
-        $country = $sessionController->getCountry()->toArray();
+        $catalogCountry = $sessionController->getCountry()->toArray();
 
         //Obtener información del producto
         $product = Product::basicData()
@@ -36,18 +36,18 @@ class ProductController extends Controller
             'productComponents.product' => fn ($query) => $query->availabilityData(),
         ])
         ->where('slug', $productSlug)
-        ->active($country['id'], $brandSlug)
+        ->active($catalogCountry['id'], $catalogProductBrandSlug)
         ->first();
 
         if (!$product) {
             //Redireccionar
-            return redirect()->route('category.show', $brandSlug);
+            return redirect()->route('category.show', $catalogProductBrandSlug);
         }
 
         //Mostrar vista
         return view('product.show', [
             'product' => $product,
-            'availability' => $product->getAvailability($product->productComponents->toArray())
+            'productAvailability' => $product->getAvailability($product->productComponents->toArray())
         ]);
     }
 }
