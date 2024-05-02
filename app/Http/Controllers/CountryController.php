@@ -25,7 +25,7 @@ class CountryController extends Controller
 
         if ($catalogCountry) {
             //Guardar país en sesión
-            $sessionController->setCountry($catalogCountry->toArray());
+            $sessionController->setCatalogCountry($catalogCountry->toArray());
 
             //Redireccionar
             return redirect()->back();
