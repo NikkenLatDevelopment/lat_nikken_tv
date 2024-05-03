@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('catalog_country_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('product_id')->constrained();
-            $table->integer('quantity');
+            $table->unsignedInteger('quantity');
             $table->timestamps();
 
             //No permitir productos duplicados

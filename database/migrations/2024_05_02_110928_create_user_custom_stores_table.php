@@ -11,11 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('catalog_product_features', function (Blueprint $table) {
+        Schema::create('user_custom_stores', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 20)->unique();
+            $table->foreignId('user_id')->constrained();
+            $table->string('name', 50)->unique();
             $table->unsignedTinyInteger('status')->index()->default(1);
             $table->timestamps();
+
+            //No permitir tiendas personalizadas duplicadas
+            $table->unique([ 'user_id', 'name' ]);
         });
     }
 
@@ -24,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('catalog_product_features');
+        Schema::dropIfExists('user_custom_stores');
     }
 };

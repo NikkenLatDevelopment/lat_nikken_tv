@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->text('comment')->nullable();
+            $table->text('comment');
             $table->unsignedDecimal('rating', 10, 1);
-            $table->tinyInteger('status')->index()->default(1);
+            $table->unsignedTinyInteger('status')->index()->default(1);
             $table->timestamps();
         });
     }

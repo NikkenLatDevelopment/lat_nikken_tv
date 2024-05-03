@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('catalog_product_features', function (Blueprint $table) {
+        Schema::create('sale_addresses', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 20)->unique();
-            $table->unsignedTinyInteger('status')->index()->default(1);
+            $table->foreignId('sale_id')->constrained();
+            $table->foreignId('user_address_id')->constrained();
             $table->timestamps();
+
+            //No permitir direcciones duplicadas
+            $table->unique([ 'sale_id', 'user_address_id' ]);
         });
     }
 
@@ -24,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('catalog_product_features');
+        Schema::dropIfExists('sale_addresses');
     }
 };

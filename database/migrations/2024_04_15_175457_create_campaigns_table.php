@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('redirect_url')->nullable();
             $table->dateTime('valid_from')->index()->nullable();
             $table->dateTime('valid_to')->index()->nullable();
-            $table->tinyInteger('public_access')->index()->default(1);
-            $table->tinyInteger('status')->index()->default(1);
+            $table->enum('public_access', [ '0', '1' ])->index()->default('1');
+            $table->unsignedTinyInteger('status')->index()->default(1);
             $table->timestamps();
 
             //No permitir campañas duplicadas

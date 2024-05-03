@@ -11,11 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('catalog_product_features', function (Blueprint $table) {
+        Schema::create('catalog_payment_methods', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 20)->unique();
+            $table->foreignId('catalog_country_id')->constrained();
+            $table->string('name', 50);
             $table->unsignedTinyInteger('status')->index()->default(1);
             $table->timestamps();
+
+            //No permitir formas de pago duplicadas
+            $table->unique([ 'catalog_country_id', 'name' ]);
         });
     }
 
@@ -24,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('catalog_product_features');
+        Schema::dropIfExists('catalog_payment_methods');
     }
 };

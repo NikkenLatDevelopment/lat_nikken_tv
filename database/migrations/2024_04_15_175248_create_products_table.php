@@ -35,16 +35,16 @@ return new class extends Migration
             $table->unsignedDecimal('vc', 10, 2);
             $table->unsignedDecimal('retail', 10, 2);
             $table->unsignedDecimal('vat_retail', 10, 2);
-            $table->string('warranty', 100)->nullable();
+            $table->string('warranty')->nullable();
             $table->unsignedDecimal('rating_total', 10, 1)->default(0);
             $table->dateTime('valid_from')->index()->nullable();
             $table->dateTime('valid_to')->index()->nullable();
             $table->dateTime('available_until')->nullable();
             $table->unsignedBigInteger('parent_product_id')->nullable();
-            $table->tinyInteger('is_discontinued')->index()->default(0);
-            $table->tinyInteger('is_purchasable')->index()->default(1);
-            $table->tinyInteger('is_visible')->index()->default(0);
-            $table->tinyInteger('status')->index()->default(1);
+            $table->enum('is_discontinued', [ '0', '1' ])->index()->default('0');
+            $table->enum('is_purchasable', [ '0', '1' ])->index()->default('1');
+            $table->enum('is_visible', [ '0', '1' ])->index()->default('0');
+            $table->unsignedTinyInteger('status')->index()->default(1);
             $table->timestamps();
 
             $table->foreign('parent_product_id')->references('id')->on('products');

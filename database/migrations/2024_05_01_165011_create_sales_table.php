@@ -11,15 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('catalog_sale_payments', function (Blueprint $table) {
+        Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->foreignId('catalog_country_id')->constrained();
-            $table->string('name', 60)->index();
-            $table->tinyInteger('status')->index()->default(1);
+            $table->foreignId('catalog_price_list_id')->constrained();
+            $table->foreignId('user_id')->constrained();
+            $table->unsignedDecimal('subtotal', 10, 2);
+            $table->unsignedDecimal('discount', 10, 2);
+            $table->unsignedDecimal('iva', 10, 2);
+            $table->unsignedDecimal('total', 10, 2);
             $table->timestamps();
-
-            //No permitir formas de pago duplicadas
-            $table->unique([ 'catalog_country_id', 'name' ]);
         });
     }
 
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('catalog_sale_payments');
+        Schema::dropIfExists('sales');
     }
 };

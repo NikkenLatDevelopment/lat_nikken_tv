@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('catalog_product_brands', function (Blueprint $table) {
             $table->id();
-            $table->string('slug', 40)->unique();
-            $table->string('name', 40)->unique();
-            $table->string('alias', 40)->unique();
-            $table->tinyInteger('status')->index()->default(1);
+            $table->string('slug', 15)->unique();
+            $table->string('name', 15)->unique();
+            $table->string('alias', 30)->unique();
+            $table->unsignedTinyInteger('status')->index()->default(1);
             $table->timestamps();
         });
     }

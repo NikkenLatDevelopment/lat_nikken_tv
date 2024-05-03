@@ -16,12 +16,12 @@ return new class extends Migration
             $table->foreignId('catalog_country_id')->constrained();
             $table->foreignId('catalog_user_type_id')->constrained();
             $table->unsignedBigInteger('code')->unique();
-            $table->string('name', 60);
-            $table->string('email', 100)->unique();
+            $table->string('name', 100);
+            $table->string('email', 80)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->tinyInteger('status')->index()->default(1);
+            $table->unsignedTinyInteger('status')->index()->default(1);
             $table->timestamps();
         });
     }

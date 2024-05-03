@@ -25,7 +25,7 @@ return new class extends Migration
             $table->text('closed_message')->nullable();
             $table->dateTime('closed_from')->index()->nullable();
             $table->dateTime('closed_to')->index()->nullable();
-            $table->tinyInteger('status')->index()->default(1);
+            $table->unsignedTinyInteger('status')->index()->default(1);
             $table->timestamps();
         });
     }

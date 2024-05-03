@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('custom_stores', function (Blueprint $table) {
+        Schema::create('sale_products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->string('name', 60)->unique();
-            $table->tinyInteger('status')->index()->default(1);
+            $table->foreignId('sale_id')->constrained();
+            $table->foreignId('product_id')->constrained();
+            $table->unsignedInteger('quantity');
             $table->timestamps();
 
-            //No permitir tiendas personalizadas duplicadas
-            $table->unique([ 'user_id', 'name' ]);
+            //No permitir productos duplicados
+            $table->unique([ 'sale_id', 'product_id' ]);
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('custom_stores');
+        Schema::dropIfExists('sale_products');
     }
 };

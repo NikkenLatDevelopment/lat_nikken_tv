@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('catalog_user_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 60)->unique();
-            $table->tinyInteger('status')->index()->default(1);
+            $table->string('name', 30)->unique();
+            $table->unsignedTinyInteger('status')->index()->default(1);
             $table->timestamps();
         });
     }
