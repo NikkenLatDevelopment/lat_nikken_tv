@@ -22,10 +22,7 @@ class TechnologyDescription extends Component
     #[On('product.show.modal.technology-description.initialize')]
     public function initialize(int $productTechnologyId) {
         //Validar información
-        Validator::make(
-            [ 'productTechnologyId' => $productTechnologyId ],
-            [ 'productTechnologyId' => 'required|integer|exists:catalog_product_technologies,id' ],
-        )->validate();
+        if ($productTechnologyId <= 0) { return; }
 
         //Obtener información de la tecnología del producto
         $catalogProductTechnology = CatalogProductTechnology::select('description')

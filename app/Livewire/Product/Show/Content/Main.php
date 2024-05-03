@@ -120,7 +120,9 @@ class Main extends Component
     public function getCurrentUrl() {
         //Obtener tienda personalizada del usuario
         $customStore = auth()->check()
-        ? auth()->user()->userCustomStore()->status()->first()
+        ? auth()->user()->userCustomStore()
+        ->status()
+        ->first()
         : null;
 
         if ($customStore) {
@@ -140,7 +142,7 @@ class Main extends Component
         $this->product = $product;
         $this->productId = $product['id'];
 
-        //Guardar disponibilidad y componentes del producto
+        //OBtener disponibilidad y componentes del producto
         list($this->available, $this->componentAvailables, $this->componentNotAvailables) =  array_values($product['availability']);
 
         //Formatear precio sugerido con iva, VC y retail del producto con símbolo de moneda
@@ -199,6 +201,9 @@ class Main extends Component
     }
 
     public function updateProduct(int $productId) {
+        //Validar información
+        if ($productId <= 0) { return; }
+
         //Obtener información del producto
         $product = Product::basicData()
         ->with([
@@ -333,12 +338,6 @@ class Main extends Component
     }
 
     public function updatedSelectedColor() {
-        //Validar información
-        Validator::make(
-            [ 'selectedColor' => $this->selectedColor ],
-            [ 'selectedColor' => 'required|integer|exists:product_colors,id' ]
-        )->validate();
-
         //Actualizar producto según el color seleccionado
         $this->updateProduct($this->selectedColor);
     }
@@ -357,12 +356,6 @@ class Main extends Component
     }
 
     public function updatedSelectedPresentation() {
-        //Validar información
-        Validator::make(
-            [ 'selectedPresentation' => $this->selectedPresentation ],
-            [ 'selectedPresentation' => 'required|integer|exists:product_presentations,id' ]
-        )->validate();
-
         //Actualizar producto según la presentación seleccionada
         $this->updateProduct($this->selectedPresentation);
     }
@@ -381,12 +374,6 @@ class Main extends Component
     }
 
     public function updatedSelectedMeasurement() {
-        //Validar información
-        Validator::make(
-            [ 'selectedMeasurement' => $this->selectedMeasurement ],
-            [ 'selectedMeasurement' => 'required|integer|exists:product_measurements,id' ]
-        )->validate();
-
         //Actualizar producto según la medida seleccionada
         $this->updateProduct($this->selectedMeasurement);
     }
@@ -395,16 +382,16 @@ class Main extends Component
     public function addCart(int $available, SessionController $sessionController) {
         if ($this->available == 0 && $available == 0) {
             //Emitir evento para mostrar mostrar los productos no disponibles
-            return $this->dispatch('product.show.modal.available-message.initialize', skuProduct: $this->product['sku'], nameProduct: $this->product['name'], availableUntilProduct: $this->availableUntil, componentNotAvailablesProduct: $this->componentNotAvailables);
+            return $this->dispatch('product.show.modal.available-message.initialize',
+                skuProduct: $this->product['sku'],
+                nameProduct: $this->product['name'],
+                availableUntilProduct: $this->availableUntil,
+                componentNotAvailablesProduct: $this->componentNotAvailables
+            );
         }
 
         //Validar información
-        $this->validate([
-            'quantity' => 'required|integer|min:1|max:99',
-            'selectedColor' => 'nullable|integer|exists:product_colors,product_id',
-            'selectedPresentation' => 'nullable|integer|exists:product_presentations,product_id',
-            'selectedMeasurement' => 'nullable|integer|exists:product_measurements,product_id',
-        ]);
+        $this->validate([ 'quantity' => 'required|integer|min:1|max:99' ]);
 
         //Guardar producto en el carrito de compras
         $sessionController->setCart($this->productId, $this->quantity);

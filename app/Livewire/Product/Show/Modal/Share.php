@@ -23,18 +23,6 @@ class Share extends Component
 
     #[On('product.show.modal.share.initialize')]
     public function initialize(string $productName, string $currentUrl) {
-        //Validar información
-        Validator::make(
-            [
-                'currentUrl' => $currentUrl,
-                'productName' => $productName
-            ],
-            [
-                'currentUrl' => 'required|string|max:255',
-                'productName' => 'required|string|max:255'
-            ],
-        )->validate();
-
         //Inicializar información
         $this->productName = str_replace(' ', '%20', $productName);
         $this->currentUrl = str_replace('&', '%26', $currentUrl);
