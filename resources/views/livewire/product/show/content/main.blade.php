@@ -261,14 +261,14 @@
                                     <div class="me-4">
                                         <div class="row gx-2">
                                             <div class="col-auto"><span class="small">VC:</span></div>
-                                            <div class="col-auto"><span class="small text-success">{{ $vc }}</span></div>
+                                            <div class="col-auto"><span class="small text-success">{{ $vcText }}</span></div>
                                         </div>
                                     </div>
 
                                     <div class="me-4">
                                         <div class="row gx-2">
                                             <div class="col-auto"><span class="small">Retail:</span></div>
-                                            <div class="col-auto"><span class="small text-success">{{ $retail }}</span></div>
+                                            <div class="col-auto"><span class="small text-success">{{ $retailText }}</span></div>
                                         </div>
                                     </div>
                                 @endif
