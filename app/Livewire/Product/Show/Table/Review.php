@@ -44,5 +44,8 @@ class Review extends Component
     public function refresh() {
         //Refrescar reviews del producto
         $this->render();
+
+        //Restablecer paginación
+        $this->resetPage('reviews');
     }
 }
