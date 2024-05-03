@@ -6,6 +6,6 @@
     @push('styles') @vite([ 'resources/sass/checkout.scss' ]) @endpush
 
     <x-general.header.main />
-    <div class="checkout">@livewire('checkout.index.content.main')</div>
+    <div class="checkout">@livewire('checkout.index.main')</div>
     <x-general.footer.main />
 @endsection

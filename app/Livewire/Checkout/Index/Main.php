@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Checkout\Index\Content;
+namespace App\Livewire\Checkout\Index;
 
 use Livewire\Component;
 use Livewire\Attributes\On;
@@ -35,7 +35,7 @@ class Main extends Component
     public function render()
     {
         //Mostrar vista
-        return view('livewire.checkout.index.content.main');
+        return view('livewire.checkout.index.main');
     }
 
     public function mount(SessionController $sessionController) {
