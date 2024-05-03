@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\General\Tools;
+namespace App\View\Components\General\Others;
 
 use Closure;
 use Illuminate\Contracts\View\View;
@@ -21,6 +21,6 @@ class Toast extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.general.tools.toast');
+        return view('components.general.others.toast');
     }
 }

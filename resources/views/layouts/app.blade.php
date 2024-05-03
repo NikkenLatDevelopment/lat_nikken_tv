@@ -32,6 +32,6 @@
         @vite([ 'resources/js/app.js' ])
         @stack('scripts')
 
-        <x-general.tools.toast />
+        <x-general.others.toast />
     </body>
 </html>
