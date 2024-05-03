@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', $product->name)
+@section('title', $product['name'])
 
 @push('SEO')
     <!-- TODO: !!!! Pendiente -->

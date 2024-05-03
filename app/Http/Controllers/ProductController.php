@@ -48,6 +48,9 @@ class ProductController extends Controller
         //Obtener disponibilidad y componentes del producto
         $productAvailable = $product->getAvailability($product->productComponents->toArray());
 
+        //Convertir información del producto a array
+        $product = $product->toArray();
+
         //Agregar disponibilidad y componentes a la información del producto
         $product['availability'] = $productAvailable;
 
