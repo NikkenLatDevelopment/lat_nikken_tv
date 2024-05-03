@@ -58,9 +58,9 @@ class User extends Authenticatable
         return $this->hasMany(Cart::class);
     }
 
-    public function customStore() {
+    public function userCustomStore() {
         //Relación con la tienda personalizada
-        return $this->hasOne(CustomStore::class);
+        return $this->hasOne(UserCustomStore::class);
     }
 
     public function productReviews() {
@@ -71,5 +71,10 @@ class User extends Authenticatable
     public function userAddresses() {
         //Relación con las direcciones del usuario
         return $this->hasMany(UserAddress::class);
+    }
+
+    public function sales() {
+        //Relación con las ventas
+        return $this->hasMany(Sale::class);
     }
 }

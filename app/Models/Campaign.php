@@ -19,16 +19,16 @@ class Campaign extends Model
         return $this->hasMany(CampaignUserType::class);
     }
 
-    public function scopeActive($query, int $catalog_country_id) {
+    public function scopeActive($query, int $catalogCountryId) {
         //Filtrar por país, vigencia y estatus
-        return $query->country($catalog_country_id)
+        return $query->catalogCountryId($catalogCountryId)
                      ->valid()
                      ->status();
     }
 
-    public function scopeCountry($query, int $catalog_country_id) {
+    public function scopeCatalogCountryId($query, int $catalogCountryId) {
         //Filtrar por país
-        return $query->where('catalog_country_id', $catalog_country_id);
+        return $query->where('catalog_country_id', $catalogCountryId);
     }
 
     public function scopeValid($query) {

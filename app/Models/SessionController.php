@@ -14,28 +14,28 @@ class SessionController
         $this->session = $session;
     }
 
-    public function setCountry(array $catalogCountry): void {
+    public function setCatalogCountry(array $catalogCountry): void {
         //Generar objeto
-        $country = SessionControllerCountry::toObject($catalogCountry);
+        $catalogCountry = SessionControllerCatalogCountry::toObject($catalogCountry);
 
         //Guardar sesión
-        $this->session->put("country", $country->toArray());
+        $this->session->put('catalog_country', $catalogCountry->toArray());
 
         //Guardar cookie
-        Cookie::queue('country_id', $country->id);
+        Cookie::queue('catalog_country_id', $catalogCountry->id);
     }
 
-    public function getCountry(): ?SessionControllerCountry {
+    public function getCatalogCountry(): ?SessionControllerCatalogCountry {
         //Obtener información
-        $country = $this->session->get('country');
+        $catalogCountry = $this->session->get('catalog_country');
 
         //Generar objeto
-        return $country ? SessionControllerCountry::toObject($country) : null;
+        return $catalogCountry ? SessionControllerCatalogCountry::toObject($catalogCountry) : null;
     }
 
-    public function getCountryId(): ?int {
+    public function getCatalogCountryId(): ?int {
         //Obtener ID del país por sesión o cookie
-        return $this->session->get('country.id', Cookie::get('country_id'));
+        return $this->session->get('catalog_country.id', Cookie::get('catalog_country_id'));
     }
 
     public function setCart(int $productId, int $quantity): void {
@@ -47,7 +47,7 @@ class SessionController
     public function setCartForAuthenticatedUser(int $productId, int $quantity): void {
         //Guardar producto en base de datos
         auth()->user()->cart()->updateOrCreate(
-            [ 'catalog_country_id' => $this->session->get('country.id'), 'product_id' => $productId ],
+            [ 'catalog_country_id' => $this->session->get('catalog_country.id'), 'product_id' => $productId ],
             [ 'quantity' => $quantity ]
         );
     }
@@ -73,7 +73,7 @@ class SessionController
 
             if ($product) {
                 //Agregar producto
-                $cart[] = formatCartProduct($product, $quantity, $this->session->get('country'));
+                $cart[] = formatCartProduct($product, $quantity, $this->session->get('catalog_country'));
             }
         }
 
@@ -95,10 +95,10 @@ class SessionController
             'product.catalogProductBrand',
             'product.productComponents.product' => fn ($query) => $query->availabilityData()
         ])
-        ->whereHas('product', fn($query) => $query->active($this->session->get('country.id')))
-        ->country($this->session->get('country.id'))
+        ->whereHas('product', fn ($query) => $query->active($this->session->get('catalog_country.id')))
+        ->catalogCountryId($this->session->get('catalog_country.id'))
         ->get()
-        ->map(function($cart) { return formatCartProduct($cart->product, $cart->quantity, $this->session->get('country')); })
+        ->map(function ($cart) { return formatCartProduct($cart->product, $cart->quantity, $this->session->get('catalog_country')); })
         ->toArray();
     }
 
@@ -106,7 +106,7 @@ class SessionController
         //Obtener carrito de compras de sesión
         $cart = $this->session->get('cart', []);
 
-        //Obtener Ids de los productos
+        //Obtener IDs de los productos
         $productIds = array_column($cart, 'id');
         if (empty($productIds)) { return []; }
 
@@ -115,7 +115,7 @@ class SessionController
             'catalogProductBrand',
             'productComponents.product' => fn ($query) => $query->availabilityData()
         ])
-        ->active($this->session->get('country.id'))
+        ->active($this->session->get('catalog_country.id'))
         ->whereIn('id', $productIds)
         ->get()
         ->keyBy('id');
@@ -126,7 +126,7 @@ class SessionController
 
             if ($product) {
                 //Actualizar información del producto
-                $cart[$index] = formatCartProduct($product, $item['quantity'], $this->session->get('country'));
+                $cart[$index] = formatCartProduct($product, $item['quantity'], $this->session->get('catalog_country'));
             } else {
                 //Eliminar producto
                 unset($cart[$index]);
@@ -149,7 +149,7 @@ class SessionController
         //Eliminar producto en base de datos
         auth()->user()->cart()
         ->where('product_id', $productId)
-        ->country($this->session->get('country.id'))
+        ->catalogCountryId($this->session->get('catalog_country.id'))
         ->delete();
     }
 
@@ -171,7 +171,7 @@ class SessionController
 
     public function setDiscountSuggestedPrice(bool $discountSuggestedPrice): void {
         //Validar si el país y el tipo de usuario permiten sugerido con descuento
-        if (auth()->check() && $this->session->get('country.id') == 1 && auth()->user()->catalog_user_type_id == 3) {
+        if (auth()->check() && $this->session->get('catalog_country.id') == 1 && auth()->user()->catalog_user_type_id == 3) {
             //Guardar sugerido con descuento en sesión
             $this->session->put('discount_suggested_price', $discountSuggestedPrice);
 
@@ -182,7 +182,7 @@ class SessionController
 
     public function getDiscountSuggestedPrice(): bool {
         //Validar si el país y el tipo de usuario permiten sugerido con descuento
-        if (auth()->check() && $this->session->get('country.id') == 1 && auth()->user()->catalog_user_type_id == 3) {
+        if (auth()->check() && $this->session->get('catalog_country.id') == 1 && auth()->user()->catalog_user_type_id == 3) {
             //Obtener sugerido con descuento por sesión o cookie
             return $this->session->get('discount_suggested_price', Cookie::get('discount_suggested_price', false));
         }
@@ -191,7 +191,7 @@ class SessionController
     }
 }
 
-class SessionControllerCountry {
+class SessionControllerCatalogCountry {
     public function __construct(public int $id, public string $code, public string $name, public string $abbrev, public float $vat, public string $currency_symbol, public int $currency_decimal) {}
 
     public static function toObject(array $country): object {

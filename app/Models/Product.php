@@ -34,44 +34,44 @@ class Product extends Model
         return $this->select('id', 'sku', 'name', 'stock', 'stock_applies', 'available_until');
     }
 
-    public function scopeActive($query, int $catalog_country_id, ?string $brandSlug = null) {
+    public function scopeActive($query, int $catalogCountryId, ?string $catalogProductBrandSlug = null) {
         //Filtrar por marca, país, campaña, vigencia, si se puede comprar, si está descontinuado, visibilidad y estatus
-        return $query->brand($brandSlug)
-                     ->country($catalog_country_id)
-                     ->campaign($catalog_country_id)
+        return $query->catalogProductBrand($catalogProductBrandSlug)
+                     ->catalogCountryId($catalogCountryId)
+                     ->campaign($catalogCountryId)
                      ->valid()
-                     ->purchasable()
-                     ->discontinued()
-                     ->visible()
+                     ->isPurchasable()
+                     ->isDiscontinued()
+                     ->isVisible()
                      ->status();
     }
 
-    public function scopeBrand($query, ?string $slug = null) {
+    public function scopeCatalogProductBrand($query, ?string $catalogProductBrandSlug = null) {
         //Relación con el catálogo de marcas
-        return $query->where(function ($query) use ($slug) {
+        return $query->where(function ($query) use ($catalogProductBrandSlug) {
             //Relación con el catálogo de marcas
-            return $query->whereHas('catalogProductBrand', function ($query) use ($slug) {
+            return $query->whereHas('catalogProductBrand', function ($query) use ($catalogProductBrandSlug) {
                 //Filtrar por marca y estatus
-                $query->when($slug != null, fn ($query) => $query->where('slug', $slug))
+                $query->when($catalogProductBrandSlug != null, fn ($query) => $query->where('slug', $catalogProductBrandSlug))
                       ->status();
             });
         });
     }
 
-    public function scopeCountry($query, int $catalog_country_id) {
+    public function scopeCatalogCountryId($query, int $catalogCountryId) {
         //Filtrar por país
-        return $query->where('catalog_country_id', $catalog_country_id);
+        return $query->where('catalog_country_id', $catalogCountryId);
     }
 
-    public function scopeCampaign($query, int $catalog_country_id) {
+    public function scopeCampaign($query, int $catalogCountryId) {
         //Filtrar por campaña
-        return $query->where(function ($query) use ($catalog_country_id) {
+        return $query->where(function ($query) use ($catalogCountryId) {
             //Filtrar por los productos de la campaña
-            $query->whereHas('campaignProducts', function ($query) use ($catalog_country_id) {
+            $query->whereHas('campaignProducts', function ($query) use ($catalogCountryId) {
                 //Filtrar por campaña
-                $query->whereHas('campaign', function ($query) use ($catalog_country_id) {
+                $query->whereHas('campaign', function ($query) use ($catalogCountryId) {
                     //Filtrar por campañas activas
-                    $query->active($catalog_country_id)
+                    $query->active($catalogCountryId)
                           ->whereHas('campaignUserTypes.catalogUserType', function ($query) {
                             $query->when(
                                 auth()->check(),
@@ -104,17 +104,17 @@ class Product extends Model
         });
     }
 
-    public function scopePurchasable($query) {
+    public function scopeIsPurchasable($query) {
         //Filtrar si se puede comprar
         return $query->where('is_purchasable', 1);
     }
 
-    public function scopeDiscontinued($query) {
+    public function scopeIsDiscontinued($query) {
         //Filtrar si está descontinuado
         return $query->where('is_discontinued', 0);
     }
 
-    public function scopeVisible($query) {
+    public function scopeIsVisible($query) {
         //Filtrar por la visibilidad
         return $query->where('is_visible', 1);
     }
