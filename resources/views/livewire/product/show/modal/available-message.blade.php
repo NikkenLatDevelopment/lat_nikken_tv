@@ -7,7 +7,7 @@
                         <p class="text-center lh-sm mt-2">Recuerda que los productos a continuación <span class="fs-5 text-warning text-decoration-underline lh-1 custom fw-extrabold">no se encuentran disponibles:</span></p>
 
                         <ul class="fa-ul ps-0 ms-4 components">
-                            @foreach ($componentNotAvailablesProduct as $componentNotAvailableProduct)
+                            @foreach ($componentNotAvailablesProduct as $index => $componentNotAvailableProduct)
                                 <li class="mb-3" wire:key="product-show-modal-available-message-component-not-available-{{ $index }}">
                                     <span class="fa-li"><i class="fa-solid fa-angle-right fa-xs"></i></span>
                                     <span class="lh-sm d-block mb-2">{{ $componentNotAvailableProduct['sku'] }} - <span class="fw-bold">{{ $componentNotAvailableProduct['name'] }}</span>.</span>
