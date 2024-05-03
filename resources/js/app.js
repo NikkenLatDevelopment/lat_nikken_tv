@@ -38,6 +38,6 @@ windowScroll.on("scroll", function () {
     }
 });
 
-$(window).on('load', function() {
+$(window).on('load', function () {
     $('#preloader').fadeOut("slow");
 });

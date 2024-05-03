@@ -41,9 +41,9 @@ return new class extends Migration
             $table->dateTime('valid_to')->index()->nullable();
             $table->dateTime('available_until')->nullable();
             $table->unsignedBigInteger('parent_product_id')->nullable();
-            $table->enum('is_discontinued', [ '0', '1' ])->index()->default('0');
-            $table->enum('is_purchasable', [ '0', '1' ])->index()->default('1');
-            $table->enum('is_visible', [ '0', '1' ])->index()->default('0');
+            $table->unsignedTinyInteger('is_discontinued')->index()->default(0);
+            $table->unsignedTinyInteger('is_purchasable')->index()->default(1);
+            $table->unsignedTinyInteger('is_visible')->index()->default(0);
             $table->unsignedTinyInteger('status')->index()->default(1);
             $table->timestamps();
 

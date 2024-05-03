@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sale_payments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('sale_id')->constrained();
-            $table->foreignId('catalog_sale_payment_method_id')->constrained();
+            $table->foreignId('catalog_payment_method_id')->constrained();
             $table->timestamps();
         });
     }
