@@ -92,7 +92,7 @@ button, a {
 
     .menu {
         &.sticky {
-            z-index: 9999;
+            z-index: 1;
         }
 
         nav > ul > li {

@@ -1,6 +1,6 @@
 <div>
     @if (!empty($cartForm->products))
-        <div class="products px-3 pt-2 height-1 @if (!auth()->check()) height-4 @else @if (auth()->user()->catalog_user_type_id != 3) height-3 @else @if ($cartForm->country['id'] == 1 && $cartForm->discountSuggestedPrice) height-1 @else height-2 @endif @endif @endif">
+        <div class="products px-3 pt-2 height-1 @if (!auth()->check()) height-4 @else @if (auth()->user()->catalog_user_type_id != 3) height-3 @else @if ($cartForm->catalogCountry['id'] == 1 && $cartForm->discountSuggestedPrice) height-1 @else height-2 @endif @endif @endif">
             @foreach ($cartForm->products as $product)
                 <div class="bg-white rounded-4 position-relative p-2 mb-2" wire:key="general-header-content-cart-products-{{ $product['id'] }}">
                     <div class="position-absolute end-0 top-0"><button class="btn btn-link link-primary opacity-50 text-decoration-none" wire:click="remove({{ $product['id'] }})"><i class="fi fi-br-trash"></i></button></div>
@@ -27,7 +27,7 @@
         </div>
 
         <div class="position-absolute start-0 end-0 bottom-0">
-            @if (auth()->check() && $cartForm->country['id'] == 1 && auth()->user()->catalog_user_type_id == 3)
+            @if (auth()->check() && $cartForm->catalogCountry['id'] == 1 && auth()->user()->catalog_user_type_id == 3)
                 <div class="ps-3">
                     <div class="form-check form-switch small pb-1">
                         <input type="checkbox" class="form-check-input" role="switch" id="general-header-content-cart-products-discount-suggested-price" wire:model.live="discountSuggestedPrice">
@@ -43,7 +43,7 @@
                         <div class="h6 text-black-50 opacity-75 fw-semibold mb-0">{{ $cartForm->subtotalText }}</div>
                     </div>
 
-                    @if (auth()->check() && $cartForm->discountSuggestedPrice && $cartForm->country['id'] == 1 && auth()->user()->catalog_user_type_id == 3)
+                    @if (auth()->check() && $cartForm->discountSuggestedPrice && $cartForm->catalogCountry['id'] == 1 && auth()->user()->catalog_user_type_id == 3)
                         <div class="d-flex justify-content-between align-items-center mt-1">
                             <div class="h6 small text-black-50 opacity-75 fw-bold mb-0">Descuento:</div>
                             <div class="h6 text-black-50 opacity-75 fw-semibold mb-0">{{ $cartForm->retailText }}</div>
@@ -68,7 +68,7 @@
                             <div class="vr"></div>
                             <div><span class="small text-black-50 opacity-75">VC: <span class="fw-bold">{{ $cartForm->vcText }}</span></span></div>
 
-                            @if ($cartForm->country['id'] != 1 || !$cartForm->discountSuggestedPrice)
+                            @if ($cartForm->catalogCountry['id'] != 1 || !$cartForm->discountSuggestedPrice)
                                 <div class="vr"></div>
                                 <div><span class="small text-black-50 opacity-75">Retail: <span class="fw-bold">{{ $cartForm->retailText }}</span></span></div>
                             @endif
