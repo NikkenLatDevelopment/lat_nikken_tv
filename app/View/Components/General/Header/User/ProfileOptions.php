@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components\General\Header\Profile;
+namespace App\View\Components\General\Header\User;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Options extends Component
+class ProfileOptions extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class Options extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.general.header.profile.options');
+        return view('components.general.header.user.profile-options');
     }
 }
