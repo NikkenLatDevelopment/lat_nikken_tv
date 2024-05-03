@@ -89,7 +89,7 @@ class CartForm extends Form
 
         $this->quantity = $totalQuantityProducts;
         $this->subtotalText = formatPriceWithCurrency($totalSubtotalProducts, $this->catalogCountry);
-        $this->pointsText = formatPrice($totalPointsProducts, 0);
+        $this->pointsText = formatPrice(floatval($totalPointsProducts), 0);
         $this->vcText = formatPriceWithCurrency($totalVcProducts, $this->catalogCountry);
         $this->retailText = formatPriceWithCurrency($totalRetailProducts, $this->catalogCountry);
 

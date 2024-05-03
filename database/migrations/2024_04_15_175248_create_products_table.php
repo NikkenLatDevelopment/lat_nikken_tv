@@ -39,7 +39,7 @@ return new class extends Migration
             $table->unsignedDecimal('rating_total', 10, 1)->default(0);
             $table->dateTime('valid_from')->index()->nullable();
             $table->dateTime('valid_to')->index()->nullable();
-            $table->dateTime('available_until')->nullable();
+            $table->date('available_until')->nullable();
             $table->unsignedBigInteger('parent_product_id')->nullable();
             $table->unsignedTinyInteger('is_discontinued')->index()->default(0);
             $table->unsignedTinyInteger('is_purchasable')->index()->default(1);

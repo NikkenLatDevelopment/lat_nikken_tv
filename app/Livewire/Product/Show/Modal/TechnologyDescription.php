@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Product\Show\Modal;
 
-use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Locked;
@@ -20,14 +19,14 @@ class TechnologyDescription extends Component
     }
 
     #[On('product.show.modal.technology-description.initialize')]
-    public function initialize(int $productTechnologyId) {
+    public function initialize(int $technologyId) {
         //Validar información
-        if ($productTechnologyId <= 0) { return; }
+        if ($technologyId <= 0) { return; }
 
         //Obtener información de la tecnología del producto
         $catalogProductTechnology = CatalogProductTechnology::select('description')
         ->status()
-        ->find($productTechnologyId);
+        ->find($technologyId);
 
         if ($catalogProductTechnology) {
             //Guardar descripción

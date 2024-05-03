@@ -18,7 +18,7 @@ class AvailableMessage extends Component
     public string $availableUntilProduct;
 
     #[Locked]
-    public array $componentNotAvailablesProduct = [];
+    public array $componentsNotAvailable = [];
 
     public function render()
     {
@@ -27,12 +27,12 @@ class AvailableMessage extends Component
     }
 
     #[On('product.show.modal.available-message.initialize')]
-    public function initialize(string $skuProduct, string $nameProduct, string $availableUntilProduct, array $componentNotAvailablesProduct) {
+    public function initialize(string $skuProduct, string $nameProduct, string $availableUntilProduct, array $componentsNotAvailable) {
         //Inicializar información
         $this->skuProduct = $skuProduct;
         $this->nameProduct = $nameProduct;
         $this->availableUntilProduct = $availableUntilProduct;
-        $this->componentNotAvailablesProduct = $componentNotAvailablesProduct;
+        $this->componentsNotAvailable = $componentsNotAvailable;
 
         //Emitir evento para mostrar los productos en entrega postergada
         $this->dispatch('productShowModalAvailableMessage', view: 'show');

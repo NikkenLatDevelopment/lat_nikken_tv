@@ -336,6 +336,10 @@ button, a {
         padding-top: 2px;
     }
 
+    &.margin-bottom-1 {
+        margin-bottom: 1px;
+    }
+
     &.bell-1 {
         -webkit-animation: bellRing 4s .7s ease-in-out infinite;
         -webkit-transform-origin: 50% 4px;

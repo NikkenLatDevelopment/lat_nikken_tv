@@ -5,7 +5,6 @@ namespace App\Livewire\Product\Show\Modal;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Locked;
-use Illuminate\Support\Facades\Validator;
 
 class Share extends Component
 {

@@ -35,10 +35,10 @@ class Main extends Component
     public array $images = [];
 
     #[Locked]
-    public array $componentAvailables = [];
+    public array $componentsAvailable = [];
 
     #[Locked]
-    public array $componentNotAvailables = [];
+    public array $componentsNotAvailable = [];
 
     #[Locked]
     public array $colors = [];
@@ -87,6 +87,9 @@ class Main extends Component
 
     #[Locked]
     public string $priceText;
+
+    #[Locked]
+    public string $pointsText;
 
     #[Locked]
     public string $vcText;
@@ -143,12 +146,15 @@ class Main extends Component
         $this->productId = $product['id'];
 
         //OBtener disponibilidad y componentes del producto
-        list($this->available, $this->componentAvailables, $this->componentNotAvailables) =  array_values($product['availability']);
+        list($this->available, $this->componentsAvailable, $this->componentsNotAvailable) =  array_values($product['availability']);
 
         //Formatear precio sugerido con iva, VC y retail del producto con símbolo de moneda
         $this->priceText = formatPriceWithCurrency($product['suggested_price'] + $product['vat_suggested_price'], $this->catalogCountry);
         $this->vcText = formatPriceWithCurrency($product['vc'], $this->catalogCountry);
         $this->retailText = formatPriceWithCurrency($product['retail'], $this->catalogCountry);
+
+        //Formatear puntos del producto
+        $this->pointsText = formatPrice(floatval($product['points']), 0);
 
         //Validar fecha de disponibilidad del producto
         $this->availableUntil = $product['available_until'] == null
@@ -386,7 +392,7 @@ class Main extends Component
                 skuProduct: $this->product['sku'],
                 nameProduct: $this->product['name'],
                 availableUntilProduct: $this->availableUntil,
-                componentNotAvailablesProduct: $this->componentNotAvailables
+                componentsNotAvailable: $this->componentsNotAvailable
             );
         }
 

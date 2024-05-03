@@ -24,17 +24,17 @@
                             <div class="position-relative carousel" wire:ignore>
                                 <span class="position-absolute top-0 end-0 p-3"><i class="fi-rs-search h5 opacity-50"></i></span>
 
-                                <div class="border border-secondary rounded-4 mb-3 carousel-slider"> @foreach ($images as $index => $image) <figure class="mb-0" wire:key="product-show-image-{{ $index }}"><img src="{{ $image }}" class="img-fluid" alt="{{ $product['name'] }}" data-fancybox="galeria" /></figure> @endforeach </div>
-                                <div class="carousel-thumbnail"> @if (!empty($images)) @foreach ($images as $index => $image) <figure class="mb-0" wire:key="product-show-image-thumbnail-{{ $index }}"><img src="{{ $image }}" class="img-fluid" alt="{{ $product['name'] }}" /></figure> @endforeach @endif </div>
+                                <div class="border border-secondary rounded-4 mb-3 carousel-slider"> @foreach ($images as $image) <figure class="mb-0"><img src="{{ $image }}" class="img-fluid" alt="{{ $product['name'] }}" data-fancybox="galeria" /></figure> @endforeach </div>
+                                <div class="carousel-thumbnail"> @if (!empty($images)) @foreach ($images as $image) <figure class="mb-0"><img src="{{ $image }}" class="img-fluid" alt="{{ $product['name'] }}" /></figure> @endforeach @endif </div>
                             </div>
                         </div>
 
                         <div class="col-12 col-lg-6">
                             <div class="d-flex align-items-center">
-                                @if ($available == 1) <div class="badge text-success border border-2 border-success d-flex align-items-center justify-content-center py-2 mt-3 mt-lg-0"><i class="fi fi-br-check-circle position-relative custom i-top-4 me-1"></i> Disponible</div>
+                                @if ($available == 1) <div class="badge text-success border border-2 border-success d-flex align-items-center justify-content-center py-2 mt-3 mt-lg-0"><i class="fi fi-br-check-circle position-relative me-1 custom i-top-4"></i> Disponible</div>
                                 @else <div class="badge text-warning border border-2 border-warning d-flex align-items-center justify-content-center py-2 mt-3 mt-lg-0"><i class="fi fi-rr-light-emergency-on me-1"></i> Entrega Postergada</div> @endif
 
-                                <div class="badge text-dark border border-2 border-dark d-flex align-items-center justify-content-center py-2 mt-3 mt-lg-0 ms-2"><i class="fi fi-br-shipping-fast position-relative custom i-top-4 me-1"></i>Envío gratis</div>
+                                <div class="badge text-dark border border-2 border-dark d-flex align-items-center justify-content-center py-2 mt-3 mt-lg-0 ms-2"><i class="fi fi-br-shipping-fast position-relative me-1 custom i-top-4"></i>Envío gratis</div>
                             </div>
 
                             <div class="row align-items-center">
@@ -72,7 +72,7 @@
                                     @if (!empty($this->parentProduct))
                                         <div class="col">
                                             <div class="h6 small text-success fw-semibold lh-1 mb-0">{{ $this->parentProduct['percentage_discount'] }}% off</div>
-                                            <div class="h6 text-black-50 opacity-50 fw-bold text-decoration-line-through mb-0">{{ $this->parentProduct['price'] }}</div>
+                                            <div class="h6 text-black-50 opacity-50 fw-bold text-decoration-line-through mb-0">{{ $this->parentProduct['price_text'] }}</div>
                                         </div>
                                     @endif
                                 </div>
@@ -81,7 +81,7 @@
                             <div>{!! $product['short_description'] !!}</div>
 
                             @if (!empty($colors) || !empty($presentations) || !empty($measurements))
-                                <div class="pb-2 mb-1">
+                                <div class="pb-1">
                                     @if (!empty($colors))
                                         <div class="mb-2">
                                             <div class="row gx-3 align-items-center ">
@@ -120,8 +120,8 @@
 
                                                 <div class="col-auto">
                                                     <div class="d-flex flex-column">
-                                                        <button type="button" class="btn btn-link @if ($available == 0) link-warning @else link-success @endif text-decoration-none lh-1 py-0 px-1" @click="quantity++" x-bind:disabled="quantity >= 99" wire:loading.attr="disabled"><i class="fi-rs-angle-small-up @if ($available == 0) text-warning @else text-success @endif"></i></button>
-                                                        <button type="button" class="btn btn-link @if ($available == 0) link-warning @else link-success @endif text-decoration-none lh-1 py-0 px-1" @click="quantity--" x-bind:disabled="quantity <= 1" wire:loading.attr="disabled"><i class="fi-rs-angle-small-down @if ($available == 0) text-warning @else text-success @endif"></i></button>
+                                                        <button type="button" class="btn btn-link @if ($available == 0) link-warning @else link-success @endif text-decoration-none lh-1 py-0 px-1" x-bind:disabled="quantity >= 99" @click="quantity++" wire:loading.attr="disabled"><i class="fi-rs-angle-small-up @if ($available == 0) text-warning @else text-success @endif"></i></button>
+                                                        <button type="button" class="btn btn-link @if ($available == 0) link-warning @else link-success @endif text-decoration-none lh-1 py-0 px-1" x-bind:disabled="quantity <= 1" @click="quantity--" wire:loading.attr="disabled"><i class="fi-rs-angle-small-down @if ($available == 0) text-warning @else text-success @endif"></i></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -134,10 +134,10 @@
                             </form>
 
                             @if ($available == 0)
-                                @if (!empty($componentNotAvailables))
+                                @if (!empty($componentsNotAvailable))
                                     <div class="pt-1 components">
                                         <div class="row gx-3">
-                                            @if (!empty($componentNotAvailables))
+                                            @if (!empty($componentsNotAvailable))
                                                 <div class="col-12 col-sm-6 col-lg-12 col-xl-6">
                                                     <div class="card border-warning rounded-4 overflow-hidden mb-3">
                                                         <div class="card-header text-warning lh-sm bg-white border-0 border-bottom border-warning px-3">
@@ -146,10 +146,10 @@
 
                                                         <div class="card-body text-warning">
                                                             <ul class="fa-ul ps-0 ms-4">
-                                                                @foreach ($componentNotAvailables as $index => $componentNotAvailable)
-                                                                    <li class="mb-2" wire:key="product-show-component-not-available-{{ $index }}">
+                                                                @foreach ($componentsNotAvailable as $componentNotAvailable)
+                                                                    <li class="mb-2">
                                                                         <span class="fa-li"><i class="fa-solid fa-angle-right fa-xs"></i></span>
-                                                                        {{ $componentNotAvailable['sku'] }} - <span class="fw-bold">{{ $componentNotAvailable['name'] }}</span>.
+                                                                        <span class="lh-sm d-block custom margin-bottom-1">{{ $componentNotAvailable['sku'] }} - <span class="fw-bold">{{ $componentNotAvailable['name'] }}</span>.</span>
                                                                         <span class="small lh-sm d-block">Fecha estimada de disponibilidad:</span>
                                                                         <span class="lh-sm d-block"><i class="fi fi-sr-calendar-clock position-relative me-1"></i> <span class="fs-6 fw-bold text-decoration-underline">{{ $componentNotAvailable['date'] }}</span>.</span>
                                                                     </li>
@@ -162,7 +162,7 @@
                                                 </div>
                                             @endif
 
-                                            @if (!empty($componentAvailables))
+                                            @if (!empty($componentsAvailable))
                                                 <div class="col-12 col-sm-6 col-lg-12 col-xl-6">
                                                     <div class="card border-success rounded-4 overflow-hidden mb-3">
                                                         <div class="card-header text-success lh-sm bg-white border-0 border-bottom border-success px-3">
@@ -171,11 +171,11 @@
 
                                                         <div class="card-body text-success">
                                                             <ul class="fa-ul ps-0 ms-4 mb-0">
-                                                                @foreach ($componentAvailables as $index => $componentAvailable)
-                                                                    <li class="lh-sm @if (!$loop->last) mb-2 @endif" wire:key="product-show-component-available-{{ $index }}">
+                                                                @foreach ($componentsAvailable as $componentAvailable)
+                                                                    <li class="lh-sm @if (!$loop->last) mb-2 @endif">
                                                                         <span class="fa-li"><i class="fa-solid fa-angle-right fa-xs"></i></span>
-                                                                        {{ $componentAvailable['sku'] }} - {{ $componentAvailable['name'] }}.
-                                                                        <span class="d-block fw-bold">Disponible.</span>
+                                                                        <span class="lh-sm d-block custom margin-bottom-1">{{ $componentAvailable['sku'] }} - {{ $componentAvailable['name'] }}.</span>
+                                                                        <span class="fw-bold d-block">Disponible.</span>
                                                                     </li>
                                                                 @endforeach
                                                             </ul>
@@ -215,18 +215,13 @@
 
                             @if ($differentiators != null)
                                 <h2 class="h6 text-muted fw-bold mb-2 pt-1">Diferenciadores del producto:</h2>
-
-                                <ul class="mb-3">
-                                    @foreach ($differentiators as $index => $differentiator)
-                                        <li wire:key="product-show-differentiator-{{ $index }}">{{ $differentiator }}</li>
-                                    @endforeach
-                                </ul>
+                                <ul class="mb-3"> @foreach ($differentiators as $differentiator) <li>{{ $differentiator }}</li> @endforeach </ul>
                             @endif
 
                             @if (!empty($technologies))
                                 <div class="mb-2 pb-1">
-                                    @foreach ($technologies as $index => $technology)
-                                        <a href="#" class="text-decoration-none" wire:click.prevent="$dispatch('product.show.modal.technology-description.initialize', { productTechnologyId: {{ $technology['id'] }} })" wire:key="product-show-technology-{{ $index }}">
+                                    @foreach ($technologies as $technology)
+                                        <a href="#" class="text-decoration-none" wire:click.prevent="$dispatch('product.show.modal.technology-description.initialize', { technologyId: {{ $technology['id'] }} })">
                                             <img src="{{ asset('assets/img/technologies/logo-' . $technology['slug'] . '.png') }}" srcset="{{ asset('assets/img/technologies/logo-' . $technology['slug'] . '-2x.png') }} 2x" class="img-fluid" alt="{{ $technology['name'] }}">
                                         </a>
                                     @endforeach
@@ -254,7 +249,7 @@
                                     <div class="me-4">
                                         <div class="row gx-2">
                                             <div class="col-auto"><span class="small">Puntos:</span></div>
-                                            <div class="col-auto"><span class="small text-success">{{ $product['points'] }}</span></div>
+                                            <div class="col-auto"><span class="small text-success">{{ $pointsText }}</span></div>
                                         </div>
                                     </div>
 
@@ -274,8 +269,8 @@
                                 @endif
 
                                 @if (!empty($features))
-                                    @foreach ($features as $index => $feature)
-                                        <div class="me-4" wire:key="product-show-feature-{{ $index }}">
+                                    @foreach ($features as $feature)
+                                        <div class="me-4">
                                             <div class="row gx-2">
                                                 <div class="col-auto"><span class="small">{{ $feature['catalog_product_feature']['name'] }}:</span></div>
                                                 <div class="col-auto"><span class="small text-success">{{ $feature['value'] }}</span></div>
@@ -293,12 +288,14 @@
 
                     <section class="pt-4 pb-3 attachment">
                         <div class="row gx-2 justify-content-center align-items-stretch">
-                            @foreach ($attachments as $index => $attachment)
-                                <div class="col-auto animation-hover-up mb-2" wire:key="product-show-attachment-{{ $index }}">
-                                    <a href="{{ $attachment['file'] }}" target="_blank" class="link-dark text-decoration-none border border-light rounded-4 d-flex align-items-center justify-content-center h-100 p-4 card-custom-1">
-                                        <div class="me-2"><i class="fi fi-rr-search-alt h4"></i></div>
-                                        <div class="h6 fw-bold lh-sm mb-0">{{ $attachment['catalog_product_attachment']['name'] }}</div>
-                                    </a>
+                            @foreach ($attachments as $attachment)
+                                <div class="col-auto animation-hover-up">
+                                    <div class="h-100 pb-2">
+                                        <a href="{{ $attachment['file'] }}" target="_blank" class="link-dark text-decoration-none border border-light rounded-4 d-flex align-items-center justify-content-center h-100 p-4 card-custom-1">
+                                            <div class="me-2"><i class="fi fi-rr-search-alt h4"></i></div>
+                                            <div class="h6 fw-bold lh-sm mb-0">{{ $attachment['catalog_product_attachment']['name'] }}</div>
+                                        </a>
+                                    </div>
                                 </div>
                             @endforeach
                         </div>
@@ -314,24 +311,24 @@
                                         <ul class="nav nav-pills my-3" role="tablist">
                                             @if ($product['description'] != null)
                                                 <li class="nav-item" role="presentation">
-                                                    <button class="btn h5 fw-bold border border-secondary rounded-4 px-3 py-2 me-2 btn-outline-primary-custom-1 animation-hover-up @if ($product['description'] != null) active @endif" id="product-show-content-main-description-tab" data-bs-toggle="pill" data-bs-target="#product-show-content-main-description" type="button" role="tab" aria-controls="product-show-content-main-description" aria-selected="@if ($product['description'] != null) true @else false @endif">
-                                                        <i class="fi fi-sr-comment-info position-relative custom i-top-2 me-2"></i>Descripción
+                                                    <button class="btn h5 fw-bold border border-secondary rounded-4 px-3 py-2 me-2 btn-outline-primary-custom-1 animation-hover-up @if ($product['description'] != null) active @endif" id="product-show-main-description-tab" data-bs-toggle="pill" data-bs-target="#product-show-main-description" type="button" role="tab" aria-controls="product-show-main-description" aria-selected="@if ($product['description'] != null) true @else false @endif">
+                                                        <i class="fi fi-sr-comment-info position-relative me-2 custom i-top-2"></i>Descripción
                                                     </button>
                                                 </li>
                                             @endif
 
                                             @if ($product['maintenance'] != null)
                                                 <li class="nav-item" role="presentation">
-                                                    <button class="btn h5 fw-bold border border-secondary rounded-4 px-3 py-2 me-2 btn-outline-primary-custom-1 animation-hover-up @if ($product['description'] == null) active @endif" id="product-show-content-main-maintenance-tab" data-bs-toggle="pill" data-bs-target="#product-show-content-main-maintenance" type="button" role="tab" aria-controls="product-show-content-main-maintenance" aria-selected="@if ($product['description'] == null) true @else false @endif">
-                                                        <i class="fi fi-br-shuffle position-relative custom i-top-2 me-2"></i>Mantenimiento
+                                                    <button class="btn h5 fw-bold border border-secondary rounded-4 px-3 py-2 me-2 btn-outline-primary-custom-1 animation-hover-up @if ($product['description'] == null) active @endif" id="product-show-main-maintenance-tab" data-bs-toggle="pill" data-bs-target="#product-show-main-maintenance" type="button" role="tab" aria-controls="product-show-main-maintenance" aria-selected="@if ($product['description'] == null) true @else false @endif">
+                                                        <i class="fi fi-br-shuffle position-relative me-2 custom i-top-2"></i>Mantenimiento
                                                     </button>
                                                 </li>
                                             @endif
                                         </ul>
 
                                         <div class="tab-content">
-                                            @if ($product['description'] != null) <div class="tab-pane fade @if ($product['description'] != null) show active @endif" id="product-show-content-main-description" role="tabpanel" aria-labelledby="product-show-content-main-description-tab" tabindex="0">{!! $product['description'] !!}</div> @endif
-                                            @if ($product['maintenance'] != null) <div class="tab-pane fade @if ($product['description'] == null) show active @endif" id="product-show-content-main-maintenance" role="tabpanel" aria-labelledby="product-show-content-main-maintenance-tab" tabindex="0">{!! $product['maintenance'] !!}</div> @endif
+                                            @if ($product['description'] != null) <div class="tab-pane fade @if ($product['description'] != null) show active @endif" id="product-show-main-description" role="tabpanel" aria-labelledby="product-show-main-description-tab" tabindex="0">{!! $product['description'] !!}</div> @endif
+                                            @if ($product['maintenance'] != null) <div class="tab-pane fade @if ($product['description'] == null) show active @endif" id="product-show-main-maintenance" role="tabpanel" aria-labelledby="product-show-main-maintenance-tab" tabindex="0">{!! $product['maintenance'] !!}</div> @endif
                                         </div>
                                     </div>
                                 </div>
@@ -347,8 +344,8 @@
                                 <div class="pb-2 subtitle"><h2 class="h4 text-dark fw-bold border-bottom border-secondary position-relative pb-3 mb-2">Videos</h2></div>
 
                                 <div class="row gx-2 gx-xl-3 row-cols-1 row-cols-sm-2 row-cols-lg-4">
-                                    @foreach ($videos as $index => $video)
-                                        <div class="col" wire:key="product-show-video-{{ $index }}">
+                                    @foreach ($videos as $video)
+                                        <div class="col">
                                             <div class="ratio ratio-16x9 mb-3">
                                                 <iframe src="{{ $video['url'] }}" title="Video {{ $product['name'] }}" allowfullscreen></iframe>
                                                 <a href="{{ $video['url'] }}" data-fancybox="videos"><div class="position-absolute top-0 bottom-0 start-0 end-0"></div></a>
@@ -368,8 +365,8 @@
                                 <div class="pb-2 subtitle"><h2 class="h4 text-dark fw-bold border-bottom border-secondary position-relative pb-3 mb-2">Repuestos</h2></div>
 
                                 <div class="row gx-2 gx-xl-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 align-items-stretch">
-                                    @foreach ($replacements as $index => $replacement)
-                                        <div class="col mb-3" wire:key="product-show-replacement-{{ $index }}"><x-product.thumbnail :product="$replacement" /></div>
+                                    @foreach ($replacements as $replacement)
+                                        <div class="col mb-3"><x-product.thumbnail :product="$replacement" /></div>
                                     @endforeach
                                 </div>
                             </div>
@@ -384,8 +381,8 @@
                                 <div class="pb-2 subtitle"><h2 class="h4 text-dark fw-bold border-bottom border-secondary position-relative pb-3 mb-2">Partes</h2></div>
 
                                 <div class="row gx-2 gx-xl-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 align-items-stretch">
-                                    @foreach ($parts as $index => $part)
-                                        <div class="col mb-3" wire:key="product-show-part-{{ $index }}"><x-product.thumbnail :product="$part" /></div>
+                                    @foreach ($parts as $part)
+                                        <div class="col mb-3"><x-product.thumbnail :product="$part" /></div>
                                     @endforeach
                                 </div>
                             </div>

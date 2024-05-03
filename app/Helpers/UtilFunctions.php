@@ -3,7 +3,7 @@
 use Illuminate\Support\Carbon;
 use App\Models\Product;
 
-function formatPrice(float $price, int $decimals): float {
+function formatPrice(float $price, int $decimals): string {
     //Formatear precio con decimales
     return number_format($price, $decimals);
 }
