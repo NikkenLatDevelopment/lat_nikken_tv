@@ -7,5 +7,5 @@
 
     <x-general.header.content.main />
     <div class="checkout">@livewire('checkout.index.content.general.main')</div>
-    <x-general.footer.content.main />
+    <x-general.footer.main />
 @endsection
