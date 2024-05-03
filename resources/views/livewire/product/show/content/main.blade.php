@@ -134,10 +134,10 @@
                             </form>
 
                             @if ($available == 0)
-                                @if (!empty($componentsNotAvailable))
+                                @if (!empty($componentNotAvailables))
                                     <div class="pt-1 components">
                                         <div class="row gx-3">
-                                            @if (!empty($componentsNotAvailable))
+                                            @if (!empty($componentNotAvailables))
                                                 <div class="col-12 col-sm-6 col-lg-12 col-xl-6">
                                                     <div class="card border-warning rounded-4 overflow-hidden mb-3">
                                                         <div class="card-header text-warning lh-sm bg-white border-0 border-bottom border-warning px-3">
@@ -146,7 +146,7 @@
 
                                                         <div class="card-body text-warning">
                                                             <ul class="fa-ul ps-0 ms-4">
-                                                                @foreach ($componentsNotAvailable as $componentNotAvailable)
+                                                                @foreach ($componentNotAvailables as $componentNotAvailable)
                                                                     <li class="mb-2">
                                                                         <span class="fa-li"><i class="fa-solid fa-angle-right fa-xs"></i></span>
                                                                         {{ $componentNotAvailable['sku'] }} - <span class="fw-bold">{{ $componentNotAvailable['name'] }}</span>.
@@ -162,7 +162,7 @@
                                                 </div>
                                             @endif
 
-                                            @if (!empty($componentsAvailable))
+                                            @if (!empty($componentAvailables))
                                                 <div class="col-12 col-sm-6 col-lg-12 col-xl-6">
                                                     <div class="card border-success rounded-4 overflow-hidden mb-3">
                                                         <div class="card-header text-success lh-sm bg-white border-0 border-bottom border-success px-3">
@@ -171,7 +171,7 @@
 
                                                         <div class="card-body text-success">
                                                             <ul class="fa-ul ps-0 ms-4 mb-0">
-                                                                @foreach ($componentsAvailable as $componentAvailable)
+                                                                @foreach ($componentAvailables as $componentAvailable)
                                                                     <li class="lh-sm @if (!$loop->last) mb-2 @endif">
                                                                         <span class="fa-li"><i class="fa-solid fa-angle-right fa-xs"></i></span>
                                                                         {{ $componentAvailable['sku'] }} - {{ $componentAvailable['name'] }}.
