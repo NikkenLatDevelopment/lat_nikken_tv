@@ -7,7 +7,7 @@ use Livewire\Attributes\Locked;
 use Livewire\WithPagination;
 use App\Models\SessionController;
 
-class Address extends Component
+class Addresses extends Component
 {
     use WithPagination;
 
@@ -28,7 +28,7 @@ class Address extends Component
         ->simplePaginate(4, pageName: 'addresses');
 
         //Mostrar vista
-        return view('livewire.checkout.index.table.address', [ 'userAddresses' => $userAddresses ]);
+        return view('livewire.checkout.index.table.addresses', [ 'userAddresses' => $userAddresses ]);
     }
 
     public function mount(SessionController $sessionController) {

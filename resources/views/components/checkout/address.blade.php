@@ -23,7 +23,7 @@
 
     @if ($this->countUserAddresses > 0)
         <div class="tab-pane fade" id="checkout-address-table" role="tabpanel" aria-labelledby="checkout-address-table-tab" tabindex="0" wire:ignore.self>
-            @livewire('checkout.index.table.address')
+            @livewire('checkout.index.table.addresses')
         </div>
     @endif
 </div>
