@@ -8,7 +8,7 @@
 
                         <ul class="fa-ul ps-0 ms-4 components">
                             @foreach ($componentNotAvailablesProduct as $componentNotAvailableProduct)
-                                <li class="mb-3">
+                                <li class="mb-3" wire:key="product-show-modal-available-message-component-not-available-{{ $index }}">
                                     <span class="fa-li"><i class="fa-solid fa-angle-right fa-xs"></i></span>
                                     <span class="lh-sm d-block mb-2">{{ $componentNotAvailableProduct['sku'] }} - <span class="fw-bold">{{ $componentNotAvailableProduct['name'] }}</span>.</span>
                                     <span class="small lh-sm d-block">Fecha estimada de disponibilidad:</span>

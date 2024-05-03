@@ -8,7 +8,7 @@
             <li><h6 class="dropdown-header opacity-75 fw-bold">País de Residencia</h6></li>
 
             @foreach ($catalogCountries as $catalogCountry)
-                <li>
+                <li wire:key="general-header-content-main-catalog-countries-{{ $catalogCountry['id'] }}">
                     <a href="{{ route('country.update', $catalogCountry['id']) }}" class="dropdown-item d-flex align-items-center">
                         <img src="{{ asset('assets/img/countries/' . $catalogCountry['code'] . '.png') }}" srcset="{{ asset('assets/img/countries/' . $catalogCountry['code'] . '-2x.png') }} 2x" class="img-fluid me-2" alt="Bandera de {{ $catalogCountry['name'] }}"> {{ $catalogCountry['name'] }}
                     </a>

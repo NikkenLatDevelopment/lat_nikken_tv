@@ -24,8 +24,8 @@
                             <div class="position-relative carousel" wire:ignore>
                                 <span class="position-absolute top-0 end-0 p-3"><i class="fi-rs-search h5 opacity-50"></i></span>
 
-                                <div class="border border-secondary rounded-4 mb-3 carousel-slider"> @foreach ($images as $image) <figure class="mb-0"><img src="{{ $image }}" class="img-fluid" alt="{{ $product['name'] }}" data-fancybox="galeria" /></figure> @endforeach </div>
-                                <div class="carousel-thumbnail"> @if (!empty($images)) @foreach ($images as $image) <figure class="mb-0"><img src="{{ $image }}" class="img-fluid" alt="{{ $product['name'] }}" /></figure> @endforeach @endif </div>
+                                <div class="border border-secondary rounded-4 mb-3 carousel-slider"> @foreach ($images as $index => $image) <figure class="mb-0" wire:key="product-show-image-{{ $index }}"><img src="{{ $image }}" class="img-fluid" alt="{{ $product['name'] }}" data-fancybox="galeria" /></figure> @endforeach </div>
+                                <div class="carousel-thumbnail"> @if (!empty($images)) @foreach ($images as $index => $image) <figure class="mb-0" wire:key="product-show-image-thumbnail-{{ $index }}"><img src="{{ $image }}" class="img-fluid" alt="{{ $product['name'] }}" /></figure> @endforeach @endif </div>
                             </div>
                         </div>
 
@@ -146,8 +146,8 @@
 
                                                         <div class="card-body text-warning">
                                                             <ul class="fa-ul ps-0 ms-4">
-                                                                @foreach ($componentNotAvailables as $componentNotAvailable)
-                                                                    <li class="mb-2">
+                                                                @foreach ($componentNotAvailables as $index => $componentNotAvailable)
+                                                                    <li class="mb-2" wire:key="product-show-component-not-available-{{ $index }}">
                                                                         <span class="fa-li"><i class="fa-solid fa-angle-right fa-xs"></i></span>
                                                                         {{ $componentNotAvailable['sku'] }} - <span class="fw-bold">{{ $componentNotAvailable['name'] }}</span>.
                                                                         <span class="small lh-sm d-block">Fecha estimada de disponibilidad:</span>
@@ -171,8 +171,8 @@
 
                                                         <div class="card-body text-success">
                                                             <ul class="fa-ul ps-0 ms-4 mb-0">
-                                                                @foreach ($componentAvailables as $componentAvailable)
-                                                                    <li class="lh-sm @if (!$loop->last) mb-2 @endif">
+                                                                @foreach ($componentAvailables as $index => $componentAvailable)
+                                                                    <li class="lh-sm @if (!$loop->last) mb-2 @endif" wire:key="product-show-component-available-{{ $index }}">
                                                                         <span class="fa-li"><i class="fa-solid fa-angle-right fa-xs"></i></span>
                                                                         {{ $componentAvailable['sku'] }} - {{ $componentAvailable['name'] }}.
                                                                         <span class="d-block fw-bold">Disponible.</span>
@@ -217,16 +217,16 @@
                                 <h2 class="h6 text-muted fw-bold mb-2 pt-1">Diferenciadores del producto:</h2>
 
                                 <ul class="mb-3">
-                                    @foreach ($differentiators as $differentiator)
-                                        <li>{{ $differentiator }}</li>
+                                    @foreach ($differentiators as $index => $differentiator)
+                                        <li wire:key="product-show-differentiator-{{ $index }}">{{ $differentiator }}</li>
                                     @endforeach
                                 </ul>
                             @endif
 
                             @if (!empty($technologies))
                                 <div class="mb-2 pb-1">
-                                    @foreach ($technologies as $technology)
-                                        <a href="#" class="text-decoration-none" wire:click.prevent="$dispatch('product.show.modal.technology-description.initialize', { productTechnologyId: {{ $technology['id'] }} })">
+                                    @foreach ($technologies as $index => $technology)
+                                        <a href="#" class="text-decoration-none" wire:click.prevent="$dispatch('product.show.modal.technology-description.initialize', { productTechnologyId: {{ $technology['id'] }} })" wire:key="product-show-technology-{{ $index }}">
                                             <img src="{{ asset('assets/img/technologies/logo-' . $technology['slug'] . '.png') }}" srcset="{{ asset('assets/img/technologies/logo-' . $technology['slug'] . '-2x.png') }} 2x" class="img-fluid" alt="{{ $technology['name'] }}">
                                         </a>
                                     @endforeach
@@ -274,8 +274,8 @@
                                 @endif
 
                                 @if (!empty($features))
-                                    @foreach ($features as $feature)
-                                        <div class="me-4">
+                                    @foreach ($features as $index => $feature)
+                                        <div class="me-4" wire:key="product-show-feature-{{ $index }}">
                                             <div class="row gx-2">
                                                 <div class="col-auto"><span class="small">{{ $feature['catalog_product_feature']['name'] }}:</span></div>
                                                 <div class="col-auto"><span class="small text-success">{{ $feature['value'] }}</span></div>
@@ -293,8 +293,8 @@
 
                     <section class="pt-4 pb-3 attachment">
                         <div class="row gx-2 justify-content-center align-items-stretch">
-                            @foreach ($attachments as $attachment)
-                                <div class="col-auto animation-hover-up mb-2">
+                            @foreach ($attachments as $index => $attachment)
+                                <div class="col-auto animation-hover-up mb-2" wire:key="product-show-attachment-{{ $index }}">
                                     <a href="{{ $attachment['file'] }}" target="_blank" class="link-dark text-decoration-none border border-light rounded-4 d-flex align-items-center justify-content-center h-100 p-4 card-custom-1">
                                         <div class="me-2"><i class="fi fi-rr-search-alt h4"></i></div>
                                         <div class="h6 fw-bold lh-sm mb-0">{{ $attachment['catalog_product_attachment']['name'] }}</div>
@@ -347,8 +347,8 @@
                                 <div class="pb-2 subtitle"><h2 class="h4 text-dark fw-bold border-bottom border-secondary position-relative pb-3 mb-2">Videos</h2></div>
 
                                 <div class="row gx-2 gx-xl-3 row-cols-1 row-cols-sm-2 row-cols-lg-4">
-                                    @foreach ($videos as $video)
-                                        <div class="col">
+                                    @foreach ($videos as $index => $video)
+                                        <div class="col" wire:key="product-show-video-{{ $index }}">
                                             <div class="ratio ratio-16x9 mb-3">
                                                 <iframe src="{{ $video['url'] }}" title="Video {{ $product['name'] }}" allowfullscreen></iframe>
                                                 <a href="{{ $video['url'] }}" data-fancybox="videos"><div class="position-absolute top-0 bottom-0 start-0 end-0"></div></a>
@@ -368,8 +368,8 @@
                                 <div class="pb-2 subtitle"><h2 class="h4 text-dark fw-bold border-bottom border-secondary position-relative pb-3 mb-2">Repuestos</h2></div>
 
                                 <div class="row gx-2 gx-xl-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 align-items-stretch">
-                                    @foreach ($replacements as $replacement)
-                                        <div class="col mb-3"><x-product.thumbnail :product="$replacement" /></div>
+                                    @foreach ($replacements as $index => $replacement)
+                                        <div class="col mb-3" wire:key="product-show-replacement-{{ $index }}"><x-product.thumbnail :product="$replacement" /></div>
                                     @endforeach
                                 </div>
                             </div>
@@ -384,8 +384,8 @@
                                 <div class="pb-2 subtitle"><h2 class="h4 text-dark fw-bold border-bottom border-secondary position-relative pb-3 mb-2">Partes</h2></div>
 
                                 <div class="row gx-2 gx-xl-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 align-items-stretch">
-                                    @foreach ($parts as $part)
-                                        <div class="col mb-3"><x-product.thumbnail :product="$part" /></div>
+                                    @foreach ($parts as $index => $part)
+                                        <div class="col mb-3" wire:key="product-show-part-{{ $index }}"><x-product.thumbnail :product="$part" /></div>
                                     @endforeach
                                 </div>
                             </div>

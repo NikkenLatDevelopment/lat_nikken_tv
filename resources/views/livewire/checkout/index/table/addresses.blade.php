@@ -4,8 +4,8 @@
 
     <div class="input-group border border-1 border-secondary rounded-3 mb-3">
         <div class="form-floating">
-            <input type="text" class="form-control bg-transparent border-0 shadow-none" id="checkout-index-table-address-search" wire:model.live.debounce.500ms="search" placeholder="Buscar..." autocomplete="off">
-            <label for="checkout-index-table-address-search" class="text-muted">Buscar...</label>
+            <input type="text" class="form-control bg-transparent border-0 shadow-none" id="checkout-index-table-addresses-search" wire:model.live.debounce.500ms="search" placeholder="Buscar..." autocomplete="off">
+            <label for="checkout-index-table-addresses-search" class="text-muted">Buscar...</label>
         </div>
 
         <button type="submit" class="btn btn-link text-decoration-none border-0 rounded-0 pe-3"><i class="fi fi-rr-search h5 position-relative custom i-top-1"></i></button>
@@ -14,12 +14,12 @@
     <div class="pt-1" x-data="{ selectedUserAddress: null }">
         <div class="row gx-3 row-cols-1 row-cols-md-2">
             @forelse ($userAddresses as $index => $userAddress)
-                <div class="col" wire:key="checkout-index-table-address-{{ $userAddress->id }}">
-                    <label class="form-check-label d-flex align-items-stretch h-100" for="checkout-index-table-address-{{ $userAddress->id }}">
+                <div class="col" wire:key="checkout-index-table-addresses-{{ $userAddress->id }}">
+                    <label class="form-check-label d-flex align-items-stretch h-100" for="checkout-index-table-addresses-{{ $userAddress->id }}">
                         <div class="bg-light border rounded-4 d-flex align-items-center w-100 px-4 py-3 mb-3" :class="selectedUserAddress === {{ $userAddress->id }} ? 'border-success' : 'border-light'">
                             <div>
                                 <div class="form-check form-switch d-flex align-items-center mb-2">
-                                    <input type="radio" class="form-check-input" name="checkout-index-table-address" role="switch" id="checkout-index-table-address-{{ $userAddress->id }}" wire:model="selectedUserAddress" wire:click="$dispatch('checkout.index.content.general.main.changeSelectedUserAddressExternal', { addressId: {{ $userAddress->id }} })" @change="selectedUserAddress =  {{ $userAddress->id }}" value="{{ $userAddress->id }}">
+                                    <input type="radio" class="form-check-input" name="checkout-index-table-addresses" role="switch" id="checkout-index-table-addresses-{{ $userAddress->id }}" wire:model="selectedUserAddress" wire:click="$dispatch('checkout.index.content.general.main.changeSelectedUserAddressExternal', { addressId: {{ $userAddress->id }} })" @change="selectedUserAddress =  {{ $userAddress->id }}" value="{{ $userAddress->id }}">
                                     <div class="h6 text-dark fw-bold mb-0 mt-1 ms-2">{{ $userAddress->name }}</div>
                                 </div>
 

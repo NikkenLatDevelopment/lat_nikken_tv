@@ -12,8 +12,8 @@
                                     <a href="#" class="h6 link-dark fw-bold text-decoration-none">Productos <i class="fi fi-rr-angle-small-down position-relative"></i></a>
 
                                     <ul class="list-unstyled bg-white border border-secondary rounded-3 position-absolute start-0 mt-2 sub-menu">
-                                        @foreach ($catalogProductBrands as $catalogProductBrand)
-                                            <li><a href="{{ route('category.show', $catalogProductBrand['slug']) }}" class="h6 link-primary fw-bold text-decoration-none lh-1 d-block mb-0">{{ $catalogProductBrand['alias'] }} <span class="small text-black-50 opacity-75 fw-semibold d-block subtitle">{{ $catalogProductBrand['name'] }}</span></a></li>
+                                        @foreach ($catalogProductBrands as $index => $catalogProductBrand)
+                                            <li wire:key="general-header-content-main-menu-catalog-product-brand-{{ $index }}"><a href="{{ route('category.show', $catalogProductBrand['slug']) }}" class="h6 link-primary fw-bold text-decoration-none lh-1 d-block mb-0">{{ $catalogProductBrand['alias'] }} <span class="small text-black-50 opacity-75 fw-semibold d-block subtitle">{{ $catalogProductBrand['name'] }}</span></a></li>
                                         @endforeach
                                     </ul>
                                 </li>
@@ -25,14 +25,14 @@
                                         <a href="#" class="h6 link-success fw-bold text-decoration-none"><i class="fa-solid fa-bell me-1 custom bell-1"></i> Campañas <i class="fi fi-rr-angle-small-down position-relative"></i></a>
 
                                         <ul class="list-unstyled bg-white border border-secondary border-1 rounded-3 position-absolute start-0 mt-2 sub-menu">
-                                            @foreach ($campaigns as $campaign)
-                                                <li><a href="{{ $campaign['url'] }}" class="h6 link-primary fw-bold text-decoration-none lh-1 d-block mb-0">{{ $campaign['name'] }}</a></li>
+                                            @foreach ($campaigns as $index => $campaign)
+                                                <li wire:key="general-header-content-main-menu-campaign-{{ $index }}"><a href="{{ $campaign['url'] }}" class="h6 link-primary fw-bold text-decoration-none lh-1 d-block mb-0">{{ $campaign['name'] }}</a></li>
                                             @endforeach
                                         </ul>
                                     </li>
                                 @else
-                                    @foreach ($campaigns as $campaign)
-                                        <li class="py-3 me-4"><a href="{{ $campaign['url'] }}" class="h6 link-success fw-bold text-decoration-none"><i class="fa-solid fa-bell me-1 custom bell-1"></i> {{ $campaign['name'] }}</a></li>
+                                    @foreach ($campaigns as $index => $campaign)
+                                        <li class="py-3 me-4" wire:key="general-header-content-main-menu-campaign-{{ $index }}"><a href="{{ $campaign['url'] }}" class="h6 link-success fw-bold text-decoration-none"><i class="fa-solid fa-bell me-1 custom bell-1"></i> {{ $campaign['name'] }}</a></li>
                                     @endforeach
                                 @endif
                             @endif
@@ -76,8 +76,8 @@
                             <div id="generalHeaderContentMainMenuResponsiveAccordion-collapseBrand" class="accordion-collapse collapse" aria-labelledby="generalHeaderContentMainMenuResponsiveAccordion-headingBrand" data-bs-parent="#generalHeaderContentMainMenuResponsiveAccordion">
                                 <div class="accordion-body pt-0 ms-3">
                                     <ul class="list-unstyled my-0 sub-menu">
-                                        @foreach ($catalogProductBrands as $catalogProductBrand)
-                                            <li class="py-2"><a href="{{ route('category.show', $catalogProductBrand['slug']) }}" class="h6 fw-bold text-decoration-none lh-1 d-block mb-0">{{ $catalogProductBrand['alias'] }} <span class="small text-black-50 opacity-75 fw-semibold d-block subtitle">{{ $catalogProductBrand['name'] }}</span></a></li>
+                                        @foreach ($catalogProductBrands as $index => $catalogProductBrand)
+                                            <li class="py-2" wire:key="general-header-content-main-menu-catalog-product-brand-{{ $index }}"><a href="{{ route('category.show', $catalogProductBrand['slug']) }}" class="h6 fw-bold text-decoration-none lh-1 d-block mb-0">{{ $catalogProductBrand['alias'] }} <span class="small text-black-50 opacity-75 fw-semibold d-block subtitle">{{ $catalogProductBrand['name'] }}</span></a></li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -95,16 +95,16 @@
                                 <div id="generalHeaderContentMainMenuResponsiveAccordion-collapseCampaign" class="accordion-collapse collapse" aria-labelledby="generalHeaderContentMainMenuResponsiveAccordion-headingCampaign" data-bs-parent="#generalHeaderContentMainMenuResponsiveAccordion">
                                     <div class="accordion-body pt-0 ms-3">
                                         <ul class="list-unstyled my-0 sub-menu">
-                                            @foreach ($campaigns as $campaign)
-                                                <li class="py-2"><a href="{{ $campaign['url'] }}" class="h6 fw-bold text-decoration-none lh-1 d-block mb-0">{{ $campaign['name'] }}</a></li>
+                                            @foreach ($campaigns as $index => $campaign)
+                                                <li class="py-2" wire:key="general-header-content-main-menu-campaign-{{ $index }}"><a href="{{ $campaign['url'] }}" class="h6 fw-bold text-decoration-none lh-1 d-block mb-0">{{ $campaign['name'] }}</a></li>
                                             @endforeach
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         @else
-                            @foreach ($campaigns as $campaign)
-                                <div class="accordion-item not-sub-menu">
+                            @foreach ($campaigns as $index => $campaign)
+                                <div class="accordion-item not-sub-menu" wire:key="general-header-content-main-menu-campaign-{{ $index }}">
                                     <div class="h6 accordion-header">
                                         <a href="{{ $campaign['url'] }}" class="accordion-button collapsed link-success fw-bold text-decoration-none lh-1 shadow-none"><i class="fa-solid fa-bell me-2 custom bell-1"></i> {{ $campaign['name'] }}</a>
                                     </div>

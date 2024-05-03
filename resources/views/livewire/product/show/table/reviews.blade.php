@@ -9,8 +9,8 @@
                 </ul>
             @endif
 
-            @foreach ($reviews as $review)
-                <div class="border border-light border-2 rounded-4 p-3 @if (!$loop->last) mb-2 @else mb-0 @endif">
+            @foreach ($reviews as $index => $review)
+                <div class="border border-light border-2 rounded-4 p-3 @if (!$loop->last) mb-2 @else mb-0 @endif" wire:key="product-show-table-reviews-review-{{ $index }}">
                     <div class="row">
                         <div class="col"><div class="small mb-2"><x-product.rating-star :ratingTotal="$review->rating" /></div></div>
                         <div class="col-auto"><span class="small text-black-50 opacity-50">{{ formatDateToDDMMMYYYY($review->created_at) }}</span></div>

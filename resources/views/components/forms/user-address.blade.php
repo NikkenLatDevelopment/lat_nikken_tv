@@ -66,7 +66,7 @@
                 <div class="form-floating mb-3">
                     <select class="form-select @error('stateUserAddressForm') is-invalid @enderror @error('userAddressForm.state') is-invalid @enderror" id="checkout-address-form-state" wire:model.live="stateUserAddressForm" wire:loading.attr="disabled" aria-label="Departamento *">
                         <option selected>Selecciona una opción</option>
-                        @foreach ($this->userAddressForm->catalogStates as $catalogState) <option value="{{ $catalogState['CodigoDir_1'] }}|{{ $catalogState['Direccion_1'] }}">{{ $catalogState['Direccion_1'] }}</option> @endforeach
+                        @foreach ($this->userAddressForm->catalogStates as $index => $catalogState) <option value="{{ $catalogState['CodigoDir_1'] }}|{{ $catalogState['Direccion_1'] }}">{{ $catalogState['Direccion_1'] }}</option> @endforeach
                     </select>
 
                     <label for="checkout-address-form-state">Departamento *</label>
@@ -80,7 +80,7 @@
                 <div class="form-floating mb-3">
                     <select class="form-select @error('municipalityUserAddressForm') is-invalid @enderror @error('userAddressForm.municipality') is-invalid @enderror" id="checkout-address-form-municipality" wire:model="municipalityUserAddressForm" wire:loading.attr="disabled" wire:target="stateUserAddressForm" aria-describedby="checkoutAddressMunicipality" aria-label="Ciudad *">
                         <option selected>Selecciona una opción</option>
-                        @foreach ($this->userAddressForm->catalogMunicipalities as $catalogMunicipality) <option value="{{ $catalogMunicipality['CodigoDir_2'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogMunicipality['Direccion_2'] }}</option> @endforeach
+                        @foreach ($this->userAddressForm->catalogMunicipalities as $index => $catalogMunicipality) <option value="{{ $catalogMunicipality['CodigoDir_2'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogMunicipality['Direccion_2'] }}</option> @endforeach
                     </select>
 
                     <label for="checkout-address-form-municipality">Ciudad *</label>
@@ -161,7 +161,7 @@
             <div class="col-12 col-sm-6">
                 <div class="form-floating mb-3">
                     <select class="form-select @error('userAddressForm.state') is-invalid @enderror" id="checkout-address-form-state" wire:model="userAddressForm.state" wire:loading.attr="disabled" wire:target="postalCodeUserAddressForm" aria-label="Estado *">
-                        @forelse ($this->userAddressForm->catalogStates as $catalogState)
+                        @forelse ($this->userAddressForm->catalogStates as $index => $catalogState)
                             <option value="{{ $catalogState['CodigoDir_1'] }}|{{ $catalogState['Direccion_1'] }}">{{ $catalogState['Direccion_1'] }}</option>
                         @empty
                             <option selected>Selecciona una opción</option>
@@ -178,7 +178,7 @@
             <div class="col-12 col-sm-6">
                 <div class="form-floating mb-3">
                     <select class="form-select @error('userAddressForm.municipality') is-invalid @enderror" id="checkout-address-form-municipality" wire:model="userAddressForm.municipality" aria-describedby="checkoutAddressMunicipality" wire:loading.attr="disabled" wire:target="postalCodeUserAddressForm" aria-label="Municipio *">
-                        @forelse ($this->userAddressForm->catalogMunicipalities as $catalogMunicipality)
+                        @forelse ($this->userAddressForm->catalogMunicipalities as $index => $catalogMunicipality)
                             <option value="{{ $catalogMunicipality['CodigoDir_2'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogMunicipality['Direccion_2'] }}</option>
                         @empty
                             <option selected>Selecciona una opción</option>
@@ -196,7 +196,7 @@
                 <div class="form-floating mb-3">
                     <select class="form-select @error('userAddressForm.colony') is-invalid @enderror" id="checkout-address-form-colony" wire:model="userAddressForm.colony" aria-describedby="checkoutAddressColony" wire:loading.attr="disabled" wire:target="postalCodeUserAddressForm" aria-label="Colonia *">
                         @if (empty($this->userAddressForm->catalogColonies) || count($this->userAddressForm->catalogColonies) > 1) <option selected>Selecciona una opción</option> @endif
-                        @foreach ($this->userAddressForm->catalogColonies as $catalogColony) <option value="{{ $catalogColony['CodigoDir_3'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogColony['Direccion_3'] }}</option> @endforeach
+                        @foreach ($this->userAddressForm->catalogColonies as $index => $catalogColony) <option value="{{ $catalogColony['CodigoDir_3'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogColony['Direccion_3'] }}</option> @endforeach
                     </select>
 
                     <label for="checkout-address-form-colony">Colonia *</label>
@@ -266,7 +266,7 @@
                 <div class="form-floating mb-3">
                     <select class="form-select @error('stateUserAddressForm') is-invalid @enderror @error('userAddressForm.state') is-invalid @enderror" id="checkout-address-form-state" wire:model.live="stateUserAddressForm"  wire:loading.attr="disabled" aria-label="Departamento *">
                         <option selected>Selecciona una opción</option>
-                        @foreach ($this->userAddressForm->catalogStates as $catalogState) <option value="{{ $catalogState['CodigoDir_1'] }}|{{ $catalogState['Direccion_1'] }}">{{ $catalogState['Direccion_1'] }}</option> @endforeach
+                        @foreach ($this->userAddressForm->catalogStates as $index => $catalogState) <option value="{{ $catalogState['CodigoDir_1'] }}|{{ $catalogState['Direccion_1'] }}">{{ $catalogState['Direccion_1'] }}</option> @endforeach
                     </select>
 
                     <label for="checkout-address-form-state">Departamento *</label>
@@ -280,7 +280,7 @@
                 <div class="form-floating mb-3">
                     <select class="form-select @error('municipalityUserAddressForm') is-invalid @enderror @error('userAddressForm.municipality') is-invalid @enderror" id="checkout-address-form-municipality" wire:model.live="municipalityUserAddressForm" wire:loading.attr="disabled" wire:target="stateUserAddressForm" aria-describedby="checkoutAddressMunicipality" aria-label="Provincia *">
                         <option selected>Selecciona una opción</option>
-                        @foreach ($this->userAddressForm->catalogMunicipalities as $catalogMunicipality) <option value="{{ $catalogMunicipality['CodigoDir_2'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogMunicipality['Direccion_2'] }}</option> @endforeach
+                        @foreach ($this->userAddressForm->catalogMunicipalities as $index => $catalogMunicipality) <option value="{{ $catalogMunicipality['CodigoDir_2'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogMunicipality['Direccion_2'] }}</option> @endforeach
                     </select>
 
                     <label for="checkout-address-form-municipality">Provincia *</label>
@@ -295,7 +295,7 @@
                 <div class="form-floating mb-3">
                     <select class="form-select @error('userAddressForm.colony') is-invalid @enderror" id="checkout-address-form-colony" wire:model="userAddressForm.colony" wire:loading.attr="disabled" wire:target="stateUserAddressForm, municipalityUserAddressForm" aria-describedby="checkoutAddressColony" aria-label="Distrito *">
                         <option selected>Selecciona una opción</option>
-                        @foreach ($this->userAddressForm->catalogColonies as $catalogColony) <option value="{{ $catalogColony['CodigoDir_3'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogColony['Direccion_3'] }}</option> @endforeach
+                        @foreach ($this->userAddressForm->catalogColonies as $index => $catalogColony) <option value="{{ $catalogColony['CodigoDir_3'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogColony['Direccion_3'] }}</option> @endforeach
                     </select>
 
                     <label for="checkout-address-form-colony">Distrito *</label>
@@ -365,7 +365,7 @@
                 <div class="form-floating mb-3">
                     <select class="form-select @error('stateUserAddressForm') is-invalid @enderror @error('userAddressForm.state') is-invalid @enderror" id="checkout-address-form-state" wire:model.live="stateUserAddressForm"  wire:loading.attr="disabled" aria-label="Provincia *">
                         <option selected>Selecciona una opción</option>
-                        @foreach ($this->userAddressForm->catalogStates as $catalogState) <option value="{{ $catalogState['CodigoDir_1'] }}|{{ $catalogState['Direccion_1'] }}">{{ $catalogState['Direccion_1'] }}</option> @endforeach
+                        @foreach ($this->userAddressForm->catalogStates as $index => $catalogState) <option value="{{ $catalogState['CodigoDir_1'] }}|{{ $catalogState['Direccion_1'] }}">{{ $catalogState['Direccion_1'] }}</option> @endforeach
                     </select>
 
                     <label for="checkout-address-form-state">Provincia *</label>
@@ -379,7 +379,7 @@
                 <div class="form-floating mb-3">
                     <select class="form-select @error('municipalityUserAddressForm') is-invalid @enderror @error('userAddressForm.municipality') is-invalid @enderror" id="checkout-address-form-municipality" wire:model.live="municipalityUserAddressForm" wire:loading.attr="disabled" wire:target="stateUserAddressForm" aria-describedby="checkoutAddressMunicipality" aria-label="Ciudad *">
                         <option selected>Selecciona una opción</option>
-                        @foreach ($this->userAddressForm->catalogMunicipalities as $catalogMunicipality) <option value="{{ $catalogMunicipality['CodigoDir_2'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogMunicipality['Direccion_2'] }}</option> @endforeach
+                        @foreach ($this->userAddressForm->catalogMunicipalities as $index => $catalogMunicipality) <option value="{{ $catalogMunicipality['CodigoDir_2'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogMunicipality['Direccion_2'] }}</option> @endforeach
                     </select>
 
                     <label for="checkout-address-form-municipality">Ciudad *</label>
@@ -394,7 +394,7 @@
                 <div class="form-floating mb-3">
                     <select class="form-select @error('userAddressForm.colony') is-invalid @enderror" id="checkout-address-form-colony" wire:model="userAddressForm.colony" wire:loading.attr="disabled" wire:target="stateUserAddressForm, municipalityUserAddressForm" aria-describedby="checkoutAddressColony" aria-label="Parroquia *">
                         <option selected>Selecciona una opción</option>
-                        @foreach ($this->userAddressForm->catalogColonies as $catalogColony) <option value="{{ $catalogColony['CodigoDir_3'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogColony['Direccion_3'] }}</option> @endforeach
+                        @foreach ($this->userAddressForm->catalogColonies as $index => $catalogColony) <option value="{{ $catalogColony['CodigoDir_3'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogColony['Direccion_3'] }}</option> @endforeach
                     </select>
 
                     <label for="checkout-address-form-colony">Parroquia *</label>
@@ -463,7 +463,7 @@
                 <div class="form-floating mb-3">
                     <select class="form-select @error('stateUserAddressForm') is-invalid @enderror @error('userAddressForm.state') is-invalid @enderror" id="checkout-address-form-state" wire:model.live="stateUserAddressForm"  wire:loading.attr="disabled" aria-label="Provincia *">
                         <option selected>Selecciona una opción</option>
-                        @foreach ($this->userAddressForm->catalogStates as $catalogState) <option value="{{ $catalogState['CodigoDir_1'] }}|{{ $catalogState['Direccion_1'] }}">{{ $catalogState['Direccion_1'] }}</option> @endforeach
+                        @foreach ($this->userAddressForm->catalogStates as $index => $catalogState) <option value="{{ $catalogState['CodigoDir_1'] }}|{{ $catalogState['Direccion_1'] }}">{{ $catalogState['Direccion_1'] }}</option> @endforeach
                     </select>
 
                     <label for="checkout-address-form-state">Provincia *</label>
@@ -477,7 +477,7 @@
                 <div class="form-floating mb-3">
                     <select class="form-select @error('municipalityUserAddressForm') is-invalid @enderror @error('userAddressForm.municipality') is-invalid @enderror" id="checkout-address-form-municipality" wire:model.live="municipalityUserAddressForm" wire:loading.attr="disabled" wire:target="stateUserAddressForm" aria-describedby="checkoutAddressMunicipality" aria-label="Distrito *">
                         <option selected>Selecciona una opción</option>
-                        @foreach ($this->userAddressForm->catalogMunicipalities as $catalogMunicipality) <option value="{{ $catalogMunicipality['CodigoDir_2'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogMunicipality['Direccion_2'] }}</option> @endforeach
+                        @foreach ($this->userAddressForm->catalogMunicipalities as $index => $catalogMunicipality) <option value="{{ $catalogMunicipality['CodigoDir_2'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogMunicipality['Direccion_2'] }}</option> @endforeach
                     </select>
 
                     <label for="checkout-address-form-municipality">Distrito *</label>
@@ -492,7 +492,7 @@
                 <div class="form-floating mb-3">
                     <select class="form-select @error('userAddressForm.colony') is-invalid @enderror" id="checkout-address-form-colony" wire:model="userAddressForm.colony" wire:loading.attr="disabled" wire:target="stateUserAddressForm, municipalityUserAddressForm" aria-describedby="checkoutAddressColony" aria-label="Corregimiento *">
                         <option selected>Selecciona una opción</option>
-                        @foreach ($this->userAddressForm->catalogColonies as $catalogColony) <option value="{{ $catalogColony['CodigoDir_3'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogColony['Direccion_3'] }}</option> @endforeach
+                        @foreach ($this->userAddressForm->catalogColonies as $index => $catalogColony) <option value="{{ $catalogColony['CodigoDir_3'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogColony['Direccion_3'] }}</option> @endforeach
                     </select>
 
                     <label for="checkout-address-form-colony">Corregimiento *</label>
@@ -561,7 +561,7 @@
                 <div class="form-floating mb-3">
                     <select class="form-select @error('stateUserAddressForm') is-invalid @enderror @error('userAddressForm.state') is-invalid @enderror" id="checkout-address-form-state" wire:model.live="stateUserAddressForm"  wire:loading.attr="disabled" aria-label="Departamento *">
                         <option selected>Selecciona una opción</option>
-                        @foreach ($this->userAddressForm->catalogStates as $catalogState) <option value="{{ $catalogState['CodigoDir_1'] }}|{{ $catalogState['Direccion_1'] }}">{{ $catalogState['Direccion_1'] }}</option> @endforeach
+                        @foreach ($this->userAddressForm->catalogStates as $index => $catalogState) <option value="{{ $catalogState['CodigoDir_1'] }}|{{ $catalogState['Direccion_1'] }}">{{ $catalogState['Direccion_1'] }}</option> @endforeach
                     </select>
 
                     <label for="checkout-address-form-state">Departamento *</label>
@@ -575,7 +575,7 @@
                 <div class="form-floating mb-3">
                     <select class="form-select @error('municipalityUserAddressForm') is-invalid @enderror @error('userAddressForm.municipality') is-invalid @enderror" id="checkout-address-form-municipality" wire:model.live="municipalityUserAddressForm" wire:loading.attr="disabled" wire:target="stateUserAddressForm" aria-describedby="checkoutAddressMunicipality" aria-label="Municipio *">
                         <option selected>Selecciona una opción</option>
-                        @foreach ($this->userAddressForm->catalogMunicipalities as $catalogMunicipality) <option value="{{ $catalogMunicipality['CodigoDir_2'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogMunicipality['Direccion_2'] }}</option> @endforeach
+                        @foreach ($this->userAddressForm->catalogMunicipalities as $index => $catalogMunicipality) <option value="{{ $catalogMunicipality['CodigoDir_2'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogMunicipality['Direccion_2'] }}</option> @endforeach
                     </select>
 
                     <label for="checkout-address-form-municipality">Municipio *</label>
@@ -645,7 +645,7 @@
                 <div class="form-floating mb-3">
                     <select class="form-select @error('stateUserAddressForm') is-invalid @enderror @error('userAddressForm.state') is-invalid @enderror" id="checkout-address-form-state" wire:model.live="stateUserAddressForm"  wire:loading.attr="disabled" aria-label="Departamento *">
                         <option selected>Selecciona una opción</option>
-                        @foreach ($this->userAddressForm->catalogStates as $catalogState) <option value="{{ $catalogState['CodigoDir_1'] }}|{{ $catalogState['Direccion_1'] }}">{{ $catalogState['Direccion_1'] }}</option> @endforeach
+                        @foreach ($this->userAddressForm->catalogStates as $index => $catalogState) <option value="{{ $catalogState['CodigoDir_1'] }}|{{ $catalogState['Direccion_1'] }}">{{ $catalogState['Direccion_1'] }}</option> @endforeach
                     </select>
 
                     <label for="checkout-address-form-state">Departamento *</label>
@@ -659,7 +659,7 @@
                 <div class="form-floating mb-3">
                     <select class="form-select @error('municipalityUserAddressForm') is-invalid @enderror @error('userAddressForm.municipality') is-invalid @enderror" id="checkout-address-form-municipality" wire:model.live="municipalityUserAddressForm" wire:loading.attr="disabled" wire:target="stateUserAddressForm" aria-describedby="checkoutAddressMunicipality" aria-label="Municipio *">
                         <option selected>Selecciona una opción</option>
-                        @foreach ($this->userAddressForm->catalogMunicipalities as $catalogMunicipality) <option value="{{ $catalogMunicipality['CodigoDir_2'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogMunicipality['Direccion_2'] }}</option> @endforeach
+                        @foreach ($this->userAddressForm->catalogMunicipalities as $index => $catalogMunicipality) <option value="{{ $catalogMunicipality['CodigoDir_2'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogMunicipality['Direccion_2'] }}</option> @endforeach
                     </select>
 
                     <label for="checkout-address-form-municipality">Municipio *</label>
@@ -729,7 +729,7 @@
                 <div class="form-floating mb-3">
                     <select class="form-select @error('stateUserAddressForm') is-invalid @enderror @error('userAddressForm.state') is-invalid @enderror" id="checkout-address-form-state" wire:model.live="stateUserAddressForm"  wire:loading.attr="disabled" aria-label="Provincia *">
                         <option selected>Selecciona una opción</option>
-                        @foreach ($this->userAddressForm->catalogStates as $catalogState) <option value="{{ $catalogState['CodigoDir_1'] }}|{{ $catalogState['Direccion_1'] }}">{{ $catalogState['Direccion_1'] }}</option> @endforeach
+                        @foreach ($this->userAddressForm->catalogStates as $index => $catalogState) <option value="{{ $catalogState['CodigoDir_1'] }}|{{ $catalogState['Direccion_1'] }}">{{ $catalogState['Direccion_1'] }}</option> @endforeach
                     </select>
 
                     <label for="checkout-address-form-state">Provincia *</label>
@@ -743,7 +743,7 @@
                 <div class="form-floating mb-3">
                     <select class="form-select @error('municipalityUserAddressForm') is-invalid @enderror @error('userAddressForm.municipality') is-invalid @enderror" id="checkout-address-form-municipality" wire:model.live="municipalityUserAddressForm" wire:loading.attr="disabled" wire:target="stateUserAddressForm" aria-describedby="checkoutAddressMunicipality" aria-label="Cantón *">
                         <option selected>Selecciona una opción</option>
-                        @foreach ($this->userAddressForm->catalogMunicipalities as $catalogMunicipality) <option value="{{ $catalogMunicipality['CodigoDir_2'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogMunicipality['Direccion_2'] }}</option> @endforeach
+                        @foreach ($this->userAddressForm->catalogMunicipalities as $index => $catalogMunicipality) <option value="{{ $catalogMunicipality['CodigoDir_2'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogMunicipality['Direccion_2'] }}</option> @endforeach
                     </select>
 
                     <label for="checkout-address-form-municipality">Cantón *</label>
@@ -758,7 +758,7 @@
                 <div class="form-floating mb-3">
                     <select class="form-select @error('userAddressForm.colony') is-invalid @enderror" id="checkout-address-form-colony" wire:model="userAddressForm.colony" wire:loading.attr="disabled" wire:target="stateUserAddressForm, municipalityUserAddressForm" aria-describedby="checkoutAddressColony" aria-label="Distrito *">
                         <option selected>Selecciona una opción</option>
-                        @foreach ($this->userAddressForm->catalogColonies as $catalogColony) <option value="{{ $catalogColony['CodigoDir_3'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogColony['Direccion_3'] }}</option> @endforeach
+                        @foreach ($this->userAddressForm->catalogColonies as $index => $catalogColony) <option value="{{ $catalogColony['CodigoDir_3'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogColony['Direccion_3'] }}</option> @endforeach
                     </select>
 
                     <label for="checkout-address-form-colony">Distrito *</label>
@@ -846,7 +846,7 @@
                 <div class="form-floating mb-3">
                     <select class="form-select @error('stateUserAddressForm') is-invalid @enderror @error('userAddressForm.state') is-invalid @enderror" id="checkout-address-form-state" wire:model.live="stateUserAddressForm"  wire:loading.attr="disabled" aria-label="Región *">
                         <option selected>Selecciona una opción</option>
-                        @foreach ($this->userAddressForm->catalogStates as $catalogState) <option value="{{ $catalogState['CodigoDir_1'] }}|{{ $catalogState['Direccion_1'] }}">{{ $catalogState['Direccion_1'] }}</option> @endforeach
+                        @foreach ($this->userAddressForm->catalogStates as $index => $catalogState) <option value="{{ $catalogState['CodigoDir_1'] }}|{{ $catalogState['Direccion_1'] }}">{{ $catalogState['Direccion_1'] }}</option> @endforeach
                     </select>
 
                     <label for="checkout-address-form-state">Región *</label>
@@ -858,7 +858,7 @@
                 <div class="form-floating mb-3">
                     <select class="form-select @error('municipalityUserAddressForm') is-invalid @enderror @error('userAddressForm.municipality') is-invalid @enderror" id="checkout-address-form-municipality" wire:model.live="municipalityUserAddressForm" wire:loading.attr="disabled" wire:target="stateUserAddressForm" aria-describedby="checkoutAddressMunicipality" aria-label="Ciudad *">
                         <option selected>Selecciona una opción</option>
-                        @foreach ($this->userAddressForm->catalogMunicipalities as $catalogMunicipality) <option value="{{ $catalogMunicipality['CodigoDir_2'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogMunicipality['Direccion_2'] }}</option> @endforeach
+                        @foreach ($this->userAddressForm->catalogMunicipalities as $index => $catalogMunicipality) <option value="{{ $catalogMunicipality['CodigoDir_2'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogMunicipality['Direccion_2'] }}</option> @endforeach
                     </select>
 
                     <label for="checkout-address-form-municipality">Ciudad *</label>
@@ -873,7 +873,7 @@
                 <div class="form-floating mb-3">
                     <select class="form-select @error('userAddressForm.colony') is-invalid @enderror" id="checkout-address-form-colony" wire:model="userAddressForm.colony" wire:loading.attr="disabled" wire:target="stateUserAddressForm, municipalityUserAddressForm" aria-describedby="checkoutAddressColony" aria-label="Comuna *">
                         <option selected>Selecciona una opción</option>
-                        @foreach ($this->userAddressForm->catalogColonies as $catalogColony) <option value="{{ $catalogColony['CodigoDir_3'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogColony['Direccion_3'] }}</option> @endforeach
+                        @foreach ($this->userAddressForm->catalogColonies as $index => $catalogColony) <option value="{{ $catalogColony['CodigoDir_3'] }}|{{ $catalogMunicipality['Direccion_2'] }}">{{ $catalogColony['Direccion_3'] }}</option> @endforeach
                     </select>
 
                     <label for="checkout-address-form-colony">Comuna *</label>

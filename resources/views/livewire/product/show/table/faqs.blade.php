@@ -2,7 +2,7 @@
     <div class="mb-3" id="faqs">
         <div class="bg-light rounded-4 px-4 pt-4 pb-1 mb-1 faqs">
             @forelse ($faqs as $faq)
-                <div class="@if (!$loop->last) mb-4 @else mb-2 @endif">
+                <div class="@if (!$loop->last) mb-4 @else mb-2 @endif" wire:key="product-show-table-faqs-{{ $faq->id }}">
                     <h3 class="h6 text-muted fw-bold mb-1">{{ $faq->question }}</h3>
                     <ul class="ps-3"><li>{{ $faq->answer }}</li></ul>
                 </div>
