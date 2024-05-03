@@ -17,11 +17,11 @@ class Faq extends Component
     public function render()
     {
         //Obtener preguntas frecuentes del producto
-        $productFaqs = ProductFaq::where('product_id', $this->productId)
+        $faqs = ProductFaq::where('product_id', $this->productId)
         ->latest()
         ->simplePaginate(5, pageName: 'faqs');
 
         //Mostrar vista
-        return view('livewire.product.show.table.faq', [ 'productFaqs' => $productFaqs ]);
+        return view('livewire.product.show.table.faq', [ 'faqs' => $faqs ]);
     }
 }

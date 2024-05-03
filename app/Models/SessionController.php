@@ -68,7 +68,7 @@ class SessionController
                 'catalogProductBrand',
                 'productComponents.product' => fn ($query) => $query->availabilityData()
             ])
-            ->active($this->session->get('country.id'))
+            ->active($this->session->get('catalog_country.id'))
             ->find($productId);
 
             if ($product) {

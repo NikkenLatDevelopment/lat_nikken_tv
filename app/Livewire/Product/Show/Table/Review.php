@@ -21,7 +21,7 @@ class Review extends Component
     public function render()
     {
         //Obtener reviews generales del producto
-        $productReviews = ProductReview::with([ 'user' => fn ($query) => $query->with([ 'catalogCountry' ])->select('id', 'name', 'catalog_country_id') ])
+        $reviews = ProductReview::with([ 'user' => fn ($query) => $query->with([ 'catalogCountry' ])->select('id', 'name', 'catalog_country_id') ])
         ->where('product_id', $this->productId)
         ->status();
 
@@ -34,10 +34,10 @@ class Review extends Component
             ->latest();
 
             //Unir reviews
-            $productReviews = $productReviews->union($userReviews);
+            $reviews = $reviews->union($userReviews);
         }
 
-        return view('livewire.product.show.table.review', [ 'productReviews' => $productReviews->latest()->simplePaginate(3, pageName: 'reviews') ]);
+        return view('livewire.product.show.table.review', [ 'reviews' => $reviews->latest()->simplePaginate(3, pageName: 'reviews') ]);
     }
 
     #[On('product.show.table.review.refresh')]

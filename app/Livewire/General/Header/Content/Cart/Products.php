@@ -57,7 +57,7 @@ class Products extends Component
     }
 
     #[On('general.header.content.cart.products.removeExternal')]
-    public function removeProductExternal(int $productId, SessionController $sessionController) {
+    public function removeExternal(int $productId, SessionController $sessionController) {
         //Eliminar producto del carrito de compras
         $validate = $this->cartForm->remove($productId, false, $sessionController);
 
@@ -103,6 +103,6 @@ class Products extends Component
         $this->cartForm->getTotals();
 
         //Emitir evento para actualizar el contador del carrito de compras
-        $this->dispatch('general.header.content.cart.count.setCount', countProducts: $this->cartForm->quantity);
+        $this->dispatch('general.header.content.cart.count.setCountProducts', countProducts: $this->cartForm->quantity);
     }
 }

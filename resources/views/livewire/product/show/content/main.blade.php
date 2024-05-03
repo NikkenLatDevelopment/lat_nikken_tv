@@ -67,7 +67,7 @@
 
                             <div class="mb-2">
                                 <div class="row gx-3 align-items-center">
-                                    <div class="col-auto"><span class="h1 text-success fw-bold mb-0">{{ $price }}</span></div>
+                                    <div class="col-auto"><span class="h1 text-success fw-bold mb-0">{{ $priceText }}</span></div>
 
                                     @if (!empty($this->parentProduct))
                                         <div class="col">
