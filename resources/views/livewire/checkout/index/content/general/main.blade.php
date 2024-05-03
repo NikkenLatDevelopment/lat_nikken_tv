@@ -19,7 +19,7 @@
             <div class="row">
                 <div class="col-12 col-lg">
                     <section class="mt-4 resume">
-                        <x-checkout.resume.main />
+                        <x-checkout.resume />
                     </section>
 
                     <section class="mt-4 pt-4 address" id="addresses">
@@ -28,7 +28,7 @@
                     </section>
 
                     <section class="mt-4 pt-4 payment">
-                        <x-checkout.payment.main />
+                        <x-checkout.payment />
                     </section>
                 </div>
 

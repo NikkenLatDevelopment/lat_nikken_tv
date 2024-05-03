@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components\Checkout\Payment;
+namespace App\View\Components\Checkout;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Main extends Component
+class Resume extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class Main extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.checkout.payment.main');
+        return view('components.checkout.resume');
     }
 }

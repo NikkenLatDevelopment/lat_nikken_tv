@@ -15,7 +15,7 @@
     <hr class="text-secondary opacity-75">
 
     @foreach ($this->cartForm->products as $product)
-        <div wire:key="checkout-resume-main-{{ $product['id'] }}">
+        <div wire:key="checkout-resume-{{ $product['id'] }}">
             @livewire('checkout.index.content.resume.product', [ 'productId' => $product['id'], 'product' => $product ], key('checkout-index-content-resume-product-' . $product['id']))
         </div>
 
