@@ -4,27 +4,27 @@ use Illuminate\Support\Carbon;
 use App\Models\Product;
 
 function formatPrice(float $price, int $decimals): float {
-    //Formatear precio
+    //Formatear precio con decimales
     return number_format($price, $decimals);
 }
 
-function formatPriceWithCurrency(float $price, array $country): string {
-    //Formatear precio con símbolo de moneda
-    return $country['currency_symbol'] . number_format($price, $country['currency_decimal']);
+function formatPriceWithCurrency(float $price, array $catalogCountry): string {
+    //Formatear precio con símbolo de moneda y decimales
+    return $catalogCountry['currency_symbol'] . number_format($price, $catalogCountry['currency_decimal']);
 }
 
 function formatDateInSpanishLocale(string $date): string {
-    //Formatear fecha a texto en español
+    //Formatear fecha a texto en español en formato DD de MMMM del YYYY
     return Carbon::parse($date)->locale('es_ES')->isoFormat('DD [de] MMMM [del] YYYY');
 }
 
 function formatDateToDDMMMYYYY(string $date): string {
-    //Formatear fecha
+    //Formatear fecha en formato DD MMM YYYY
     return Carbon::parse($date)->isoFormat('DD MMM YYYY');
 }
 
-function formatCartProduct(Product $product, int $quantity, array $country): array {
-    //Formatear información del producto
+function formatCartProduct(Product $product, int $quantity, array $catalogCountry): array {
+    //Formatear información del producto para el carrito de compras
     return [
         'id' => $product->id,
         'slug' => $product->slug,
@@ -32,7 +32,7 @@ function formatCartProduct(Product $product, int $quantity, array $country): arr
         'name' => $product->name,
         'image' => env('STORAGE_PRODUCT_IMAGE_MAIN_PATH') . $product->image,
         'price' => $product->suggested_price + $product->vat_suggested_price,
-        'priceText' => formatPriceWithCurrency($product->suggested_price + $product->vat_suggested_price, $country),
+        'priceText' => formatPriceWithCurrency($product->suggested_price + $product->vat_suggested_price, $catalogCountry),
         'quantity' => $quantity,
         'available' => array_values($product->getAvailability($product->productComponents->toArray()))[0],
         'rating' => $product->rating_total,
@@ -42,7 +42,7 @@ function formatCartProduct(Product $product, int $quantity, array $country): arr
         'subtotal' => $product->suggested_price * $quantity,
         'vat' => $product->vat_suggested_price * $quantity,
         'total' => ($product->suggested_price + $product->vat_suggested_price) * $quantity,
-        'totalText' => formatPriceWithCurrency(($product->suggested_price + $product->vat_suggested_price) * $quantity, $country),
+        'totalText' => formatPriceWithCurrency(($product->suggested_price + $product->vat_suggested_price) * $quantity, $catalogCountry),
         'points' => $product->points * $quantity,
         'vc' => $product->vc * $quantity,
     ];
