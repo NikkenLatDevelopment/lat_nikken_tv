@@ -110,7 +110,7 @@
         </div>
     </div>
 
-    <x-general.header.content.wishlist />
-    <x-general.header.content.cart />
+    <x-general.header.wishlist />
+    <x-general.header.cart />
     @livewire('general.header.content.main.menu')
 </div>

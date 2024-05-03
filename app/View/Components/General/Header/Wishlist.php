@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components\General\Header\Content;
+namespace App\View\Components\General\Header;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Cart extends Component
+class Wishlist extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class Cart extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.general.header.content.cart');
+        return view('components.general.header.wishlist');
     }
 }

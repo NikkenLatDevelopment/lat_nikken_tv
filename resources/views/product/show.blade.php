@@ -9,7 +9,7 @@
 @section('content')
     @push('styles') @vite([ 'resources/sass/product.scss' ]) @endpush
 
-    <x-general.header.content.main />
+    <x-general.header.main />
 
     <div class="product">
         @livewire('product.show.main', [ 'product' => $product ])
