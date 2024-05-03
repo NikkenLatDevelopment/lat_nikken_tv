@@ -86,9 +86,6 @@ class Main extends Component
 
     #[On('checkout.index.content.general.main.removeProduct')]
     public function removeProduct(int $productId, SessionController $sessionController) {
-        //Validar información
-        if ($productId <= 0) { return; }
-
         //Eliminar producto del carrito de compras
         $validate = $this->cartForm->remove($productId, true, $sessionController);
 
