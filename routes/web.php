@@ -78,7 +78,7 @@ Route::middleware([ DetermineUserLocation::class ])->group(function () {
     Route::get('/temporal/logout', [ TemporalController::class, 'logout' ]);
     //Eliminar // ! TODO: !!!! Eliminar
 
-    Route::middleware('auth')->group(function() {
+    Route::middleware('auth')->group(function () {
         //Cerrar sesión
         Route::get('/cerrar-sesion', [ AuthController::class, 'destroy' ])->name('auth.destroy');
         //Cerrar sesión
