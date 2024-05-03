@@ -9,7 +9,7 @@
 @section('content')
     @push('styles') @vite([ 'resources/sass/product.scss' ]) @endpush
 
-    <x-general.header.main />
+    <x-general.header.content />
 
     <div class="product">
         @livewire('product.show.main', [ 'product' => $product ])
@@ -19,7 +19,7 @@
         @livewire('product.show.modal.review')
     </div>
 
-    <x-general.footer.main />
+    <x-general.footer.content />
 
     @push('scripts') @vite(['resources/js/product.js']) @endpush
 @endsection
