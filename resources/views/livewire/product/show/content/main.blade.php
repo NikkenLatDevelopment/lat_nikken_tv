@@ -57,7 +57,7 @@
 
                             <div class="d-flex align-items-center mb-2">
                                 <x-product.rating-star :ratingTotal="$product['rating_total']" />
-                                <span class="small text-black-50 opacity-75 ms-2">({{ $reviewsTotal }} @choice('Experiencia|Experiencias', $reviewsTotal))</span>
+                                <span class="small text-black-50 opacity-75 ms-2">({{ $countReviews }} @choice('Experiencia|Experiencias', $countReviews))</span>
 
                                 <div class="vr mx-2"></div>
 

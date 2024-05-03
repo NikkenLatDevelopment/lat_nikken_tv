@@ -83,7 +83,7 @@ class Main extends Component
     public string $availableUntil;
 
     #[Locked]
-    public int $countReviewProduct = 0;
+    public int $countReviews = 0;
 
     #[Locked]
     public string $priceText;
@@ -305,7 +305,7 @@ class Main extends Component
         $productId = $this->product['parent_product_id'] != null ? $this->parentProduct['id'] : $this->productId;
 
         //Obtener el total de reviews del producto
-        $this->countReviewProduct = ProductReview::where('product_id', $productId)
+        $this->countReviews = ProductReview::where('product_id', $productId)
         ->status()
         ->count();
     }
