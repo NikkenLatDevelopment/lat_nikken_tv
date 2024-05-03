@@ -7,7 +7,7 @@ use App\Models\ProductFaq;
 use Livewire\WithPagination;
 use Livewire\Attributes\Locked;
 
-class Faq extends Component
+class Faqs extends Component
 {
     use WithPagination;
 
@@ -22,6 +22,6 @@ class Faq extends Component
         ->simplePaginate(5, pageName: 'faqs');
 
         //Mostrar vista
-        return view('livewire.product.show.table.faq', [ 'faqs' => $faqs ]);
+        return view('livewire.product.show.table.faqs', [ 'faqs' => $faqs ]);
     }
 }

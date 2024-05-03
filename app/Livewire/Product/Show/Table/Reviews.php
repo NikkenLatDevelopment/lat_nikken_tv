@@ -8,7 +8,7 @@ use Livewire\WithPagination;
 use Livewire\Attributes\Locked;
 use App\Models\ProductReview;
 
-class Review extends Component
+class Reviews extends Component
 {
     Use WithPagination;
 
@@ -37,7 +37,8 @@ class Review extends Component
             $reviews = $reviews->union($userReviews);
         }
 
-        return view('livewire.product.show.table.review', [ 'reviews' => $reviews->latest()->simplePaginate(3, pageName: 'reviews') ]);
+        //Mostrar vista
+        return view('livewire.product.show.table.reviews', [ 'reviews' => $reviews->latest()->simplePaginate(3, pageName: 'reviews') ]);
     }
 
     #[On('product.show.table.review.refresh')]
