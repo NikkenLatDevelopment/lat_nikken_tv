@@ -21,12 +21,6 @@ class UserAddressForm extends Form
     public array $catalogColonies = [];
 
     #[Locked]
-    public int $countUserAddresses = 0;
-
-    #[Locked]
-    public int $selectedUserAddress;
-
-    #[Locked]
     public string $state;
 
     #[Locked]
@@ -45,21 +39,7 @@ class UserAddressForm extends Form
     public string $address;
     public string $complementAddress;
     public string $referenceAddress;
-    public int $addressSelectionType = 0;
     public bool $saveNewAddress = true;
-
-    public function getCountUserAddresses() {
-        //Obtener la cantidad de direcciones registradas por el usuario
-        $this->countUserAddresses = auth()->user()->userAddresses()
-        ->catalogCountryId($this->catalogCountry['id'])
-        ->status()
-        ->count();
-    }
-
-    public function changeAddressSelectionType(int $addressSelectionType) {
-        //Cambiar tipo de dirección (Nueva / Existente)
-        $this->addressSelectionType = $addressSelectionType;
-    }
 
     public function getApiCatalogStates() {
         //Iniciar petición

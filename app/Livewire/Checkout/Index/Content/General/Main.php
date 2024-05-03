@@ -13,10 +13,17 @@ use App\Models\CatalogPaymentMethod;
 class Main extends Component
 {
     #[Locked]
+    public int $countUserAddresses = 0;
+
+    #[Locked]
+    public int $selectedUserAddress;
+
+    #[Locked]
     public array $catalogPaymentMethods = [];
 
     public bool $discountSuggestedPrice = false;
     public int $selectedCatalogPaymentMethod;
+    public int $addressSelectionType = 0;
 
     public CartForm $cartForm;
     public UserAddressForm $userAddressForm;
@@ -44,8 +51,11 @@ class Main extends Component
         //Inicializar formulario direcciones del usuario
         $this->initializeUserAddressForm($catalogCountry);
 
+        //Obtener la cantidad de direcciones registradas por el usuario
+        $this->getCountUserAddresses($catalogCountry['id']);
+
         //Obtener catálogo de formas de pago
-        $this->getCatalogPaymentMethods($catalogCountry);
+        $this->getCatalogPaymentMethods($catalogCountry['id']);
     }
 
     public function initializeCartForm(array $catalogCountry, SessionController $sessionController) {
@@ -61,9 +71,6 @@ class Main extends Component
         //Inicializar información
         $this->userAddressForm->catalogCountry = $catalogCountry;
         if ($this->userAddressForm->catalogCountry['id'] != 2) { $this->userAddressForm->getApiCatalogStates(); }
-
-        //Obtener la cantidad de direcciones registradas por el usuario
-        $this->userAddressForm->getCountUserAddresses();
     }
 
     public function getProducts(SessionController $sessionController) {
@@ -149,6 +156,19 @@ class Main extends Component
         $this->getTotals();
     }
 
+    public function changeAddressSelectionType(int $addressSelectionType) {
+        //Cambiar tipo de dirección (Nueva / Existente)
+        $this->addressSelectionType = $addressSelectionType;
+    }
+
+    public function getCountUserAddresses(int $catalogCountryId) {
+        //Obtener la cantidad de direcciones registradas por el usuario
+        $this->countUserAddresses = auth()->user()->userAddresses()
+        ->catalogCountryId($catalogCountryId)
+        ->status()
+        ->count();
+    }
+
     public function updatedStateUserAddressForm() {
         //Actualizar estado en el formulario de dirección
         $this->userAddressForm->state = $this->stateUserAddressForm;
@@ -206,13 +226,13 @@ class Main extends Component
         //Validar información
         if ($userAddressId <= 0) { return; }
 
-        //Guardar dirección seleccionada por el usuario en el formulario de dirección
-        $this->userAddressForm->selectedUserAddress = $userAddressId;
+        //Guardar dirección seleccionada por el usuario
+        $this->selectedUserAddress = $userAddressId;
     }
 
-    public function getCatalogPaymentMethods() {
+    public function getCatalogPaymentMethods(int $catalogCountryId) {
         //Obtener catálogo de formas de pago
-        $this->catalogPaymentMethods = CatalogPaymentMethod::catalogCountryId($this->catalogCountry['id'])
+        $this->catalogPaymentMethods = CatalogPaymentMethod::catalogCountryId($catalogCountryId)
         ->status()
         ->get()
         ->toArray();
