@@ -12,7 +12,7 @@
     <x-general.header.content.main />
 
     <div class="product">
-        @livewire('product.show.content.main', [ 'product' => $product ])
+        @livewire('product.show.main', [ 'product' => $product ])
         @livewire('product.show.modal.available-message')
         @livewire('product.show.modal.share')
         @livewire('product.show.modal.technology-description')

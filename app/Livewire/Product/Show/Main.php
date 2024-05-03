@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Product\Show\Content;
+namespace App\Livewire\Product\Show;
 
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
@@ -103,7 +103,7 @@ class Main extends Component
     public function render()
     {
         //Mostrar vista
-        return view('livewire.product.show.content.main');
+        return view('livewire.product.show.main');
     }
 
     public function mount(array $product, SessionController $sessionController) {
