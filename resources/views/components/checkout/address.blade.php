@@ -18,7 +18,7 @@
 
 <div class="tab-content">
     <div class="tab-pane fade show active" id="checkout-address-form" role="tabpanel" aria-labelledby="checkout-address-form-tab" tabindex="0" wire:ignore.self>
-        <div class="pt-2"><x-checkout.address.form /></div>
+        <div class="pt-2"><x-forms.user-address /></div>
     </div>
 
     @if ($this->countUserAddresses > 0)
