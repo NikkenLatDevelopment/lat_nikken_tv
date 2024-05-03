@@ -188,7 +188,7 @@ class Main extends Component
 
     public function updatedMunicipalityUserAddressForm() {
         //Actualizar municipio en el formulario de dirección
-        $this->userAddressForm->municipality = $this->municipality;
+        $this->userAddressForm->municipality = $this->municipalityUserAddressForm;
 
         //Limpiar información en el formulario de dirección
         $this->userAddressForm->colony = '';
