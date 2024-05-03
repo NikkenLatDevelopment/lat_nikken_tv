@@ -8,22 +8,21 @@ use Livewire\Attributes\Locked;
 use App\Livewire\Forms\CartForm;
 use App\Livewire\Forms\UserAddressForm;
 use App\Models\SessionController;
-use App\Models\CatalogSalePaymentMethod;
+use App\Models\CatalogPaymentMethod;
 
 class Main extends Component
 {
     #[Locked]
-    public array $catalogSalePaymentMethods = [];
+    public array $catalogPaymentMethods = [];
 
     public bool $discountSuggestedPrice = false;
-    public int $selectedCatalogSalePaymentMethod;
+    public int $selectedCatalogPaymentMethod;
 
     public CartForm $cartForm;
     public UserAddressForm $userAddressForm;
 
     public string $stateUserAddressForm;
     public string $municipalityUserAddressForm;
-    public string $colonyUserAddressForm;
     public int $postalCodeUserAddressForm;
 
     public function render()
@@ -45,8 +44,8 @@ class Main extends Component
         //Inicializar formulario direcciones del usuario
         $this->initializeUserAddressForm($catalogCountry);
 
-        //Obtener catálogo de formas de pago de la venta
-        $this->getCatalogSalePaymentMethods($catalogCountry);
+        //Obtener catálogo de formas de pago
+        $this->getCatalogPaymentMethods($catalogCountry);
     }
 
     public function initializeCartForm(array $catalogCountry, SessionController $sessionController) {
@@ -87,6 +86,9 @@ class Main extends Component
 
     #[On('checkout.index.content.general.main.removeProduct')]
     public function removeProduct(int $productId, SessionController $sessionController) {
+        //Validar información
+        if ($productId <= 0) { return; }
+
         //Eliminar producto del carrito de compras
         $validate = $this->cartForm->remove($productId, true, $sessionController);
 
@@ -151,15 +153,11 @@ class Main extends Component
     }
 
     public function updatedStateUserAddressForm() {
-        //Validar información
-        $this->validate([ 'stateUserAddressForm' => 'required|string|max:255' ], [], [ 'stateUserAddressForm' => 'estado' ]);
-
         //Actualizar estado en el formulario de dirección
         $this->userAddressForm->state = $this->stateUserAddressForm;
 
         //Limpiar información
         $this->municipalityUserAddressForm = '';
-        $this->colonyUserAddressForm = '';
 
         //Limpiar información en el formulario de dirección
         $this->userAddressForm->municipality = '';
@@ -175,34 +173,14 @@ class Main extends Component
         //Actualizar municipio en el formulario de dirección
         $this->userAddressForm->municipality = $this->municipality;
 
-        //Limpiar información
-        $this->colonyUserAddressForm = '';
-
         //Limpiar información en el formulario de dirección
         $this->userAddressForm->colony = '';
         $this->userAddressForm->catalogColonies = [];
 
         if (in_array($this->userAddressForm->catalogCountry['id'], [ 3, 4, 5, 8, 10 ])) {
-            //Validar información
-            $this->validate([
-                'stateUserAddressForm' => 'required|string|max:255',
-                'municipalityUserAddressForm' => 'required|string|max:255'
-            ], [], [
-                'stateUserAddressForm' => 'estado',
-                'municipalityUserAddressForm' => 'municipio'
-            ]);
-
             //Obtener catálogo de colonias en el formulario de dirección
             $this->userAddressForm->getApiCatalogColonies();
         }
-    }
-
-    public function updatedColonyUserAddressForm() {
-        //Validar información
-        $this->validate([ 'colonyUserAddressForm' => 'required|string|max:255' ], [], [ 'colonyUserAddressForm' => 'colonia' ]);
-
-        //Actualizar colonia en el formulario de dirección
-        $this->userAddressForm->colony = $this->colonyUserAddressForm;
     }
 
     public function updatedPostalCodeUserAddressForm() {
@@ -212,11 +190,6 @@ class Main extends Component
 
             //Actualizar código postal en el formulario de dirección
             $this->userAddressForm->postalCode = $this->postalCodeUserAddressForm;
-
-            //Limpiar información
-            $this->stateUserAddressForm = '';
-            $this->municipalityUserAddressForm = '';
-            $this->colonyUserAddressForm = '';
 
             //Limpiar información en el formulario de dirección
             $this->userAddressForm->state = '';
@@ -233,13 +206,16 @@ class Main extends Component
 
     #[On('checkout.index.content.general.main.changeSelectedUserAddressExternal')]
     public function changeSelectedUserAddressExternal(int $userAddressId) {
+        //Validar información
+        if ($userAddressId <= 0) { return; }
+
         //Guardar dirección seleccionada por el usuario en el formulario de dirección
         $this->userAddressForm->selectedUserAddress = $userAddressId;
     }
 
-    public function getCatalogSalePaymentMethods() {
-        //Obtener catálogo de formas de pago de la venta
-        $this->catalogSalePaymentMethods = CatalogSalePaymentMethod::catalogCountryId($this->catalogCountry['id'])
+    public function getCatalogPaymentMethods() {
+        //Obtener catálogo de formas de pago
+        $this->catalogPaymentMethods = CatalogPaymentMethod::catalogCountryId($this->catalogCountry['id'])
         ->status()
         ->get()
         ->toArray();
