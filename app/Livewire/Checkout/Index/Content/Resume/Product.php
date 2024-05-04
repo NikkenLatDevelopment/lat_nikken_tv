@@ -21,7 +21,7 @@ class Product extends Component
 
     public function updatedProductQuantity() {
         //Emitir evento para actualizar la cantidad del productos en el carrito de compras
-        $this->dispatch('checkout.index.content.general.main.changeQuantityProduct', productId: $this->productId, quantity: $this->product['quantity']);
+        $this->dispatch('checkout.index.main.changeQuantityProduct', productId: $this->productId, quantity: $this->product['quantity']);
     }
 
     #[On('checkout.index.content.resume.product.update.{productId}')]

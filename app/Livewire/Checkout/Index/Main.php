@@ -91,7 +91,7 @@ class Main extends Component
         $this->cartForm->getTotals();
     }
 
-    #[On('checkout.index.content.general.main.removeProduct')]
+    #[On('checkout.index.main.removeProduct')]
     public function removeProduct(int $productId, SessionController $sessionController) {
         //Eliminar producto del carrito de compras
         $validate = $this->cartForm->remove($productId, true, $sessionController);
@@ -108,7 +108,7 @@ class Main extends Component
         }
     }
 
-    #[On('checkout.index.content.general.main.removeProductExternal')]
+    #[On('checkout.index.main.removeProductExternal')]
     public function removeProductExternal(int $productId, SessionController $sessionController) {
         //Eliminar producto del carrito de compras
         $validate = $this->cartForm->remove($productId, false, $sessionController);
@@ -119,7 +119,7 @@ class Main extends Component
         }
     }
 
-    #[On('checkout.index.content.general.main.changeQuantityProduct')]
+    #[On('checkout.index.main.changeQuantityProduct')]
     public function changeQuantityProduct(int $productId, int $quantity, SessionController $sessionController) {
         //Actualizar la cantidad del producto en el carrito de compras
         list($product, $validate) = $this->cartForm->changeQuantity($productId, $quantity, true, $sessionController);
@@ -147,7 +147,7 @@ class Main extends Component
         $this->dispatch('general.header.content.cart.products.updatedDiscountSuggestedPriceExternal', discountSuggestedPrice: $this->discountSuggestedPrice);
     }
 
-    #[On('checkout.index.content.general.main.updatedDiscountSuggestedPriceExternal')]
+    #[On('checkout.index.main.updatedDiscountSuggestedPriceExternal')]
     public function updatedDiscountSuggestedPriceExternal(bool $discountSuggestedPrice, SessionController $sessionController) {
         //Actualizar sugerido con descuento
         $this->discountSuggestedPrice = $this->cartForm->changeDiscountSuggestedPrice($discountSuggestedPrice, false, $sessionController);
@@ -221,13 +221,13 @@ class Main extends Component
         }
     }
 
-    #[On('checkout.index.content.general.main.changeSelectedUserAddressExternal')]
-    public function changeSelectedUserAddressExternal(int $userAddressId) {
+    #[On('checkout.index.main.changeSelectedUserAddressExternal')]
+    public function changeSelectedUserAddressExternal(int $addressId) {
         //Validar información
-        if ($userAddressId <= 0) { return; }
+        if ($addressId <= 0) { return; }
 
         //Guardar dirección seleccionada por el usuario
-        $this->selectedUserAddress = $userAddressId;
+        $this->selectedUserAddress = $addressId;
     }
 
     public function getCatalogPaymentMethods(int $catalogCountryId) {

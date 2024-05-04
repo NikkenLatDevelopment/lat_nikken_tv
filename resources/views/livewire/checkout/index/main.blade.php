@@ -1,19 +1,4 @@
 <div>
-    <div class="border-bottom border-secondary">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%23c7c7c7'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-                        <ol class="breadcrumb my-3 py-1">
-                            <li class="breadcrumb-item me-2"><a href="{{ route('home') }}" class="h6 small link-success fw-semibold">Inicio</a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><span class="h6 small text-primary fw-semibold ms-2">Checkout</span></li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="mb-3">
         <div class="container">
             <div class="row">
@@ -40,8 +25,8 @@
                                     @if (auth()->check() && $this->cartForm->catalogCountry['id'] == 1 && auth()->user()->catalog_user_type_id == 3)
                                         <div class="mb-2">
                                             <div class="form-check form-switch small pb-1">
-                                                <input type="checkbox" class="form-check-input" role="switch" id="checkout-index-content-general-main-discount-suggested-price" wire:model.live="discountSuggestedPrice">
-                                                <label class="form-check-label" for="checkout-index-content-general-main-discount-suggested-price">Comprar a <span class="text-success fw-bold text-decoration-underline">Sugerido con Descuento</span>.</label>
+                                                <input type="checkbox" class="form-check-input" role="switch" id="checkout-index-main-discount-suggested-price" wire:model.live="discountSuggestedPrice">
+                                                <label class="form-check-label" for="checkout-index-main-discount-suggested-price">Comprar a <span class="text-success fw-bold text-decoration-underline">Sugerido con Descuento</span>.</label>
                                             </div>
                                         </div>
                                     @endif
@@ -97,18 +82,6 @@
 
                                     <button type="submit" class="btn h6 text-white fw-bold w-100 mb-2 btn-success-custom-1">Pagar {{ $this->cartForm->totalText }}</button>
                                     <a href="#" class="btn h6 fw-bold w-100 mb-0 btn-outline-dark-custom-1">Generar Cotización</a>
-
-                                    <!-- TODO: !!!! Pendiente -->
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger mt-3" role="alert">
-                                            <ul class="mb-0">
-                                                @foreach ($errors->all() as $error)
-                                                    <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    @endif
-                                    <!-- TODO: !!!! Pendiente -->
                                 </form>
                             </div>
                         </div>
