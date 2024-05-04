@@ -30,8 +30,8 @@ Route::middleware([ DetermineUserLocation::class ])->group(function () {
     //Inicio //TODO: !!!! Pendiente
     Route::get('/', function () { echo 'Hello World - home'; })->name('home');
 
-    //Iniciar Sesión //TODO: !!!! Pendiente
-    Route::get('/iniciar-sesion', function () { echo 'Hello World - login'; })->name('login');
+    //Iniciar Sesión
+    Route::get('/iniciar-sesion', [ AuthController::class, 'index' ])->name('login');
 
     //Registro //TODO: !!!! Pendiente
     Route::get('/registrarme', function () { echo 'Hello World - auth.create'; })->name('auth.create');
@@ -63,10 +63,6 @@ Route::middleware([ DetermineUserLocation::class ])->group(function () {
 
     //Productos //TODO: !!!! Pendiente
     Route::get('/productos', function () { echo 'Hello World - product.index'; })->name('product.index');
-
-    //Eliminar // ! TODO: !!!! Eliminar
-    Route::get('/temporal', [ TemporalController::class, 'index' ]);
-    Route::get('/temporal/logout', [ TemporalController::class, 'logout' ]);
 
     Route::middleware('auth')->group(function () {
         //Cerrar sesión

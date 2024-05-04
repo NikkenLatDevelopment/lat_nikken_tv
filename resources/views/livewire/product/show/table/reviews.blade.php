@@ -1,5 +1,5 @@
 <div>
-    <div class="mb-3" id="reviews">
+    <div id="reviews">
         <div class="pb-1 mb-1 reviews">
             <div class="bg-light rounded-4 p-4 mb-2"><span class="text-muted fw-bold">¿Te ha gustado el producto?</span> Comparte tu experiencia y ayuda a otras personas a conocer más sobre este producto. <a @if (auth()->check()) href="#" wire:click.prevent="$dispatch('product.show.modal.review.initialize', { productId: {{ $productId }}, productName: '{{ $productName }}' })" @else href="{{ route('login') }}" @endif class="link-success fw-bold">Compartir Experiencia</a>.</div>
 

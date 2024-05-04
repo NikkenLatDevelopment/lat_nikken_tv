@@ -28,7 +28,7 @@
 
                             <div class="position-relative d-lg-none profile">
                                 <div class="dropdown">
-                                    <button class="btn btn-sm btn-link dropdown-toggle link-success text-decoration-none lh-1 d-flex align-items-center p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span class="text-truncate name">{{ auth()->user()->name }}</span></button>
+                                    <button type="button" class="btn btn-sm btn-link dropdown-toggle link-success text-decoration-none lh-1 d-flex align-items-center p-0" data-bs-toggle="dropdown" aria-expanded="false"><span class="text-truncate name">{{ auth()->user()->name }}</span></button>
                                     <x-general.header.user.profile-options />
                                 </div>
                             </div>

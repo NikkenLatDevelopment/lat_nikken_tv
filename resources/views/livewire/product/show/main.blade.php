@@ -43,7 +43,7 @@
                                 <div class="col-auto">
                                     <div x-data="{ wishlist: $wire.entangle('wishlist') }">
                                         @if (auth()->check())
-                                            <button class="btn btn-link text-decoration-none" :class="{ 'text-dark': !wishlist, 'text-success': wishlist }" x-on:click="wishlist = !wishlist" wire:click="changeWishlist" wire:loading.attr="disabled" wire:target="addCart,selectedColor,selectedPresentation,selectedMeasurement,changeWishlist">
+                                            <button type="button" class="btn btn-link text-decoration-none" :class="{ 'text-dark': !wishlist, 'text-success': wishlist }" x-on:click="wishlist = !wishlist" wire:click="changeWishlist" wire:loading.attr="disabled" wire:target="addCart,selectedColor,selectedPresentation,selectedMeasurement,changeWishlist">
                                                 <i class="h1 fi" :class="{ 'fi-rr-heart': !wishlist, 'fi-sr-heart': wishlist }"></i>
                                             </button>
                                         @else
@@ -311,7 +311,7 @@
                                         <ul class="nav nav-pills my-3" role="tablist">
                                             @if ($product['description'] != null)
                                                 <li class="nav-item" role="presentation">
-                                                    <button class="btn h5 fw-bold border border-secondary rounded-4 px-3 py-2 me-2 btn-outline-primary-custom-1 animation-hover-up @if ($product['description'] != null) active @endif" id="product-show-main-description-tab" data-bs-toggle="pill" data-bs-target="#product-show-main-description" type="button" role="tab" aria-controls="product-show-main-description" aria-selected="@if ($product['description'] != null) true @else false @endif">
+                                                    <button type="button" class="btn h5 fw-bold border border-secondary rounded-4 px-3 py-2 me-2 btn-outline-primary-custom-1 animation-hover-up @if ($product['description'] != null) active @endif" id="product-show-main-description-tab" data-bs-toggle="pill" data-bs-target="#product-show-main-description" role="tab" aria-controls="product-show-main-description" aria-selected="@if ($product['description'] != null) true @else false @endif">
                                                         <i class="fi fi-sr-comment-info position-relative me-2 custom i-top-2"></i>Descripción
                                                     </button>
                                                 </li>
@@ -319,7 +319,7 @@
 
                                             @if ($product['maintenance'] != null)
                                                 <li class="nav-item" role="presentation">
-                                                    <button class="btn h5 fw-bold border border-secondary rounded-4 px-3 py-2 me-2 btn-outline-primary-custom-1 animation-hover-up @if ($product['description'] == null) active @endif" id="product-show-main-maintenance-tab" data-bs-toggle="pill" data-bs-target="#product-show-main-maintenance" type="button" role="tab" aria-controls="product-show-main-maintenance" aria-selected="@if ($product['description'] == null) true @else false @endif">
+                                                    <button type="button" class="btn h5 fw-bold border border-secondary rounded-4 px-3 py-2 me-2 btn-outline-primary-custom-1 animation-hover-up @if ($product['description'] == null) active @endif" id="product-show-main-maintenance-tab" data-bs-toggle="pill" data-bs-target="#product-show-main-maintenance" role="tab" aria-controls="product-show-main-maintenance" aria-selected="@if ($product['description'] == null) true @else false @endif">
                                                         <i class="fi fi-br-shuffle position-relative me-2 custom i-top-2"></i>Mantenimiento
                                                     </button>
                                                 </li>

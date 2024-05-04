@@ -30,7 +30,7 @@ class Review extends Component
 
     #[On('product.show.modal.review.initialize')]
     public function initialize(int $productId, string $productName) {
-        //Validar sesión del usuario
+        //Validar sesión
         if (!auth()->check()) { return; }
 
         //Validar información
@@ -54,7 +54,7 @@ class Review extends Component
     }
 
     public function create() {
-        //Validar sesión del usuario
+        //Validar sesión
         if (!auth()->check()) { return; }
 
         //Validar información

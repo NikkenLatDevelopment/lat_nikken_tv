@@ -253,7 +253,7 @@ class Main extends Component
     }
 
     public function getWishlist() {
-        //Validar sesión del usuario
+        //Validar sesión
         if (!auth()->check()) { return; }
 
         //Obtener información de la lista de deseos
@@ -267,7 +267,7 @@ class Main extends Component
     }
 
     public function changeWishlist() {
-        //Validar sesión del usuario
+        //Validar sesión
         if (!auth()->check()) { return; }
 
         //Obtener información de la lista de deseos

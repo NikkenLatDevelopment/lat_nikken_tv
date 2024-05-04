@@ -888,6 +888,6 @@
 @endswitch
 
 <div class="form-check form-switch">
-    <input class="form-check-input" type="checkbox" role="switch" id="forms-user-address-save" wire:model="userAddressForm.saveNewAddress">
+    <input type="checkbox" class="form-check-input" role="switch" id="forms-user-address-save" wire:model="userAddressForm.saveNewAddress">
     <label class="form-check-label text-muted" for="forms-user-address-save">Guardar dirección para futuras compras.</label>
 </div>

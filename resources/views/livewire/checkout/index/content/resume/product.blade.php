@@ -55,7 +55,7 @@
 
         <div class="col col-md-1">
             <div class="text-center text-md-start">
-                <button class="btn btn-link link-primary opacity-50 text-decoration-none d-flex align-items-center mx-auto mt-1 pt-2 mt-md-0 pt-md-0" wire:click="$dispatch('checkout.index.main.removeProduct', { productId: {{ $product['id'] }} })"><i class="fi fi-br-trash"></i> <span class="small d-sm-none ms-1">Eliminar</span></button>
+                <button type="button" class="btn btn-link link-primary opacity-50 text-decoration-none d-flex align-items-center mx-auto mt-1 pt-2 mt-md-0 pt-md-0" wire:click="$dispatch('checkout.index.main.removeProduct', { productId: {{ $product['id'] }} })"><i class="fi fi-br-trash"></i> <span class="small d-sm-none ms-1">Eliminar</span></button>
             </div>
         </div>
     </div>

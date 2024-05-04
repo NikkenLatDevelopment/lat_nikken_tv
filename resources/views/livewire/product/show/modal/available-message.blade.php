@@ -35,7 +35,7 @@
 
                     <div class="text-center pt-2">
                         <button type="button" class="btn h6 text-white fw-bold mb-0 btn-warning-custom-1" wire:click="addCart" wire:loading.attr="disabled"><i class="fi fi-br-shopping-cart me-2"></i> Agregar al Carrito</button>
-                        <button class="btn btn-sm btn-link h6 link-primary fw-semibold text-decoration-none mt-2 mb-0" data-bs-dismiss="modal" aria-label="Cerrar">Cancelar</button>
+                        <button type="button" class="btn btn-sm btn-link h6 link-primary fw-semibold text-decoration-none mt-2 mb-0" data-bs-dismiss="modal" aria-label="Cerrar">Cancelar</button>
                     </div>
                 </div>
             </div>

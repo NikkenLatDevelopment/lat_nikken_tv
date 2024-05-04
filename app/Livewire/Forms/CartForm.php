@@ -104,7 +104,7 @@ class CartForm extends Form
 
     public function changeDiscountSuggestedPrice(bool $discountSuggestedPrice, bool $DB, SessionController $sessionController): bool {
         if ($DB) {
-            //Validar sesión del usuario
+            //Validar sesión
             if (!auth()->check()) { return false; }
 
             //Validar información

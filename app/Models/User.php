@@ -77,4 +77,9 @@ class User extends Authenticatable
         //Relación con las ventas
         return $this->hasMany(Sale::class);
     }
+
+    public function scopeStatus($query) {
+        //Filtrar por estatus
+        return $query->where('status', 1);
+    }
 }

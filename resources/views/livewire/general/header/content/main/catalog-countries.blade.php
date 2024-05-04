@@ -1,6 +1,6 @@
 <div>
     <div class="dropdown country">
-        <button class="btn btn-sm btn-link dropdown-toggle link-success text-decoration-none lh-1 d-flex align-items-center p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <button type="button" class="btn btn-sm btn-link dropdown-toggle link-success text-decoration-none lh-1 d-flex align-items-center p-0" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="{{ asset('assets/img/countries/' . $catalogCountry['code'] . '.png') }}" srcset="{{ asset('assets/img/countries/' . $catalogCountry['code'] . '-2x.png') }} 2x" class="img-fluid me-2" alt="Bandera de {{ $catalogCountry['name'] }}"> <span class="position-relative name">{{ $catalogCountry['name'] }}</span>
         </button>
 

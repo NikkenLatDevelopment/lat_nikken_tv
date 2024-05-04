@@ -31,7 +31,7 @@ class Products extends Component
 
     #[On('general.header.content.wishlist.products.getProducts')]
     public function getProducts() {
-        //Validar sesión del usuario
+        //Validar sesión
         if (!auth()->check()) { return; }
 
         //Obtener productos de la lista de deseos
@@ -64,7 +64,7 @@ class Products extends Component
     }
 
     public function remove(int $productId) {
-        //Validar sesión del usuario
+        //Validar sesión
         if (!auth()->check()) { return; }
 
         //Verificar si el producto existe en el array de la lista de deseos
