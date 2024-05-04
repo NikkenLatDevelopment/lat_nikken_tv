@@ -27,18 +27,18 @@ class UserAddressForm extends Form
     public string $municipality;
 
     #[Locked]
-    public string $colony;
+    public ?string $colony = null;
 
     #[Locked]
-    public string $postalCode;
+    public ?string $postalCode = null;
 
     public string $addressee;
     public string $email;
     public string $cellphone;
-    public string $phone;
+    public ?string $phone = null;
     public string $address;
-    public string $complementAddress;
-    public string $referenceAddress;
+    public ?string $complementAddress = null;
+    public ?string $referenceAddress = null;
     public bool $saveNewAddress = true;
 
     public function getApiCatalogStates() {

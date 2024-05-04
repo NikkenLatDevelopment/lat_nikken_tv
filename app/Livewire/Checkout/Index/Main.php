@@ -16,13 +16,13 @@ class Main extends Component
     public int $countUserAddresses = 0;
 
     #[Locked]
-    public int $selectedUserAddress;
+    public ?int $selectedUserAddress = null;
 
     #[Locked]
     public array $catalogPaymentMethods = [];
 
     public bool $discountSuggestedPrice = false;
-    public int $selectedCatalogPaymentMethod;
+    public ?int $selectedCatalogPaymentMethod = null;
     public int $addressSelectionType = 0;
 
     public CartForm $cartForm;
@@ -237,4 +237,6 @@ class Main extends Component
         ->get()
         ->toArray();
     }
+
+    public function save() {}
 }

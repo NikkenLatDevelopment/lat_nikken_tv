@@ -12,6 +12,5 @@ class TemporalController extends Controller
         //Iniciar sesión //! Eliminar
 
         //Unificar carrito de compras //TODO: !!!! Pendiente
-        //Unificar carrito de compras //TODO: !!!! Pendiente
     }
 }
