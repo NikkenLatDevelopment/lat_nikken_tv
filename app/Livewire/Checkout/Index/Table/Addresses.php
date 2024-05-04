@@ -3,8 +3,8 @@
 namespace App\Livewire\Checkout\Index\Table;
 
 use Livewire\Component;
-use Livewire\Attributes\Locked;
 use Livewire\WithPagination;
+use Livewire\Attributes\Locked;
 use App\Models\SessionController;
 
 class Addresses extends Component

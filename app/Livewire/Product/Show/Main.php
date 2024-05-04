@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Product\Show;
 
-use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Locked;

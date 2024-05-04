@@ -3,7 +3,7 @@
 <div class="mt-3">
     @foreach ($this->catalogPaymentMethods as $catalogPaymentMethod)
         <div class="form-check form-switch">
-            <input type="radio" class="form-check-input" name="checkout-payment" role="switch" id="checkout-payment-{{ $catalogPaymentMethod['id'] }}" wire:model.live="selectedcatalogPaymentMethod" value="{{ $catalogPaymentMethod['id'] }}">
+            <input type="radio" class="form-check-input" name="checkout-payment" role="switch" id="checkout-payment-{{ $catalogPaymentMethod['id'] }}" wire:model.live="selectedCatalogPaymentMethod" value="{{ $catalogPaymentMethod['id'] }}">
             <label class="form-check-label" for="checkout-payment-{{ $catalogPaymentMethod['id'] }}">{{ $catalogPaymentMethod['name'] }}</label>
         </div>
     @endforeach

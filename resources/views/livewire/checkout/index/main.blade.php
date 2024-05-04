@@ -80,6 +80,18 @@
 
                                     <hr class="text-secondary opacity-75">
 
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger bg-white border border-2 border-danger rounded-4" role="alert">
+                                            <h6 class="alert-heading text-danger fw-bold">Tienes información pendiente por diligenciar:</h6>
+
+                                            <ul class="fa-ul mb-0 ms-4">
+                                                @foreach ($errors->all() as $error)
+                                                    <li class="text-danger"><span class="fa-li"><i class="fa-solid fa-angle-right fa-xs"></i></span> {{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+
                                     <button type="submit" class="btn h6 text-white fw-bold w-100 mb-2 btn-success-custom-1">Pagar {{ $this->cartForm->totalText }}</button>
                                     <a href="#" class="btn h6 fw-bold w-100 mb-0 btn-outline-dark-custom-1">Generar Cotización</a>
                                 </form>
