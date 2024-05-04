@@ -48,7 +48,7 @@
                 <div class="col-auto order-1">
                     <div class="d-flex align-items-center">
                         <div class="d-flex d-lg-none align-items-center mt-2 me-3">
-                            <button type="button" class="btn btn-sm btn-link h6 link-dark fw-bold text-decoration-none lh-1 p-0 mb-0 me-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu"><i class="fa-solid fa-bars fa-xl me-1"></i> Menú</button>
+                            <button type="button" class="btn btn-sm btn-link h6 link-dark fw-bold text-decoration-none lh-1 p-0 mb-0 me-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenuResponsive" aria-controls="offcanvasMenuResponsive"><i class="fa-solid fa-bars fa-xl me-1"></i> Menú</button>
                             <div class="vr my-auto"></div>
                         </div>
 
