@@ -2,7 +2,7 @@
 
 <ul class="nav nav-pills mt-3 mb-1" role="tablist">
     <li class="nav-item" role="presentation" wire:click="changeAddressSelectionType(0)">
-        <button class="btn h5 fw-bold border border-secondary rounded-4 px-3 py-2 me-2 btn-outline-primary-custom-1 animation-hover-up active" id="checkout-address-form-tab" data-bs-toggle="pill" data-bs-target="#checkout-address-form" type="button" role="tab" aria-controls="checkout-address-form" aria-selected="true" wire:ignore>
+        <button class="btn active h5 fw-bold border border-secondary rounded-4 px-3 py-2 me-2 btn-outline-primary-custom-1 animation-hover-up" id="checkout-address-form-tab" data-bs-toggle="pill" data-bs-target="#checkout-address-form" type="button" role="tab" aria-controls="checkout-address-form" aria-selected="true" wire:ignore>
             <i class="fi fi-sr-map-pin position-relative custom i-top-2 me-1"></i>Nueva Dirección
         </button>
     </li>
