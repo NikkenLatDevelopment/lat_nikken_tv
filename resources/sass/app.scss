@@ -285,6 +285,11 @@ button, a {
     @include button-size(0.8rem, 1.4rem, $font-size-base, $btn-border-radius);
 }
 
+.btn-danger-custom-1 {
+    @include button-variant($danger, $danger, $danger, shade-color($danger, 10%), $danger, white);
+    @include button-size(0.8rem, 1.4rem, $font-size-base, $btn-border-radius);
+}
+
 .btn-dark-custom-1 {
     @include button-variant($dark, $dark, $dark, shade-color($dark, 10%), $dark, white);
     @include button-size(0.8rem, 1.4rem, $font-size-base, $btn-border-radius);

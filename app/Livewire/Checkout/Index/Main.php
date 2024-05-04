@@ -238,5 +238,68 @@ class Main extends Component
         ->toArray();
     }
 
-    public function save() {}
+    public function save() {
+        //TODO: !!!! Pendiente
+        //Limpiar mensajes de error
+        $this->resetErrorBag();
+
+        if ($this->addressSelectionType == 0) {
+            //Validar información del formulario de dirección
+            $this->userAddressForm->validateAddress();
+        } else if ($this->selectedUserAddress <= 0) {
+            //Mostrar mensaje de error
+            $this->addError('checkoutAddress.error', 'Selecciona una dirección para continuar.'); return;
+        }
+
+        if ($this->selectedCatalogPaymentMethod <= 0) {
+            //Mostrar mensaje de error
+            $this->addError('checkoutPayment.error', 'Selecciona una forma de pago para continuar.'); return;
+        }
+
+        if ($this->addressSelectionType == 0) {
+            //Guardar dirección del usuario
+            auth()->user()->userAddresses()->create([
+                'catalog_country_id' => $this->userAddressForm->catalogCountry['id'],
+                'name' => $this->userAddressForm->addressee,
+                'phone' => $this->userAddressForm->phone,
+                'email' => $this->userAddressForm->email,
+                'cellphone' => $this->userAddressForm->cellphone,
+                'address' => $this->userAddressForm->address,
+                'complement_address' => $this->userAddressForm->complementAddress,
+                'reference_address' => $this->userAddressForm->referenceAddress,
+                'state' => explode('|', $this->userAddressForm->state)[1],
+                'state_code' => explode('|', $this->userAddressForm->state)[0],
+                'municipality' => explode('|', $this->userAddressForm->municipality)[1],
+                'municipality_code' => explode('|', $this->userAddressForm->municipality)[0],
+                'colony' => explode('|', $this->userAddressForm->colony)[1] ?? null,
+                'colony_code' => explode('|', $this->userAddressForm->colony)[0] ?? null,
+                'postal_code' => $this->userAddressForm->postalCode,
+                'status' => $this->userAddressForm->saveNewAddress ? 1 : 2
+            ]);
+        }
+
+        //Sumar el subtotal de todos los productos
+        $totalSubtotalProducts = array_sum(array_column($this->cartForm->products, 'subtotal'));
+
+        //Sumar el retail de todos los productos
+        $totalRetailProducts = array_sum(array_column($this->cartForm->products, 'retail'));
+
+        //Sumar el IVA del retail de todos los productos
+        $totalVatRetailProducts = array_sum(array_column($this->cartForm->products, 'vatRetail'));
+
+        //Sumar el IVA de todos los productos
+        $totalVatProducts = array_sum(array_column($this->cartForm->products, 'vat'));
+
+        //Guardar información de la compra
+        $sale = auth()->user()->sales()->create([
+            'catalog_country_id' => $this->userAddressForm->catalogCountry['id'],
+            'catalog_price_list_id' => $this->discountSuggestedPrice ? 2 : 1,
+            'subtotal' => $totalSubtotalProducts,
+            'discount' => $this->cartForm->discountSuggestedPrice ? $totalRetailProducts : 0,
+            'iva' => $this->cartForm->discountSuggestedPrice ? ($totalVatProducts - $totalVatRetailProducts) : $totalVatProducts,
+            'total' => $this->cartForm->discountSuggestedPrice ? (($totalSubtotalProducts - $totalRetailProducts) + ($totalVatProducts - $totalVatRetailProducts)) : ($totalSubtotalProducts + $totalVatProducts)
+        ]);
+
+        dd('Ok');
+    }
 }

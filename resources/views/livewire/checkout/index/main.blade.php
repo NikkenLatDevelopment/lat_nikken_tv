@@ -19,7 +19,7 @@
 
                 <div class="col-12 col-lg-auto">
                     <div class="sticky-top total" wire:ignore.self>
-                        <div class="pt-2 pt-lg-4 mt-0 mt-lg-2">
+                        <div class="pt-2 pt-lg-4 pb-2 mt-0 mt-lg-2">
                             <div class="bg-white border border-light border-4 rounded-4 shadow-sm p-3">
                                 <form wire:submit="save">
                                     @if (auth()->check() && $this->cartForm->catalogCountry['id'] == 1 && auth()->user()->catalog_user_type_id == 3)
@@ -92,7 +92,7 @@
                                         </div>
                                     @endif
 
-                                    <button type="submit" class="btn h6 text-white fw-bold w-100 mb-2 btn-success-custom-1">Pagar {{ $this->cartForm->totalText }}</button>
+                                    <button type="submit" class="btn h6 text-white fw-bold w-100 mb-2 @if ($errors->any()) btn-danger-custom-1 @else btn-success-custom-1 @endif">Pagar {{ $this->cartForm->totalText }}</button>
                                     <a href="#" class="btn h6 fw-bold w-100 mb-0 btn-outline-dark-custom-1">Generar Cotización</a>
                                 </form>
                             </div>
