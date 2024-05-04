@@ -130,7 +130,6 @@ class Product extends Model
         $componentsNotAvailable = [];
 
         if (!empty($components)) {
-            //Recorrer componentes
             foreach ($components as $component) {
                 //Verificar inventario de los componentes
                 if ($component['product']['stock'] <= 0 && $component['product']['stock_applies'] == 1) {

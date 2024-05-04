@@ -133,6 +133,9 @@ class SessionController
             }
         }
 
+        //Reorganizar índices del array
+        $cart = array_values($cart);
+
         //Actualizar carrito de compras
         $this->session->put('cart', $cart);
 

@@ -302,8 +302,8 @@ class Main extends Component
             'total' => $this->cartForm->discountSuggestedPrice ? (($totalSubtotalProducts - $totalRetailProducts) + ($totalVatProducts - $totalVatRetailProducts)) : ($totalSubtotalProducts + $totalVatProducts)
         ]);
 
-        //Guardar productos
         foreach ($this->cartForm->products as $product) {
+            //Guardar producto
             $sale->saleProducts()->create([
                 'product_id' => $product['id'],
                 'quantity' => $product['quantity']
