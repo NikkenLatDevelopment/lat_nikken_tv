@@ -527,5 +527,14 @@ class DatabaseSeeder extends Seeder
         //Crear faqs
         \App\Models\ProductFaq::factory(200)->create();
         //Crear faqs
+
+        //Crear catálogo de lista de precios
+        \App\Models\CatalogPriceList::factory()->create([ 'catalog_country_id' => 1, 'name' => 'Sugerido' ]);
+        \App\Models\CatalogPriceList::factory()->create([ 'catalog_country_id' => 1, 'name' => 'Mayoreo con Descuento' ]);
+        //Crear catálogo de lista de precios
+
+        //Crear catálogo de metodos de pago
+        \App\Models\CatalogPaymentMethod::factory()->create([ 'catalog_country_id' => 1, 'name' => 'Mercado Libre', 'redirect_to' => 'https://www.nikkenlatam.com' ]);
+        //Crear catálogo de metodos de pago
     }
 }

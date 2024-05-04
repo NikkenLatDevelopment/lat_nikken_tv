@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('catalog_country_id')->constrained();
             $table->string('name', 50);
+            $table->string('redirect_to');
             $table->unsignedTinyInteger('status')->index()->default(1);
             $table->timestamps();
 

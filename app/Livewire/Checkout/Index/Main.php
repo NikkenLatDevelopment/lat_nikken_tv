@@ -2,13 +2,14 @@
 
 namespace App\Livewire\Checkout\Index;
 
+use Illuminate\Support\Facades\Crypt;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Locked;
 use App\Livewire\Forms\CartForm;
-use App\Livewire\Forms\UserAddressForm;
 use App\Models\SessionController;
 use App\Models\CatalogPaymentMethod;
+use App\Livewire\Forms\UserAddressForm;
 
 class Main extends Component
 {
@@ -231,8 +232,9 @@ class Main extends Component
     }
 
     public function getCatalogPaymentMethods(int $catalogCountryId) {
-        //Obtener catálogo de formas de pago
-        $this->catalogPaymentMethods = CatalogPaymentMethod::catalogCountryId($catalogCountryId)
+        //Obtener catálogo de formas de pago //TODO: !!!! Pendiente
+        $this->catalogPaymentMethods = CatalogPaymentMethod::select('id', 'name')
+        ->catalogCountryId($catalogCountryId)
         ->status()
         ->get()
         ->toArray();
@@ -300,6 +302,22 @@ class Main extends Component
             'total' => $this->cartForm->discountSuggestedPrice ? (($totalSubtotalProducts - $totalRetailProducts) + ($totalVatProducts - $totalVatRetailProducts)) : ($totalSubtotalProducts + $totalVatProducts)
         ]);
 
-        dd('Ok');
+        //Guardar productos
+        foreach ($this->cartForm->products as $product) {
+            $sale->saleProducts()->create([
+                'product_id' => $product['id'],
+                'quantity' => $product['quantity']
+            ]);
+        }
+
+        //Obtener información de la forma de pago seleccionada
+        $catalogPaymentMethod = CatalogPaymentMethod::select('id', 'name', 'redirect_to')->find($this->selectedCatalogPaymentMethod);
+
+        if (!$catalogPaymentMethod) {
+            //Redireccionar
+            return redirect()->route('home');
+        }
+
+        dd($catalogPaymentMethod->redirect_to . '/auth/' . urlencode(Crypt::encryptString($sale->id . '|' . now()->toDateTimeString())));
     }
 }

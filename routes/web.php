@@ -22,7 +22,9 @@ use App\Http\Middleware\DetermineUserLocation;
 //Seleccionar país
 Route::get('/pais/{countryId}', [ CountryController::class, 'update' ])->name('country.update');
 Route::get('/pais', [ CountryController::class, 'index' ])->name('country.index');
-//Seleccionar país
+
+//Eliminar // ! TODO: !!!! Eliminar
+Route::get('/temporal/decode/{data}', [ TemporalController::class, 'decode' ]);
 
 Route::middleware([ DetermineUserLocation::class ])->group(function () {
     //Inicio //TODO: !!!! Pendiente

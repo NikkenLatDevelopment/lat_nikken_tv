@@ -10,7 +10,7 @@
 
                 <div class="col-auto col-sm">
                     <div class="text-start text-sm-center text-md-start information">
-                        <div class="h6 text-dark fw-bold mb-0 mt-2 mt-md-0">{{ $product['name'] }}</div>
+                        <div class="h6 text-dark fw-bold lh-1 mb-0 mt-2 mt-md-0">{{ $product['name'] }}</div>
 
                         <div class="mb-0">
                             @if ($product['available'] == 1) <div class="h6 small text-success fw-bold mb-0">Disponible</div>
