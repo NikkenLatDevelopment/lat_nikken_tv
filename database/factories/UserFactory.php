@@ -24,7 +24,7 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'catalog_country_id' => random_int(1, 8),
+            'catalog_country_id' => random_int(1, 9),
             'catalog_user_type_id' => 3,
             'code' => fake()->unique()->randomNumber(8),
             'name' => fake()->name(),

@@ -517,7 +517,7 @@ class DatabaseSeeder extends Seeder
         //Partes
 
         //Crear usuarios
-        \App\Models\User::factory(50)->create();
+        \App\Models\User::factory(9)->create();
         //Crear usuarios
 
         //Crear reviews
