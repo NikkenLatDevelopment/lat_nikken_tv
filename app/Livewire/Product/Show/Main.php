@@ -144,7 +144,7 @@ class Main extends Component
         $this->product = $product;
         $this->productId = $product['id'];
 
-        //OBtener disponibilidad y componentes del producto
+        //Obtener disponibilidad y componentes del producto
         list($this->available, $this->componentsAvailable, $this->componentsNotAvailable) =  array_values($product['availability']);
 
         //Formatear precio sugerido con iva, VC y retail del producto con símbolo de moneda
