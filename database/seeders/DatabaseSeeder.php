@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\CatalogCountry::factory()->create([ 'id' => 6, 'code' => 'GT', 'name' => 'Guatemala', 'abbrev' => 'GTM', 'vat' => 1.19, 'currency_code' => 'GTQ', 'currency_symbol' => 'Q', 'currency_decimal' => 0 ]);
         \App\Models\CatalogCountry::factory()->create([ 'id' => 7, 'code' => 'SV', 'name' => 'El Salvador', 'abbrev' => 'SLV', 'vat' => 1.19, 'currency_code' => 'USD', 'currency_symbol' => '$', 'currency_decimal' => 0 ]);
         \App\Models\CatalogCountry::factory()->create([ 'id' => 8, 'code' => 'CR', 'name' => 'Costa Rica', 'abbrev' => 'CRI', 'vat' => 1.19, 'currency_code' => 'CRC', 'currency_symbol' => '₡', 'currency_decimal' => 0 ]);
-        \App\Models\CatalogCountry::factory()->create([ 'id' => 10, 'code' => 'CL', 'name' => 'Chile', 'abbrev' => 'CHL', 'vat' => 1.19, 'currency_code' => 'CLP', 'currency_symbol' => '$', 'currency_decimal' => 0 ]);
+        \App\Models\CatalogCountry::factory()->create([ 'id' => 9, 'code' => 'CL', 'name' => 'Chile', 'abbrev' => 'CHL', 'vat' => 1.19, 'currency_code' => 'CLP', 'currency_symbol' => '$', 'currency_decimal' => 0 ]);
         //Catálogo de países
 
         //Catálogo tipo de usuario

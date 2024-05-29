@@ -18,7 +18,7 @@ class ProductReviewFactory extends Factory
     {
         return [
             'product_id' => random_int(1, 7),
-            'user_id' => random_int(1, 50),
+            'user_id' => random_int(1, 9),
             'rating' => fake()->numberBetween(1, 5),
             'comment' => fake()->paragraph(3),
             'status' => 2

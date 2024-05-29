@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('catalog_product_brand_id')->constrained();
             $table->string('sku', 10)->index();
             $table->string('slug', 100)->index();
-            $table->string('name', 100);
+            $table->string('name', 100)->index();
             $table->string('short_description');
             $table->text('description')->nullable();
             $table->text('differentiators')->nullable();
