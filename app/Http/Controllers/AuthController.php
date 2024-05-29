@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    public function index(){
+    public function index() {
         //Validar sesión
-        if(auth()->check()){ return redirect()->route('checkout.index'); }
+        if (auth()->check()) { return redirect()->route('checkout.index'); }
 
         //Mostrar vista
         return view('auth.index');

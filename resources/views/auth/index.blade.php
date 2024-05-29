@@ -26,7 +26,7 @@
         <div class="mt-4 signin">
             <div class="container">
                 <div class="row justify-content-center align-items-center">
-                    <div class="col-12 col-lg-auto"><img src="{{ asset('assets/img/resources/bg-login-1.png') }}" srcset="{{ asset('assets/img/resources/bg-login-1-2x.png') }} 2x" class="img-fluid rounded-4 d-none d-lg-inline-block me-3" alt="Iniciar Sesión"></div>
+                    <div class="col-12 col-lg-auto"><img src="{{ asset('assets/img/resources/rs-login-1.png') }}" srcset="{{ asset('assets/img/resources/rs-login-1-2x.png') }} 2x" class="img-fluid rounded-4 d-none d-lg-inline-block me-3" alt="Iniciar Sesión"></div>
 
                     <div class="col-12 col-lg-auto">
                         <h1 class="text-dark fw-bold lh-1 mb-0">Iniciar Sesión</h1>

@@ -9,6 +9,11 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
+    public function index(string $search = '') {
+        //Mostrar vista
+        return view('product.index', [ 'search' => $search ]);
+    }
+
     public function show(string $catalogProductBrandSlug, string $productSlug, SessionController $sessionController) {
         //Validar información
         $validator = Validator::make(

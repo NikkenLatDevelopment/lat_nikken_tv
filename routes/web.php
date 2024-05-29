@@ -40,7 +40,7 @@ Route::middleware([ DetermineUserLocation::class ])->group(function () {
     Route::get('/contacto', function () { echo 'Hello World - contact.show'; })->name('contact.show');
 
     //Buscar producto //TODO: !!!! Pendiente
-    Route::get('/buscar/{search}', function () { echo 'Hello World - search.show'; })->name('search.show');
+    Route::get('/buscar/{search?}', [ ProductController::class, 'index' ])->name('search.show');
 
     //Campaña //TODO: !!!! Pendiente
     Route::get('/campana/{campaignSlug}', function () { echo 'Hello World - campaign.show'; })->name('campaign.show');
