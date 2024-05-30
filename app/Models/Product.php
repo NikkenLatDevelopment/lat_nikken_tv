@@ -29,6 +29,11 @@ class Product extends Model
         return $this->hasMany(ProductMeasurement::class, 'parent_product_id');
     }
 
+    public function productTags() {
+        //Relación con los tags del producto
+        return $this->hasMany(ProductTag::class);
+    }
+
     public function catalogProductBrand() {
         //Relación con el catálogo de marcas de los productos
         return $this->belongsTo(CatalogProductBrand::class);

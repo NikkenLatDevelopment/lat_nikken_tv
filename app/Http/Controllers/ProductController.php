@@ -2,14 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SessionController;
+use App\Models\Search;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Models\SessionController;
-use App\Models\Product;
 
 class ProductController extends Controller
 {
     public function index(string $search = '') {
+        if ($search) {
+            //Validar información
+            $validator = Validator::make(
+                [ 'search' => $search ],
+                [ 'search' => 'required|string|max:255' ]
+            );
+
+            if (!$validator->fails()) {
+                //Guardar búsqueda
+                Search::firstOrCreate([ 'query' => $search ]);
+            } else {
+                //Limpiar búsqueda
+                $search = '';
+            }
+        }
+
         //Mostrar vista
         return view('product.index', [ 'search' => $search ]);
     }
