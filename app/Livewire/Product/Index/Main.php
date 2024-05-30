@@ -21,15 +21,20 @@ class Main extends Component
         //Obtener información del país en sesión
         $catalogCountry = $sessionController->getCatalogCountry()->toArray();
 
-        //Validar si la busqueda ya existe
-        $search = Search::where('query', $this->search)->where('status', 2)->first();
+        //Obtener busqueda
+        $search = $this->search;
 
-        if ($search && $search->normalized_query != null) {
-            //Obtener busqueda normalizada
-            $search = $search->normalized_query;
-        } else {
-            //Obtener busqueda
-            $search = $this->search;
+        if ($search) {
+            //Validar si la busqueda ya existe
+            $search = Search::where('query', $search)->where('status', 2)->first();
+
+            if ($search && $search->normalized_query != null) {
+                //Obtener busqueda normalizada
+                $search = $search->normalized_query;
+            } else {
+                //Obtener busqueda
+                $search = $this->search;
+            }
         }
 
         //Obtener productos

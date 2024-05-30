@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col">
                 <div class="bg-success rounded-4 mt-4 p-5 title img" style="--bs-bg-opacity: .1;">
-                    <h1 class="text-dark fw-bold text-capitalize lh-1 mb-0">{{ $search }}</h1>
+                    <h1 class="text-dark fw-bold text-capitalize lh-1 mb-0">{{ $search == '' ? 'Productos' : $search }}</h1>
 
                     <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%23c7c7c7'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
                         <ol class="breadcrumb mt-2 mb-0">
