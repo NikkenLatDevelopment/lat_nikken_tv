@@ -21,29 +21,23 @@ class Main extends Component
         //Obtener información del país en sesión
         $catalogCountry = $sessionController->getCatalogCountry()->toArray();
 
-        //Obtener busqueda
-        $search = $this->search;
-
-        if ($search) {
+        if ($this->search) {
             //Validar si la busqueda ya existe
-            $search = Search::where('query', $search)->where('status', 2)->first();
+            $search = Search::where('query', $this->search)->where('status', 2)->first();
 
             if ($search && $search->normalized_query != null) {
                 //Obtener busqueda normalizada
-                $search = $search->normalized_query;
-            } else {
-                //Obtener busqueda
-                $search = $this->search;
+                $this->search = $search->normalized_query;
             }
         }
 
         //Obtener productos
         $products = Product::basicData()
         ->with([ 'catalogProductBrand', 'productColors', 'productPresentations' ])
-        ->where(function ($query) use ($search) {
-            $query->where('name', 'like', '%' . $search . '%')
-            ->orWhere('sku', 'like', '%' . $search . '%')
-            ->orWhereHas('productTags', fn ($query) => $query->where('tag', 'like', '%' . $search . '%'));
+        ->where(function ($query) {
+            $query->where('name', 'like', '%' . $this->search . '%')
+            ->orWhere('sku', 'like', '%' . $this->search . '%')
+            ->orWhereHas('productTags', fn ($query) => $query->where('tag', 'like', '%' . $this->search . '%'));
         })
         ->active($catalogCountry['id'])
         ->get()->map(function ($product) use ($catalogCountry) {
@@ -61,5 +55,10 @@ class Main extends Component
 
         //Mostrar vista
         return view('livewire.product.index.main', [ 'products' => customPaginate($products, 5) ]);
+    }
+
+    public function mount() {
+        //Emitir evento para actualizar el buscador
+        $this->dispatch('general.header.content.main.initialize', search: $this->search);
     }
 }
