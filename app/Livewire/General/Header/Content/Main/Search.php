@@ -17,8 +17,11 @@ class Search extends Component
 
     public function search() {
         if ($this->query != '') {
+            //Limpiar búsqueda
+            $search = preg_replace('/[^a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]/', '', $this->query);
+
             //Redireccionar
-            return redirect()->route('search.show', $this->query);
+            return redirect()->route('search.show', $search);
         }
     }
 
