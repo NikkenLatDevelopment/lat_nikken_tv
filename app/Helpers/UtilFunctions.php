@@ -1,7 +1,10 @@
 <?php
 
-use Illuminate\Support\Carbon;
 use App\Models\Product;
+use Illuminate\Support\Carbon;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 function formatPrice(float $price, int $decimals): string {
     //Formatear precio con decimales
@@ -62,4 +65,15 @@ function formatAddressInfo(string $address, string $state, string $municipality,
 
     //Retornar dirección
     return $result;
+}
+
+function customPaginate($items, $perPage = 5, $page = null, $options = []) {
+    //Paginar colección
+    $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+
+    //Crear paginador
+    $items = $items instanceof Collection ? $items : Collection::make($items);
+
+    //Retornar paginador
+    return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
 }

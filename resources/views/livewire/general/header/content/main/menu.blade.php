@@ -1,5 +1,5 @@
 <div>
-    <div class="bg-white border-bottom border-secondary d-none d-lg-block w-100 py-1 menu sticky">
+    <div class="bg-white border-bottom border-secondary d-none d-lg-block w-100 py-1 sticky">
         <div class="container">
             <div class="row">
                 <div class="col">

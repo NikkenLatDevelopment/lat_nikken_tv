@@ -91,6 +91,8 @@ button, a {
     }
 
     .menu {
+        height: 61px;
+
         &.sticky {
             z-index: 1;
         }
@@ -225,6 +227,12 @@ button, a {
     }
 }
 
+.title {
+    &.img {
+        background-image: url('/resources/assets/img/backgrounds/bg-pattern-1.png');
+    }
+}
+
 .subtitle {
     h2::after {
         content: '';
@@ -254,6 +262,12 @@ button, a {
                 overflow: hidden;
                 transition: all .18s ease 0s, text-decoration .18s ease 0s;
             }
+        }
+    }
+
+    .list {
+        img {
+            max-width: 230px;
         }
     }
 }
@@ -352,6 +366,14 @@ button, a {
         -moz-transform-origin: 50% 4px;
         animation: bellRing 4s .7s ease-in-out infinite;
         transform-origin: 50% 4px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .header {
+        .menu {
+            height: 100%;
+        }
     }
 }
 

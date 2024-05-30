@@ -101,7 +101,7 @@
         </div>
     </div>
 
+    <div class="menu">@livewire('general.header.content.main.menu')</div>
     <x-general.header.wishlist />
     <x-general.header.cart />
-    @livewire('general.header.content.main.menu')
 </div>

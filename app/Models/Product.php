@@ -14,6 +14,21 @@ class Product extends Model
         return $this->hasMany(ProductComponent::class, 'parent_product_id');
     }
 
+    public function productColors() {
+        //Relación con los colores del producto
+        return $this->hasMany(ProductColor::class, 'parent_product_id');
+    }
+
+    public function productPresentations() {
+        //Relación con las presentaciones del producto
+        return $this->hasMany(ProductPresentation::class, 'parent_product_id');
+    }
+
+    public function productMeasurements() {
+        //Relación con las medidas del producto
+        return $this->hasMany(ProductMeasurement::class, 'parent_product_id');
+    }
+
     public function catalogProductBrand() {
         //Relación con el catálogo de marcas de los productos
         return $this->belongsTo(CatalogProductBrand::class);
