@@ -18,21 +18,19 @@
 
     <div class="container" id="products-search">
         <div class="row">
-            <div class="col-3 @if ($products->count() == 0) d-none @endif">Barra</div>
-
             <div class="col">
-                <section class="mt-4">
+                <section class="mt-4 list">
                     <div class="mb-4">¡Hemos encontrado <span class="text-success fw-bold">{{ $products->total() }} productos</span>!</div>
 
                     @forelse ($products as $product)
-                        <a href="{{ route('product.show', [ 'brandSlug' => $product->catalogProductBrand->slug, 'productSlug' => $product->slug ]) }}" class="link-dark text-decoration-none d-block mb-4 list">
+                        <a href="{{ route('product.show', [ 'brandSlug' => $product->catalogProductBrand->slug, 'productSlug' => $product->slug ]) }}" class="link-dark text-decoration-none d-block mb-4 animation-hover-up">
                             <div class="row align-items-center">
                                 <div class="col-auto"><div class="border border-secondary rounded-4"><figure class="mb-0"><img src="{{ $product->image }}" class="img-fluid" alt="{{ $product->image }}" /></figure></div></div>
 
                                 <div class="col">
                                     <h2 class="h4 fw-bold mb-1">{{ $product->name }}</h2>
 
-                                    <div class="d-flex align-items-center mb-2">
+                                    <div class="d-flex align-items-center pb-2">
                                         <x-product.rating-star :ratingTotal="$product->rating_total" />
                                         <div class="vr mx-2"></div>
 
@@ -42,7 +40,7 @@
 
                                     <div class="text-primary">{!! $product->short_description !!}</div>
 
-                                    @if (!empty($product->productColors) || !empty($product->productPresentations) > 0 || !empty($product->productMeasurements) > 0)
+                                    @if ($product->productColors->count() > 0 || $product->productPresentations->count() > 0 || $product->productMeasurements->count() > 0)
                                         <div class="mb-2">
                                             @if ($product->productColors->count() > 0)
                                                 <div>
